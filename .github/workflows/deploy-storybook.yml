@@ -1,0 +1,23 @@
+name: Deploy Storybook
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 12
+      - name: Install dependencies
+        run: |
+          rm -rf node_modules
+          yarn install --frozen-lockfile
+      - name: Build static Storybook
+        run: yarn build-storybook
+      - name: Deploy Storybook
+        run: yarn deploy-storybook
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}

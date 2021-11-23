@@ -1,0 +1,22 @@
+name: Build and test
+
+on: [pull_request, workflow_dispatch]
+
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 12
+      - name: Install dependencies
+        run: |
+          rm -rf node_modules
+          yarn install --frozen-lockfile
+      - name: Lint and test
+        run: |
+          yarn lint
+          yarn test
+      - name: Build package
+        run: yarn compile
