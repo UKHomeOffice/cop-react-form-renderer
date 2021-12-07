@@ -77,16 +77,16 @@ describe('utils', () => {
         const [ formGroup, input ] = getAllByTestId(container, ID);
         expect(formGroup.tagName).toEqual('DIV');
         expect(formGroup.classList).toContain('govuk-form-group');
-        let foundLabel = false;
+        let label = undefined;
         formGroup.childNodes.forEach(node => {
           // Check if it's an element.
           if (node instanceof Element && node.tagName === 'LABEL') {
-            foundLabel = true;
-            expect(node.innerHTML).toContain(LABEL);
-            expect(node.getAttribute('for')).toEqual(ID);
+            label = node;
           }
         });
-        expect(foundLabel).toBeTruthy();
+        expect(label).toBeDefined();
+        expect(label.innerHTML).toContain(LABEL);
+        expect(label.getAttribute('for')).toEqual(ID);
         expect(input.tagName).toEqual('INPUT');
         expect(input.classList).toContain('govuk-input');
         expect(input.id).toEqual(ID);
@@ -108,16 +108,16 @@ describe('utils', () => {
         const [ formGroup, input ] = getAllByTestId(container, ID);
         expect(formGroup.tagName).toEqual('DIV');
         expect(formGroup.classList).toContain('govuk-form-group');
-        let foundLabel = false;
+        let label = undefined;
         formGroup.childNodes.forEach(node => {
           // Check if it's an element.
           if (node instanceof Element && node.tagName === 'LABEL') {
-            foundLabel = true;
-            expect(node.innerHTML).toContain(LABEL);
-            expect(node.getAttribute('for')).toEqual(ID);
+            label = node;
           }
         });
-        expect(foundLabel).toBeTruthy();
+        expect(label).toBeDefined();
+        expect(label.innerHTML).toContain(LABEL);
+        expect(label.getAttribute('for')).toEqual(ID);
         expect(input.tagName).toEqual('INPUT');
         expect(input.classList).toContain('govuk-input');
         expect(input.id).toEqual(ID);
@@ -139,16 +139,16 @@ describe('utils', () => {
         const [ formGroup, input ] = getAllByTestId(container, ID);
         expect(formGroup.tagName).toEqual('DIV');
         expect(formGroup.classList).toContain('govuk-form-group');
-        let foundLabel = false;
+        let label = undefined;
         formGroup.childNodes.forEach(node => {
           // Check if it's an element.
           if (node instanceof Element && node.tagName === 'LABEL') {
-            foundLabel = true;
-            expect(node.innerHTML).toContain(LABEL);
-            expect(node.getAttribute('for')).toEqual(ID);
+            label = node;
           }
         });
-        expect(foundLabel).toBeTruthy();
+        expect(label).toBeDefined();
+        expect(label.innerHTML).toContain(LABEL);
+        expect(label.getAttribute('for')).toEqual(ID);
         expect(input.tagName).toEqual('INPUT');
         expect(input.classList).toContain('govuk-input');
         expect(input.id).toEqual(ID);
@@ -172,68 +172,40 @@ describe('utils', () => {
         const formGroup = getByTestId(container, ID);
         expect(formGroup.tagName).toEqual('DIV');
         expect(formGroup.classList).toContain('govuk-form-group');
-        let foundLabel = false;
-        let foundAutocomplete = false;
+        let label = undefined;
+        let autocompleteWrapper = undefined;
+        let autocomplete = undefined;
+        let autocompleteInput = undefined;
         formGroup.childNodes.forEach(node => {
           // Check if it's an element.
           if (node instanceof Element) {
             if (node.tagName === 'LABEL') {
-              foundLabel = true;
-              expect(node.innerHTML).toContain(LABEL);
-              expect(node.getAttribute('for')).toEqual(ID);
+              label = node;
             } else if (node.classList.contains('hods-autocomplete__outer-wrapper')) {
-              expect(node.tagName).toEqual('DIV');
-              const autocomplete = node.childNodes[0];
-              if (autocomplete instanceof Element) {
-                foundAutocomplete = true;
-                expect(autocomplete.tagName).toEqual('DIV');
-                let foundInput = false;
+              autocompleteWrapper = node;
+              const autocompleteInner = node.childNodes[0];
+              if (autocompleteInner instanceof Element) {
+                autocomplete = autocompleteInner;
                 autocomplete.childNodes.forEach(grandchild => {
                   if (grandchild instanceof Element) {
                     if (grandchild.tagName === 'INPUT') {
-                      foundInput = true;
-                      expect(grandchild.id).toEqual(ID);
+                      autocompleteInput = grandchild;
                     }
                   }
                 });
-                expect(foundInput).toBeTruthy();
               };
             }
           }
         });
-        expect(foundLabel).toBeTruthy();
-        expect(foundAutocomplete).toBeTruthy();
-      });
-
-      it('should return an appropriately rendered phone-number component', () => {
-        const ID = 'test-id';
-        const FIELD_ID = 'field-id';
-        const LABEL = 'label';
-        const COMPONENT = {
-          type: ComponentTypes.PHONE_NUMBER,
-          id: ID,
-          fieldId: FIELD_ID,
-          label: LABEL,
-          'data-testid': ID
-        };
-        const { container } = render(getComponent(COMPONENT));
-
-        const [ formGroup, input ] = getAllByTestId(container, ID);
-        expect(formGroup.tagName).toEqual('DIV');
-        expect(formGroup.classList).toContain('govuk-form-group');
-        let foundLabel = false;
-        formGroup.childNodes.forEach(node => {
-          // Check if it's an element.
-          if (node instanceof Element && node.tagName === 'LABEL') {
-            foundLabel = true;
-            expect(node.innerHTML).toContain(LABEL);
-            expect(node.getAttribute('for')).toEqual(ID);
-          }
-        });
-        expect(foundLabel).toBeTruthy();
-        expect(input.tagName).toEqual('INPUT');
-        expect(input.classList).toContain('govuk-input');
-        expect(input.id).toEqual(ID);
+        expect(label).toBeDefined();
+        expect(label.innerHTML).toContain(LABEL);
+        expect(label.getAttribute('for')).toEqual(ID);
+        expect(autocompleteWrapper).toBeDefined();
+        expect(autocompleteWrapper.tagName).toEqual('DIV');
+        expect(autocomplete).toBeDefined();
+        expect(autocomplete.tagName).toEqual('DIV');
+        expect(autocompleteInput).toBeDefined();
+        expect(autocompleteInput.id).toEqual(ID);
       });
 
       it('should return an appropriately rendered radios component', () => {
@@ -256,29 +228,35 @@ describe('utils', () => {
         const [ formGroup, radios ] = getAllByTestId(container, ID);
         expect(formGroup.tagName).toEqual('DIV');
         expect(formGroup.classList).toContain('govuk-form-group');
-        let foundLabel = false;
+        let label = undefined;
         formGroup.childNodes.forEach(node => {
           // Check if it's an element.
           if (node instanceof Element) {
             if (node.tagName === 'LABEL') {
-              foundLabel = true;
-              expect(node.innerHTML).toContain(LABEL);
-              expect(node.getAttribute('for')).toEqual(ID);
+              label = node;
             }
           }
         });
-        expect(foundLabel).toBeTruthy();
+        expect(label).toBeDefined();
+        expect(label.innerHTML).toContain(LABEL);
+        expect(label.getAttribute('for')).toEqual(ID);
         expect(radios.tagName).toEqual('DIV');
         expect(radios.classList).toContain('govuk-radios');
         expect(radios.childNodes.length).toEqual(OPTIONS.length);
-        OPTIONS.forEach((option, index) => {
+        let radioItems = [];
+        OPTIONS.forEach((_, index) => {
           const radio = radios.childNodes[index];
           expect(radio instanceof Element).toBeTruthy();
           if (radio instanceof Element) {
-            expect(radio.tagName).toEqual('DIV');
-            expect(radio.classList).toContain('govuk-radios__item');
-            expect(radio.innerHTML).toContain(option.label);
+            radioItems.push(radio);
           }
+        });
+        expect(radioItems.length).toEqual(OPTIONS.length);
+        OPTIONS.forEach((option, index) => {
+          const radio = radioItems[index];
+          expect(radio.tagName).toEqual('DIV');
+          expect(radio.classList).toContain('govuk-radios__item');
+          expect(radio.innerHTML).toContain(option.label);
         });
       });
 
