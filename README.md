@@ -5,7 +5,7 @@
 
 The COP React Form Renderer is a library that renders a form on the basis of a supplied JSON.
 
-It uses components from [https://github.com/UKHomeOffice/cop-react-design-system](COP React Design System).
+It uses components from [COP React Design System](https://github.com/UKHomeOffice/cop-react-design-system).
 - `@ukhomeoffice/cop-react-components` - and offers various styles of forms. These are showcased inside of
 a [yarn storybook](Storybook) within the project.
 
