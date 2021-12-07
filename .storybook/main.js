@@ -10,11 +10,17 @@ module.exports = {
         configureJSX: true,
         babelOptions: {},
         sourceLoaderOptions: null,
-        transcludeMarkdown: true,
+        transcludeMarkdown: true
       }
     },
-    "@storybook/addon-essentials",
+    {
+      name:  "@storybook/addon-essentials",
+      options: {
+        canvas: false
+      }
+    },
     "@storybook/addon-links",
     "@storybook/preset-create-react-app"
-  ]
+  ],
+  staticDirs: ['../src/assets']
 }

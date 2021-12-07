@@ -1,6 +1,13 @@
+import React from 'react';
 import { addons } from '@storybook/addons';
-import { themes } from '@storybook/theming';
+
+import GovUKTheme from './govuk-theme';
 
 addons.setConfig({
-  theme: themes.dark
+  theme: GovUKTheme,
+  sidebar: {
+    showRoots: true
+  },
+  isToolshown: false,
+  initialActive: 'docs'
 });
