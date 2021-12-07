@@ -5,6 +5,7 @@ import { Utils as HOUtils } from '@ukhomeoffice/cop-react-components';
 import Component from './Component';
 import Data from './Data';
 import meetsCondition from './meetsCondition';
+
 const Utils = {
   Component,
   Data,
