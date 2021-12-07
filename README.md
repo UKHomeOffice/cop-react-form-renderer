@@ -1,3 +1,6 @@
+[![Build and test](https://github.com/UKHomeOffice/cop-react-form-renderer/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/UKHomeOffice/cop-react-form-renderer/actions/workflows/build-and-test.yml)
+[![Publish cop-react-form-renderer to npm](https://github.com/UKHomeOffice/cop-react-form-renderer/actions/workflows/publish-cop-react-form-renderer-to-npm.yml/badge.svg)](https://github.com/UKHomeOffice/cop-react-form-renderer/actions/workflows/publish-cop-react-form-renderer-to-npm.yml)
+[![Deploy Storybook](https://github.com/UKHomeOffice/cop-react-form-renderer/actions/workflows/deploy-storybook.yml/badge.svg)](https://github.com/UKHomeOffice/cop-react-form-renderer/actions/workflows/deploy-storybook.yml)
 # Getting Started with COP React Form Renderer
 
 The COP React Form Renderer is a library that renders a form on the basis of a supplied JSON.
