@@ -4,7 +4,7 @@
   "private": false,
   "scripts": {
     "clean": "rimraf dist",
-    "test": "react-scripts test --passWithNoTests",
+    "test": "react-scripts test",
     "lint": "eslint --ext .js,.jsx src",
     "storybook:start": "start-storybook --docs --no-manager-cache -p 6007",
     "storybook:build": "build-storybook --docs",
