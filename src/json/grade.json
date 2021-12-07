@@ -1,0 +1,108 @@
+{
+  "data": [
+    {
+      "id": "373979c1-2360-46be-b712-0409ac068059",
+      "name": "SCS4",
+      "parentgradetypeid": null,
+      "validfrom": "2019-01-01T00:01:00.000Z",
+      "validto": null,
+      "updatedby": null
+    },
+    {
+      "id": "36c80dfe-0aae-455b-9445-2e1c09dcafdc",
+      "name": "SCS3",
+      "parentgradetypeid": "373979c1-2360-46be-b712-0409ac068059",
+      "validfrom": "2019-01-01T00:01:00.000Z",
+      "validto": null,
+      "updatedby": null
+    },
+    {
+      "id": "1b041cda-b151-4769-b76a-d42d67b0b960",
+      "name": "Senior Director / SCS2",
+      "parentgradetypeid": "36c80dfe-0aae-455b-9445-2e1c09dcafdc",
+      "validfrom": "2019-01-01T00:01:00.000Z",
+      "validto": null,
+      "updatedby": null
+    },
+    {
+      "id": "172de41d-f7b0-4be9-b7e8-0cf4f1a1342f",
+      "name": "Director / SCS1",
+      "parentgradetypeid": "1b041cda-b151-4769-b76a-d42d67b0b960",
+      "validfrom": "2019-01-01T00:01:00.000Z",
+      "validto": null,
+      "updatedby": null
+    },
+    {
+      "id": "39e18b45-0358-4a45-83ec-5a70b74641e8",
+      "name": "Deputy Director / Grade 6",
+      "parentgradetypeid": "172de41d-f7b0-4be9-b7e8-0cf4f1a1342f",
+      "validfrom": "2019-01-01T00:01:00.000Z",
+      "validto": null,
+      "updatedby": null
+    },
+    {
+      "id": "44855085-a36b-42e5-b805-f4ebe209ecf2",
+      "name": "Assistant Director / Grade 7",
+      "parentgradetypeid": "39e18b45-0358-4a45-83ec-5a70b74641e8",
+      "validfrom": "2019-01-01T00:01:00.000Z",
+      "validto": null,
+      "updatedby": null
+    },
+    {
+      "id": "4fad1115-7d12-4b6f-8d8a-97dbe469a346",
+      "name": "Senior Officer / Senior Executive Officer",
+      "parentgradetypeid": "44855085-a36b-42e5-b805-f4ebe209ecf2",
+      "validfrom": "2019-01-01T00:01:00.000Z",
+      "validto": null,
+      "updatedby": null
+    },
+    {
+      "id": "b512288d-95e3-4f60-ad4c-4cdfab68d841",
+      "name": "Higher Officer / Higher Executive Officer",
+      "parentgradetypeid": "4fad1115-7d12-4b6f-8d8a-97dbe469a346",
+      "validfrom": "2019-01-01T00:01:00.000Z",
+      "validto": null,
+      "updatedby": null
+    },
+    {
+      "id": "1c140011-46ad-4a5d-af25-e80a6fcdcdba",
+      "name": "Officer / Executive Officer",
+      "parentgradetypeid": "b512288d-95e3-4f60-ad4c-4cdfab68d841",
+      "validfrom": "2019-01-01T00:01:00.000Z",
+      "validto": null,
+      "updatedby": null
+    },
+    {
+      "id": "02de92d8-aad1-4663-a37f-a87012f60f1b",
+      "name": "Assistant Officer / Administrative Officer",
+      "parentgradetypeid": "1c140011-46ad-4a5d-af25-e80a6fcdcdba",
+      "validfrom": "2019-01-01T00:01:00.000Z",
+      "validto": null,
+      "updatedby": null
+    },
+    {
+      "id": "9910a29d-7fbb-451d-8729-f39f4373bbcc",
+      "name": "Assistant Office / Messenger",
+      "parentgradetypeid": "02de92d8-aad1-4663-a37f-a87012f60f1b",
+      "validfrom": "2019-01-01T00:01:00.000Z",
+      "validto": null,
+      "updatedby": null
+    },
+    {
+      "id": "073b92f8-7208-4026-a090-906c276079f1",
+      "name": "Contractor",
+      "parentgradetypeid": null,
+      "validfrom": "2019-01-01T00:01:00.000Z",
+      "validto": null,
+      "updatedby": null
+    },
+    {
+      "id": "c27cf914-0b97-4c4e-bb2d-2ae4b886baa5",
+      "name": "Agency Staff",
+      "parentgradetypeid": null,
+      "validfrom": "2019-01-01T00:01:00.000Z",
+      "validto": null,
+      "updatedby": null
+    }
+  ]
+}
