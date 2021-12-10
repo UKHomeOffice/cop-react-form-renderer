@@ -1,0 +1,92 @@
+<!-- Global imports -->
+import { Meta } from '@storybook/addon-docs';
+import { Heading, Link } from '@ukhomeoffice/cop-react-components';
+
+<Meta title="JSON Format/Component" id="F-JSON-Component" />
+
+<Heading size="xl" id="json-format" caption="JSON Format">Component</Heading>
+
+The format of the JSON for a Component for rendering a <Link href="/?path=/docs/d-formrenderer">Form</Link>.
+
+
+## Properties
+
+### `id : string`
+A unique identifier for the component.
+
+### `fieldId : string`
+An identifier for the field the component relates to.
+
+This dictates how the form data will be put together to produce a payload for submission.
+
+### `type : string`
+The type of component to render. See [**Component types**](#component-types) for details of
+supported types.
+
+### `label : string`
+The label that should be shown for the component, as part of a `FormGroup`.
+
+### `hint : string`
+The hint text that should be shown for the component, as part of a `FormGroup`.
+
+### `required : boolean`
+Whether or not the field is required (defaults to `false`).
+
+If this is `false`, the label will have an '(optional)' suffix; if this is `true`,
+an error will be shown if the field is not populated.
+
+### `readonly: boolean`
+Whether or not the field should render as an editable control or not (defaults to `false`).
+
+If this is `true`, the component will display as a simple text rendering, rather than an editable control.
+
+### `data : object`
+A configuration object for any data needed to display the component - e.g., options for
+[radios](#radios) or [autocomplete](#autocomplete).
+
+* #### `data.options : array`
+The options display in the component, structured as `{ value: string, label: string }`.
+
+* #### `data.url : string`
+This is used to dynamically fetch the data.
+This will only be used if [`data.options`](#dataoptions--array) is missing.
+
+### `tagName : string`
+The name of the tag to use on an [html](#html) component (defaults to `"p"` for a paragraph).
+
+### `content : string`
+Text content to appear within a [heading](#heading), [html](#html), or [inset-text](#inset-text) component.
+
+### `source : object`
+A configuration object for populating a field from another field within the form.
+
+* #### `source.field : string`
+The field that contains the value to pull through into this component.
+
+Note that this relates to the `fieldId` if the data is to be sourced from another component defined within the form.
+
+### `show_when: [ object ]`
+An array of configuration objects for determining under what circumstances the component should be shown.
+
+* #### `show_when.field : string`
+The field that the display of this component depends upon.
+
+* #### `show_when.op : string`
+The comparison operator for the condition:
+
+  * `'=', 'eq'`: The value of the component **must** be equal to a specified value.
+  * `'!=', '<>', 'ne', 'neq'`: The value of the component **must not** be equal to a specified value.
+  * `'in'`: The value of the component **must** be one of a specified set of values.
+  * `'nin'`: The value of the component **must not** be one of a specified set of values.
+
+* #### `show_when.value : string | number | boolean`
+The value to compare the `show_when.field`'s value to. This is applicable for equality and inequality operators only.
+
+* #### `show_when.values : [ string | number | boolean ]`
+The set of values in which to look for the `show_when.field`'s value. This is applicable for `in` and `nin` operators only.
+
+
+## Examples
+
+* See <Link href="/?path=/docs/f-examples-component">Component examples</Link> for sample JSON configurations for each component type.
+* See <Link href="/?path=/docs/f-examples-conditional-display">Conditional display examples</Link> for sample JSON configurations for `show_when`.

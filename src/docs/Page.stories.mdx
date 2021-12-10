@@ -1,0 +1,58 @@
+<!-- Global imports -->
+import { Meta } from '@storybook/addon-docs';
+import { Alert, Heading, Link } from '@ukhomeoffice/cop-react-components';
+
+<Meta title="JSON Format/Page" id="F-JSON-Page" />
+
+<Heading size="xl" id="json-format" caption="JSON Format">Page</Heading>
+
+The format of the JSON for a Page for rendering a <Link href="/?path=/docs/d-formrenderer">Form</Link>.
+
+## Properties
+
+### `id : string`
+A unique identifier for the page.
+
+### `name : string`
+An identifiable name for the page, which is not displayed in the user interface.
+
+### `title : string`
+The title of this page, which should be displayed in the user interface.
+
+### `components : [ object ]`
+The <Link href="/?path=/docs/f-json-component">components</Link> to display on this page.
+
+* #### `use : string`
+This is a reference to a component `id` at the top level of the <Link href="/?path=/docs/f-json-form">form JSON</Link>.
+* #### `...`
+Everything else is from <Link href="/?path=/docs/f-json-component">components</Link>.
+
+<Alert heading="If 'use' is specified">
+The reference is resolved and any additional properties will then override those of the resolved component.
+
+Also see <Link href="/?path=/docs/f-examples-component--page#simple-paragraphs-within-pages">simple paragraphs within pages</Link>.
+</Alert>
+
+### `actions : [ string | object ]`
+This dictates which buttons / links should be displayed at the bottom of the page. This is either an object that
+fully describes the action, or it can be a string that specifies a known action (e.g., `'submit'`).
+
+### `show_on_cya : boolean (default true)`
+Whether or not there should be any link for this page shown on the **Check your answers** screen. By default, this is
+set to `true` and can be missing from the configuration, which will result in a link being shown.
+
+### `cya_link : object`
+This dictates what should be shown for this page on the **Check your answers** screen, where applicable. This is not
+needed if `show_on_cya` is set to `false`.
+
+* #### `url: string`
+The url of the page to navigate to, which can be different to the page this is specified on.
+* #### `label: string`
+The label to show on the link. By default this will simply say "Change".
+* #### `aria_suffix : string`
+Hidden text to include in the link that is for the benefit of accessible users with screen readers.
+
+
+## Examples
+
+* See <Link href="/?path=/docs/f-examples-page">Page examples</Link> for sample JSON configurations for pages.

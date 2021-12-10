@@ -1,0 +1,31 @@
+<!-- Global imports -->
+import { Meta } from '@storybook/addon-docs';
+import { Heading, Link } from '@ukhomeoffice/cop-react-components';
+
+<Meta title="Examples/Page" id="F-Examples-Page" />
+
+<Heading size="xl" id="json-format" caption="JSON Examples">Page examples</Heading>
+
+For an explanation of what each of the properties in the examples, below mean, 
+see <Link href="/?path=/docs/f-json-page">Page JSON</Link>.
+
+## Page with submission
+
+```json
+{
+  "id": "civil-servant-status",
+  "name": "civil-servant-status",
+  "title": "Are you a civil servant?",
+  "components": [
+    {
+      "use": "areYouACivilServant",
+      "label": ""
+    }
+  ],
+  "actions": ["submit"],
+  "cya_link": {
+    "url": "/civil-servant-status",
+    "aria_suffix": "civil servant status"
+  }
+}
+```

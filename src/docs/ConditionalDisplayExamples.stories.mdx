@@ -1,0 +1,122 @@
+<!-- Global imports -->
+import { Meta } from '@storybook/addon-docs';
+import { Heading, Link } from '@ukhomeoffice/cop-react-components';
+
+<Meta title="Examples/Conditional display" id="F-Examples-Conditional-Display" />
+
+<Heading size="xl" id="json-format" caption="JSON Examples">Conditional display examples</Heading>
+
+For an explanation of what each of the properties in the examples, below mean, 
+see <Link href="/?path=/docs/f-json-component">Component JSON</Link>.
+
+## Equality
+
+```json
+{
+  "id":        "staffGradeId",
+  /* ... */
+  "show_when": {
+    "field": "areYouACivilServant",
+    "op": "eq",
+    "value": "yes"
+  }
+}
+```
+
+In the above example, the `staffGradeId` component will **only** be shown when the value
+of `areYouACivilServant` is equal to `'yes'`.
+
+Note that in this example, `areYouACivilServant` is also of type `radios` and that `'yes'`
+refers to the underlying value, not what is displayed in the user interface (the sentence case `'Yes'`).
+
+### When to use an equality operator
+Use the equality operators (`=`, `eq`) if you want something to show only under specific
+circumstances and be hidden by default. This is *typically* the appropriate behaviour but,
+should you want the opposite - i.e., **show** by default **show** - you should use the
+[Inequality](#inequality) operators.
+
+## Inequality
+
+```json
+{
+  "id":        "staffGradeId",
+  /* ... */
+  "show_when": {
+    "field": "areYouACivilServant",
+    "op": "neq",
+    "value": "no-contractor"
+  }
+}
+```
+
+In the above example, the `staffGradeId` component will **only** be shown when the value
+of `areYouACivilServant` is **not** equal to `'no-contractor'`, which means it will be
+shown if the value is `'yes'`, `'no-agency'`, or even `null`, `undefined`, or `''`, all of
+which are not equal to `'no-contractor'`.
+
+### When to use an inequality operator
+Use the inequality operators (`!=`, `<>`, `ne`, and `neq`) if you want something to show by
+default but be hidden under specific circumstances. You will *typically* want the opposite
+behaviour - i.e., to only **show** under specific circumstances - for which you should use
+the [Equality](#equality) operators.
+
+
+## Within array (any one of)
+
+```json
+{
+  "id": "delegateEmails",
+  /* ... */
+  "show_when": {
+    "field": "staffGradeId",
+    "op": "in",
+    "values": [ "senior-a", "senior-b", "senior-c" ]
+  }
+}
+```
+
+In the above example, the `delegateEmails` component will **only** be shown when the value
+of `staffGradeId` is **one of** 5 different values, specified within the `"values"` array.
+If `staffGradeId` is not one of those values, `delegateEmails` will be hidden.
+
+In this scenario, those items in the `"values"` array are (fake) IDs for **senior** grades,
+which means there will be no option to specify a delegate email for non-senior officers. This
+means that if a new grade is introduced, the `delegateEmails` component will **not** show for
+it without making any changes to the above configuration.
+
+### When to use an `in` operator
+Use the `in` operator when you want a component to **show** if another component is set to one
+of a defined number of known values.
+
+
+## Not within array (not one of)
+
+```json
+{
+  "id": "delegateEmails",
+  /* ... */
+  "show_when": {
+    "field": "staffGradeId",
+    "op": "nin",
+    "values": [ "junior-a", "junior-b", "junior-c" ]
+  }
+}
+```
+
+In the above example, the `delegateEmails` component will **not** be shown when the value
+of `staffGradeId` is **one of** 5 different values, specified within the `"values"` array.
+If `staffGradeId` is **not** one of those values, `delegateEmails` will be shown.
+
+In this scenario, those items in the `"values"` array are (fake) IDs for **non-senior** grades,
+which means, slightly different to the previous example, the option to set a delegate email will
+only be hidden from non-senior officers. This means that if a new grade is introduced, the
+`delegateEmails` component **will** show for it without making any changes to the above
+configuration.
+
+### When to use a `nin` operator
+Use the `nin` operator when you want a component to **hide** if another component is set to one
+of a defined number of known values.
+
+Most scenarios would call for the [`in`](#within-array-any-one-of) operator, rather than the
+`nin` one, but this is a useful option if there are a large number of items for which you would
+want it to show but a much smaller and more manageable number for which you would want it hidden.

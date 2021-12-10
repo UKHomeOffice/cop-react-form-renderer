@@ -1,0 +1,72 @@
+<!-- Global imports -->
+import { Meta } from '@storybook/addon-docs';
+import { Details, Heading, Link } from '@ukhomeoffice/cop-react-components';
+
+<!-- Local imports -->
+import { default as USER_PROFILE } from '../json/userProfile.json';
+
+<Meta title="JSON Format/Form" id="F-JSON-Form" />
+
+<Heading size="xl" id="json-form" caption="JSON Format">Form</Heading>
+
+The format of the JSON for rendering a <Link href="/?path=/docs/d-formrenderer">Form</Link>, with a sample document.
+
+## Properties
+
+### `id : string`
+A unique identifier for the form.
+
+### `version : string`
+The version of the form.
+
+### `name : string`
+An identifiable name for the form, which is not displayed in the user interface.
+
+### `title : string`
+The title of this form, which should be displayed in the user interface.
+
+### `type : string`
+Which <Link href="/?path=/docs/f-json-form-types">form type</Link> this is. This dictates how the pages
+are arranged within the form, along with other aspects of the form's behaviour.
+
+### `components: [ object ]`
+An array of <Link href="/?path=/docs/f-json-component">component</Link> configuration objects.
+
+### `pages : [ object ]`
+An array of <Link href="/?path=/docs/f-json-page">page</Link> configuration objects.
+
+### `hub : object`
+Configuration for the hub, which is only appropriate for certain <Link href="/?path=/docs/f-json-form-types">form types</Link>.
+
+### `cya : object`
+Configuration for the **Check your answers** screen, which is only appropriate for certain <Link href="/?path=/docs/f-json-form-types">form types</Link>.
+
+## Example
+
+```json
+{
+  "id":         "0h2lL8iwBEO3VNKzV/7FRg==",
+  "version":    "1",
+  "name":       "User profile",
+  "title":      "Your profile",
+  "type":       "hub-and-spoke",
+  "components": [ ... ],
+  "pages":      [ ... ],
+  "hub":        {
+    "format": "CYA"
+  },
+  "cya":        {
+    "hide_page_titles": false
+  }
+}
+```
+
+## Full JSON
+
+<Details summary="Expand to view..." className="no-indent">
+  <pre>
+    <code className="language-json">
+        {JSON.stringify(USER_PROFILE, null, 2)}
+    </code>
+  </pre>
+</Details>

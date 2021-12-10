@@ -1,0 +1,49 @@
+<!-- Global imports -->
+import { Meta } from '@storybook/addon-docs';
+import { Alert, Heading, Link, Tag } from '@ukhomeoffice/cop-react-components';
+
+<!-- Local imports -->
+
+<Meta title="JSON Format/Form types" id="F-JSON-Form-Types" />
+
+<Heading size="xl" id="json-form" caption="JSON Format">Form types</Heading>
+
+<Alert heading="Note" classModifiers="error">
+  Hub-and-spoke is the only type presently implemented. The others are works in progress.
+</Alert>
+
+The form types available in the JSON for rendering a <Link href="/?path=/docs/d-formrenderer">Form</Link>.
+
+## `cya`
+<Tag>Yet to do</Tag>
+
+A form made up of a series of [pages](#pages), which then has a [**Check your answers**](#checkyouranswers)
+screen at the end, prior to a final submission. From the [**Check your answers**](#checkyouranswers) screen,
+there is the ability to navigate back to any of the pages via a **Change** link,
+allowing editing of the details on that [page](#pages).
+
+
+## `form`
+<Tag>Yet to do</Tag>
+
+A simple single-page form. No bells or whistles on this one.
+
+
+## `hub-and-spoke (default)`
+
+A form that has a starting page (the "hub") that offers navigation to the other [pages](#pages) (the "spokes")
+that make up the form. The spokes may contain a single [page](#pages) or a series
+of [pages](#pages) in a [wizard](#wizard) format.
+
+The structure of the [hub](#hub) is identical to the structure of a [page](#pages), but with the
+option of simply specifying that the [**Check your answers**](#checkyouranswers) screen should be used instead.
+In such an instance, [**Check your answers**](#checkyouranswers) is not displayed at the end of the flow as
+there *isn't* a flow - the user is returned to the hub at the conclusion of each "spoke".
+
+
+## `wizard`
+<Tag>Yet to do</Tag>
+
+A form made up of a series of [pages](#pages), with **Continue** (next) and **Back** (previous) navigation
+options on each [page](#pages). This is distinct from the [**cya**](#cya) type in that there is no
+[**Check your answers**](#checkyouranswers) screen at the end.
