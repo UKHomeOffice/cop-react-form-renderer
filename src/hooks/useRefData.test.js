@@ -93,6 +93,22 @@ describe('hooks', () => {
       });
     });
 
+    it('can handle a component with a url that throws an error', async () => {
+      const URL = '/api/error';
+      const COMPONENT = {
+        id: 'component',
+        data: { url: URL }
+      };
+      mockAxios.onGet(URL).reply(500, {});
+      act(() => {
+        render(<TestComponent component={COMPONENT} />, container);
+      });
+      expect(container.textContent).toEqual(STATUS_LOADING);
+
+      await act(() => sleep(100));
+      expect(container.textContent).toEqual(STATUS_COMPLETE);
+    });
+
   });
 
 });
