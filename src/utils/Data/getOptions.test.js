@@ -25,33 +25,32 @@ describe('utils', () => {
         });
       });
 
-      it('should get options by URL if specified', () => {
+      it('should get any specified options from the data property of the config', () => {
         const CONFIG = {
-          url: '/grade'
+          data: {
+            options: [
+              { value: 'a', label: 'Alpha' },
+              { value: 'b', label: 'Bravo' }
+            ]
+          }
         };
         getOptions(CONFIG, (options) => {
-          expect(Array.isArray(options)).toBeTruthy();
-          expect(options.length).toBeGreaterThan(0);
+          expect(options).toEqual(CONFIG.data.options);
         });
       });
 
-      it('should handle unknown reference data url', () => {
+      it('should use the top-level options over those in the data property', () => {
         const CONFIG = {
-          url: '/unknown'
-        };
-        getOptions(CONFIG, (options) => {
-          expect(Array.isArray(options)).toBeTruthy();
-          expect(options.length).toEqual(0);
-        });
-      });
-
-      it('should prefer specified options over a URL', () => {
-        const CONFIG = {
-          url: '/grade',
           options: [
             { value: 'a', label: 'Alpha' },
             { value: 'b', label: 'Bravo' }
-          ]
+          ],
+          data: {
+            options: [
+              { value: 'c', label: 'Charlie' },
+              { value: 'd', label: 'Delta' }
+            ]
+          }
         };
         getOptions(CONFIG, (options) => {
           expect(options).toEqual(CONFIG.options);

@@ -1,7 +1,8 @@
 export const JSON_ONLY_PROPERTIES = [
   'source',
   'use',
-  'show_when'
+  'show_when',
+  'options'
 ];
 
 /**

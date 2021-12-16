@@ -20,7 +20,8 @@ module.exports = {
       }
     },
     "@storybook/addon-links",
-    "@storybook/preset-create-react-app"
+    "@storybook/preset-create-react-app",
+    'storybook-addon-mock/register'
   ],
   staticDirs: ['../src/assets']
 }
