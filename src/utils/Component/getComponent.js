@@ -39,7 +39,7 @@ const getInsetText = (config) => {
 
 const getRadios = (config) => {
   let options = [];
-  Data.getOptions(config.data, (val) => {
+  Data.getOptions(config, (val) => {
     options = val;
   });
   const attrs = cleanAttributes(config);
@@ -73,9 +73,9 @@ const getComponentByType = (config) => {
   }
 };
 
-const getComponent = (config) => {
+const getComponent = (config, noWrap = false) => {
   const component = getComponentByType(config);
-  if (component && isEditable(config)) {
+  if (component && !noWrap && isEditable(config)) {
     const attrs = cleanAttributes(config, ['fieldId', 'displayMenu']);
     return wrapInFormGroup(attrs, component);
   }

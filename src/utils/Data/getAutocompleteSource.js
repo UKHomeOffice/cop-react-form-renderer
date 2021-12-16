@@ -3,11 +3,9 @@ import getOptions from './getOptions';
 
 const getAutocompleteSource = (config) => {
   let options = [];
-  if (config) {
-    getOptions(config.data, (val) => {
-      options = val;
-    });
-  }
+  getOptions(config, (val) => {
+    options = val;
+  });
   return (query, populateResults) => {
     const lcQuery = query ? query.toLowerCase() : '';
     populateResults(options.filter(opt => {

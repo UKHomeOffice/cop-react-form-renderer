@@ -99,20 +99,22 @@ describe('utils', () => {
         });
       });
 
-      it('should get options by url from the config', () => {
+      it('should handle a missing label on an option', () => {
         const CONFIG = {
           data: {
-            url: '/grade'
+            options: [
+              { value: 'a', label: 'Alpha' },
+              { value: 'b' }
+            ]
           }
         };
         const SOURCE = getAutocompleteSource(CONFIG);
         expect(typeof SOURCE === 'function').toBeTruthy();
-        SOURCE('SCS2', (results) => {
+        SOURCE('a', (results) => {
           expect(results.length).toEqual(1);
-          expect(results[0].label).toEqual('Senior Director / SCS2');
-        });
-        SOURCE('SCS', (results) => {
-          expect(results.length).toEqual(4);
+          expect(results).toEqual([
+            { value: 'a', label: 'Alpha' }
+          ]);
         });
       });
 
