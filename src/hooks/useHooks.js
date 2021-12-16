@@ -21,9 +21,7 @@ export const removeHook = (name) => {
 };
 
 export const resetHooks = () => {
-  Object.keys(hooks).forEach(key => {
-    removeHook(key);
-  });
+  Object.keys(hooks).forEach(removeHook);
 };
 
 const useHooks = () => {
