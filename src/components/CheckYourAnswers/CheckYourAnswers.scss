@@ -1,0 +1,9 @@
+@import "node_modules/govuk-frontend/govuk/_base";
+@import "node_modules/govuk-frontend/govuk/overrides/spacing";
+
+.hods-check-your-answers {
+  .govuk-link {
+    color: govuk-colour('blue');
+    cursor: pointer;
+  }
+}
