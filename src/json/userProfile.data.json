@@ -1,0 +1,14 @@
+{
+  "environmentContext": {
+    "referenceDataUrl": "/ref-data"
+  },
+  "keycloakContext": {
+    "givenName": "John",
+    "familyName": "Smith"
+  },
+  "staffDetailsDataContext": {},
+  "extendedStaffDetailsContext": {
+    "linemanagerEmail": "line.manager@digital.homeoffice.gov.uk",
+    "delegateEmails": "del.egate@digital.homeoffice.gov.uk"
+  }
+}
