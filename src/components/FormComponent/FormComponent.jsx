@@ -20,7 +20,6 @@ const FormComponent = ({
       setOptions(data);
     }
   }, [component, data, status]);
-
   return Utils.Component.get({
     ...attrs,
     ...component,

@@ -1,8 +1,9 @@
-// Local imports
-import FormComponent from './FormComponent';
+import CheckYourAnswers from './CheckYourAnswers';
 import FormPage from './FormPage';
+import FormRenderer from './FormRenderer';
 
 export {
-  FormComponent,
+  CheckYourAnswers,
   FormPage,
+  FormRenderer
 };

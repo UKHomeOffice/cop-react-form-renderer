@@ -1,12 +1,62 @@
 <!-- Global imports -->
-import { Meta } from '@storybook/addon-docs';
-import { Heading, Link, Tag } from '@ukhomeoffice/cop-react-components';
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
+import { Details, Heading, Link } from '@ukhomeoffice/cop-react-components';
+import withMock from 'storybook-addon-mock';
 
-<Meta title="Components/Form renderer" id="D-FormRenderer" />
+<!-- Local imports -->
+import { addHook } from '../../hooks/useHooks';
+import FormRenderer from './FormRenderer';
+
+<!-- JSON documents -->
+import CIVIL_SERVANT from '../../json/areYouACivilServant.json';
+import GRADE from '../../json/grade.json';
+import TEAMS from '../../json/team.json';
+import USER_PROFILE_DATA from '../../json/userProfile.data.json';
+import USER_PROFILE from '../../json/userProfile.json';
+
+<Meta title="Components/Form renderer" id="D-FormRenderer" component={ FormRenderer } decorators={[withMock]} />
 
 <Heading size="xl" caption="Components">Form renderer</Heading>
 
 Renders a form with <Link href="https://ukhomeoffice.github.io/cop-react-components/?path=/docs/d-alert--default-story">COP React components</Link>,
 on the basis of a <Link href="/?path=/docs/f-json-form">JSON</Link> that describes which elements are required.
 
-<Tag>To do</Tag>
+<Canvas withToolbar>
+  <Story name="Default" parameters={{
+    mockData: [
+      {
+        url: `${USER_PROFILE_DATA.environmentContext.referenceDataUrl}/v2/entities/areYouACivilServant`,
+        method: 'GET',
+        status: 200,
+        response: CIVIL_SERVANT
+      },
+      {
+        url: `${USER_PROFILE_DATA.environmentContext.referenceDataUrl}/v2/entities/grade`,
+        method: 'GET',
+        status: 200,
+        response: GRADE
+      },
+      {
+        url: `${USER_PROFILE_DATA.environmentContext.referenceDataUrl}/v1/entities/team`,
+        method: 'GET',
+        status: 200,
+        response: TEAMS
+      }
+    ]
+  }}>
+    {() => {
+      addHook('onRequest', (req) => {
+        // Do whatever you need to do to the request in here, such as adding an Authorization header.
+        // console.log('onRequest hook called');
+        return req;
+      });
+      return (
+        <FormRenderer {...USER_PROFILE} data={USER_PROFILE_DATA} />
+      );
+    }}
+  </Story>
+</Canvas>
+
+<Details summary="Properties" className="no-indent">
+  <ArgsTable of={ FormRenderer } />
+</Details>
