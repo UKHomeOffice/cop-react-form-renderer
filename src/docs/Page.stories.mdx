@@ -11,15 +11,23 @@ The format of the JSON for a Page for rendering a <Link href="/?path=/docs/d-for
 ## Properties
 
 ### `id : string`
+*Required*
+
 A unique identifier for the page.
 
 ### `name : string`
+*Required*
+
 An identifiable name for the page, which is not displayed in the user interface.
 
 ### `title : string`
+*Optional*
+
 The title of this page, which should be displayed in the user interface.
 
 ### `components : [ object ]`
+*Required*
+
 The <Link href="/?path=/docs/f-json-component">components</Link> to display on this page.
 
 * #### `use : string`
@@ -34,14 +42,20 @@ Also see <Link href="/?path=/docs/f-examples-component--page#simple-paragraphs-w
 </Alert>
 
 ### `actions : [ string | object ]`
+*Optional*
+
 This dictates which buttons / links should be displayed at the bottom of the page. This is either an object that
 fully describes the action, or it can be a string that specifies a known action (e.g., `'submit'`).
 
-### `show_on_cya : boolean (default true)`
+### `show_on_cya : boolean`
+*Optional (defaults to `true`)*
+
 Whether or not there should be any link for this page shown on the **Check your answers** screen. By default, this is
 set to `true` and can be missing from the configuration, which will result in a link being shown.
 
 ### `cya_link : object`
+*Optional and ignored if `show_on_cya` is set to `false`*
+
 This dictates what should be shown for this page on the **Check your answers** screen, where applicable. This is not
 needed if `show_on_cya` is set to `false`.
 

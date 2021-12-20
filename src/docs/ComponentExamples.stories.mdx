@@ -10,6 +10,8 @@ For an explanation of what each of the properties in the examples, below mean,
 see <Link href="/?path=/docs/f-json-component">Component JSON</Link>.
 
 ## `autocomplete`
+Use the autocomplete component if you have a large set of options that you want the user
+to be able to search through and select one from.
 
 ```json
 {
@@ -29,6 +31,22 @@ see <Link href="/?path=/docs/f-json-component">Component JSON</Link>.
 ```
 
 ## `email`
+Use the email component when you want users to enter an email address.
+
+```json
+{
+  "id": "delegateEmails",
+  "fieldId": "delegateEmails",
+  "label": "Delegate email",
+  "hint": "Must be a homeoffice.gov.uk or digital.homeoffice.gov.uk address",
+  "type": "email",
+  "required": true,
+  "source": {
+    "field": "extendedStaffDetailsContext.delegateEmails"
+  }
+}
+```
+
 ## `heading`
 A `govuk-heading` heading component (`h1`, `h2`, etc.).
 
@@ -107,6 +125,16 @@ Note that [id](#id--string) or [fieldId](#fieldid--string) are not applicable fo
 ```
 
 ## `phone-number`
+Use the phone-number component when you want users to enter a telephone number.
+
+```json
+{
+  "id": "telephone",
+  "fieldId": "telephone",
+  "label": "Telephone number",
+  "type": "phone-number"
+}
+```
 
 ## `radios`
 Use the radios component when users can only select one option from a list.
@@ -129,3 +157,19 @@ Use the radios component when users can only select one option from a list.
 ```
 
 ## `text`
+Use the text component when you want users to enter a single line of text. In the example below, the
+component is `readonly` but a text component is still used as it ensures the data is added to any
+submission payload - as it is an <Link href="/?path=/docs/f-editable-components">editable component</Link>.
+
+```json
+{
+  "id": "firstName",
+  "fieldId": "firstName",
+  "label": "First name",
+  "type": "text",
+  "readonly": true,
+  "source": {
+    "field": "keycloakContext.givenName"
+  }
+}
+```
