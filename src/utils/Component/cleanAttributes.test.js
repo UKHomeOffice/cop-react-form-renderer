@@ -16,11 +16,11 @@ describe('utils', () => {
       });
 
       it('should handle empty options', () => {
-        expect(cleanAttributes({})).toEqual({});
+        expect(cleanAttributes({}, null)).toEqual({});
       });
 
       it('should handle a non-object options', () => {
-        expect(cleanAttributes(23)).toEqual({});
+        expect(cleanAttributes(23, null)).toEqual({});
       });
 
       it('should only remove properties specific to JSON', () => {
