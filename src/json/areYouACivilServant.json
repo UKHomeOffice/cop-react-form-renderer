@@ -1,0 +1,7 @@
+{
+  "data": [
+    { "id": "yes", "name": "Yes" },
+    { "id": "no-contractor", "name": "No, I'm a contractor" },
+    { "id": "no-agency", "name": "No, I'm agency staff" }
+  ]
+}
