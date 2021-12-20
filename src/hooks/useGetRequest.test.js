@@ -7,7 +7,7 @@ import { act } from 'react-dom/test-utils';
 
 // Local imports
 import sleep from '../utils/sleep.test';
-import useGetRequest, { STATUS_ERROR, STATUS_FETCHING } from './useGetRequest';
+import useGetRequest, { clear, STATUS_ERROR, STATUS_FETCHING } from './useGetRequest';
 
 const TestComponent = ({ url, notifyOfCancel }) => {
   const { status, error, data, cancelRequests } = useGetRequest(url);
@@ -44,6 +44,7 @@ describe('hooks', () => {
       container = document.createElement('div');
       document.body.appendChild(container);
       mockAxios.reset();
+      clear();
     });
 
     afterEach(() => {

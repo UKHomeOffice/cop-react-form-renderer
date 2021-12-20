@@ -5,8 +5,21 @@ import { useEffect, useState } from 'react';
 // Local imports
 import useAxios from './useAxios';
 
+// Caches for responses and errors.
 const cache = {};
 const errorCache = {};
+
+const clearCache = (cacheObject) => {
+  const keys = Object.keys(cacheObject);
+  keys.forEach(key => {
+    delete cacheObject[key];
+  });
+};
+
+export const clear = () => {
+  clearCache(cache);
+  clearCache(errorCache);
+};
 
 export const STATUS_IDLE = 'idle';
 export const STATUS_FETCHING = 'fetching';
