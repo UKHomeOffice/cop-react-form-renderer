@@ -73,9 +73,9 @@ const getComponentByType = (config) => {
   }
 };
 
-const getComponent = (config, noWrap = false) => {
+const getComponent = (config, wrap = true) => {
   const component = getComponentByType(config);
-  if (component && !noWrap && isEditable(config)) {
+  if (component && wrap && isEditable(config)) {
     const attrs = cleanAttributes(config, ['fieldId', 'displayMenu']);
     return wrapInFormGroup(attrs, component);
   }
