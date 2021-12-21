@@ -1,0 +1,155 @@
+<!-- Global imports -->
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
+import { Details, Heading, Link } from '@ukhomeoffice/cop-react-components';
+import withMock from 'storybook-addon-mock';
+
+<!-- Local imports -->
+import FormComponent from './FormComponent';
+
+<!-- JSON documents -->
+import CIVIL_SERVANT from '../../json/areYouACivilServant.json';
+import GRADE from '../../json/grade.json';
+import TEAMS from '../../json/team.json';
+import USER_PROFILE_DATA from '../../json/userProfile.data.json';
+import USER_PROFILE from '../../json/userProfile.json';
+
+<Meta title="Components/Form component" id="D-FormComponent" component={ FormComponent } decorators={[withMock]} />
+
+<Heading size="xl" caption="Components">Form component</Heading>
+
+Renders a single component on a form with <Link href="https://ukhomeoffice.github.io/cop-react-components/?path=/docs/d-alert--default-story">COP React components</Link>,
+on the basis of a <Link href="/?path=/docs/f-json-component">JSON</Link> configuration.
+
+<Canvas withToolbar>
+  <Story name="Default" parameters={{
+    mockData: [
+      {
+        url: `${USER_PROFILE_DATA.environmentContext.referenceDataUrl}/v2/entities/areYouACivilServant`,
+        method: 'GET',
+        status: 200,
+        response: CIVIL_SERVANT
+      },
+      {
+        url: `${USER_PROFILE_DATA.environmentContext.referenceDataUrl}/v2/entities/grade`,
+        method: 'GET',
+        status: 200,
+        response: GRADE
+      },
+      {
+        url: `${USER_PROFILE_DATA.environmentContext.referenceDataUrl}/v1/entities/team`,
+        method: 'GET',
+        status: 200,
+        response: TEAMS
+      }
+    ]
+  }}>
+    {() => {
+      const COMPONENT = {
+        ...USER_PROFILE.components.find(c => c.id === 'areYouACivilServant'),
+        data: {
+          url: `${USER_PROFILE_DATA.environmentContext.referenceDataUrl}/v2/entities/areYouACivilServant`
+        }
+      };
+      return (
+        <FormComponent component={COMPONENT} value={''} />
+      );
+    }}
+  </Story>
+</Canvas>
+
+<Details summary="Properties" className="no-indent">
+  <ArgsTable of={ FormComponent } />
+</Details>
+
+
+## Variants
+### `autocomplete`
+<Canvas>
+  <Story name="Autocomplete" parameters={{
+    mockData: [
+      {
+        url: `${USER_PROFILE_DATA.environmentContext.referenceDataUrl}/v2/entities/areYouACivilServant`,
+        method: 'GET',
+        status: 200,
+        response: CIVIL_SERVANT
+      },
+      {
+        url: `${USER_PROFILE_DATA.environmentContext.referenceDataUrl}/v2/entities/grade`,
+        method: 'GET',
+        status: 200,
+        response: GRADE
+      },
+      {
+        url: `${USER_PROFILE_DATA.environmentContext.referenceDataUrl}/v1/entities/team`,
+        method: 'GET',
+        status: 200,
+        response: TEAMS
+      }
+    ]
+  }}>
+    {() => {
+      const COMPONENT = {
+        ...USER_PROFILE.components.find(c => c.id === 'team'),
+        data: {
+          url: `${USER_PROFILE_DATA.environmentContext.referenceDataUrl}/v1/entities/team`
+        }
+      };
+      return (
+        <FormComponent component={COMPONENT} value={''} />
+      );
+    }}
+  </Story>
+</Canvas>
+
+### `html`
+
+<Canvas>
+  <Story name="HTML">
+    {() => {
+      const COMPONENT = { type: 'html', tagName: 'p', content: 'A paragraph of text to render' };
+      return (
+        <FormComponent component={COMPONENT} value={''} />
+      );
+    }}
+  </Story>
+</Canvas>
+
+### Unwrapped `autocomplete`
+<Canvas>
+  <Story name="Unwrapped autocomplete" parameters={{
+    mockData: [
+      {
+        url: `${USER_PROFILE_DATA.environmentContext.referenceDataUrl}/v2/entities/areYouACivilServant`,
+        method: 'GET',
+        status: 200,
+        response: CIVIL_SERVANT
+      },
+      {
+        url: `${USER_PROFILE_DATA.environmentContext.referenceDataUrl}/v2/entities/grade`,
+        method: 'GET',
+        status: 200,
+        response: GRADE
+      },
+      {
+        url: `${USER_PROFILE_DATA.environmentContext.referenceDataUrl}/v1/entities/team`,
+        method: 'GET',
+        status: 200,
+        response: TEAMS
+      }
+    ]
+  }}>
+    {() => {
+      const COMPONENT = {
+        ...USER_PROFILE.components.find(c => c.id === 'team'),
+        id: 'team2',
+        fieldId: 'team2',
+        data: {
+          url: `${USER_PROFILE_DATA.environmentContext.referenceDataUrl}/v1/entities/team`
+        }
+      };
+      return (
+        <FormComponent component={COMPONENT} value={''} wrap={false} />
+      );
+    }}
+  </Story>
+</Canvas>
