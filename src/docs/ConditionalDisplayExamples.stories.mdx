@@ -32,8 +32,8 @@ refers to the underlying value, not what is displayed in the user interface (the
 ### When to use an equality operator
 Use the equality operators (`=`, `eq`) if you want something to show only under specific
 circumstances and be hidden by default. This is *typically* the appropriate behaviour but,
-should you want the opposite - i.e., **show** by default **show** - you should use the
-[Inequality](#inequality) operators.
+should you want the opposite - i.e., **show** by default **show** - you should use
+the Inequality operators, below.
 
 ## Inequality
 
@@ -58,7 +58,7 @@ which are not equal to `'no-contractor'`.
 Use the inequality operators (`!=`, `<>`, `ne`, and `neq`) if you want something to show by
 default but be hidden under specific circumstances. You will *typically* want the opposite
 behaviour - i.e., to only **show** under specific circumstances - for which you should use
-the [Equality](#equality) operators.
+the Equality operators, above.
 
 
 ## Within array (any one of)
@@ -117,6 +117,6 @@ configuration.
 Use the `nin` operator when you want a component to **hide** if another component is set to one
 of a defined number of known values.
 
-Most scenarios would call for the [`in`](#within-array-any-one-of) operator, rather than the
-`nin` one, but this is a useful option if there are a large number of items for which you would
-want it to show but a much smaller and more manageable number for which you would want it hidden.
+Most scenarios would call for the the `in` operator, rather than the `nin` one, but this is a
+useful option if there are a large number of items for which you would want it to show but a
+much smaller and more manageable number for which you would want it hidden.
