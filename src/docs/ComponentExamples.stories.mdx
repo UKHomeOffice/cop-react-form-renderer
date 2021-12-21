@@ -50,7 +50,8 @@ Use the email component when you want users to enter an email address.
 ## `heading`
 A `govuk-heading` heading component (`h1`, `h2`, etc.).
 
-Note that [id](#id--string) or [fieldId](#fieldid--string) are not applicable for this type.
+Note that <Link href="/?path=/docs/f-json-component--page#id--string">id</Link> 
+and <Link href="/?path=/docs/f-json-component--page#fieldid--string">fieldId</Link> are not applicable for this type.
 
 ```json
 {
@@ -63,7 +64,8 @@ Note that [id](#id--string) or [fieldId](#fieldid--string) are not applicable fo
 ## `html`
 A simple rendering of HTML, such as a paragraph, image, or horizontal rule.
 
-Note that [id](#id--string) or [fieldId](#fieldid--string) are not applicable for this type.
+Note that <Link href="/?path=/docs/f-json-component--page#id--string">id</Link> 
+and <Link href="/?path=/docs/f-json-component--page#fieldid--string">fieldId</Link> are not applicable for this type.
 
 ```json
 {
@@ -78,6 +80,7 @@ There is a shortcut mechanism for rendering paragraphs in pages, which is simply
 (that this will only work within page components, not at the top level of the <Link href="/?path=/docs/f-json-form">Form JSON</Link>):
 
 ```json
+// This JSON with paragraphs...
 "components": [
   {
     "type":    "html",
@@ -95,8 +98,7 @@ There is a shortcut mechanism for rendering paragraphs in pages, which is simply
   }
 ]
 
-==>
-
+// ... can more simply be written as:
 "components": [
   "A delegate can review a mandatory declaration on your behalf.",
   "An email will be sent to the delegate to ask if they want to approve your request.",
@@ -115,7 +117,8 @@ Use the inset text component to differentiate a block of text from the content t
 * examples
 * additional information about the page
 
-Note that [id](#id--string) or [fieldId](#fieldid--string) are not applicable for this type.
+Note that <Link href="/?path=/docs/f-json-component--page#id--string">id</Link> 
+and <Link href="/?path=/docs/f-json-component--page#fieldid--string">fieldId</Link> are not applicable for this type.
 
 ```json
 {
