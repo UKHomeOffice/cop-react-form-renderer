@@ -13,8 +13,9 @@ describe('components', () => {
       const ID = 'component';
       const VALUE = 'Text value';
       const COMPONENT = { id: ID, fieldId: ID, type: 'text', label: 'Text component', hint: 'Text hint' };
+      const ON_CHANGE = () => {};
       const { container } = render(
-        <FormComponent data-testid={ID} component={COMPONENT} value={VALUE} />
+        <FormComponent data-testid={ID} component={COMPONENT} value={VALUE} onChange={ON_CHANGE} />
       );
 
       // text components are wrapper in a FormGroup by default.
@@ -41,8 +42,9 @@ describe('components', () => {
       const ID = 'component';
       const VALUE = 'Text value';
       const COMPONENT = { id: ID, fieldId: ID, type: 'text', label: 'Text component', hint: 'Text hint' };
+      const ON_CHANGE = () => {};
       const { container } = render(
-        <FormComponent data-testid={ID} component={COMPONENT} wrap={false} value={VALUE} />
+        <FormComponent data-testid={ID} component={COMPONENT} wrap={false} value={VALUE} onChange={ON_CHANGE} />
       );
 
       // With wrap = false, there should be no form group.
@@ -57,9 +59,8 @@ describe('components', () => {
       const ID = 'component';
       const COMPONENT = { type: 'html', tagName: 'p', content: 'HTML content' };
       const { container } = render(
-        <FormComponent data-testid={ID} component={COMPONENT} value={''} />
+        <FormComponent data-testid={ID} component={COMPONENT} />
       );
-      console.log('container', container);
       const p = container.childNodes[0];
       expect(p.tagName).toEqual('P');
       expect(p.textContent).toEqual(COMPONENT.content);

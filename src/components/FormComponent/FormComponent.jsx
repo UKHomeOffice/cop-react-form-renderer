@@ -27,7 +27,7 @@ const FormComponent = ({
     label: component.label || '',
     hint: component.hint || '',
     options,
-    value,
+    value: value || '',
     onChange
   }, wrap);
 };
@@ -41,7 +41,7 @@ FormComponent.propTypes = {
       url: PropTypes.string
     })
   }).isRequired,
-  value: PropTypes.any.isRequired,
+  value: PropTypes.any,
   wrap: PropTypes.bool,
   onChange: PropTypes.func
 };

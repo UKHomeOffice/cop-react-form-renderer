@@ -50,8 +50,11 @@ on the basis of a <Link href="/?path=/docs/f-json-component">JSON</Link> configu
           url: `${USER_PROFILE_DATA.environmentContext.referenceDataUrl}/v2/entities/areYouACivilServant`
         }
       };
+      const ON_CHANGE = ({ target }) => {
+        // Do something with the target here.
+      };
       return (
-        <FormComponent component={COMPONENT} value={''} />
+        <FormComponent component={COMPONENT} value={''} onChange={ON_CHANGE} />
       );
     }}
   </Story>
@@ -94,8 +97,11 @@ on the basis of a <Link href="/?path=/docs/f-json-component">JSON</Link> configu
           url: `${USER_PROFILE_DATA.environmentContext.referenceDataUrl}/v1/entities/team`
         }
       };
+      const ON_CHANGE = ({ target }) => {
+        // Do something with the target here.
+      };
       return (
-        <FormComponent component={COMPONENT} value={''} />
+        <FormComponent component={COMPONENT} value={''} onChange={ON_CHANGE} />
       );
     }}
   </Story>
@@ -107,8 +113,11 @@ on the basis of a <Link href="/?path=/docs/f-json-component">JSON</Link> configu
   <Story name="HTML">
     {() => {
       const COMPONENT = { type: 'html', tagName: 'p', content: 'A paragraph of text to render' };
+      const ON_CHANGE = ({ target }) => {
+        // Do something with the target here.
+      };
       return (
-        <FormComponent component={COMPONENT} value={''} />
+        <FormComponent component={COMPONENT} value={''} onChange={ON_CHANGE} />
       );
     }}
   </Story>
@@ -147,8 +156,11 @@ on the basis of a <Link href="/?path=/docs/f-json-component">JSON</Link> configu
           url: `${USER_PROFILE_DATA.environmentContext.referenceDataUrl}/v1/entities/team`
         }
       };
+      const ON_CHANGE = ({ target }) => {
+        // Do something with the target here.
+      };
       return (
-        <FormComponent component={COMPONENT} value={''} wrap={false} />
+        <FormComponent component={COMPONENT} value={''} wrap={false} onChange={ON_CHANGE} />
       );
     }}
   </Story>
