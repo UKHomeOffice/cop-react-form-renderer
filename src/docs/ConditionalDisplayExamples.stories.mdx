@@ -24,10 +24,10 @@ see <Link href="/?path=/docs/f-json-component">Component JSON</Link>.
 ```
 
 In the above example, the `staffGradeId` component will **only** be shown when the value
-of `areYouACivilServant` is equal to `'yes'`.
+of `areYouACivilServant` is equal to `"yes"`.
 
-Note that in this example, `areYouACivilServant` is also of type `radios` and that `'yes'`
-refers to the underlying value, not what is displayed in the user interface (the sentence case `'Yes'`).
+Note that in this example, `areYouACivilServant` is also of type `radios` and that `"yes"`
+refers to the underlying value, not what is displayed in the user interface (the sentence case `"Yes"`).
 
 ### When to use an equality operator
 Use the equality operators (`=`, `eq`) if you want something to show only under specific
@@ -50,9 +50,9 @@ the Inequality operators, below.
 ```
 
 In the above example, the `staffGradeId` component will **only** be shown when the value
-of `areYouACivilServant` is **not** equal to `'no-contractor'`, which means it will be
-shown if the value is `'yes'`, `'no-agency'`, or even `null`, `undefined`, or `''`, all of
-which are not equal to `'no-contractor'`.
+of `areYouACivilServant` is **not** equal to `"no-contractor"`, which means it will be
+shown if the value is `"yes"`, `"no-agency"`, or even `null`, `undefined`, or `""`, all of
+which are not equal to `"no-contractor"`.
 
 ### When to use an inequality operator
 Use the inequality operators (`!=`, `<>`, `ne`, and `neq`) if you want something to show by
