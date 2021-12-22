@@ -17,14 +17,6 @@ describe('components', () => {
       ON_ACTION_CALLS.length = 0;
     });
 
-    it('should handle a null action', async () => {
-      const ACTION = null;
-      const { container } = render(
-        <ActionButton action={ACTION} onAction={ON_ACTION} />
-      );
-      expect(container.childNodes.length).toEqual(0);
-    });
-
     it('should handle an unknown action identifier', async () => {
       const ACTION = 'unknown';
       const { container } = render(
