@@ -1,0 +1,74 @@
+<!-- Global imports -->
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
+import { Details, Heading, Link } from '@ukhomeoffice/cop-react-components';
+
+<!-- Local imports -->
+import Utils from '../../utils';
+import PageActions from './PageActions';
+
+<!-- JSON documents -->
+import CIVIL_SERVANT from '../../json/areYouACivilServant.json';
+import GRADE from '../../json/grade.json';
+import TEAMS from '../../json/team.json';
+import USER_PROFILE_DATA from '../../json/userProfile.data.json';
+import USER_PROFILE from '../../json/userProfile.json';
+
+<Meta title="Components/Page actions" id="D-PageActions" component={ PageActions } />
+
+<Heading size="xl" caption="Components">Page actions</Heading>
+
+Renders the buttons at the bottom of a Page.
+
+<Canvas withToolbar>
+  <Story name="Default">
+    {() => {
+      const ACTIONS = ['submit'];
+      const ON_ACTION = (action, patch, onError) => {
+        console.log('action invoked', action, patch);
+      };
+      return (
+        <PageActions actions={ACTIONS} onAction={ON_ACTION} />
+      );
+    }}
+  </Story>
+</Canvas>
+
+<Details summary="Properties" className="no-indent">
+  <ArgsTable of={ PageActions } />
+</Details>
+
+## Variations
+### Custom action
+
+<Canvas>
+  <Story name="Custom action">
+    {() => {
+      const ACTIONS = [{ type: 'navigate', url: '/profile', label: 'Go to profile' }];
+      const ON_ACTION = (action, patch, onError) => {
+        console.log('action invoked', action, patch);
+      };
+      return (
+        <PageActions actions={ACTIONS} onAction={ON_ACTION} />
+      );
+    }}
+  </Story>
+</Canvas>
+
+### Multiple actions
+
+<Canvas>
+  <Story name="Multiple actions">
+    {() => {
+      const ACTIONS = [
+        { type: 'navigate', label: 'Previous' },
+        { type: 'submit', label: 'Next', validate: true }
+      ];
+      const ON_ACTION = (action, patch, onError) => {
+        console.log('action invoked', action, patch);
+      };
+      return (
+        <PageActions actions={ACTIONS} onAction={ON_ACTION} />
+      );
+    }}
+  </Story>
+</Canvas>
