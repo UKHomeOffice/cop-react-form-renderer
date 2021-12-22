@@ -1,6 +1,7 @@
 {
   "id": "userProfile",
   "version": "1",
+  "newCOP": true,
   "name": "userProfile",
   "title": "Your profile",
   "type": "hub-and-spoke",

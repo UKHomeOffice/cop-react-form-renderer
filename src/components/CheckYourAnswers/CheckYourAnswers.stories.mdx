@@ -1,0 +1,23 @@
+<!-- Global imports -->
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
+import { Details, Heading, Link, Tag } from '@ukhomeoffice/cop-react-components';
+import withMock from 'storybook-addon-mock';
+
+<!-- Local imports -->
+import Utils from '../../utils';
+import CheckYourAnswers from './CheckYourAnswers';
+
+<!-- JSON documents -->
+import CIVIL_SERVANT from '../../json/areYouACivilServant.json';
+import GRADE from '../../json/grade.json';
+import TEAMS from '../../json/team.json';
+import USER_PROFILE_DATA from '../../json/userProfile.data.json';
+import USER_PROFILE from '../../json/userProfile.json';
+
+<Meta title="Components/Check your answers" id="D-CheckYourAnswers" component={ CheckYourAnswers } decorators={[withMock]} />
+
+<Heading size="xl" caption="Components">Check your answers</Heading>
+
+Renders the **Check your answers** screen for a form.
+
+<Tag>To do</Tag>

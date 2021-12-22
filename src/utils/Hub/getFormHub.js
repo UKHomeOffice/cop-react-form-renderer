@@ -1,14 +1,14 @@
 // Local imports
-import FormPage from '../FormPage';
 import { FormTypes, HubFormats } from '../../models';
+import FormPage from '../FormPage';
 
-const getFormHub = (type, hub, components) => {
+const getFormHub = (type, hub, components, formData) => {
   if (type === FormTypes.HUB && hub) {
     if (hub.format === HubFormats.CYA) {
       return HubFormats.CYA;
     }
     if (hub.components) {
-      return FormPage.get(hub, components);
+      return FormPage.get(hub, components, formData);
     }
   }
   return undefined;

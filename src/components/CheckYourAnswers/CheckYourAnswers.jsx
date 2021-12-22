@@ -1,11 +1,12 @@
 // Global imports
-import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
 import { LargeHeading, MediumHeading } from '@ukhomeoffice/cop-react-components';
+import PropTypes from 'prop-types';
+import React, { Fragment } from 'react';
 
 // Local imports
-import SummaryList from '../SummaryList';
 import Utils from '../../utils';
+import SummaryList from '../SummaryList';
+import Answer from './Answer';
 
 // Styles
 import './CheckYourAnswers.scss';
@@ -21,11 +22,18 @@ const CheckYourAnswers = ({
   const isLastPage = (index) => {
     return index === pages.length -1;
   };
+  const getRows = (page, index) => {
+    const rows = Utils.CheckYourAnswers.getRows(page, onAction);
+    return rows.map(row => ({
+      ...row,
+      value: <Answer key={index} value={row.value} component={row.component} />
+    }));
+  };
   return (
     <div className="hods-check-your-answers">
       {title && <LargeHeading key="heading">{title}</LargeHeading>}
       {pages && pages.map((page, pageIndex) => {
-        const rows = Utils.CheckYourAnswers.getRows(page, onAction);
+        const rows = getRows(page, pageIndex);
         if (rows.length === 0) {
           return null;
         }

@@ -13,6 +13,7 @@ import GRADE from '../../json/grade.json';
 import TEAMS from '../../json/team.json';
 import USER_PROFILE_DATA from '../../json/userProfile.data.json';
 import USER_PROFILE from '../../json/userProfile.json';
+import SAVE_AND_CONTINUE from '../../json/saveAndContinue.json';
 
 <Meta title="Components/Form renderer" id="D-FormRenderer" component={ FormRenderer } decorators={[withMock]} />
 
@@ -45,11 +46,6 @@ on the basis of a <Link href="/?path=/docs/f-json-form">JSON</Link> that describ
     ]
   }}>
     {() => {
-      addHook('onRequest', (req) => {
-        // Do whatever you need to do to the request in here, such as adding an Authorization header.
-        // console.log('onRequest hook called');
-        return req;
-      });
       return (
         <FormRenderer {...USER_PROFILE} data={USER_PROFILE_DATA} />
       );
@@ -60,3 +56,30 @@ on the basis of a <Link href="/?path=/docs/f-json-form">JSON</Link> that describ
 <Details summary="Properties" className="no-indent">
   <ArgsTable of={ FormRenderer } />
 </Details>
+
+## Custom hooks
+
+<Canvas>
+  <Story name="Save and continue">
+    {() => {
+      addHook('onRequest', (req) => {
+        // Do whatever you need to do to the request in here, such as adding an Authorization header.
+        console.log('onRequest hook called');
+        return req;
+      });
+      addHook('onFormLoad', () => {
+        console.log('onFormLoad called');
+      });
+      addHook('onPageChange', (pageId) => {
+        console.log('onPageChange called', pageId);
+      });
+      addHook('onSubmit', (type, payload, onSuccess, onError) => {
+        console.log('onSubmit called of type', type, 'called, with the payload', payload);
+        onSuccess();
+      });
+      return (
+        <FormRenderer {...SAVE_AND_CONTINUE} data={{}} />
+      );
+    }}
+  </Story>
+</Canvas>

@@ -1,14 +1,13 @@
 // Global imports
-import React from 'react';
-import PropTypes from 'prop-types';
 import { Utils } from '@ukhomeoffice/cop-react-components';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 // Local imports
 import RowAction from './RowAction';
 
 // Styles
 import './SummaryList.scss';
-import FormComponent from '../FormComponent';
 
 export const DEFAULT_CLASS = 'govuk-summary-list';
 const SummaryList = ({
@@ -24,13 +23,7 @@ const SummaryList = ({
       {rows.map((row, index) => (
         <div key={index} className={classes('row')}>
           <dt className={classes('key')}>{row.key}</dt>
-          <dd className={classes('value')}>
-            {row.component && row.value ?
-              <FormComponent component={{ ...row.component, readonly: true}} noWrap={true} value={row.value} />
-              :
-              row.value
-            }
-          </dd>
+          <dd className={classes('value')}>{row.value}</dd>
           {row.action &&
             <dd className={classes('actions')}>
               <RowAction row={row} />

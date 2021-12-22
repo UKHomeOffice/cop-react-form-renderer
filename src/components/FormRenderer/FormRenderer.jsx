@@ -23,7 +23,7 @@ const FormRenderer = ({
   hub: _hub,
   cya: _cya,
   data: _data,
-  hooks,
+  hooks: _hooks,
   classBlock,
   classModifiers,
   className
@@ -37,14 +37,14 @@ const FormRenderer = ({
   const [formState, setFormState] = useState(getFormState(pageId, pages, hub));
   
   // Set up hooks.
-  const { addHook } = useHooks();
+  const { hooks, addHook } = useHooks();
   useEffect(() => {
-    if (hooks) {
-      Object.keys(hooks).forEach(key => {
-        addHook(key, hooks[key]);
+    if (_hooks) {
+      Object.keys(_hooks).forEach(key => {
+        addHook(key, _hooks[key]);
       });
     }
-  }, [hooks, addHook]);
+  }, [_hooks, addHook]);
 
   // Setup data.
   useEffect(() => {
@@ -58,30 +58,44 @@ const FormRenderer = ({
 
   // Setup hub.
   useEffect(() => {
-    setHub(Utils.Hub.get(type, _hub, components));
-  }, [type, _hub, components, setHub]);
+    setHub(Utils.Hub.get(type, _hub, components, { ...data }));
+  }, [type, _hub, data, components, setHub]);
 
   // Form state.
   useEffect(() => {
     setFormState(getFormState(pageId, pages, hub));
   }, [pages, hub, pageId, setFormState]);
 
+  // Call the onFormLoad hook just when this component first renders.
+  useEffect(() => {
+    hooks.onFormLoad();
+  }, [hooks]);
+
   // Handle actions from pages.
   const onAction = (action, patch, onError) => {
     // First check the validity of the
     if (canActionProceed(action, formState.page, onError)) {
       if (action.type === 'navigate') {
-        setPageId(action.url.replace('/', ''));
+        const newPageId = action.url.replace('/', '');
+        setPageId(newPageId);
+        hooks.onPageChange(newPageId);
       } else if (action.type === 'cancel') {
         setRedoPages(Date.now);
         setPageId('hub');
+        hooks.onPageChange('hub');
       } else {
         // Submit.
         if (patch) {
           setData(prev => ({...prev, ...patch}));
         }
-        // Now submit the data to the backend and, if that succeeds...
-        setPageId('hub');
+        // Now submit the data to the backend...
+        hooks.onSubmit(action.type, { ...data, ...patch }, () => {
+          setPageId('hub');
+          hooks.onPageChange('hub');
+        }, (errors) => {
+          // Handle the errors.
+          console.error('Submission errors', errors);
+        });
       }
     }
   };
@@ -89,11 +103,12 @@ const FormRenderer = ({
   // Handle navigation from "Check your answers".
   const onCheckYourAnswerChange = (page) => {
     const action = page.action;
+    let newPageId = page.pageId;
     if (action && action.href) {
-      setPageId(action.href.replace('/', ''));
-    } else {
-      setPageId(page.pageId);
+      newPageId = action.href.replace('/', '');
     }
+    setPageId(newPageId);
+    hooks.onPageChange(newPageId);
   };
 
   const classes = Utils.classBuilder(classBlock, classModifiers, className);
@@ -101,7 +116,7 @@ const FormRenderer = ({
     <div className={classes()}>
       {title && pageId === 'hub' && <LargeHeading>{title}</LargeHeading>}
       {formState.cya && <CheckYourAnswers pages={pages} {..._cya} {...formState.cya} onAction={onCheckYourAnswerChange} />}
-      {formState.page && <FormPage page={formState.page} onAction={onAction} classes={classes} />}
+      {formState.page && <FormPage page={formState.page} onAction={onAction} />}
     </div>
   );
 };
