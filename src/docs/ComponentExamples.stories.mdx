@@ -1,0 +1,178 @@
+<!-- Global imports -->
+import { Meta } from '@storybook/addon-docs';
+import { Heading, Link } from '@ukhomeoffice/cop-react-components';
+
+<Meta title="Examples/Component" id="F-Examples-Component" />
+
+<Heading size="xl" id="json-format" caption="JSON Examples">Component examples</Heading>
+
+For an explanation of what each of the properties in the examples, below mean, 
+see <Link href="/?path=/docs/f-json-component">Component JSON</Link>.
+
+## `autocomplete`
+Use the autocomplete component if you have a large set of options that you want the user
+to be able to search through and select one from.
+
+```json
+{
+  "id": "team",
+  "fieldId": "team",
+  "label": "Team",
+  "hint": "We use this to assign you tasks",
+  "type": "autocomplete",
+  "required": true,
+  "data": {
+    "url": "{{data.environmentContext.referenceDataUrl}}/v1/entities/team"
+  },
+  "source": {
+    "field": "staffDetailsDataContext.defaultteam"
+  }
+}
+```
+
+## `email`
+Use the email component when you want users to enter an email address.
+
+```json
+{
+  "id": "delegateEmails",
+  "fieldId": "delegateEmails",
+  "label": "Delegate email",
+  "hint": "Must be a homeoffice.gov.uk or digital.homeoffice.gov.uk address",
+  "type": "email",
+  "required": true,
+  "source": {
+    "field": "extendedStaffDetailsContext.delegateEmails"
+  }
+}
+```
+
+## `heading`
+A `govuk-heading` heading component (`h1`, `h2`, etc.).
+
+Note that <Link href="/?path=/docs/f-json-component--page#id--string">id</Link> 
+and <Link href="/?path=/docs/f-json-component--page#fieldid--string">fieldId</Link> are not applicable for this type.
+
+```json
+{
+  "type":    "heading",
+  "size":    "m",
+  "content": "Mandatory declarations"
+}
+```
+
+## `html`
+A simple rendering of HTML, such as a paragraph, image, or horizontal rule.
+
+Note that <Link href="/?path=/docs/f-json-component--page#id--string">id</Link> 
+and <Link href="/?path=/docs/f-json-component--page#fieldid--string">fieldId</Link> are not applicable for this type.
+
+```json
+{
+  "type":    "html",
+  "tagName": "p",
+  "content": "Your line manager will need to review some of your forms. It’s important to keep their details up-to-date."
+}
+```
+
+* ### Simple paragraphs within pages
+There is a shortcut mechanism for rendering paragraphs in pages, which is simply to replace the JSON object with the content string
+(that this will only work within page components, not at the top level of the <Link href="/?path=/docs/f-json-form">Form JSON</Link>):
+
+```json
+// This JSON with paragraphs...
+"components": [
+  {
+    "type":    "html",
+    "tagName": "p",
+    "content": "A delegate can review a mandatory declaration on your behalf."
+  },
+  {
+    "type":    "html",
+    "tagName": "p",
+    "content": "An email will be sent to the delegate to ask if they want to approve your request."
+  },
+  {
+    "type": "inset-text",
+    "content": "The changes will show in your profile when they approve your request."
+  }
+]
+
+// ... can more simply be written as:
+"components": [
+  "A delegate can review a mandatory declaration on your behalf.",
+  "An email will be sent to the delegate to ask if they want to approve your request.",
+  {
+    "type": "inset-text",
+    "content": "The changes will show in your profile when they approve your request."
+  }
+]
+```
+
+
+## `inset-text`
+Use the inset text component to differentiate a block of text from the content that surrounds it, for example:
+
+* quotes
+* examples
+* additional information about the page
+
+Note that <Link href="/?path=/docs/f-json-component--page#id--string">id</Link> 
+and <Link href="/?path=/docs/f-json-component--page#fieldid--string">fieldId</Link> are not applicable for this type.
+
+```json
+{
+  "type":    "inset-text",
+  "content": "The changes will show in your profile when they approve your request."
+}
+```
+
+## `phone-number`
+Use the phone-number component when you want users to enter a telephone number.
+
+```json
+{
+  "id": "telephone",
+  "fieldId": "telephone",
+  "label": "Telephone number",
+  "type": "phone-number"
+}
+```
+
+## `radios`
+Use the radios component when users can only select one option from a list.
+
+```json
+{
+  "id":       "staffGradeId",
+  "fieldId":  "staffGradeId",
+  "label":    "Grade",
+  "hint":     "We use this to assign you tasks",
+  "type":     "radios",
+  "required": true,
+  "data":     {
+    "url":     "{{data.environmentContext.referenceDataUrl}}/v2/entities/grade"
+  },
+  "source": {
+    "field": "staffDetailsDataContext.gradeid"
+  }
+}
+```
+
+## `text`
+Use the text component when you want users to enter a single line of text. In the example below, the
+component is `readonly` but a text component is still used as it ensures the data is added to any
+submission payload - as it is an <Link href="/?path=/docs/f-editable-components">editable component</Link>.
+
+```json
+{
+  "id": "firstName",
+  "fieldId": "firstName",
+  "label": "First name",
+  "type": "text",
+  "readonly": true,
+  "source": {
+    "field": "keycloakContext.givenName"
+  }
+}
+```
