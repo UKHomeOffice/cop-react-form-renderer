@@ -53,7 +53,7 @@
       ],
       "actions": [
         { "type": "saveDraft", "validate": true, "label": "Save and continue" },
-        { "type": "saveDraft", "validate": true, "label": "Save and return later", "classModifiers": "secondary" }
+        { "type": "saveAndReturn", "validate": true, "label": "Save and return later", "classModifiers": "secondary" }
       ],
       "cya_link": {
         "url": "/details",

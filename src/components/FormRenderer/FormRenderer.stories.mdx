@@ -73,6 +73,8 @@ on the basis of a <Link href="/?path=/docs/f-json-form">JSON</Link> that describ
       addHook('onPageChange', (pageId) => {
         console.log('onPageChange called', pageId);
       });
+      // In whatever consumes this, do it as:
+      // intercepts.add('onSubmit', (...) => { ... })
       addHook('onSubmit', (type, payload, onSuccess, onError) => {
         console.log('onSubmit called of type', type, 'called, with the payload', payload);
         onSuccess();
