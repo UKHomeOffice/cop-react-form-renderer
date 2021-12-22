@@ -17,7 +17,7 @@ const ActionButton = ({
     return null;
   }
   return (
-    <Button {...attrs} className={action.className} onClick={() => onAction(action)}>
+    <Button {...attrs} className={action.className} classModifiers={action.classModifiers} onClick={() => onAction(action)}>
       {action.label || DEFAULT_LABEL}
     </Button>
   );
