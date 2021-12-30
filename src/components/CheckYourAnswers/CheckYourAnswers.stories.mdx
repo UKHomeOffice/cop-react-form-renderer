@@ -1,0 +1,100 @@
+<!-- Global imports -->
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
+import { Details, Heading, Link, Tag } from '@ukhomeoffice/cop-react-components';
+import withMock from 'storybook-addon-mock';
+
+<!-- Local imports -->
+import Utils from '../../utils';
+import CheckYourAnswers from './CheckYourAnswers';
+
+<!-- JSON documents -->
+import CIVIL_SERVANT from '../../json/areYouACivilServant.json';
+import GRADE from '../../json/grade.json';
+import TEAMS from '../../json/team.json';
+import USER_PROFILE_DATA from '../../json/userProfile.data.json';
+import USER_PROFILE from '../../json/userProfile.json';
+
+<Meta title="Components/Check your answers" id="D-CheckYourAnswers" component={ CheckYourAnswers } decorators={[withMock]} />
+
+<Heading size="xl" caption="Components">Check your answers</Heading>
+
+Renders the **Check your answers** screen for a form.
+
+<Canvas withToolbar>
+  <Story name="Default" parameters={{
+    mockData: [
+      {
+        url: `${USER_PROFILE_DATA.environmentContext.referenceDataUrl}/v2/entities/areYouACivilServant`,
+        method: 'GET',
+        status: 200,
+        response: CIVIL_SERVANT
+      },
+      {
+        url: `${USER_PROFILE_DATA.environmentContext.referenceDataUrl}/v2/entities/grade`,
+        method: 'GET',
+        status: 200,
+        response: GRADE
+      },
+      {
+        url: `${USER_PROFILE_DATA.environmentContext.referenceDataUrl}/v1/entities/team`,
+        method: 'GET',
+        status: 200,
+        response: TEAMS
+      }
+    ]
+  }}>
+    {() => {
+      const DATA = Utils.Data.setupForm(USER_PROFILE.pages, USER_PROFILE.components, USER_PROFILE_DATA)
+      const PAGES = Utils.FormPage.getAll(USER_PROFILE.pages, USER_PROFILE.components, { ...DATA });
+      const ON_ACTION = (action, patch, onError) => {
+        console.log('action invoked', action, patch);
+      };
+      return (
+        <CheckYourAnswers pages={PAGES} onAction={ON_ACTION} />
+      );
+    }}
+  </Story>
+</Canvas>
+
+<Details summary="Properties" className="no-indent">
+  <ArgsTable of={ CheckYourAnswers } />
+</Details>
+
+## Variant
+### Without page titles
+
+<Canvas>
+  <Story name="No page titles" parameters={{
+    mockData: [
+      {
+        url: `${USER_PROFILE_DATA.environmentContext.referenceDataUrl}/v2/entities/areYouACivilServant`,
+        method: 'GET',
+        status: 200,
+        response: CIVIL_SERVANT
+      },
+      {
+        url: `${USER_PROFILE_DATA.environmentContext.referenceDataUrl}/v2/entities/grade`,
+        method: 'GET',
+        status: 200,
+        response: GRADE
+      },
+      {
+        url: `${USER_PROFILE_DATA.environmentContext.referenceDataUrl}/v1/entities/team`,
+        method: 'GET',
+        status: 200,
+        response: TEAMS
+      }
+    ]
+  }}>
+    {() => {
+      const DATA = Utils.Data.setupForm(USER_PROFILE.pages, USER_PROFILE.components, USER_PROFILE_DATA)
+      const PAGES = Utils.FormPage.getAll(USER_PROFILE.pages, USER_PROFILE.components, { ...DATA });
+      const ON_ACTION = (action, patch, onError) => {
+        console.log('action invoked', action, patch);
+      };
+      return (
+        <CheckYourAnswers pages={PAGES} hide_page_titles={true} onAction={ON_ACTION} />
+      );
+    }}
+  </Story>
+</Canvas>
