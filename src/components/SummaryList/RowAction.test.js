@@ -9,14 +9,6 @@ describe('components', () => {
 
   describe('SummaryList.RowAction', () => {
 
-    it('should handle a null row', () => {
-      const ROW = null;
-      const { container } = render(
-        <RowAction row={ROW} />
-      );
-      expect(container.childNodes.length).toEqual(0);
-    });
-
     it('should handle a row without an action', () => {
       const ROW = {};
       const { container } = render(

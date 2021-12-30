@@ -12,7 +12,7 @@ const RowAction = ({ row }) => {
     setAttrs(getRowActionAttributes(row));
   }, [row, setAttrs]);
 
-  if (!row?.action) {
+  if (!row.action) {
     return null;
   }
 
