@@ -1,0 +1,9 @@
+@import "node_modules/govuk-frontend/govuk/_base";
+@import "node_modules/govuk-frontend/govuk/components/summary-list/_summary-list";
+
+.govuk-summary-list__actions {
+  .govuk-link {
+    color: govuk-colour('blue');
+    cursor: pointer;
+  }
+}
