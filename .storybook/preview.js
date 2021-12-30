@@ -29,7 +29,17 @@ addParameters({
   },
   options: {
     isToolshown: false,
-    initialActive: 'docs'
+    initialActive: 'docs',
+    storySort: {
+      order: [
+        'Components',
+        ['Form renderer', 'Form page', 'Page actions', 'Form component', 'Check your answers', 'Summary list'],
+        'JSON Format',
+        ['Form', 'Form types', 'Page', 'Component', 'Component types', 'Editable components'],
+        'Examples',
+        ['Form', 'Page', 'Component', 'Conditional display']
+      ]
+    }
   },
   viewMode: 'docs',
   selectedPanel: undefined,
