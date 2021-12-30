@@ -1,0 +1,36 @@
+<!-- Global imports -->
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
+import { Details, Heading } from '@ukhomeoffice/cop-react-components';
+
+<!-- Local imports -->
+import Utils from '../../utils';
+import SummaryList from './SummaryList';
+
+<Meta title="Components/Summary list" id="D-SummaryList" component={ SummaryList } />
+
+<Heading size="xl" caption="Components">Summary list</Heading>
+
+Renders a list of key-value pairs, most commonly on the **Check your answers** screen, and optionally
+display action links.
+
+<Canvas withToolbar>
+  <Story name="Default">
+    {() => {
+      const onAction = (row) => {
+        console.log('action clicked', row);
+      };
+      const ROWS = [
+        { pageId: 'p1', fieldId: 'forename', key: 'Forename(s)', value: 'John' },
+        { pageId: 'p1', fieldId: 'surname', key: 'Surname', value: 'Smith' },
+        { pageId: 'p2', fieldId: 'dob', key: 'Date of birth', value: '29/08/1993', action: { label: 'Change', onAction } },
+      ];
+      return (
+        <SummaryList rows={ROWS} />
+      );
+    }}
+  </Story>
+</Canvas>
+
+<Details summary="Properties" className="no-indent">
+  <ArgsTable of={ SummaryList } />
+</Details>
