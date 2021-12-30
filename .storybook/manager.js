@@ -1,6 +1,8 @@
-import React from 'react';
+// Global imports
 import { addons } from '@storybook/addons';
+import React from 'react';
 
+// Local imports
 import GovUKTheme from './govuk-theme';
 
 addons.setConfig({
