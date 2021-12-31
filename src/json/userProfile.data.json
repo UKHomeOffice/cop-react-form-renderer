@@ -6,6 +6,7 @@
     "givenName": "John",
     "familyName": "Smith"
   },
+  "areYouACivilServant": "yes",
   "staffDetailsDataContext": {},
   "extendedStaffDetailsContext": {
     "linemanagerEmail": "line.manager@digital.homeoffice.gov.uk",
