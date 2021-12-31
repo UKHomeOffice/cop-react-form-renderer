@@ -1,5 +1,4 @@
 // Local imports
-import { ComponentTypes } from '../../models';
 import validateRequired from './validateRequired';
 
 /**
