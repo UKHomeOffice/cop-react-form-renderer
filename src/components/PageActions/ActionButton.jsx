@@ -28,4 +28,8 @@ ActionButton.propTypes = {
   onAction: PropTypes.func.isRequired
 };
 
+ActionButton.defaultProps = {
+  action: ''
+};
+
 export default ActionButton;
