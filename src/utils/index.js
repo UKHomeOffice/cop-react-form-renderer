@@ -8,6 +8,7 @@ import Data from './Data';
 import FormPage from './FormPage';
 import Hub from './Hub';
 import meetsCondition from './meetsCondition';
+import Validate from './Validate';
 
 const Utils = {
   CheckYourAnswers,
@@ -16,6 +17,7 @@ const Utils = {
   FormPage,
   Hub,
   meetsCondition,
+  Validate,
   ...HOUtils
 };
 
