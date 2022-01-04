@@ -5,9 +5,13 @@
  * @returns A page id.
  */
 const getPageId = (action, pageId) => {
-  if (action && action.href) {
+  if (action) {
     // TODO: Improve how this is handled.
-    return action.href.split('/').pop();
+    if (action.href) {
+      return action.href.split('/').pop();
+    } else if (action.url) {
+      return action.url.split('/').pop();
+    }
   }
   return pageId;
 };
