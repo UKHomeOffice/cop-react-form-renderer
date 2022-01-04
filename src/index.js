@@ -1,10 +1,12 @@
 // Local imports
-import { addHook } from './hooks/useHooks';
+import { addHook, removeHook, resetHooks } from './hooks/useHooks';
 import { FormTypes, HubFormats } from './models';
 import Utils from './utils';
 
 const intercepts = {
-  add: addHook
+  add: addHook,
+  remove: removeHook,
+  reset: resetHooks
 };
 
 export {
