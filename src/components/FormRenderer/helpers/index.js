@@ -1,6 +1,9 @@
 // Local imports
+import canActionProceed from './canActionProceed';
 import getFormState from './getFormState';
 
-export {
+export const helpers = {
+  canActionProceed,
   getFormState
 };
+export default helpers;
