@@ -44,6 +44,13 @@ describe('utils', () => {
             error: `${LABEL} is required`
           });
         });
+  
+        it('should return no error when the component is of type email but not required', () => {
+          const ID = 'field';
+          const LABEL = 'Field';
+          const COMPONENT = setup(ID, ComponentTypes.EMAIL, LABEL, false);
+          expect(validateComponent(COMPONENT, null)).toBeUndefined();
+        });
 
       });
 
@@ -61,6 +68,54 @@ describe('utils', () => {
           const LABEL = 'Field';
           const COMPONENT = setup(ID, ComponentTypes.TEXT, LABEL, true);
           expect(validateComponent(COMPONENT, DATA)).toBeUndefined();
+        });
+  
+        it('should return no error when the component is required and of type email', () => {
+          const LABEL = 'Field';
+          const COMPONENT = setup(ID, ComponentTypes.EMAIL, LABEL, true);
+          expect(validateComponent(COMPONENT, DATA)).toBeUndefined();
+        });
+  
+        it('should return no error when the component is of type email but not required', () => {
+          const LABEL = 'Field';
+          const COMPONENT = setup(ID, ComponentTypes.EMAIL, LABEL, false);
+          expect(validateComponent(COMPONENT, DATA)).toBeUndefined();
+        });
+
+      });
+
+      describe('when the value is an invalid email', () => {
+        const ID = 'field';
+        const DATA = { [ID]: 'alpha.bravo@hotmail.com' };
+
+        it('should return no error when the component is not required and not an email type', () => {
+          const LABEL = 'Field';
+          const COMPONENT = setup(ID, ComponentTypes.TEXT, LABEL, false);
+          expect(validateComponent(COMPONENT, DATA)).toBeUndefined();
+        });
+  
+        it('should return no error when the component is required and not an email type', () => {
+          const LABEL = 'Field';
+          const COMPONENT = setup(ID, ComponentTypes.TEXT, LABEL, true);
+          expect(validateComponent(COMPONENT, DATA)).toBeUndefined();
+        });
+  
+        it('should return no error when the component is required and of type email', () => {
+          const LABEL = 'Field';
+          const COMPONENT = setup(ID, ComponentTypes.EMAIL, LABEL, true);
+          expect(validateComponent(COMPONENT, DATA)).toEqual({
+            id: ID,
+            error: `Enter ${LABEL.toLowerCase()} in the correct format, like jane.doe@homeoffice.gov.uk`
+          });
+        });
+  
+        it('should return no error when the component is of type email but not required', () => {
+          const LABEL = 'Field';
+          const COMPONENT = setup(ID, ComponentTypes.EMAIL, LABEL, false);
+          expect(validateComponent(COMPONENT, DATA)).toEqual({
+            id: ID,
+            error: `Enter ${LABEL.toLowerCase()} in the correct format, like jane.doe@homeoffice.gov.uk`
+          });
         });
 
       });
