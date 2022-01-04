@@ -6,6 +6,7 @@ import CheckYourAnswers from './CheckYourAnswers';
 import Component from './Component';
 import Data from './Data';
 import FormPage from './FormPage';
+import Hub from './Hub';
 import meetsCondition from './meetsCondition';
 
 const Utils = {
@@ -13,6 +14,7 @@ const Utils = {
   Component,
   Data,
   FormPage,
+  Hub,
   meetsCondition,
   ...HOUtils
 };
