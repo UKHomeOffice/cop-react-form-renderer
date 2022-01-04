@@ -1,11 +1,19 @@
-const ALLOWED_HOOKS = ['onRequest'];
+export const ALLOWED_HOOKS = ['onRequest', 'onFormLoad', 'onPageChange', 'onSubmit'];
 
 const DEFAULT_HOOKS = {
-  onRequest: (req) => req
+  onRequest: (req) => req,
+  onFormLoad: () => {},
+  onPageChange: (pageId) => pageId,
+  onSubmit: (type, payload, onSuccess, onError) => {
+    if (typeof onSuccess === 'function') onSuccess();
+  }
 };
 
 const hooks = {
-  onRequest: (req) => req
+  onRequest: DEFAULT_HOOKS.onRequest,
+  onFormLoad: DEFAULT_HOOKS.onFormLoad,
+  onPageChange: DEFAULT_HOOKS.onPageChange,
+  onSubmit: DEFAULT_HOOKS.onSubmit
 };
 
 export const addHook = (name, hook) => {
