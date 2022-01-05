@@ -114,13 +114,13 @@ By default, you start off with the form from the examples used throughout this d
           <div className="govuk-tabs">
             <ul className="govuk-tabs__list">
               <li className={`govuk-tabs__list-item ${mode === 'preview' ? 'govuk-tabs__list-item--selected' : ''}`}>
-                <a class="govuk-tabs__tab" onClick={() => preview()}>Preview</a>
+                <a className="govuk-tabs__tab" onClick={() => preview()}>Preview</a>
               </li>
               <li className={`govuk-tabs__list-item ${mode === 'editJSON' ? 'govuk-tabs__list-item--selected' : ''}`}>
-                <a class="govuk-tabs__tab" onClick={() => setMode('editJSON')}>Form JSON</a>
+                <a className="govuk-tabs__tab" onClick={() => setMode('editJSON')}>Form JSON</a>
               </li>
               <li className={`govuk-tabs__list-item ${mode === 'editData' ? 'govuk-tabs__list-item--selected' : ''}`}>
-                <a class="govuk-tabs__tab" onClick={() => setMode('editData')}>Initial data</a>
+                <a className="govuk-tabs__tab" onClick={() => setMode('editData')}>Initial data</a>
               </li>
             </ul>
             <div className={`govuk-tabs__panel ${mode !== 'preview' ? 'govuk-tabs__panel--hidden' : ''}`}>
