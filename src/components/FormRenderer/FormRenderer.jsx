@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 
 // Local imports
 import { useHooks } from '../../hooks';
-import { FormTypes } from '../../models';
+import { EventTypes, FormTypes } from '../../models';
 import Utils from '../../utils';
 import CheckYourAnswers from '../CheckYourAnswers';
 import FormPage from '../FormPage';
@@ -85,7 +85,8 @@ const FormRenderer = ({
         handlers.navigate(action, pageId, onPageChange);
       } else {
         // Submit.
-        const submissionData = patch ? { ...data, ...patch } : { ...data };
+        const rawData = patch ? { ...data, ...patch } : { ...data };
+        const submissionData = Utils.Format.form({ pages, components }, rawData, EventTypes.SUBMIT);
         if (patch) {
           setData(submissionData);
         }
@@ -124,7 +125,10 @@ FormRenderer.propTypes = {
   cya: PropTypes.object,
   data: PropTypes.object,
   hooks: PropTypes.shape({
-    onRequest: PropTypes.func
+    onFormLoad: PropTypes.func,
+    onPageChange: PropTypes.func,
+    onRequest: PropTypes.func,
+    onSubmit: PropTypes.func
   }),
   classBlock: PropTypes.string,
   classModifiers: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
