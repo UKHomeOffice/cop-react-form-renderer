@@ -1,7 +1,6 @@
 {
   "id": "userProfile",
   "version": "1",
-  "newCOP": true,
   "name": "userProfile",
   "title": "Your profile",
   "type": "hub-and-spoke",
@@ -77,6 +76,10 @@
       "label": "Line manager email",
       "hint": "Must be a homeoffice.gov.uk or digital.homeoffice.gov.uk address",
       "type": "email",
+      "format": {
+        "type": "lowercase",
+        "on": "submit"
+      },
       "required": true,
       "source": {
         "field": "extendedStaffDetailsContext.linemanagerEmail"
@@ -88,6 +91,10 @@
       "label": "Delegate email",
       "hint": "Must be a homeoffice.gov.uk or digital.homeoffice.gov.uk address",
       "type": "email",
+      "format": {
+        "type": "lowercase",
+        "on": "submit"
+      },
       "required": true,
       "source": {
         "field": "extendedStaffDetailsContext.delegateEmails"
