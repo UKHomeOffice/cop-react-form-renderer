@@ -28,7 +28,7 @@ describe('components', () => {
     let container = null;
 
     const refDataUrl = (suffix) => {
-      return `${USER_PROFILE_DATA.environmentContext.referenceDataUrl}/${suffix}`;
+      return `${USER_PROFILE_DATA.urls.refData}/${suffix}`;
     }
 
     beforeEach(() => {
@@ -37,9 +37,9 @@ describe('components', () => {
       document.body.appendChild(container);
       mockAxios.reset();
 
-      mockAxios.onGet(refDataUrl('v2/entities/areYouACivilServant')).reply(200, CIVIL_SERVANT);
-      mockAxios.onGet(refDataUrl('v2/entities/grade')).reply(200, GRADE);
-      mockAxios.onGet(refDataUrl('v1/entities/team')).reply(200, TEAMS);
+      mockAxios.onGet(refDataUrl('areYouACivilServant')).reply(200, CIVIL_SERVANT);
+      mockAxios.onGet(refDataUrl('grade')).reply(200, GRADE);
+      mockAxios.onGet(refDataUrl('team')).reply(200, TEAMS);
     });
 
     afterEach(() => {
