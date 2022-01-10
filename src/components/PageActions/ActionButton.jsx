@@ -22,7 +22,8 @@ const ActionButton = ({
       className={action.className}
       classModifiers={action.classModifiers}
       start={action.start || false}
-      onClick={() => onAction(action)}>
+      onClick={() => onAction(action)}
+    >
       {action.label || DEFAULT_LABEL}
     </Button>
   );
