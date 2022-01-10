@@ -1,5 +1,5 @@
 // Local imports
-import { HubFormats } from '../../../models';
+import { FormPages, HubFormats } from '../../../models';
 
 /**
  * Gets the current page to render, which may be undefined if the current page is the "hub".
@@ -10,7 +10,7 @@ import { HubFormats } from '../../../models';
  */
 const getPage = (pageId, pages, hub) => {
   if (pageId) {
-    if (pageId === 'hub') {
+    if (pageId === FormPages.HUB) {
       return hub === HubFormats.CYA ? undefined : hub;
     }
     return pages.find(p => p.id === pageId);

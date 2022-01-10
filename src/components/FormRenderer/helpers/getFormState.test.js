@@ -1,5 +1,5 @@
 // Local imports
-import { HubFormats } from '../../../models';
+import { FormPages, HubFormats } from '../../../models';
 import getFormState from './getFormState';
 
 describe('components', () => {
@@ -7,7 +7,7 @@ describe('components', () => {
   describe('FormRenderer', () => {
 
     describe('helpers', () => {
-      const HUB = { id: 'hub', components: [] };
+      const HUB = { id: FormPages.HUB, components: [] };
       const PAGES = [
         { id: 'alpha', components: ['x'] },
         { id: 'bravo', components: ['y', 'z'] },
@@ -17,24 +17,24 @@ describe('components', () => {
       describe('getFormState', () => {
 
         it('should set up accordingly when viewing a hub that is the CYA', () => {
-          expect(getFormState('hub', PAGES, HubFormats.CYA)).toEqual({
-            pageId: 'hub',
+          expect(getFormState(FormPages.HUB, PAGES, HubFormats.CYA)).toEqual({
+            pageId: FormPages.HUB,
             cya: { title: '' },
             page: undefined
           });
         });
 
         it('should set up accordingly when viewing a hub that is NOT the CYA', () => {
-          expect(getFormState('hub', PAGES, HUB)).toEqual({
-            pageId: 'hub',
+          expect(getFormState(FormPages.HUB, PAGES, HUB)).toEqual({
+            pageId: FormPages.HUB,
             cya: undefined,
             page: HUB
           });
         });
 
         it('should set up accordingly when viewing the CYA', () => {
-          expect(getFormState(HubFormats.CYA, PAGES, HUB)).toEqual({
-            pageId: HubFormats.CYA,
+          expect(getFormState(FormPages.CYA, PAGES, HUB)).toEqual({
+            pageId: FormPages.CYA,
             cya: {},
             page: undefined
           });
