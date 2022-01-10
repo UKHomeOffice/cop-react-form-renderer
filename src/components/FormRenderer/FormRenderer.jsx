@@ -109,8 +109,8 @@ const FormRenderer = ({
   const classes = Utils.classBuilder(classBlock, classModifiers, className);
   return (
     <div className={classes()}>
-      {formState.cya && <CheckYourAnswers pages={pages} {...cya} {...formState.cya} onAction={onCYAAction} />}
       {title && pageId === FormPages.HUB && <LargeHeading>{title}</LargeHeading>}
+      {formState.cya && <CheckYourAnswers pages={pages} {...cya} {...formState.cya} onAction={onCYAAction} />}
       {formState.page && <FormPage page={formState.page} onAction={onPageAction} />}
     </div>
   );
