@@ -1,6 +1,7 @@
 <!-- Global imports -->
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
-import { Details, Heading, Link } from '@ukhomeoffice/cop-react-components';
+import { Button, Details, Heading, Link, Panel } from '@ukhomeoffice/cop-react-components';
+import { useState } from 'react';
 import withMock from 'storybook-addon-mock';
 
 <!-- Local imports -->
@@ -9,11 +10,11 @@ import FormRenderer from './FormRenderer';
 
 <!-- JSON documents -->
 import CIVIL_SERVANT from '../../json/areYouACivilServant.json';
+import FIRST_FORM from '../../json/firstForm.json';
 import GRADE from '../../json/grade.json';
 import TEAMS from '../../json/team.json';
 import USER_PROFILE_DATA from '../../json/userProfile.data.json';
 import USER_PROFILE from '../../json/userProfile.json';
-import SAVE_AND_CONTINUE from '../../json/saveAndContinue.json';
 
 <Meta title="Components/Form renderer" id="D-FormRenderer" component={ FormRenderer } decorators={[withMock]} />
 
@@ -57,11 +58,13 @@ on the basis of a <Link href="/?path=/docs/f-json-form">JSON</Link> that describ
   <ArgsTable of={ FormRenderer } />
 </Details>
 
-## Custom hooks
+## CYA type
 
 <Canvas>
-  <Story name="Save and continue">
+  <Story name="CYA">
     {() => {
+      const [complete, setComplete] = useState(false);
+      const [returnLater, setReturnLater] = useState(false);
       addHook('onRequest', (req) => {
         // Do whatever you need to do to the request in here, such as adding an Authorization header.
         console.log('onRequest hook called');
@@ -70,20 +73,42 @@ on the basis of a <Link href="/?path=/docs/f-json-form">JSON</Link> that describ
       addHook('onFormLoad', () => {
         console.log('onFormLoad called');
       });
+      addHook('onFormComplete', () => {
+        console.log('onFormComplete called');
+        setComplete(true);
+      });
       addHook('onPageChange', (pageId) => {
         console.log('onPageChange called', pageId);
+        setReturnLater(!!pageId === false);
       });
-      
-      /**
-       * In whatever consumes this, do it as:
-       *   intercepts.add('onSubmit', (...) => { ... })
-       */
       addHook('onSubmit', (type, payload, onSuccess, onError) => {
         console.log('onSubmit called of type', type, 'called, with the payload', payload);
         onSuccess();
       });
+      const reset = () => {
+        setComplete(false);
+        setReturnLater(false);
+      };
       return (
-        <FormRenderer {...SAVE_AND_CONTINUE} data={{}} />
+        <>
+        {!complete && !returnLater && <FormRenderer {...FIRST_FORM} data={{}} />}
+        {complete &&
+          <div>
+            <Panel title="Submission successful">
+              Your submission was successful.
+            </Panel>
+            <Button onClick={() => reset()}>Start again</Button>
+          </div>
+        }
+        {!complete && returnLater &&
+          <div>
+            <Panel title="Saved to return later">
+              You clicked on "Save and return later".
+            </Panel>
+            <Button onClick={() => reset()}>Start again</Button>
+          </div>
+        }
+        </>
       );
     }}
   </Story>

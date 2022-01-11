@@ -21,9 +21,13 @@ describe('components', () => {
     const mockAxios = new MockAdapter(axios);
     const DATA = Utils.Data.setupForm(USER_PROFILE.pages, USER_PROFILE.components, USER_PROFILE_DATA)
     const PAGES = Utils.FormPage.getAll(USER_PROFILE.pages, USER_PROFILE.components, { ...DATA });
+    const ON_ROW_ACTION_CALLS = [];
+    const ON_ROW_ACTION = (row) => {
+      ON_ROW_ACTION_CALLS.push(row);
+    };
     const ON_ACTION_CALLS = [];
-    const ON_ACTION = (row) => {
-      ON_ACTION_CALLS.push(row);
+    const ON_ACTION = (action, onError) => {
+      ON_ACTION_CALLS.push({ action, onError });
     };
     let container = null;
 
@@ -32,6 +36,7 @@ describe('components', () => {
     }
 
     beforeEach(() => {
+      ON_ROW_ACTION_CALLS.length = 0;
       ON_ACTION_CALLS.length = 0;
       container = document.createElement('div');
       document.body.appendChild(container);
@@ -67,7 +72,7 @@ describe('components', () => {
 
     it('should show default title if none is provided', async () => {
       await act(async () => {
-        render(<CheckYourAnswers pages={PAGES} onAction={ON_ACTION} />, container);
+        render(<CheckYourAnswers pages={PAGES} onRowAction={ON_ROW_ACTION} onAction={ON_ACTION} />, container);
       });
       const cya = checkCYA(container);
       const title = cya.childNodes[0];
@@ -78,7 +83,7 @@ describe('components', () => {
     it('should allow title to be overridden', async () => {
       const TITLE = 'Alpha Bravo Charlie';
       await act(async () => {
-        render(<CheckYourAnswers title={TITLE} pages={PAGES} onAction={ON_ACTION} />, container);
+        render(<CheckYourAnswers title={TITLE} pages={PAGES} onRowAction={ON_ROW_ACTION} onAction={ON_ACTION} />, container);
       });
       const cya = checkCYA(container);
       const title = cya.childNodes[0];
@@ -88,7 +93,7 @@ describe('components', () => {
 
     it('should show readonly page components correctly', async () => {
       await act(async () => {
-        render(<CheckYourAnswers pages={PAGES} onAction={ON_ACTION} />, container);
+        render(<CheckYourAnswers pages={PAGES} onRowAction={ON_ROW_ACTION} onAction={ON_ACTION} />, container);
       });
       const cya = checkCYA(container);
       const [ , names ] = cya.childNodes;
@@ -101,7 +106,7 @@ describe('components', () => {
 
     it('should show editable page components correctly', async () => {
       await act(async () => {
-        render(<CheckYourAnswers pages={PAGES} onAction={ON_ACTION} />, container);
+        render(<CheckYourAnswers pages={PAGES} onRowAction={ON_ROW_ACTION} onAction={ON_ACTION} />, container);
       });
       const cya = checkCYA(container);
       const [ , , title, civilServant ] = cya.childNodes;
@@ -114,7 +119,7 @@ describe('components', () => {
 
     it('should show editable page components correctly with page titles hidden', async () => {
       await act(async () => {
-        render(<CheckYourAnswers pages={PAGES} onAction={ON_ACTION} hide_page_titles={true} />, container);
+        render(<CheckYourAnswers pages={PAGES} onRowAction={ON_ROW_ACTION} onAction={ON_ACTION} hide_page_titles={true} />, container);
       });
       const cya = checkCYA(container);
       const [ , , civilServant ] = cya.childNodes; // The title simply isn't returned

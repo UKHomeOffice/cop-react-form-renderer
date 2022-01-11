@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 
 // Local imports
 import { useHooks } from '../../hooks';
-import { EventTypes, FormPages, FormTypes } from '../../models';
+import { EventTypes, FormPages, FormTypes, PageAction } from '../../models';
 import Utils from '../../utils';
 import CheckYourAnswers from '../CheckYourAnswers';
 import FormPage from '../FormPage';
@@ -101,15 +101,43 @@ const FormRenderer = ({
   };
 
   // Handle navigation from "Check your answers".
-  const onCYAAction = (page) => {
+  const onCYARowAction = (page) => {
     handlers.cyaAction(page, pageId, onPageChange);
+  };
+
+  // Handle actions from "Check your answers".
+  const onCYAAction = (action, onError) => {
+    // Check to see whether the action is able to proceed, which in
+    // in the case of a submission will validate the fields in the page.
+    if (action.type === PageAction.TYPES.SUBMIT) {
+      if (helpers.canCYASubmit(pages, onError)) {
+        // Submit.
+        const submissionData = Utils.Format.form({ pages, components }, { ...data }, EventTypes.SUBMIT);
+        setData(submissionData);
+        // Now submit the data to the backend...
+        hooks.onSubmit(action.type, submissionData, () => {
+          hooks.onFormComplete()
+        }, (errors) => {
+          handlers.submissionError(errors, onError);
+        });
+      }
+    }
   };
 
   const classes = Utils.classBuilder(classBlock, classModifiers, className);
   return (
     <div className={classes()}>
       {title && pageId === FormPages.HUB && <LargeHeading>{title}</LargeHeading>}
-      {formState.cya && <CheckYourAnswers pages={pages} {...cya} {...formState.cya} onAction={onCYAAction} />}
+      {
+        formState.cya &&
+        <CheckYourAnswers
+          pages={pages}
+          {...cya}
+          {...formState.cya}
+          onAction={onCYAAction}
+          onRowAction={onCYARowAction}
+        />
+      }
       {formState.page && <FormPage page={formState.page} onAction={onPageAction} />}
     </div>
   );
