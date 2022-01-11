@@ -1,19 +1,22 @@
 // Global imports
+import { fireEvent } from '@testing-library/react';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import React from 'react';
-import { fireEvent } from '@testing-library/react';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
 
 // Local imports
+import { PageAction } from '../../models';
+import { DEFAULT_CLASS as CYA_DEFAULT_CLASS } from '../CheckYourAnswers/CheckYourAnswers';
+import FormRenderer, { DEFAULT_CLASS } from './FormRenderer';
+
+// JSON
 import CIVIL_SERVANT from '../../json/areYouACivilServant.json';
 import GRADE from '../../json/grade.json';
 import TEAMS from '../../json/team.json';
 import USER_PROFILE_DATA from '../../json/userProfile.data.json';
 import USER_PROFILE from '../../json/userProfile.json';
-import FormRenderer, { DEFAULT_CLASS } from './FormRenderer';
-import { DEFAULT_CLASS as CYA_DEFAULT_CLASS } from '../CheckYourAnswers/CheckYourAnswers';
 
 describe('components', () => {
 
@@ -140,7 +143,7 @@ describe('components', () => {
       expect(ON_SUBMIT_CALLS.length).toEqual(0);
       fireEvent.click(continueButton, {});
       expect(ON_SUBMIT_CALLS.length).toEqual(1);
-      expect(ON_SUBMIT_CALLS[0].type).toEqual('submit');
+      expect(ON_SUBMIT_CALLS[0].type).toEqual(PageAction.TYPES.SUBMIT);
       expect(ON_SUBMIT_CALLS[0].payload.areYouACivilServant).toEqual('yes');
 
       // And we should be back on the hub.
@@ -176,7 +179,7 @@ describe('components', () => {
       expect(ON_SUBMIT_CALLS.length).toEqual(0);
       fireEvent.click(continueButton, {});
       expect(ON_SUBMIT_CALLS.length).toEqual(1);
-      expect(ON_SUBMIT_CALLS[0].type).toEqual('submit');
+      expect(ON_SUBMIT_CALLS[0].type).toEqual(PageAction.TYPES.SUBMIT);
       expect(ON_SUBMIT_CALLS[0].payload.areYouACivilServant).toEqual('yes');
 
       // And we should be kept on the same page.
