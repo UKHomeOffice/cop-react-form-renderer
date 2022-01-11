@@ -1,10 +1,12 @@
 // Global imports
-import { LargeHeading, MediumHeading } from '@ukhomeoffice/cop-react-components';
+import { ErrorSummary, LargeHeading, MediumHeading } from '@ukhomeoffice/cop-react-components';
 import PropTypes from 'prop-types';
 import React, { Fragment, useEffect, useState } from 'react';
 
 // Local imports
+import { PageAction } from '../../models';
 import Utils from '../../utils';
+import PageActions from '../PageActions';
 import SummaryList from '../SummaryList';
 import Answer from './Answer';
 
@@ -17,14 +19,17 @@ export const DEFAULT_MARGIN_BOTTOM = 9;
 const CheckYourAnswers = ({
   title,
   pages: _pages,
+  onAction,
+  onRowAction,
   hide_page_titles,
-  onAction
+  hide_actions
 }) => {
   const [pages, setPages] = useState([]);
+  const [errors, setErrors] = useState([]);
 
   useEffect(() => {
     const getRows = (page, pageIndex) => {
-      const rows = Utils.CheckYourAnswers.getRows(page, onAction);
+      const rows = Utils.CheckYourAnswers.getRows(page, onRowAction);
       return rows.map((row, index) => ({
         ...row,
         value: <Answer key={`${pageIndex}_${index}`} value={row.value} component={row.component} />
@@ -35,16 +40,21 @@ const CheckYourAnswers = ({
       const rows = getRows(page, index);
       return rows.length > 0 ? { ...page, rows } : null;
     }).filter(p => !!p));
-  }, [_pages, onAction, setPages]);
+  }, [_pages, onRowAction, setPages]);
 
   const listMarginBottom = hide_page_titles ? 0 : DEFAULT_MARGIN_BOTTOM;
   const isLastPage = (index) => {
     return index === pages.length -1;
   };
 
+  const onError = (errors) => {
+    setErrors(errors);
+  };
+
   return (
     <div className={DEFAULT_CLASS}>
       {title && <LargeHeading key="heading">{title}</LargeHeading>}
+      {errors && errors.length > 0 && <ErrorSummary errors={errors} />}
       {pages && pages.map((page, pageIndex) => {
         const pageMarginBottom = isLastPage(pageIndex) ? DEFAULT_MARGIN_BOTTOM : listMarginBottom;
         const className = `govuk-!-margin-bottom-${pageMarginBottom}`;
@@ -55,6 +65,7 @@ const CheckYourAnswers = ({
           </Fragment>
         );
       })}
+      {!hide_actions && <PageActions actions={[PageAction.TYPES.SUBMIT]} onAction={(action) => onAction(action, onError)} />}
     </div>
   )
 };
@@ -62,12 +73,16 @@ const CheckYourAnswers = ({
 CheckYourAnswers.propTypes = {
   title: PropTypes.string.isRequired,
   pages: PropTypes.arrayOf(PropTypes.object).isRequired,
-  hide_page_titles: PropTypes.bool
+  onAction: PropTypes.func.isRequired,
+  onRowAction: PropTypes.func.isRequired,
+  hide_page_titles: PropTypes.bool,
+  hide_actions: PropTypes.bool
 };
 
 CheckYourAnswers.defaultProps = {
   title: DEFAULT_TITLE,
-  hide_page_titles: false
+  hide_page_titles: false,
+  hide_actions: false
 };
 
 export default CheckYourAnswers;
