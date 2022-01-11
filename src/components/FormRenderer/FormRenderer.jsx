@@ -85,8 +85,7 @@ const FormRenderer = ({
         handlers.navigate(action, pageId, onPageChange);
       } else {
         // Submit.
-        const rawData = patch ? { ...data, ...patch } : { ...data };
-        const submissionData = Utils.Format.form({ pages, components }, rawData, EventTypes.SUBMIT);
+        const submissionData = Utils.Format.form({ pages, components }, { ...data, ...patch }, EventTypes.SUBMIT);
         if (patch) {
           setData(submissionData);
         }
