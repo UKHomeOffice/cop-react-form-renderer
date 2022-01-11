@@ -3,7 +3,8 @@ import { fireEvent, render } from '@testing-library/react';
 import React from 'react';
 
 // Local imports
-import { DEFAULT_ACTIONS, DEFAULT_LABEL } from '../PageActions/ActionButton';
+import { PageAction } from '../../models';
+import { DEFAULT_LABEL } from '../PageActions/ActionButton';
 import FormPage, { DEFAULT_CLASS } from './FormPage';
 
 describe('components', () => {
@@ -101,7 +102,7 @@ describe('components', () => {
       // And confirm an appropriate action was received.
       expect(ON_ACTION_CALLS.length).toEqual(1);
       expect(PAGE.formData.text).toEqual(NEW_VALUE);
-      expect(ON_ACTION_CALLS[0].action).toEqual(DEFAULT_ACTIONS.submit);
+      expect(ON_ACTION_CALLS[0].action).toEqual(PageAction.DEFAULTS.submit);
       expect(ON_ACTION_CALLS[0].patch).toEqual({ text: NEW_VALUE });
     });
 

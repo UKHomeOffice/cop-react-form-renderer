@@ -3,7 +3,8 @@ import { fireEvent, render } from '@testing-library/react';
 import React from 'react';
 
 // Local imports
-import { DEFAULT_ACTIONS, DEFAULT_LABEL } from './ActionButton';
+import { PageAction } from '../../models';
+import { DEFAULT_LABEL } from './ActionButton';
 import PageActions from './PageActions';
 
 describe('components', () => {
@@ -41,7 +42,7 @@ describe('components', () => {
       // Click the button and make sure it fires the onAction handler.
       fireEvent.click(submit, {});
       expect(ON_ACTION_CALLS.length).toEqual(1);
-      expect(ON_ACTION_CALLS[0]).toEqual(DEFAULT_ACTIONS.submit);
+      expect(ON_ACTION_CALLS[0]).toEqual(PageAction.DEFAULTS.submit);
     });
 
     it('should appropriately display a custom action', async () => {
@@ -84,7 +85,7 @@ describe('components', () => {
       fireEvent.click(submit, {});
       expect(ON_ACTION_CALLS.length).toEqual(2);
       expect(ON_ACTION_CALLS[0]).toEqual(NAVIGATE);
-      expect(ON_ACTION_CALLS[1]).toEqual(DEFAULT_ACTIONS.submit);
+      expect(ON_ACTION_CALLS[1]).toEqual(PageAction.DEFAULTS.submit);
     });
 
   });
