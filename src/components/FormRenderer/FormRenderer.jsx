@@ -90,7 +90,9 @@ const FormRenderer = ({
           setData(submissionData);
         }
         // Now submit the data to the backend...
-        hooks.onSubmit(action.type, submissionData, () => {
+        hooks.onSubmit(action.type, submissionData, (response) => {
+          // The backend response may well contain data we need so apply it.
+          setData(prev => ({ ...prev, ...response }));
           const nextPageId = helpers.getNextPageId(type, pages, pageId, action);
           onPageChange(nextPageId);
         }, (errors) => {
@@ -116,7 +118,7 @@ const FormRenderer = ({
         setData(submissionData);
         // Now submit the data to the backend...
         hooks.onSubmit(action.type, submissionData, () => {
-          hooks.onFormComplete()
+          hooks.onFormComplete();
         }, (errors) => {
           handlers.submissionError(errors, onError);
         });
