@@ -11,11 +11,11 @@ describe('utils', () => {
         { id: 'a', fieldId: 'a', label: 'Alpha', type: 'text' },
         { id: 'b', fieldId: 'b', label: 'Bravo', type: 'text' },
         // eslint-disable-next-line no-template-curly-in-string
-        { id: 'c', fieldId: 'c', label: 'Charlie', type: 'radios', data: { url: '${environmentContext.refData}/v3/charlies' } }
+        { id: 'c', fieldId: 'c', label: 'Charlie', type: 'radios', data: { url: '${urls.refData}/v3/charlies' } }
       ];
 
       const FORM_DATA = {
-        environmentContext: {
+        urls: {
           refData: 'https://ho.gov.uk/ref-data/'
         }
       };
@@ -99,7 +99,7 @@ describe('utils', () => {
             { type: 'html', tagName: 'p', content: PAGE.components[0] },
             PAGE.components[1],
             { type: 'html', tagName: 'p', content: PAGE.components[2] },
-            { use: 'c', ...C, cya_label: C.label, data: { url: `${FORM_DATA.environmentContext.refData}/v3/charlies` } }
+            { use: 'c', ...C, cya_label: C.label, data: { url: `${FORM_DATA.urls.refData}/v3/charlies` } }
           ],
           formData: FORM_DATA
         });

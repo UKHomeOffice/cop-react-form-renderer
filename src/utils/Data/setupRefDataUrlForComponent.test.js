@@ -8,7 +8,7 @@ describe('utils', () => {
     describe('setupRefDataUrlForComponent', () => {
 
       const DATA = {
-        environmentContext: {
+        urls: {
           refData: '/ref-data'
         }
       };
@@ -38,12 +38,12 @@ describe('utils', () => {
         const COMPONENT = {
           id: 'component',
           // eslint-disable-next-line no-template-curly-in-string
-          data: { url: '${environmentContext.refData}/v1/teams' }
+          data: { url: '${urls.refData}/v1/teams' }
         };
         expect(setupRefDataUrlForComponent(COMPONENT, DATA)).toEqual({
           id: COMPONENT.id,
           data: {
-            url: `${DATA.environmentContext.refData}/v1/teams`
+            url: `${DATA.urls.refData}/v1/teams`
           }
         });
       });
@@ -65,7 +65,7 @@ describe('utils', () => {
         const COMPONENT = {
           id: 'component',
           // eslint-disable-next-line no-template-curly-in-string
-          data: { url: '${environmentContext.referenceData}/v1/teams' }
+          data: { url: '${urls.referenceData}/v1/teams' }
         };
         expect(setupRefDataUrlForComponent(COMPONENT, DATA)).toEqual({
           id: COMPONENT.id,

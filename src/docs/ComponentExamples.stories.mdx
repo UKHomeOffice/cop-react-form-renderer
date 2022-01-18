@@ -22,10 +22,10 @@ to be able to search through and select one from.
   "type": "autocomplete",
   "required": true,
   "data": {
-    "url": "{{data.environmentContext.referenceDataUrl}}/v1/entities/team"
+    "url": "{{data.urls.refData}}/team"
   },
   "source": {
-    "field": "staffDetailsDataContext.defaultteam"
+    "field": "userDetails.defaultteam"
   }
 }
 ```
@@ -42,7 +42,7 @@ Use the email component when you want users to enter an email address.
   "type": "email",
   "required": true,
   "source": {
-    "field": "extendedStaffDetailsContext.delegateEmails"
+    "field": "userDetails.delegateEmails"
   }
 }
 ```
@@ -151,10 +151,10 @@ Use the radios component when users can only select one option from a list.
   "type":     "radios",
   "required": true,
   "data":     {
-    "url":     "{{data.environmentContext.referenceDataUrl}}/v2/entities/grade"
+    "url":     "{{data.urls.refData}}/grade"
   },
   "source": {
-    "field": "staffDetailsDataContext.gradeid"
+    "field": "userDetails.gradeid"
   }
 }
 ```
@@ -172,7 +172,7 @@ submission payload - as it is an <Link href="/?path=/docs/f-editable-components"
   "type": "text",
   "readonly": true,
   "source": {
-    "field": "keycloakContext.givenName"
+    "field": "currentUser.givenName"
   }
 }
 ```

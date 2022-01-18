@@ -129,12 +129,12 @@ describe('utils', () => {
         // and data calculated for the fields, based on that source data.
         expect(RESULT).toEqual({
           ...USER_PROFILE_DATA,
-          firstName: USER_PROFILE_DATA.keycloakContext.givenName,
-          surname: USER_PROFILE_DATA.keycloakContext.familyName,
-          team: USER_PROFILE_DATA.staffDetailsDataContext.defaultteam,
-          staffGradeId: USER_PROFILE_DATA.staffDetailsDataContext.gradeid,
-          linemanagerEmail: USER_PROFILE_DATA.extendedStaffDetailsContext.linemanagerEmail,
-          delegateEmails: USER_PROFILE_DATA.extendedStaffDetailsContext.delegateEmails
+          firstName: USER_PROFILE_DATA.currentUser.givenName,
+          surname: USER_PROFILE_DATA.currentUser.familyName,
+          team: USER_PROFILE_DATA.userDetails.defaultteam,
+          staffGradeId: USER_PROFILE_DATA.userDetails.gradeid,
+          linemanagerEmail: USER_PROFILE_DATA.userDetails.linemanagerEmail,
+          delegateEmails: USER_PROFILE_DATA.userDetails.delegateEmails
         });
       });
     });

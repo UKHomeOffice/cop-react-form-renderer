@@ -1,14 +1,13 @@
 {
-  "environmentContext": {
-    "referenceDataUrl": "/ref-data"
+  "urls": {
+    "refData": "/ref-data"
   },
-  "keycloakContext": {
+  "currentUser": {
     "givenName": "John",
     "familyName": "Smith"
   },
   "areYouACivilServant": "yes",
-  "staffDetailsDataContext": {},
-  "extendedStaffDetailsContext": {
+  "userDetails": {
     "linemanagerEmail": "line.manager@digital.homeoffice.gov.uk",
     "delegateEmails": "del.egate@digital.homeoffice.gov.uk"
   }

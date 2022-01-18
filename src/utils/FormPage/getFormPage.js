@@ -25,7 +25,7 @@ const getFormPage = (pageOptions, formComponents, formData) => {
       ret = { ...componentOptions };
     }
 
-    return formData && formData.environmentContext ? Data.refData.setupUrl(ret, formData) : ret;
+    return formData && formData.urls ? Data.refData.setupUrl(ret, formData) : ret;
   });
   return {
     ...pageOptions,
