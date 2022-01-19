@@ -13,6 +13,7 @@ import GRADE from '../../json/grade.json';
 import TEAMS from '../../json/team.json';
 import USER_PROFILE_DATA from '../../json/userProfile.data.json';
 import USER_PROFILE from '../../json/userProfile.json';
+import FIRST_FORM from '../../json/firstForm.json';
 
 <Meta title="Components/Check your answers" id="D-CheckYourAnswers" component={ CheckYourAnswers } decorators={[withMock]} />
 
@@ -44,13 +45,16 @@ Renders the **Check your answers** screen for a form.
     ]
   }}>
     {() => {
-      const DATA = Utils.Data.setupForm(USER_PROFILE.pages, USER_PROFILE.components, USER_PROFILE_DATA)
+      const DATA = Utils.Data.setupForm(USER_PROFILE.pages, USER_PROFILE.components, USER_PROFILE_DATA);
       const PAGES = Utils.FormPage.getAll(USER_PROFILE.pages, USER_PROFILE.components, { ...DATA });
       const ON_ACTION = (action, patch, onError) => {
         console.log('action invoked', action, patch);
       };
+      const ON_ROW_ACTION = (page) => {
+        console.log('row action invoked', page);
+      };
       return (
-        <CheckYourAnswers pages={PAGES} onAction={ON_ACTION} />
+        <CheckYourAnswers pages={PAGES} onAction={ON_ACTION} onRowAction={ON_ROW_ACTION} />
       );
     }}
   </Story>
@@ -87,13 +91,58 @@ Renders the **Check your answers** screen for a form.
     ]
   }}>
     {() => {
-      const DATA = Utils.Data.setupForm(USER_PROFILE.pages, USER_PROFILE.components, USER_PROFILE_DATA)
+      const DATA = Utils.Data.setupForm(USER_PROFILE.pages, USER_PROFILE.components, USER_PROFILE_DATA);
       const PAGES = Utils.FormPage.getAll(USER_PROFILE.pages, USER_PROFILE.components, { ...DATA });
       const ON_ACTION = (action, patch, onError) => {
         console.log('action invoked', action, patch);
       };
+      const ON_ROW_ACTION = (page) => {
+        console.log('row action invoked', page);
+      };
       return (
-        <CheckYourAnswers pages={PAGES} hide_page_titles={true} onAction={ON_ACTION} />
+        <CheckYourAnswers pages={PAGES} hide_page_titles={true} onAction={ON_ACTION} onRowAction={ON_ROW_ACTION} />
+      );
+    }}
+  </Story>
+</Canvas>
+
+### With actions
+
+<Canvas>
+  <Story name="With actions" parameters={{
+    mockData: [
+      {
+        url: `${USER_PROFILE_DATA.urls.refData}/areYouACivilServant`,
+        method: 'GET',
+        status: 200,
+        response: CIVIL_SERVANT
+      },
+      {
+        url: `${USER_PROFILE_DATA.urls.refData}/grade`,
+        method: 'GET',
+        status: 200,
+        response: GRADE
+      },
+      {
+        url: `${USER_PROFILE_DATA.urls.refData}/team`,
+        method: 'GET',
+        status: 200,
+        response: TEAMS
+      }
+    ]
+  }}>
+    {() => {
+      const DATA = { firstName: 'John', surname: 'Smith', age: 41 };
+      const PAGES = Utils.FormPage.getAll(FIRST_FORM.pages, FIRST_FORM.components, { ...DATA });
+      const ACTIONS = FIRST_FORM.cya.actions;
+      const ON_ACTION = (action, patch, onError) => {
+        console.log('action invoked', action, patch);
+      };
+      const ON_ROW_ACTION = (page) => {
+        console.log('row action invoked', page);
+      };
+      return (
+        <CheckYourAnswers pages={PAGES} hide_page_titles={true} actions={ACTIONS} onAction={ON_ACTION} onRowAction={ON_ROW_ACTION} />
       );
     }}
   </Story>
