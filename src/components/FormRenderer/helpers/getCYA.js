@@ -1,5 +1,5 @@
 // Local imports
-import { HubFormats } from '../../../models';
+import { FormPages, HubFormats } from '../../../models';
 
 /**
  * Gets a configuration object for the Check your answers screen.
@@ -8,9 +8,9 @@ import { HubFormats } from '../../../models';
  * @returns A configuration object for the Check your answers screen.
  */
 const getCYA = (pageId, hub) => {
-  if (pageId === 'hub' && hub === HubFormats.CYA) {
+  if (pageId === FormPages.HUB && hub === HubFormats.CYA) {
     return { title: '' };
-  } else if (pageId === HubFormats.CYA) {
+  } else if (pageId === FormPages.CYA) {
     return {};
   }
   return undefined;
