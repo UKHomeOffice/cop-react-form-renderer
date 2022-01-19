@@ -42,7 +42,7 @@
         "If you are happy to proceed, click start now."
       ],
       "actions": [
-        { "type": "start", "start": true, "label": "Start now" }
+        { "type": "navigate", "url": "/firstName", "start": true, "label": "Start now" }
       ],
       "show_on_cya": false
     },
@@ -86,5 +86,9 @@
       }
     }
   ],
-  "cya": {}
+  "cya": {
+    "actions": [
+      { "type": "submit", "label": "Submit", "validate": true }
+    ]
+  }
 }
