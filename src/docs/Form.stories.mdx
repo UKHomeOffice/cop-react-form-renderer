@@ -1,0 +1,66 @@
+<!-- Global imports -->
+import { Meta } from '@storybook/addon-docs';
+import { Details, Heading, Link } from '@ukhomeoffice/cop-react-components';
+
+<!-- Local imports -->
+import { default as USER_PROFILE } from '../json/userProfile.json';
+
+<Meta title="JSON Format/Form" id="F-JSON-Form" />
+
+<Heading size="xl" id="json-form" caption="JSON Format">Form</Heading>
+
+The format of the JSON for rendering a <Link href="/?path=/docs/d-formrenderer">Form</Link>, with a sample document.
+
+## Properties
+
+### `id : string`
+*Required*
+
+A unique identifier for the form.
+
+### `version : string`
+*Required*
+
+The version of the form.
+
+### `name : string`
+*Required*
+
+An identifiable name for the form, which is not displayed in the user interface.
+
+### `title : string`
+*Optional*
+
+The title of this form, which should be displayed in the user interface.
+
+### `type : string`
+*Required*
+
+Which <Link href="/?path=/docs/f-json-form-types">form type</Link> this is. This dictates how the pages
+are arranged within the form, along with other aspects of the form's behaviour.
+
+### `components: [ object ]`
+*Required*
+
+An array of <Link href="/?path=/docs/f-json-component">component</Link> configuration objects.
+
+### `pages : [ object ]`
+*Required*
+
+An array of <Link href="/?path=/docs/f-json-page">page</Link> configuration objects.
+
+### `hub : object`
+*Required only for <Link href="/?path=/docs/f-json-form-types--page#hub-and-spoke-default">hub-and-spoke</Link> form type*
+
+Configuration for the hub, which is only appropriate for certain <Link href="/?path=/docs/f-json-form-types">form types</Link>.
+
+### `cya : object`
+*Required for <Link href="/?path=/docs/f-json-form-types--page#cya">cya</Link> form type*
+
+*Also required if form type is <Link href="/?path=/docs/f-json-form-types--page#hub-and-spoke-default">hub-and-spoke</Link> and `hub` is set to 'CYA'*
+
+Configuration for the **Check your answers** screen, which is only appropriate for certain <Link href="/?path=/docs/f-json-form-types">form types</Link>.
+
+## Examples
+
+See <Link href="/?path=/docs/f-examples-form">Form examples</Link>.

@@ -1,0 +1,171 @@
+<!-- Global imports -->
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
+import { Button, ButtonGroup, Details, FormGroup, Heading, Link } from '@ukhomeoffice/cop-react-components';
+import { useEffect, useRef, useState } from 'react';
+import withMock from 'storybook-addon-mock';
+import Editor from '@monaco-editor/react';
+
+<!-- JSON documents -->
+import CIVIL_SERVANT from '../json/areYouACivilServant.json';
+import GRADE from '../json/grade.json';
+import TEAMS from '../json/team.json';
+import USER_PROFILE_DATA from '../json/userProfile.data.json';
+import USER_PROFILE from '../json/userProfile.json';
+
+<!-- Local imports -->
+import FormRenderer from '../components/FormRenderer';
+
+<!-- Styles -->
+import './Sandbox.stories.scss';
+
+<Meta title="Components/Sandbox" id="Sandbox" component={ FormRenderer } decorators={[withMock]} />
+
+<Heading size="xl" caption="Components">Sandbox</Heading>
+
+Write some <Link href="/?path=/docs/f-json-form">JSON</Link> and see how it behaves inside
+the <Link href="/?path=/docs/d-formrenderer">Form</Link>.
+By default, you start off with the form from the examples used throughout this documentation.
+
+<Canvas withSource="none">
+  <Story name="Default" parameters={{
+    mockData: [
+      {
+        url: `${USER_PROFILE_DATA.urls.refData}/areYouACivilServant`,
+        method: 'GET',
+        status: 200,
+        response: CIVIL_SERVANT
+      },
+      {
+        url: `${USER_PROFILE_DATA.urls.refData}/grade`,
+        method: 'GET',
+        status: 200,
+        response: GRADE
+      },
+      {
+        url: `${USER_PROFILE_DATA.urls.refData}/team`,
+        method: 'GET',
+        status: 200,
+        response: TEAMS
+      }
+    ]
+  }}>
+    {() => {
+      const editJSONRef = useRef(null);
+      const editDataRef = useRef(null);
+      const [mode, setMode] = useState('preview');
+      const [json, setJSON] = useState({ ...USER_PROFILE });
+      const [data, setData] = useState({ ...USER_PROFILE_DATA });
+      const [jsonError, setJSONError] = useState(null);
+      const [dataError, setDataError] = useState(null);
+      const handleJSONEditorMount = (editor, monaco) => {
+        editJSONRef.current = editor;
+      };
+      const handleJSONDataMount = (editor, monaco) => {
+        editDataRef.current = editor;
+      };
+      const edit = () => {
+        setMode('editJSON');
+      };
+      const preview = () => {
+        setJSONError(null);
+        setDataError(null);
+        let parsedJSON, parsedData;
+        let errorCaught = false;
+        if (editJSONRef.current) {
+          try {
+            parsedJSON = JSON.parse(editJSONRef.current.getValue());
+          } catch (e) {
+            setJSONError(`Error: ${e.message}`);
+            errorCaught = true;
+          }
+        } else {
+          errorCaught = true;
+        }
+        if (editDataRef.current) {
+          try {
+            parsedData = JSON.parse(editDataRef.current.getValue());
+          } catch (e) {
+            setDataError(`Error: ${e.message}`);
+            errorCaught = true;
+          }
+        } else {
+          errorCaught = true;
+        }
+        if (!errorCaught) {
+          setJSON({ ...parsedJSON });
+          setData({ ...parsedData });
+          setMode('preview');
+        }
+      };
+      const reset = () => {
+        setJSONError(null);
+        setDataError(null);
+        setJSON({ ...USER_PROFILE });
+        setData({ ...USER_PROFILE_DATA });
+        if (editJSONRef.current) {
+          editJSONRef.current.setValue(JSON.stringify({ ...USER_PROFILE }, null, 2));
+        }
+        if (editDataRef.current) {
+          editDataRef.current.setValue(JSON.stringify({ ...USER_PROFILE_DATA }, null, 2));
+        }
+      };
+      return (
+        <>
+          <div className="govuk-tabs">
+            <ul className="govuk-tabs__list">
+              <li className={`govuk-tabs__list-item ${mode === 'preview' ? 'govuk-tabs__list-item--selected' : ''}`}>
+                <a className="govuk-tabs__tab" onClick={() => preview()}>Preview</a>
+              </li>
+              <li className={`govuk-tabs__list-item ${mode === 'editJSON' ? 'govuk-tabs__list-item--selected' : ''}`}>
+                <a className="govuk-tabs__tab" onClick={() => setMode('editJSON')}>Form JSON</a>
+              </li>
+              <li className={`govuk-tabs__list-item ${mode === 'editData' ? 'govuk-tabs__list-item--selected' : ''}`}>
+                <a className="govuk-tabs__tab" onClick={() => setMode('editData')}>Initial data</a>
+              </li>
+            </ul>
+            <div className={`govuk-tabs__panel ${mode !== 'preview' ? 'govuk-tabs__panel--hidden' : ''}`}>
+              <FormRenderer {...json} data={data} />
+            </div>
+            <div className={`govuk-tabs__panel ${mode !== 'editJSON' ? 'govuk-tabs__panel--hidden' : ''}`}>
+              <FormGroup
+                id="edit-json"
+                label="Form JSON"
+                error={jsonError}
+                required>
+                <Editor
+                  className="edit-json"
+                  theme="vs-dark"
+                  defaultLanguage="json"
+                  options={{ minimap: { enabled: false } }}
+                  onMount={handleJSONEditorMount}
+                  defaultValue={JSON.stringify(json, null, 2)} />
+              </FormGroup>
+            </div>
+            <div className={`govuk-tabs__panel ${mode !== 'editData' ? 'govuk-tabs__panel--hidden' : ''}`}>
+              <FormGroup
+                id="edit-data"
+                label="Initial data"
+                error={dataError}
+                required>
+                <Editor
+                  className="edit-data"
+                  theme="vs-dark"
+                  defaultLanguage="json"
+                  options={{ minimap: { enabled: false } }}
+                  onMount={handleJSONDataMount}
+                  defaultValue={JSON.stringify(data, null, 2)} />
+              </FormGroup>
+            </div>
+          </div>
+          <ButtonGroup>
+            <Button onClick={() => reset()} classModifiers="warning">Reset</Button>
+          </ButtonGroup>
+        </>
+      );
+    }}
+  </Story>
+</Canvas>
+
+<Details summary="Properties" className="no-indent">
+  <ArgsTable of={ FormRenderer } />
+</Details>

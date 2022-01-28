@@ -1,0 +1,80 @@
+{
+  "id": "saveAndContinue",
+  "version": "1",
+  "name": "saveAndContinue",
+  "title": "Save and continue example",
+  "type": "hub-and-spoke",
+  "components": [
+    {
+      "id": "firstName",
+      "fieldId": "firstName",
+      "label": "First name",
+      "type": "text",
+      "required": true
+    },
+    {
+      "id": "surname",
+      "fieldId": "surname",
+      "label": "Last name",
+      "type": "text",
+      "required": true
+    },
+    {
+      "id": "email",
+      "fieldId": "email",
+      "label": "Your email address",
+      "type": "email",
+      "required": true
+    },
+    {
+      "id": "location",
+      "fieldId": "location",
+      "label": "Incident location",
+      "type": "text",
+      "required": true
+    },
+    {
+      "id": "when",
+      "fieldId": "when",
+      "label": "Incident date and start time",
+      "type": "text",
+      "required": true
+    }
+  ],
+  "pages": [
+    {
+      "id": "details",
+      "name": "details",
+      "title": "Your details",
+      "components": [
+        { "use": "firstName" },
+        { "use": "surname" },
+        { "use": "email" }
+      ],
+      "actions": [
+        { "type": "saveDraft", "validate": true, "label": "Save and continue" },
+        { "type": "saveAndReturn", "validate": true, "label": "Save and return later", "classModifiers": "secondary" }
+      ],
+      "cya_link": {
+        "url": "/details",
+        "aria_suffix": "your details"
+      }
+    },
+    {
+      "id": "where-and-when",
+      "name": "where-and-when",
+      "title": "Where and when",
+      "components": [
+        { "use": "location" },
+        { "use": "when" }
+      ],
+      "actions": ["submit"],
+      "cya_link": {
+        "url": "/where-and-when",
+        "aria_suffix": "where and when"
+      }
+    }
+  ],
+  "hub": { "format": "CYA" },
+  "cya": {}
+}

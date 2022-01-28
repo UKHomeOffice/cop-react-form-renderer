@@ -45,7 +45,7 @@ describe('utils', () => {
 
         const heading = getByTestId(container, ID);
         expect(heading.innerHTML).toContain(CONTENT);
-        expect(heading.tagName).toEqual('H3');
+        expect(heading.tagName).toEqual('H2');
         expect(heading.classList).toContain(`govuk-heading-${SIZE}`);
       });
 

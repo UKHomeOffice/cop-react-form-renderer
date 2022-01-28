@@ -1,0 +1,118 @@
+<!-- Global imports -->
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
+import { Details, Heading, Link } from '@ukhomeoffice/cop-react-components';
+import withMock from 'storybook-addon-mock';
+
+<!-- Local imports -->
+import Utils from '../../utils';
+import FormPage from './FormPage';
+
+<!-- JSON documents -->
+import CIVIL_SERVANT from '../../json/areYouACivilServant.json';
+import GRADE from '../../json/grade.json';
+import TEAMS from '../../json/team.json';
+import USER_PROFILE_DATA from '../../json/userProfile.data.json';
+import USER_PROFILE from '../../json/userProfile.json';
+
+<Meta title="Components/Form page" id="D-FormPage" component={ FormPage } decorators={[withMock]} />
+
+<Heading size="xl" caption="Components">Form page</Heading>
+
+Renders a page on a form with <Link href="https://ukhomeoffice.github.io/cop-react-components/?path=/docs/d-alert--default-story">COP React components</Link>,
+on the basis of a <Link href="/?path=/docs/f-json-page">JSON</Link> configuration.
+
+<Canvas withToolbar>
+  <Story name="Default" parameters={{
+    mockData: [
+      {
+        url: `${USER_PROFILE_DATA.urls.refData}/areYouACivilServant`,
+        method: 'GET',
+        status: 200,
+        response: CIVIL_SERVANT
+      },
+      {
+        url: `${USER_PROFILE_DATA.urls.refData}/grade`,
+        method: 'GET',
+        status: 200,
+        response: GRADE
+      },
+      {
+        url: `${USER_PROFILE_DATA.urls.refData}/team`,
+        method: 'GET',
+        status: 200,
+        response: TEAMS
+      }
+    ]
+  }}>
+    {() => {
+      const PAGE_JSON = USER_PROFILE.pages.find(p => p.id === 'civil-servant-status');
+      const PAGE = Utils.FormPage.get(PAGE_JSON, USER_PROFILE.components, { ...USER_PROFILE_DATA });
+      const ON_ACTION = (action, patch, onError) => {
+        console.log('action invoked', action, patch);
+      };
+      return (
+        <FormPage page={PAGE} onAction={ON_ACTION} />
+      );
+    }}
+  </Story>
+</Canvas>
+
+<Details summary="Properties" className="no-indent">
+  <ArgsTable of={ FormPage } />
+</Details>
+
+
+## Variants
+### With `autocomplete`
+<Canvas>
+  <Story name="With autocomplete" parameters={{
+    mockData: [
+      {
+        url: `${USER_PROFILE_DATA.urls.refData}/areYouACivilServant`,
+        method: 'GET',
+        status: 200,
+        response: CIVIL_SERVANT
+      },
+      {
+        url: `${USER_PROFILE_DATA.urls.refData}/grade`,
+        method: 'GET',
+        status: 200,
+        response: GRADE
+      },
+      {
+        url: `${USER_PROFILE_DATA.urls.refData}/team`,
+        method: 'GET',
+        status: 200,
+        response: TEAMS
+      }
+    ]
+  }}>
+    {() => {
+      const PAGE_JSON = USER_PROFILE.pages.find(p => p.id === 'team-name');
+      const PAGE = Utils.FormPage.get(PAGE_JSON, USER_PROFILE.components, { ...USER_PROFILE_DATA });
+      const ON_ACTION = (action, patch, onError) => {
+        console.log('action invoked', action, patch);
+      };
+      return (
+        <FormPage page={PAGE} onAction={ON_ACTION} />
+      );
+    }}
+  </Story>
+</Canvas>
+
+### Without editable controls
+
+<Canvas>
+  <Story name="Without editable controls">
+    {() => {
+      const PAGE_JSON = USER_PROFILE.pages.find(p => p.id === 'add-or-change-line-manager');
+      const PAGE = Utils.FormPage.get(PAGE_JSON, USER_PROFILE.components, { ...USER_PROFILE_DATA });
+      const ON_ACTION = (action, patch, onError) => {
+        console.log('action invoked', action, patch);
+      };
+      return (
+        <FormPage page={PAGE} onAction={ON_ACTION} />
+      );
+    }}
+  </Story>
+</Canvas>

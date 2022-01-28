@@ -1,0 +1,11 @@
+@import "node_modules/govuk-frontend/govuk/_base";
+@import "node_modules/govuk-frontend/govuk/components/tabs";
+
+.edit-json, .edit-data {
+  width: 100%;
+  height: 500px;
+}
+
+.govuk-tabs__tab {
+  cursor: pointer;
+}

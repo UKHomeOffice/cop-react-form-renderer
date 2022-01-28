@@ -1,0 +1,44 @@
+<!-- Global imports -->
+import { Meta } from '@storybook/addon-docs';
+import { Details, Heading, Link } from '@ukhomeoffice/cop-react-components';
+
+<!-- Local imports -->
+import { default as USER_PROFILE } from '../json/userProfile.json';
+
+<Meta title="Examples/Form" id="F-Examples-Form" />
+
+<Heading size="xl" id="json-format" caption="JSON Examples">Form examples</Heading>
+
+For an explanation of what each of the properties in the examples, below mean, 
+see <Link href="/?path=/docs/f-json-form">Form JSON</Link>.
+
+The format of the JSON for rendering a <Link href="/?path=/docs/d-formrenderer">Form</Link>, with a sample document.
+
+## Hub and spoke
+
+```json
+{
+  "id":         "userProfile",
+  "version":    "1",
+  "name":       "User profile",
+  "title":      "Your profile",
+  "type":       "hub-and-spoke",
+  "components": [ ... ],
+  "pages":      [ ... ],
+  "hub":        {
+    "format": "CYA"
+  },
+  "cya":        {
+    "hide_page_titles": false
+  }
+}
+```
+
+#### Full JSON
+<Details summary="Expand to view..." className="no-indent">
+  <pre>
+    <code className="language-json">
+        {JSON.stringify(USER_PROFILE, null, 2)}
+    </code>
+  </pre>
+</Details>

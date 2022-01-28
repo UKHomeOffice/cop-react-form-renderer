@@ -1,7 +1,6 @@
 {
   "id": "userProfile",
   "version": "1",
-  "newCOP": true,
   "name": "userProfile",
   "title": "Your profile",
   "type": "hub-and-spoke",
@@ -13,7 +12,7 @@
       "type": "text",
       "readonly": true,
       "source": {
-        "field": "keycloakContext.givenName"
+        "field": "currentUser.givenName"
       }
     },
     {
@@ -23,7 +22,7 @@
       "type": "text",
       "readonly": true,
       "source": {
-        "field": "keycloakContext.familyName"
+        "field": "currentUser.familyName"
       }
     },
     {
@@ -33,7 +32,7 @@
       "type": "radios",
       "required": true,
       "data": {
-        "url": "${environmentContext.referenceDataUrl}/v2/entities/areYouACivilServant"
+        "url": "${urls.refData}/areYouACivilServant"
       }
     },
     {
@@ -44,10 +43,10 @@
       "type": "radios",
       "required": true,
       "data": {
-        "url": "${environmentContext.referenceDataUrl}/v2/entities/grade"
+        "url": "${urls.refData}/grade"
       },
       "source": {
-        "field": "staffDetailsDataContext.gradeid"
+        "field": "userDetails.gradeid"
       },
       "show_when": {
         "field": "areYouACivilServant",
@@ -64,11 +63,11 @@
       "required": true,
       "item": { "value": "id", "label": "name" },
       "data": {
-        "url": "${environmentContext.referenceDataUrl}/v1/entities/team"
+        "url": "${urls.refData}/team"
       },
       "displayMenu": "inline",
       "source": {
-        "field": "staffDetailsDataContext.defaultteam"
+        "field": "userDetails.defaultteam"
       }
     },
     {
@@ -77,9 +76,13 @@
       "label": "Line manager email",
       "hint": "Must be a homeoffice.gov.uk or digital.homeoffice.gov.uk address",
       "type": "email",
+      "format": {
+        "type": "lowercase",
+        "on": "submit"
+      },
       "required": true,
       "source": {
-        "field": "extendedStaffDetailsContext.linemanagerEmail"
+        "field": "userDetails.linemanagerEmail"
       }
     },
     {
@@ -88,9 +91,13 @@
       "label": "Delegate email",
       "hint": "Must be a homeoffice.gov.uk or digital.homeoffice.gov.uk address",
       "type": "email",
+      "format": {
+        "type": "lowercase",
+        "on": "submit"
+      },
       "required": true,
       "source": {
-        "field": "extendedStaffDetailsContext.delegateEmails"
+        "field": "userDetails.delegateEmails"
       },
       "show_when": [
         {
@@ -265,5 +272,5 @@
     }
   ],
   "hub": { "format": "CYA" },
-  "cya": { "hide_page_titles": true }
+  "cya": { "hide_page_titles": true, "hide_actions": true }
 }
