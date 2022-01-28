@@ -1,0 +1,90 @@
+{
+  "id": "firstForm",
+  "version": "1",
+  "name": "firstForm",
+  "title": "First form",
+  "type": "cya",
+  "components": [
+    {
+      "id": "firstName",
+      "fieldId": "firstName",
+      "label": "First name",
+      "type": "text",
+      "required": true
+    },
+    {
+      "id": "surname",
+      "fieldId": "surname",
+      "label": "Last name",
+      "type": "text",
+      "required": true
+    },
+    {
+      "id": "age",
+      "fieldId": "age",
+      "label": "Your age",
+      "type": "text",
+      "required": true
+    }
+  ],
+  "pages": [
+    {
+      "id": "before",
+      "name": "before",
+      "title": "Before you start",
+      "components": [
+        "This is a sample form to prove out the mechanism for save and continue.",
+        "When you click on the Start button, a new business key should be generated for this form.",
+        {
+          "type": "inset-text",
+          "content": "Generating a business key is non-reversible and cancelling the form creation will leave a gap."
+        },
+        "If you are happy to proceed, click start now."
+      ],
+      "actions": [
+        { "type": "start", "start": true, "label": "Start now" }
+      ],
+      "show_on_cya": false
+    },
+    {
+      "id": "firstName",
+      "name": "firstName",
+      "title": "Enter first name",
+      "components": [
+        { "use": "firstName", "label": "" }
+      ],
+      "actions": [ "saveAndContinue", "saveAndReturn" ],
+      "cya_link": {
+        "url": "/firstName",
+        "aria_suffix": "your first name"
+      }
+    },
+    {
+      "id": "surname",
+      "name": "surname",
+      "title": "Enter surname",
+      "components": [
+        { "use": "surname", "label": "" }
+      ],
+      "actions": [ "saveAndContinue", "saveAndReturn" ],
+      "cya_link": {
+        "url": "/surname",
+        "aria_suffix": "your surname"
+      }
+    },
+    {
+      "id": "age",
+      "name": "age",
+      "title": "Enter age",
+      "components": [
+        { "use": "age", "label": "" }
+      ],
+      "actions": [ "saveAndContinue", "saveAndReturn" ],
+      "cya_link": {
+        "url": "/age",
+        "aria_suffix": "your first name"
+      }
+    }
+  ],
+  "cya": {}
+}
