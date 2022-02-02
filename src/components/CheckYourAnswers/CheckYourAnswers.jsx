@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import React, { Fragment, useEffect, useState } from 'react';
 
 // Local imports
-import { PageAction } from '../../models';
 import Utils from '../../utils';
 import PageActions from '../PageActions';
 import SummaryList from '../SummaryList';
@@ -19,6 +18,7 @@ export const DEFAULT_MARGIN_BOTTOM = 9;
 const CheckYourAnswers = ({
   title,
   pages: _pages,
+  actions,
   onAction,
   onRowAction,
   hide_page_titles,
@@ -65,7 +65,7 @@ const CheckYourAnswers = ({
           </Fragment>
         );
       })}
-      {!hide_actions && <PageActions actions={[PageAction.TYPES.SUBMIT]} onAction={(action) => onAction(action, onError)} />}
+      {!hide_actions && <PageActions actions={actions} onAction={(action) => onAction(action, onError)} />}
     </div>
   )
 };
@@ -73,6 +73,7 @@ const CheckYourAnswers = ({
 CheckYourAnswers.propTypes = {
   title: PropTypes.string.isRequired,
   pages: PropTypes.arrayOf(PropTypes.object).isRequired,
+  actions: PropTypes.arrayOf(PropTypes.object),
   onAction: PropTypes.func.isRequired,
   onRowAction: PropTypes.func.isRequired,
   hide_page_titles: PropTypes.bool,
