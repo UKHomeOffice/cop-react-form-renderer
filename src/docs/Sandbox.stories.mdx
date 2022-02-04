@@ -1,6 +1,6 @@
 <!-- Global imports -->
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
-import { Button, ButtonGroup, Details, FormGroup, Heading, Link } from '@ukhomeoffice/cop-react-components';
+import { Button, ButtonGroup, FormGroup, Heading, Link } from '@ukhomeoffice/cop-react-components';
 import { useEffect, useRef, useState } from 'react';
 import withMock from 'storybook-addon-mock';
 import Editor from '@monaco-editor/react';
@@ -13,159 +13,259 @@ import USER_PROFILE_DATA from '../json/userProfile.data.json';
 import USER_PROFILE from '../json/userProfile.json';
 
 <!-- Local imports -->
-import FormRenderer from '../components/FormRenderer';
+import { addHook } from '../hooks/useHooks';
+import { FormRenderer, SummaryList } from '../components';
 
 <!-- Styles -->
 import './Sandbox.stories.scss';
 
 <Meta title="Components/Sandbox" id="Sandbox" component={ FormRenderer } decorators={[withMock]} />
 
-<Heading size="xl" caption="Components">Sandbox</Heading>
+<Heading size="xl">Sandbox</Heading>
 
-Write some <Link href="/?path=/docs/f-json-form">JSON</Link> and see how it behaves inside
-the <Link href="/?path=/docs/d-formrenderer">Form</Link>.
-By default, you start off with the form from the examples used throughout this documentation.
-
-<Canvas withSource="none">
-  <Story name="Default" parameters={{
-    mockData: [
-      {
-        url: `${USER_PROFILE_DATA.urls.refData}/areYouACivilServant`,
-        method: 'GET',
-        status: 200,
-        response: CIVIL_SERVANT
-      },
-      {
-        url: `${USER_PROFILE_DATA.urls.refData}/grade`,
-        method: 'GET',
-        status: 200,
-        response: GRADE
-      },
-      {
-        url: `${USER_PROFILE_DATA.urls.refData}/team`,
-        method: 'GET',
-        status: 200,
-        response: TEAMS
+<Story name="Default" parameters={{
+  mockData: [
+    {
+      url: `${USER_PROFILE_DATA.urls.refData}/areYouACivilServant`,
+      method: 'GET',
+      status: 200,
+      response: CIVIL_SERVANT
+    },
+    {
+      url: `${USER_PROFILE_DATA.urls.refData}/grade`,
+      method: 'GET',
+      status: 200,
+      response: GRADE
+    },
+    {
+      url: `${USER_PROFILE_DATA.urls.refData}/team`,
+      method: 'GET',
+      status: 200,
+      response: TEAMS
+    }
+  ]
+}}>
+  {(_, story) => {
+    const JSON_ID = 'sandbox-form-json';
+    const DATA_ID = 'sandbox-form-data';
+    const TIMESTAMP_ID = 'sandbox-form-ts';
+    const lsJSON = localStorage.getItem(JSON_ID);
+    const lsData = localStorage.getItem(DATA_ID);
+    const editJSONRef = useRef(null);
+    const editDataRef = useRef(null);
+    const [mode, setMode] = useState('preview');
+    const [json, setJSON] = useState(lsJSON ? JSON.parse(lsJSON) : { ...USER_PROFILE });
+    const [data, setData] = useState(lsData ? JSON.parse(lsData) : { ...USER_PROFILE_DATA });
+    const [ts, setTS] = useState(localStorage.getItem(TIMESTAMP_ID));
+    const [jsonError, setJSONError] = useState(null);
+    const [dataError, setDataError] = useState(null);
+    const [submittedData, setSubmittedData] = useState({});
+    const [complete, setComplete] = useState(false);
+    const [returnLater, setReturnLater] = useState(false);
+    addHook('onPageChange', (pageId) => {
+      console.log('onPageChange called', pageId);
+      setReturnLater(!!pageId === false);
+    });
+    addHook('onFormComplete', () => {
+      console.log('onFormComplete called');
+      setComplete(true);
+    });
+    addHook('onSubmit', (type, payload, onSuccess, onError) => {
+      setSubmittedData(payload);
+      onSuccess();
+      setComplete(true);
+    });
+    const handleJSONEditorMount = (editor, monaco) => {
+      editJSONRef.current = editor;
+    };
+    const handleJSONDataMount = (editor, monaco) => {
+      editDataRef.current = editor;
+    };
+    const edit = () => {
+      setMode('editJSON');
+    };
+    const addToLocalStorage = (json, data) => {
+      const now = Date.now();
+      setTS(now)
+      localStorage.setItem(JSON_ID, JSON.stringify(json));
+      localStorage.setItem(DATA_ID, JSON.stringify(data));
+      localStorage.setItem(TIMESTAMP_ID, now.toString());
+    };
+    const clearLocalStorage = () => {
+      localStorage.removeItem(JSON_ID);
+      localStorage.removeItem(DATA_ID);
+      localStorage.removeItem(TIMESTAMP_ID);
+    };
+    const preview = () => {
+      setJSONError(null);
+      setDataError(null);
+      setSubmittedData(null);
+      let parsedJSON, parsedData;
+      let errorCaught = false;
+      if (editJSONRef.current) {
+        try {
+          parsedJSON = JSON.parse(editJSONRef.current.getValue());
+        } catch (e) {
+          setJSONError(`Error: ${e.message}`);
+          errorCaught = true;
+        }
+      } else {
+        errorCaught = true;
       }
-    ]
-  }}>
-    {() => {
-      const editJSONRef = useRef(null);
-      const editDataRef = useRef(null);
-      const [mode, setMode] = useState('preview');
-      const [json, setJSON] = useState({ ...USER_PROFILE });
-      const [data, setData] = useState({ ...USER_PROFILE_DATA });
-      const [jsonError, setJSONError] = useState(null);
-      const [dataError, setDataError] = useState(null);
-      const handleJSONEditorMount = (editor, monaco) => {
-        editJSONRef.current = editor;
-      };
-      const handleJSONDataMount = (editor, monaco) => {
-        editDataRef.current = editor;
-      };
-      const edit = () => {
-        setMode('editJSON');
-      };
-      const preview = () => {
-        setJSONError(null);
-        setDataError(null);
-        let parsedJSON, parsedData;
-        let errorCaught = false;
-        if (editJSONRef.current) {
-          try {
-            parsedJSON = JSON.parse(editJSONRef.current.getValue());
-          } catch (e) {
-            setJSONError(`Error: ${e.message}`);
-            errorCaught = true;
-          }
-        } else {
+      if (editDataRef.current) {
+        try {
+          parsedData = JSON.parse(editDataRef.current.getValue());
+        } catch (e) {
+          setDataError(`Error: ${e.message}`);
           errorCaught = true;
         }
-        if (editDataRef.current) {
-          try {
-            parsedData = JSON.parse(editDataRef.current.getValue());
-          } catch (e) {
-            setDataError(`Error: ${e.message}`);
-            errorCaught = true;
-          }
-        } else {
-          errorCaught = true;
-        }
-        if (!errorCaught) {
-          setJSON({ ...parsedJSON });
-          setData({ ...parsedData });
-          setMode('preview');
-        }
-      };
-      const reset = () => {
-        setJSONError(null);
-        setDataError(null);
-        setJSON({ ...USER_PROFILE });
-        setData({ ...USER_PROFILE_DATA });
-        if (editJSONRef.current) {
-          editJSONRef.current.setValue(JSON.stringify({ ...USER_PROFILE }, null, 2));
-        }
-        if (editDataRef.current) {
-          editDataRef.current.setValue(JSON.stringify({ ...USER_PROFILE_DATA }, null, 2));
-        }
-      };
-      return (
-        <>
-          <div className="govuk-tabs">
-            <ul className="govuk-tabs__list">
-              <li className={`govuk-tabs__list-item ${mode === 'preview' ? 'govuk-tabs__list-item--selected' : ''}`}>
-                <a className="govuk-tabs__tab" onClick={() => preview()}>Preview</a>
-              </li>
-              <li className={`govuk-tabs__list-item ${mode === 'editJSON' ? 'govuk-tabs__list-item--selected' : ''}`}>
-                <a className="govuk-tabs__tab" onClick={() => setMode('editJSON')}>Form JSON</a>
-              </li>
-              <li className={`govuk-tabs__list-item ${mode === 'editData' ? 'govuk-tabs__list-item--selected' : ''}`}>
-                <a className="govuk-tabs__tab" onClick={() => setMode('editData')}>Initial data</a>
-              </li>
-            </ul>
-            <div className={`govuk-tabs__panel ${mode !== 'preview' ? 'govuk-tabs__panel--hidden' : ''}`}>
-              <FormRenderer {...json} data={data} />
-            </div>
-            <div className={`govuk-tabs__panel ${mode !== 'editJSON' ? 'govuk-tabs__panel--hidden' : ''}`}>
-              <FormGroup
-                id="edit-json"
-                label="Form JSON"
-                error={jsonError}
-                required>
-                <Editor
-                  className="edit-json"
-                  theme="vs-dark"
-                  defaultLanguage="json"
-                  options={{ minimap: { enabled: false } }}
-                  onMount={handleJSONEditorMount}
-                  defaultValue={JSON.stringify(json, null, 2)} />
-              </FormGroup>
-            </div>
-            <div className={`govuk-tabs__panel ${mode !== 'editData' ? 'govuk-tabs__panel--hidden' : ''}`}>
-              <FormGroup
-                id="edit-data"
-                label="Initial data"
-                error={dataError}
-                required>
-                <Editor
-                  className="edit-data"
-                  theme="vs-dark"
-                  defaultLanguage="json"
-                  options={{ minimap: { enabled: false } }}
-                  onMount={handleJSONDataMount}
-                  defaultValue={JSON.stringify(data, null, 2)} />
-              </FormGroup>
-            </div>
+      } else {
+        errorCaught = true;
+      }
+      if (!errorCaught) {
+        addToLocalStorage(parsedJSON, parsedData);
+        setJSON({ ...parsedJSON });
+        setData({ ...parsedData });
+        setMode('preview');
+      }
+    };
+    const reset = () => {
+      setJSONError(null);
+      setDataError(null);
+      setSubmittedData(null);
+      clearLocalStorage();
+      setTS(undefined);
+      setJSON({ ...USER_PROFILE });
+      setData({ ...USER_PROFILE_DATA });
+      if (editJSONRef.current) {
+        editJSONRef.current.setValue(JSON.stringify({ ...USER_PROFILE }, null, 2));
+      }
+      if (editDataRef.current) {
+        editDataRef.current.setValue(JSON.stringify({ ...USER_PROFILE_DATA }, null, 2));
+      }
+    };
+    const restart = () => {
+      setComplete(false);
+      setReturnLater(false);
+      setSubmittedData(null);
+    };
+    const DATE_FORMATTER = new Intl.DateTimeFormat('en-GB', { year: 'numeric', month: 'long', day: '2-digit', hour: '2-digit', minute: '2-digit' });
+    const formatDate = (d) => {
+      if (d) {
+        const formatted = DATE_FORMATTER.format(new Date(parseInt(d)));
+        return formatted.split(', ').join(' @ ');
+      }
+      return undefined;
+    };
+    const FORM_TYPES = {
+      cya: 'Check your answers',
+      form: 'Simple form',
+      wizard: 'Wizard',
+      'hub-and-spoke': 'Hub and spoke'
+    };
+    const slRow = (key, value) => {
+      return { key, value, pageId: key, fieldId: key };
+    };
+    return (
+      <>
+        <div className="govuk-tabs">
+          <ul className="govuk-tabs__list">
+            <li className={`govuk-tabs__list-item ${mode === 'preview' ? 'govuk-tabs__list-item--selected' : ''}`}>
+              <a className="govuk-tabs__tab" onClick={() => preview()}>Preview</a>
+            </li>
+            <li className={`govuk-tabs__list-item ${mode === 'editJSON' ? 'govuk-tabs__list-item--selected' : ''}`}>
+              <a className="govuk-tabs__tab" onClick={() => setMode('editJSON')}>Form JSON</a>
+            </li>
+            <li className={`govuk-tabs__list-item ${mode === 'editData' ? 'govuk-tabs__list-item--selected' : ''}`}>
+              <a className="govuk-tabs__tab" onClick={() => setMode('editData')}>Initial data</a>
+            </li>
+            <li className={`govuk-tabs__list-item right ${mode === 'info' ? 'govuk-tabs__list-item--selected' : ''}`}>
+              <a className="govuk-tabs__tab" onClick={() => setMode('info')}>Form info</a>
+            </li>
+          </ul>
+          <div className={`govuk-tabs__panel preview-panel ${mode !== 'preview' ? 'govuk-tabs__panel--hidden' : ''}`}>
+            {!complete && !returnLater && <FormRenderer {...json} data={data} />}
+            {complete &&
+              <div>
+                <Panel title="Submission successful">
+                  <FormGroup
+                    id="submitted-data"
+                    label={<Heading size="l">Your submission was successful</Heading>}
+                    required>
+                    <Editor
+                      className="show-submission"
+                      theme="vs-dark"
+                      defaultLanguage="json"
+                      options={{ minimap: { enabled: false } }}
+                      defaultValue={JSON.stringify(submittedData, null, 2)} />
+                  </FormGroup>
+                </Panel>
+                <Button onClick={() => restart()}>Start again</Button>
+              </div>
+            }
+            {!complete && returnLater &&
+              <div>
+                <Panel title="Saved to return later">
+                  <Heading size="l">You clicked on "Save and return later".</Heading>
+                </Panel>
+                <Button onClick={() => restart()}>Start again</Button>
+              </div>
+            }
           </div>
-          <ButtonGroup>
-            <Button onClick={() => reset()} classModifiers="warning">Reset</Button>
-          </ButtonGroup>
-        </>
-      );
-    }}
-  </Story>
-</Canvas>
-
-<Details summary="Properties" className="no-indent">
-  <ArgsTable of={ FormRenderer } />
-</Details>
+          <div className={`govuk-tabs__panel ${mode !== 'editJSON' ? 'govuk-tabs__panel--hidden' : ''}`}>
+            <FormGroup
+              id="edit-json"
+              label={<Heading size="m">Form JSON</Heading>}
+              hint={ts ? `Saved to local storage on ${formatDate(ts)}` : undefined}
+              error={jsonError}
+              required>
+              <Editor
+                className="edit-json"
+                theme="vs-dark"
+                defaultLanguage="json"
+                options={{ minimap: { enabled: false } }}
+                onMount={handleJSONEditorMount}
+                defaultValue={JSON.stringify(json, null, 2)} />
+            </FormGroup>
+          </div>
+          <div className={`govuk-tabs__panel ${mode !== 'editData' ? 'govuk-tabs__panel--hidden' : ''}`}>
+            <FormGroup
+              id="edit-data"
+              label={<Heading size="m">Initial data</Heading>}
+              hint={ts ? `Saved to local storage on ${formatDate(ts)}` : undefined}
+              error={dataError}
+              required>
+              <Editor
+                className="edit-data"
+                theme="vs-dark"
+                defaultLanguage="json"
+                options={{ minimap: { enabled: false } }}
+                onMount={handleJSONDataMount}
+                defaultValue={JSON.stringify(data, null, 2)} />
+            </FormGroup>
+          </div>
+          <div className={`govuk-tabs__panel ${mode !== 'info' ? 'govuk-tabs__panel--hidden' : ''}`}>
+            <FormGroup
+              id="form-info"
+              label={<Heading size="m">Form information</Heading>}
+              hint={ts ? `Information is about the form saved to local storage on ${formatDate(ts)}` : undefined}
+              error={dataError}
+              required>
+              <SummaryList rows={[
+                slRow('ID', `${json.id} (v${json.version})`),
+                slRow('Name', json.name),
+                slRow('Title', json.title),
+                slRow('Type', FORM_TYPES[json.type] || 'Unknown'),,
+                slRow('Top-level components', `${json.components.length.toString()}, not including those defined on pages`),
+                slRow('Pages', json.pages.length.toString())
+              ]} />
+            </FormGroup>
+          </div>
+        </div>
+        <ButtonGroup>
+          <Button onClick={() => reset()} classModifiers="warning">Reset</Button>
+        </ButtonGroup>
+      </>
+    );
+  }}
+</Story>
