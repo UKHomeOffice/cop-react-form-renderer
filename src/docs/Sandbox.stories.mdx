@@ -73,7 +73,6 @@ import './Sandbox.stories.scss';
     addHook('onSubmit', (type, payload, onSuccess, onError) => {
       setSubmittedData(payload);
       onSuccess();
-      setComplete(true);
     });
     const handleJSONEditorMount = (editor, monaco) => {
       editJSONRef.current = editor;
