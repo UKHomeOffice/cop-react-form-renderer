@@ -2,6 +2,7 @@
 import { renderHook } from '@testing-library/react-hooks';
 
 // Local imports
+import { PageAction } from '../models';
 import useHooks, { ALLOWED_HOOKS, resetHooks } from './useHooks';
 
 describe('hooks', () => {
@@ -86,7 +87,7 @@ describe('hooks', () => {
       const ON_ERROR = () => {
         onErrorCalled = true;
       };
-      hooks.onSubmit('submit', {}, ON_SUCCESS, ON_ERROR);
+      hooks.onSubmit(PageAction.TYPES.SUBMIT, {}, ON_SUCCESS, ON_ERROR);
       expect(onSuccessCalled).toBeTruthy();
       expect(onErrorCalled).toBeFalsy();
     });

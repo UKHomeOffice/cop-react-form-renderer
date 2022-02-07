@@ -27,7 +27,7 @@ describe('components', () => {
     });
 
     it('should appropriately display a submit action', async () => {
-      const ACTION = 'submit';
+      const ACTION = PageAction.TYPES.SUBMIT;
       const { container } = render(
         <ActionButton action={ACTION} onAction={ON_ACTION} />
       );
