@@ -262,6 +262,33 @@ describe('utils', () => {
 
     });
 
+    it('should return an appropriately rendered textarea component', () => {
+      const ID = 'test-id';
+      const FIELD_ID = 'field-id';
+      const LABEL = 'label';
+      const ROWS = 13;
+      const COMPONENT = {
+        type: ComponentTypes.TEXT_AREA,
+        id: ID,
+        fieldId: FIELD_ID,
+        label: LABEL,
+        rows: ROWS,
+        'data-testid': ID
+      };
+      const { container } = render(getComponent(COMPONENT));
+
+      const [ formGroup, textarea ] = getAllByTestId(container, ID);
+      expect(formGroup.tagName).toEqual('DIV');
+      expect(formGroup.classList).toContain('govuk-form-group');
+      const label = formGroup.childNodes[0];
+      expect(label.innerHTML).toContain(LABEL);
+      expect(label.getAttribute('for')).toEqual(ID);
+      expect(textarea.tagName).toEqual('TEXTAREA');
+      expect(textarea.classList).toContain('govuk-textarea');
+      expect(textarea.getAttribute('rows')).toEqual(`${ROWS}`);
+      expect(textarea.id).toEqual(ID);
+    });
+
   });
 
 });
