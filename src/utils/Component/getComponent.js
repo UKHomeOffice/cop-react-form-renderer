@@ -1,6 +1,6 @@
 // Global imports
 import React from 'react';
-import { Autocomplete, Heading, InsetText, Markup, Radios, TextInput } from '@ukhomeoffice/cop-react-components';
+import { Autocomplete, Heading, InsetText, Markup, Radios, TextArea, TextInput } from '@ukhomeoffice/cop-react-components';
 
 // Local imports
 import cleanAttributes from './cleanAttributes';
@@ -46,6 +46,11 @@ const getRadios = (config) => {
   return <Radios {...attrs} options={options} />;
 };
 
+const getTextArea = (config) => {
+  const attrs = cleanAttributes(config);
+  return <TextArea {...attrs} />;
+};
+
 const getTextInput = (config) => {
   const attrs = cleanAttributes(config);
   return <TextInput {...attrs} />;
@@ -63,6 +68,8 @@ const getComponentByType = (config) => {
     case ComponentTypes.EMAIL:
     case ComponentTypes.PHONE_NUMBER:
       return getTextInput(config);
+    case ComponentTypes.TEXT_AREA:
+      return getTextArea(config);
     case ComponentTypes.AUTOCOMPLETE:
       return getAutocomplete(config);
     case ComponentTypes.RADIOS:

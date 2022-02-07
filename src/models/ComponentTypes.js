@@ -6,6 +6,7 @@ const TYPE_INSET_TEXT = 'inset-text';
 const TYPE_PHONE_NUMBER = 'phone-number';
 const TYPE_RADIOS = 'radios';
 const TYPE_TEXT = 'text';
+const TYPE_TEXT_AREA = 'textarea';
 
 const ComponentTypes = {
   AUTOCOMPLETE: TYPE_AUTOCOMPLETE,
@@ -15,7 +16,8 @@ const ComponentTypes = {
   INSET_TEXT: TYPE_INSET_TEXT,
   PHONE_NUMBER: TYPE_PHONE_NUMBER,
   RADIOS: TYPE_RADIOS,
-  TEXT: TYPE_TEXT
+  TEXT: TYPE_TEXT,
+  TEXT_AREA: TYPE_TEXT_AREA
 };
 
 export default ComponentTypes;
