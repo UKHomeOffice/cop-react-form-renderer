@@ -280,14 +280,7 @@ describe('utils', () => {
       const [ formGroup, textarea ] = getAllByTestId(container, ID);
       expect(formGroup.tagName).toEqual('DIV');
       expect(formGroup.classList).toContain('govuk-form-group');
-      let label = undefined;
-      formGroup.childNodes.forEach(node => {
-        // Check if it's an element.
-        if (node instanceof Element && node.tagName === 'LABEL') {
-          label = node;
-        }
-      });
-      expect(label).toBeDefined();
+      const label = formGroup.childNodes[0];
       expect(label.innerHTML).toContain(LABEL);
       expect(label.getAttribute('for')).toEqual(ID);
       expect(textarea.tagName).toEqual('TEXTAREA');
