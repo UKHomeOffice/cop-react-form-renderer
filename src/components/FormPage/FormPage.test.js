@@ -17,7 +17,7 @@ describe('components', () => {
       id: 'pageId',
       title: 'Page 1',
       components: [ TEXT ],
-      actions: ['submit'],
+      actions: [PageAction.TYPES.SUBMIT],
       formData: { text: VALUE }
     };
     const ON_ACTION_CALLS = [];

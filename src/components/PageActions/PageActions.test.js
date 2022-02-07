@@ -28,7 +28,7 @@ describe('components', () => {
     });
 
     it('should appropriately display a single submit action', async () => {
-      const ACTIONS = [ 'submit' ];
+      const ACTIONS = [PageAction.TYPES.SUBMIT];
       const { container } = render(
         <PageActions actions={ACTIONS} onAction={ON_ACTION} />
       );
@@ -64,8 +64,8 @@ describe('components', () => {
     });
 
     it('should appropriately display multiple actions', async () => {
-      const NAVIGATE = { type: 'navigate', url: '/alpha', label: 'Alpha' };
-      const ACTIONS = [ NAVIGATE, 'submit' ];
+      const NAVIGATE = { type: PageAction.TYPES.NAVIGATE, url: '/alpha', label: 'Alpha' };
+      const ACTIONS = [ NAVIGATE, PageAction.TYPES.SUBMIT ];
       const { container } = render(
         <PageActions actions={ACTIONS} onAction={ON_ACTION} />
       );
