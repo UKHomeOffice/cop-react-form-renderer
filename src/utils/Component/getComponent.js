@@ -1,6 +1,6 @@
 // Global imports
 import React from 'react';
-import { Autocomplete, Heading, InsetText, Markup, Radios, TextArea, TextInput, DateInput } from '@ukhomeoffice/cop-react-components';
+import { Autocomplete, DateInput, Heading, InsetText, Markup, Radios, TextArea, TextInput } from '@ukhomeoffice/cop-react-components';
 
 // Local imports
 import cleanAttributes from './cleanAttributes';
@@ -20,6 +20,11 @@ const getAutocomplete = (config) => {
   const attrs = cleanAttributes(config);
   const source = Data.getAutocompleteSource(config);
   return <Autocomplete {...attrs} source={source} />;
+};
+
+const getDate = (config) => {
+  const attrs = cleanAttributes(config);
+  return <DateInput {...attrs} />;
 };
 
 const getHeading = (config) => {
@@ -54,11 +59,6 @@ const getTextArea = (config) => {
 const getTextInput = (config) => {
   const attrs = cleanAttributes(config);
   return <TextInput {...attrs} />;
-};
-
-const getDate = (config) => {
-  const attrs = cleanAttributes(config);
-  return <DateInput {...attrs} />;
 };
 
 const getComponentByType = (config) => {
