@@ -1,6 +1,6 @@
 const TYPE_AUTOCOMPLETE = 'autocomplete';
-const TYPE_EMAIL = 'email';
 const TYPE_DATE = 'date';
+const TYPE_EMAIL = 'email';
 const TYPE_HEADING = 'heading';
 const TYPE_HTML = 'html';
 const TYPE_INSET_TEXT = 'inset-text';
