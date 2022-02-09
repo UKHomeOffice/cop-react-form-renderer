@@ -7,6 +7,7 @@ const TYPE_PHONE_NUMBER = 'phone-number';
 const TYPE_RADIOS = 'radios';
 const TYPE_TEXT = 'text';
 const TYPE_TEXT_AREA = 'textarea';
+const TYPE_DATE = 'date';
 
 const ComponentTypes = {
   AUTOCOMPLETE: TYPE_AUTOCOMPLETE,
@@ -17,7 +18,8 @@ const ComponentTypes = {
   PHONE_NUMBER: TYPE_PHONE_NUMBER,
   RADIOS: TYPE_RADIOS,
   TEXT: TYPE_TEXT,
-  TEXT_AREA: TYPE_TEXT_AREA
+  TEXT_AREA: TYPE_TEXT_AREA,
+  DATE: TYPE_DATE,
 };
 
 export default ComponentTypes;
