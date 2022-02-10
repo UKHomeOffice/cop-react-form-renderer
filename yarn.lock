@@ -4325,10 +4325,10 @@
     "@typescript-eslint/types" "4.33.0"
     eslint-visitor-keys "^2.0.0"
 
-"@ukhomeoffice/cop-react-components@^0.7.0":
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/@ukhomeoffice/cop-react-components/-/cop-react-components-0.7.0.tgz#3964c8dfbc8de204c09d991b7b524952c6ad4836"
-  integrity sha512-Afm3v6mEFboTgNPZXx4gjl2Hah7I05pL6+4MVxZUxDkKvJpZRlymzImWQIMBbXYez9ad+MUxD9UC4UR51A4qpA==
+"@ukhomeoffice/cop-react-components@^0.8.1":
+  version "0.8.1"
+  resolved "https://registry.yarnpkg.com/@ukhomeoffice/cop-react-components/-/cop-react-components-0.8.1.tgz#ec6bddea61bd0425a0f629260eef8ac6d61d7728"
+  integrity sha512-WsBuSi/NyBgjP7K7oJq/YblRf93Gb32Y7qQzIzjuWuyBnokJSnRz2YHrjKVqkBK5bus2XrnTJ/TSRp1uMO57mQ==
   dependencies:
     accessible-autocomplete "2.0.3"
     govuk-frontend "^3.13.0"
