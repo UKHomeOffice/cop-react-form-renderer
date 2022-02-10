@@ -1,4 +1,5 @@
 const TYPE_AUTOCOMPLETE = 'autocomplete';
+const TYPE_CHECKBOXES = 'checkboxes';
 const TYPE_DATE = 'date';
 const TYPE_EMAIL = 'email';
 const TYPE_HEADING = 'heading';
@@ -11,6 +12,7 @@ const TYPE_TEXT_AREA = 'textarea';
 
 const ComponentTypes = {
   AUTOCOMPLETE: TYPE_AUTOCOMPLETE,
+  CHECKBOXES: TYPE_CHECKBOXES,
   DATE: TYPE_DATE,
   EMAIL: TYPE_EMAIL,
   HEADING: TYPE_HEADING,

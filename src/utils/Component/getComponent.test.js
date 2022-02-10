@@ -348,4 +348,56 @@ describe('utils', () => {
 
   });
 
+  it('should return an appropriately rendered checkboxes component', () => {
+    const ID = 'test-id';
+    const FIELD_ID = 'field-id';
+    const LABEL = 'label';
+    const OPTIONS = [
+      { value: 'a', label: 'Alpha'}
+    ];
+    const COMPONENT = {
+      type: ComponentTypes.CHECKBOXES,
+      id: ID,
+      fieldId: FIELD_ID,
+      label: LABEL,
+      data: { options: OPTIONS },
+      'data-testid': ID
+    };
+    const { container } = render(getComponent(COMPONENT));
+
+    const [ formGroup, radios ] = getAllByTestId(container, ID);
+    expect(formGroup.tagName).toEqual('DIV');
+    expect(formGroup.classList).toContain('govuk-form-group');
+    let label = undefined;
+    formGroup.childNodes.forEach(node => {
+      // Check if it's an element.
+      if (node instanceof Element) {
+        if (node.tagName === 'LABEL') {
+          label = node;
+        }
+      }
+    });
+    expect(label).toBeDefined();
+    expect(label.innerHTML).toContain(LABEL);
+    expect(label.getAttribute('for')).toEqual(ID);
+    expect(radios.tagName).toEqual('DIV');
+    expect(radios.classList).toContain('govuk-checkboxes');
+    expect(radios.childNodes.length).toEqual(OPTIONS.length);
+    let checkboxItems = [];
+    OPTIONS.forEach((_, index) => {
+      const checkbox = radios.childNodes[index];
+      expect(checkbox instanceof Element).toBeTruthy();
+      if (checkbox instanceof Element) {
+        checkboxItems.push(checkbox);
+      }
+    });
+    expect(checkboxItems.length).toEqual(OPTIONS.length);
+    OPTIONS.forEach((option, index) => {
+      const checkbox = checkboxItems[index];
+      expect(checkbox.tagName).toEqual('DIV');
+      expect(checkbox.classList).toContain('govuk-checkboxes__item');
+      expect(checkbox.innerHTML).toContain(option.label);
+    });
+  });
+
 });
