@@ -140,7 +140,7 @@
       ],
       "actions": ["submit"],
       "cya_link": {
-        "url": "/civil-servant-status",
+        "page": "civil-servant-status",
         "aria_suffix": "civil servant status"
       }
     },
@@ -156,7 +156,7 @@
       ],
       "actions": ["submit"],
       "cya_link": {
-        "url": "/grade",
+        "page": "grade",
         "aria_suffix": "grade"
       }
     },
@@ -172,7 +172,7 @@
       ],
       "actions": ["submit"],
       "cya_link": {
-        "url": "/team-name",
+        "page": "team-name",
         "aria_suffix": "teams"
       }
     },
@@ -197,7 +197,7 @@
       "actions": [
         {
           "type": "navigate",
-          "url": "/line-manager-email"
+          "page": "line-manager-email"
         }
       ],
       "show_on_cya": false
@@ -213,7 +213,7 @@
       ],
       "actions": ["submit"],
       "cya_link": {
-        "url": "/add-or-change-line-manager",
+        "page": "add-or-change-line-manager",
         "aria_suffix": "line manager email address"
       }
     },
@@ -232,7 +232,7 @@
       "actions": [
         {
           "type": "navigate",
-          "url": "/delegate-email"
+          "page": "delegate-email"
         }
       ],
       "show_on_cya": false
@@ -249,7 +249,7 @@
       ],
       "actions": ["submit"],
       "cya_link": {
-        "url": "/add-or-change-delegate"
+        "page": "add-or-change-delegate"
       },
       "show_when": [
         {

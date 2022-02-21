@@ -17,8 +17,8 @@ const getCYARow = (page, component, onAction) => {
     fieldId: component.fieldId,
     key: component.label || component.cya_label,
     component: Component.editable(component) ? component : undefined,
-    value: page.formData[component.fieldId] || '',
-    action: getCYAAction(component.readonly, page.cya_link, onAction)
+    value: page.formData && component.fieldId ? page.formData[component.fieldId] || '' : '',
+    action: getCYAAction(component.readonly, page, onAction)
   };
 };
 

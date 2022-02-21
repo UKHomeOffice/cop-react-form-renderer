@@ -39,7 +39,7 @@ describe('components', () => {
 
         it('should not call the onNavigate method when the page is unchanged', () => {
           const CURRENT_PAGE_ID = 'alpha';
-          const ACTION = { href: `/${CURRENT_PAGE_ID}` };
+          const ACTION = { page: CURRENT_PAGE_ID };
           const ON_NAVIGATE_CALLS = [];
           const ON_NAVIGATE = (pageId) => {
             ON_NAVIGATE_CALLS.push(pageId);
@@ -51,7 +51,7 @@ describe('components', () => {
         it('should call the onNavigate method when the page has changed', () => {
           const CURRENT_PAGE_ID = 'alpha';
           const NEW_PAGE_ID = 'bravo';
-          const ACTION = { href: `/${NEW_PAGE_ID}` };
+          const ACTION = { page: NEW_PAGE_ID };
           const ON_NAVIGATE_CALLS = [];
           const ON_NAVIGATE = (pageId) => {
             ON_NAVIGATE_CALLS.push(pageId);

@@ -5,15 +5,7 @@
  * @returns A page id.
  */
 const getPageId = (action, pageId) => {
-  if (action) {
-    // TODO: Improve how this is handled.
-    if (action.href) {
-      return action.href.split('/').pop();
-    } else if (action.url) {
-      return action.url.split('/').pop();
-    }
-  }
-  return pageId;
+  return action?.page || pageId;
 };
 
 export default getPageId;

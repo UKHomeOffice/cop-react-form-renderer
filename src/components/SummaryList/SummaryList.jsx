@@ -40,7 +40,7 @@ SummaryList.propTypes = {
     key: PropTypes.string.isRequired,
     value: PropTypes.any,
     action: PropTypes.shape({
-      href: PropTypes.string,
+      page: PropTypes.string,
       label: PropTypes.string,
       aria_suffix: PropTypes.string,
       onAction: PropTypes.func

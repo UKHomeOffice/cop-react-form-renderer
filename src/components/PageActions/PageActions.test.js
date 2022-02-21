@@ -46,7 +46,7 @@ describe('components', () => {
     });
 
     it('should appropriately display a custom action', async () => {
-      const ACTIONS = [{ type: 'navigate', url: '/alpha', label: 'Alpha' }];
+      const ACTIONS = [{ type: 'navigate', page: 'alpha', label: 'Alpha' }];
       const { container } = render(
         <PageActions actions={ACTIONS} onAction={ON_ACTION} />
       );
@@ -64,7 +64,7 @@ describe('components', () => {
     });
 
     it('should appropriately display multiple actions', async () => {
-      const NAVIGATE = { type: PageAction.TYPES.NAVIGATE, url: '/alpha', label: 'Alpha' };
+      const NAVIGATE = { type: PageAction.TYPES.NAVIGATE, page: 'alpha', label: 'Alpha' };
       const ACTIONS = [ NAVIGATE, PageAction.TYPES.SUBMIT ];
       const { container } = render(
         <PageActions actions={ACTIONS} onAction={ON_ACTION} />
