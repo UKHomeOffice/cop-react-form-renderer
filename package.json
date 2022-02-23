@@ -13,10 +13,10 @@
     "storybook": "yarn storybook:start",
     "deploy-storybook": "storybook-to-ghpages -e storybook-static",
     "compile": "yarn clean && cross-env NODE_ENV=production babel src --out-dir dist --copy-files && yarn post-compile",
-    "post-compile": "rimraf dist/*.test.* dist/**/*.test.* dist/**/*.stories.* dist/docs dist/json dist/assets"
+    "post-compile": "rimraf dist/*.test.* dist/**/*.test.* dist/**/*.stories.* dist/docs dist/assets"
   },
   "dependencies": {
-    "@ukhomeoffice/cop-react-components": "^0.8.2",
+    "@ukhomeoffice/cop-react-components": "1.0.0-alpha",
     "axios": "^0.21.1",
     "govuk-frontend": "^3.13.0",
     "web-vitals": "^1.0.1"

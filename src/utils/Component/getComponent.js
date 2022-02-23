@@ -90,7 +90,7 @@ const getComponentByType = (config) => {
       return getRadios(config);
     case ComponentTypes.DATE:
       return getDate(config);
-      case ComponentTypes.CHECKBOXES:
+    case ComponentTypes.CHECKBOXES:
       return getCheckboxes(config);
     default: {
       return null;
