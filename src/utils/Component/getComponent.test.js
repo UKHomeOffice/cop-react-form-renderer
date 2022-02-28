@@ -501,25 +501,24 @@ describe('utils', () => {
           expect(label.textContent).toEqual(option.label);
         });
     
-        // TODO: Ensure that the onChange handler is fired.
-        // fireEvent.click(checkboxItems[0].childNodes[0]); // alpha
-        // expect(ON_CHANGE_CALLS.length).toEqual(1);
-        // expect(ON_CHANGE_CALLS[0]).toMatchObject({
-        //   name: FIELD_ID,
-        //   value: [ OPTIONS[0].value ]
-        // });
-        // fireEvent.click(checkboxItems[1].childNodes[0]); // beta
-        // expect(ON_CHANGE_CALLS.length).toEqual(2);
-        // expect(ON_CHANGE_CALLS[1]).toMatchObject({
-        //   name: FIELD_ID,
-        //   value: [ OPTIONS[0].value, OPTIONS[1].value ]
-        // });
-        // fireEvent.click(checkboxItems[0].childNodes[0]); // alpha (unchecked this time)
-        // expect(ON_CHANGE_CALLS.length).toEqual(3);
-        // expect(ON_CHANGE_CALLS[2]).toMatchObject({
-        //   name: FIELD_ID,
-        //   value: [ OPTIONS[1].value ]
-        // });
+        fireEvent.click(checkboxItems[0].childNodes[0]); // alpha
+        expect(ON_CHANGE_CALLS.length).toEqual(2);
+        expect(ON_CHANGE_CALLS[1]).toMatchObject({
+          name: FIELD_ID,
+          value: [ OPTIONS[0].value ]
+        });
+        fireEvent.click(checkboxItems[1].childNodes[0]); // beta
+        expect(ON_CHANGE_CALLS.length).toEqual(3);
+        expect(ON_CHANGE_CALLS[2]).toMatchObject({
+          name: FIELD_ID,
+          value: [ OPTIONS[0].value, OPTIONS[1].value ]
+        });
+        fireEvent.click(checkboxItems[0].childNodes[0]); // alpha (unchecked this time)
+        expect(ON_CHANGE_CALLS.length).toEqual(4);
+        expect(ON_CHANGE_CALLS[3]).toMatchObject({
+          name: FIELD_ID,
+          value: [ OPTIONS[1].value ]
+        });
       });
 
     });
