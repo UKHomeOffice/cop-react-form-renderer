@@ -317,7 +317,7 @@ describe('utils', () => {
       expect(dayitem.classList).toContain('govuk-date-input__item');
       const daylabel = dayitem.childNodes[0];
       expect(daylabel.tagName).toEqual('LABEL');
-      expect(daylabel.classList).toContain('govuk-date-input__label');
+      expect(daylabel.classList).toContain('govuk-label');
       expect(daylabel.textContent).toEqual('Day');
       const dayinput = dayitem.childNodes[1];
       expect(dayinput.tagName).toEqual('INPUT');
@@ -328,7 +328,7 @@ describe('utils', () => {
       expect(monthitem.classList).toContain('govuk-date-input__item');
       const monthlabel = monthitem.childNodes[0];
       expect(monthlabel.tagName).toEqual('LABEL');
-      expect(monthlabel.classList).toContain('govuk-date-input__label');
+      expect(monthlabel.classList).toContain('govuk-label');
       expect(monthlabel.textContent).toEqual('Month');
       const monthinput = monthitem.childNodes[1];
       expect(monthinput.tagName).toEqual('INPUT');
@@ -339,7 +339,7 @@ describe('utils', () => {
       expect(yearitem.classList).toContain('govuk-date-input__item');
       const yearlabel = yearitem.childNodes[0];
       expect(yearlabel.tagName).toEqual('LABEL');
-      expect(yearlabel.classList).toContain('govuk-date-input__label');
+      expect(yearlabel.classList).toContain('govuk-label');
       expect(yearlabel.textContent).toEqual('Year');
       const yearinput = yearitem.childNodes[1];
       expect(yearinput.tagName).toEqual('INPUT');

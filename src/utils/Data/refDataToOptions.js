@@ -5,11 +5,16 @@
  */
 const refDataToOptions = (refDataItems) => {
   if (Array.isArray(refDataItems)) {
-    return refDataItems.map(opt => ({
-      ...opt,
-      value: opt.id || opt.value,
-      label: opt.name || opt.label
-    }));
+    return refDataItems.map((opt) => {
+      if (typeof opt === 'string') {
+        return opt;
+      }
+      return {
+        ...opt,
+        value: opt.id || opt.value,
+        label: opt.name || opt.label,
+      };
+    });
   }
   return [];
 };

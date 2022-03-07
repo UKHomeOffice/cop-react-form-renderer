@@ -54,6 +54,21 @@ describe('utils', () => {
         ]);
       });
 
+      it('can handle refData that contains strings and objects', () => {
+        const REF_DATA = [
+          { id: 'a', name: 'Alpha', type: 'Delta' },
+          { value: 'b', label: 'Bravo' },
+          'Charlie',
+          { id: 'd', name: 'Delta', type: 'Delta' },
+        ];
+        expect(refDataToOptions(REF_DATA)).toEqual([
+          { id: 'a', name: 'Alpha', value: 'a', label: 'Alpha', type: 'Delta' },
+          { value: 'b', label: 'Bravo' },
+          'Charlie',
+          { id: 'd', name: 'Delta', value: 'd', label: 'Delta', type: 'Delta' },
+        ]);
+      });
+
     });
 
   });
