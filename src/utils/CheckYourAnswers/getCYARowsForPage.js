@@ -1,4 +1,5 @@
 // Local imports
+import FormPage from '../FormPage';
 import getCYARow from './getCYARow';
 import showComponentCYA from './showComponentCYA';
 
@@ -11,9 +12,12 @@ import showComponentCYA from './showComponentCYA';
  * @returns An array of configuration objects for Check your answers rows.
  */
 const getCYARowsForPage = (page, onAction) => {
-  return page.components.filter(c => showComponentCYA(c, page.formData)).map(component => {
-    return getCYARow(page, component, onAction);
-  });
+  if (FormPage.show(page, page.formData)) {
+    return page.components.filter(c => showComponentCYA(c, page.formData)).map(component => {
+      return getCYARow(page, component, onAction);
+    });
+  }
+  return [];
 };
 
 export default getCYARowsForPage;
