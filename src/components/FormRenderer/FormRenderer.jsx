@@ -56,6 +56,13 @@ const FormRenderer = ({
     setPages(Utils.FormPage.getAll(_pages, components, { ...data }));
   }, [components, _pages, data, setPages]);
 
+  // Setup initial pageId.
+  useEffect(() => {
+    setPageId(prev => {
+      return prev || helpers.getNextPageId(type, pages);
+    });
+  }, [type, pages, setPageId]);
+
   // Setup hub.
   useEffect(() => {
     setHub(Utils.Hub.get(type, _hub, components, { ...data }));
@@ -92,9 +99,11 @@ const FormRenderer = ({
         // Now submit the data to the backend...
         hooks.onSubmit(action.type, submissionData, (response) => {
           // The backend response may well contain data we need so apply it.
-          setData(prev => ({ ...prev, ...response }));
-          const nextPageId = helpers.getNextPageId(type, pages, pageId, action);
-          onPageChange(nextPageId);
+          setData(prev => {
+            const next = { ...prev, ...response };
+            onPageChange(helpers.getNextPageId(type, pages, pageId, action, next));
+            return next;
+          });
         }, (errors) => {
           handlers.submissionError(errors, onError);
         });
