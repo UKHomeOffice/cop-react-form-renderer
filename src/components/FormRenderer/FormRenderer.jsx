@@ -48,7 +48,12 @@ const FormRenderer = ({
 
   // Setup data.
   useEffect(() => {
-    setData(Utils.Data.setupForm(_pages, components, _data));
+    if (components && _pages && _data) {
+      setData(Utils.Data.setupForm(_pages, components, _data));
+      if (_data.formStatus?.page) {
+        setPageId(_data.formStatus.page);
+      }
+    }
   }, [components, _pages, _data, setData]);
 
   // Setup pages.
@@ -91,8 +96,9 @@ const FormRenderer = ({
       if (action.type === PageAction.TYPES.NAVIGATE) {
         handlers.navigate(action, pageId, onPageChange);
       } else {
-        // Submit.
+        // Save draft or submit.
         const submissionData = Utils.Format.form({ pages, components }, { ...data, ...patch }, EventTypes.SUBMIT);
+        submissionData.formStatus = helpers.getSubmissionStatus(type, pages, pageId, action, submissionData);
         if (patch) {
           setData(submissionData);
         }
@@ -124,13 +130,13 @@ const FormRenderer = ({
       if (helpers.canCYASubmit(pages, onError)) {
         // Submit.
         const submissionData = Utils.Format.form({ pages, components }, { ...data }, EventTypes.SUBMIT);
+        submissionData.formStatus = helpers.getSubmissionStatus(type, pages, pageId, action);
         setData(submissionData);
         // Now submit the data to the backend...
-        hooks.onSubmit(action.type, submissionData, () => {
-          hooks.onFormComplete();
-        }, (errors) => {
-          handlers.submissionError(errors, onError);
-        });
+        hooks.onSubmit(action.type, submissionData,
+          () => hooks.onFormComplete(),
+          (errors) => handlers.submissionError(errors, onError)
+        );
       }
     }
   };
