@@ -71,6 +71,7 @@ import './Sandbox.stories.scss';
       setComplete(true);
     });
     addHook('onSubmit', (type, payload, onSuccess, onError) => {
+      console.log('onSubmit called', type, payload);
       setSubmittedData(payload);
       onSuccess();
     });
