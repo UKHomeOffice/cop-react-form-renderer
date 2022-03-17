@@ -1,7 +1,8 @@
 // Local imports
 import { ComponentTypes } from '../../models';
-import validateRequired from './validateRequired';
+import showComponent from '../Component/showComponent';
 import validateEmail from './validateEmail';
+import validateRequired from './validateRequired';
 
 /**
  * Validates a single component.
@@ -12,7 +13,7 @@ import validateEmail from './validateEmail';
 const validateComponent = (component, formData) => {
   let error = undefined;
   const data = formData && typeof(formData) === 'object' ? formData : {};
-  if (component) {
+  if (component && showComponent(component, formData)) {
     const value = data[component.fieldId];
     if (component.required) {
       error = validateRequired(value, component.label);
