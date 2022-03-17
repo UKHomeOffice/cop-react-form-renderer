@@ -35,18 +35,23 @@ const FormPage = ({
     }));
   };
 
+  const onError = (errors) => {
+    setErrors(errors);
+  };
+
   const classes = Utils.classBuilder(classBlock, classModifiers, className);
   return (
     <div className={classes('page')} key={page.id}>
       {page.title && <LargeHeading>{page.title}</LargeHeading>}
       {errors && errors.length > 0 && <ErrorSummary errors={errors} />}
-      {page.components.map((component, index) => (
+      {page.components.filter(c => Utils.Component.show(c, page.formData)).map((component, index) => (
         <FormComponent key={index}
           component={component}
           onChange={onPageChange}
-          value={page.formData[component.fieldId] || ''} />
+          value={page.formData[component.fieldId] || ''}
+        />
       ))}
-      <PageActions actions={page.actions} onAction={(action) => onAction(action, patch, setErrors)} />
+      <PageActions actions={page.actions} onAction={(action) => onAction(action, patch, onError)} />
     </div>
   );
 };
