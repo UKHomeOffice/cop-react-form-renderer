@@ -12,12 +12,16 @@ import getCYAAction from './getCYAAction';
  * @returns A configuration object for a Check your answers row.
  */
 const getCYARow = (page, component, onAction) => {
+  let value = '';
+  if (page.formData && component.fieldId) {
+    value = page.formData[component.fieldId];
+  }
   return {
     pageId: page.id,
     fieldId: component.fieldId,
     key: component.label || component.cya_label,
     component: Component.editable(component) ? component : undefined,
-    value: page.formData && component.fieldId ? page.formData[component.fieldId] || '' : '',
+    value: value || '',
     action: getCYAAction(component.readonly, page, onAction)
   };
 };
