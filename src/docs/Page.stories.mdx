@@ -66,6 +66,28 @@ The label to show on the link. By default this will simply say "Change".
 * #### `aria_suffix : string`
 Hidden text to include in the link that is for the benefit of accessible users with screen readers.
 
+### `show_when: [ object ]`
+*Optional*
+
+An array of configuration objects for determining under what circumstances the page should be shown.
+
+* #### `show_when.field : string`
+The field that the display of this page depends upon.
+
+* #### `show_when.op : string`
+The comparison operator for the condition:
+
+  * `"=", "eq"`: The value of the component **must** be equal to a specified value.
+  * `"!=", "<>", "ne", "neq"`: The value of the component **must not** be equal to a specified value.
+  * `"in"`: The value of the component **must** be one of a specified set of values.
+  * `"nin"`: The value of the component **must not** be one of a specified set of values.
+
+* #### `show_when.value : string | number | boolean`
+The value to compare the `show_when.field`'s value to. This is applicable for equality and inequality operators only.
+
+* #### `show_when.values : [ string | number | boolean ]`
+The set of values in which to look for the `show_when.field`'s value. This is applicable for `in` and `nin` operators only.
+
 
 ## Examples
 
