@@ -59,10 +59,10 @@ describe('components', () => {
       expect(input.value).toEqual(VALUE);
       const buttonGroup = page.childNodes[2];
       expect(buttonGroup.tagName).toEqual('DIV');
-      expect(buttonGroup.classList).toContain('govuk-button-group');
+      expect(buttonGroup.classList).toContain('hods-button-group');
       const button = buttonGroup.childNodes[0];
       expect(button.tagName).toEqual('BUTTON');
-      expect(button.classList).toContain('govuk-button');
+      expect(button.classList).toContain('hods-button');
       expect(button.textContent).toEqual(DEFAULT_LABEL);
     });
 
