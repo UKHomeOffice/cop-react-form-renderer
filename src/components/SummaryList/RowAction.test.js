@@ -18,26 +18,26 @@ describe('components', () => {
     });
 
     it('should handle a row with an href in the action', () => {
-      const HREF = 'http://alpha.homeoffice.gov.uk';
-      const ROW = { action: { href: HREF, label: 'Change' } };
+      const PAGE = 'alpha';
+      const ROW = { action: { page: PAGE, label: 'Change' } };
       const { container } = render(
         <RowAction row={ROW} />
       );
       const link = container.childNodes[0];
       expect(link.tagName).toEqual('A');
-      expect(link.getAttribute('href')).toEqual(HREF);
+      expect(link.getAttribute('href')).toEqual(`/${PAGE}`);
       expect(link.textContent).toEqual(ROW.action.label);
     });
 
     it('should render an aria_suffix appropriately', () => {
-      const HREF = 'http://alpha.homeoffice.gov.uk';
-      const ROW = { action: { href: HREF, label: 'Change', aria_suffix: 'the thing' } };
+      const PAGE = 'alpha';
+      const ROW = { action: { page: PAGE, label: 'Change', aria_suffix: 'the thing' } };
       const { container } = render(
         <RowAction row={ROW} />
       );
       const link = container.childNodes[0];
       expect(link.tagName).toEqual('A');
-      expect(link.getAttribute('href')).toEqual(HREF);
+      expect(link.getAttribute('href')).toEqual(`/${PAGE}`);
       expect(link.textContent).toEqual(`${ROW.action.label} ${ROW.action.aria_suffix}`);
     });
 

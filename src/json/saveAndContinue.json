@@ -39,6 +39,24 @@
       "label": "Incident date and start time",
       "type": "text",
       "required": true
+    },
+    {
+      "id": "seizedItems",
+      "fieldId": "seizedItems",
+      "type": "collection",
+      "required": true,
+      "components": [
+        { "use": "type" },
+        { "use": "description" },
+        {
+          "id": "status",
+          "fieldId": "status",
+          "label": "What is the seized status of this item?",
+          "type": "radios",
+          "required": true
+        }
+      ],
+      "_description": "Required means at least 1 item"
     }
   ],
   "pages": [
@@ -56,7 +74,7 @@
         { "type": "saveAndReturn", "validate": true, "label": "Save and return later", "classModifiers": "secondary" }
       ],
       "cya_link": {
-        "url": "/details",
+        "page": "details",
         "aria_suffix": "your details"
       }
     },
@@ -70,7 +88,7 @@
       ],
       "actions": ["submit"],
       "cya_link": {
-        "url": "/where-and-when",
+        "page": "where-and-when",
         "aria_suffix": "where and when"
       }
     }

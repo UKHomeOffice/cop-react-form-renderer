@@ -43,7 +43,7 @@ Renders the buttons at the bottom of a Page.
 <Canvas>
   <Story name="Custom action">
     {() => {
-      const ACTIONS = [{ type: 'navigate', url: '/profile', label: 'Go to profile' }];
+      const ACTIONS = [{ type: 'navigate', page: 'profile', label: 'Go to profile' }];
       const ON_ACTION = (action, patch, onError) => {
         console.log('action invoked', action, patch);
       };

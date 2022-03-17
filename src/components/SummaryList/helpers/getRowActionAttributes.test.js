@@ -23,12 +23,12 @@ describe('components', () => {
           expect(getRowActionAttributes(ROW)).toEqual({});
         });
 
-        it('should handle a row with an href', () => {
-          const HREF = 'http://alpha.homeoffice.gov.uk';
+        it('should handle a row with a page', () => {
+          const PAGE = 'alpha';
           const ROW = {
-            action: { href: HREF }
+            action: { page: PAGE }
           };
-          expect(getRowActionAttributes(ROW)).toEqual({ href: HREF });
+          expect(getRowActionAttributes(ROW)).toEqual({ href: `/${PAGE}` });
         });
 
         it('should handle a row with an onAction function', () => {

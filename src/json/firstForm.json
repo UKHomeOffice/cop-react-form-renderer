@@ -42,7 +42,7 @@
         "If you are happy to proceed, click start now."
       ],
       "actions": [
-        { "type": "navigate", "url": "/firstName", "start": true, "label": "Start now" }
+        { "type": "navigate", "page": "firstName", "start": true, "label": "Start now" }
       ],
       "show_on_cya": false
     },
@@ -55,7 +55,7 @@
       ],
       "actions": [ "saveAndContinue", "saveAndReturn" ],
       "cya_link": {
-        "url": "/firstName",
+        "page": "firstName",
         "aria_suffix": "your first name"
       }
     },
@@ -68,7 +68,7 @@
       ],
       "actions": [ "saveAndContinue", "saveAndReturn" ],
       "cya_link": {
-        "url": "/surname",
+        "page": "surname",
         "aria_suffix": "your surname"
       }
     },
@@ -81,7 +81,7 @@
       ],
       "actions": [ "saveAndContinue", "saveAndReturn" ],
       "cya_link": {
-        "url": "/age",
+        "page": "age",
         "aria_suffix": "your first name"
       }
     }

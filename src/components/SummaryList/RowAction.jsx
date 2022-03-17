@@ -28,7 +28,7 @@ RowAction.propTypes = {
   row: PropTypes.shape({
     action: PropTypes.shape({
       label: PropTypes.string.isRequired,
-      href: PropTypes.string,
+      page: PropTypes.string,
       aria_suffix: PropTypes.string,
       onAction: PropTypes.func
     })
