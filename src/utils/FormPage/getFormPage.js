@@ -1,5 +1,6 @@
 // Local imports
 import Data from '../Data';
+import getPageActions from './getPageActions';
 import getParagraphFromText from './getParagraphFromText';
 import useComponent from './useComponent';
 
@@ -27,10 +28,12 @@ const getFormPage = (pageOptions, formComponents, formData) => {
 
     return formData && formData.urls ? Data.refData.setupUrl(ret, formData) : ret;
   });
+  const actions = getPageActions(pageOptions);
   return {
     ...pageOptions,
     formData,
-    components
+    components,
+    actions
   };
 };
 

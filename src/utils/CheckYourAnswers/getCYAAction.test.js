@@ -50,6 +50,28 @@ describe('utils', () => {
         });
       });
 
+      it('should convert an href specified in cya_link', () => {
+        const HREF = '/alpha/bravo';
+        const CYA_LINK = { href: HREF };
+        const ON_ACTION = () => {};
+        expect(getCYAAction(false, getPage(CYA_LINK), ON_ACTION)).toEqual({
+          page: 'bravo',
+          label: 'Change',
+          onAction: ON_ACTION
+        });
+      });
+
+      it('should convert a url specified in cya_link', () => {
+        const URL = '/alpha/bravo';
+        const CYA_LINK = { url: URL };
+        const ON_ACTION = () => {};
+        expect(getCYAAction(false, getPage(CYA_LINK), ON_ACTION)).toEqual({
+          page: 'bravo',
+          label: 'Change',
+          onAction: ON_ACTION
+        });
+      });
+
       it('should use label specified in cya_link', () => {
         const LABEL = 'Alpha Bravo Charlie';
         const CYA_LINK = { label: LABEL };
