@@ -16,7 +16,7 @@ const validateComponent = (component, formData) => {
   if (component && showComponent(component, formData)) {
     const value = data[component.fieldId];
     if (component.required) {
-      error = validateRequired(value, component.label);
+      error = validateRequired(value, component.label, component.customError);
     }
     if (!error && component.type === ComponentTypes.EMAIL) {
       error = validateEmail(value, component.label);

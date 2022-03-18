@@ -5,7 +5,7 @@
  * @param {string} label The label to use in any error message.
  * @returns An error if the value is nullish.
  */
-const validateRequired = (value, label = '') => {
+const validateRequired = (value, label = '', customError) => {
   let hasValue = false;
   if (!!value || value === false || value === 0) {
     hasValue = true;
@@ -16,6 +16,9 @@ const validateRequired = (value, label = '') => {
     }
   }
   if (!hasValue) {
+    if(customError){
+      return customError;
+    }
     const name = label ? label : 'Field';
     return `${name} is required`;
   }

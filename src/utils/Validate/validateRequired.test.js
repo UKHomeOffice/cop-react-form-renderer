@@ -45,6 +45,9 @@ describe('utils', () => {
       it('should use a default label when none is specified', () => {
         expect(validateRequired(undefined, undefined)).toEqual('Field is required');
       });
+      it('should use a custom label when one is provided', () => {
+        expect(validateRequired(undefined, undefined, 'custom error message')).toEqual('custom error message');
+      });
 
     });
 
