@@ -48,6 +48,18 @@ Whether or not the field is required (defaults to `false`).
 If this is `false`, the label will have an '(optional)' suffix; if this is `true`,
 an error will be shown if the field is not populated.
 
+### `custom_error : object`
+*Optional, and only applicable to <Link href="/?path=/docs/f-editable-components">editable components</Link>*
+
+The error message that should be displayed if a validation check is failed, currently usable on the `required` validator.
+
+Structured as: `"custom_errors": [
+  {
+    "type": "required",
+    "message": "Custom message here"
+  }
+]`
+
 ### `readonly: boolean`
 *Optional, and only applicable to <Link href="/?path=/docs/f-editable-components">editable components</Link>*
 
