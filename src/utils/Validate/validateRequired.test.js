@@ -45,10 +45,10 @@ describe('utils', () => {
       it('should use a default label when none is specified', () => {
         expect(validateRequired(undefined, undefined)).toEqual('Field is required');
       });
-      it('should use a custom label when one is provided', () => {
+      it('should use a custom error when one is provided', () => {
         expect(validateRequired(undefined, undefined, [{type: 'required', message: 'custom error message'}])).toEqual('custom error message');
       });
-      it('should ignore a custom label when not of type required', () => {
+      it('should ignore a custom error when not of type required', () => {
         expect(validateRequired(undefined, undefined, [{type: 'genericError', message: 'generic error message'}])).toEqual('Field is required');
       });
 
