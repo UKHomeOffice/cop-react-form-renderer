@@ -16,11 +16,11 @@ const validateRequired = (value, label = '', customErrors) => {
     }
   }
   if (!hasValue) {
-    if(customErrors && Array.isArray(customErrors)){
-      const result = customErrors.filter(error => {
+    if (Array.isArray(customErrors)) {
+      const result = customErrors.filter((error) => {
         return error.type === 'required';
-      })
-      if(result && result.length > 0 && result[0].message){
+      });
+      if (result && result.length > 0 && result[0].message) {
         return result[0].message;
       }
     }
