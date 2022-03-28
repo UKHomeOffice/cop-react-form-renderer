@@ -3,6 +3,7 @@ import { ComponentTypes } from '../../models';
 import showComponent from '../Component/showComponent';
 import validateEmail from './validateEmail';
 import validateRequired from './validateRequired';
+import validateDate, { dateValidators } from './validateDate';
 
 /**
  * Validates a single component.
@@ -20,6 +21,19 @@ const validateComponent = (component, formData) => {
     }
     if (!error && component.type === ComponentTypes.EMAIL) {
       error = validateEmail(value, component.label);
+    }
+    if (!error && component.type === ComponentTypes.DATE && value) {
+      const { message, propsinerror } = validateDate(value);
+      component.propsinerror = propsinerror; 
+      error = message;
+      if(!error && component.datevalidation){
+        component.datevalidation.forEach(validator => {
+          if(!dateValidators[validator.function](value, validator.args)){
+            error = validator.message;
+            component.propsinerror = { day: true, month: true, year: true };
+          }
+        })
+      }
     }
     component.error = error;
   }

@@ -127,6 +127,23 @@ The value to compare the `show_when.field`'s value to. This is applicable for eq
 * #### `show_when.values : [ string | number | boolean ]`
 The set of values in which to look for the `show_when.field`'s value. This is applicable for `in` and `nin` operators only.
 
+### `datevalidation : [ object ]`
+*Optional, and only applicable to the DateInput component*
+
+An array of configuration objects for determining which validators should be applied to the DateInput component.
+
+* #### `datevalidation.function : string`
+The name of the validation function to apply, options include:
+  * `isDateInPast`: Will fail validation if the date is not in the past. Add optional argument `true` to allow the current day to pass the check.
+  * `isDateInFuture`: Will fail validation if the date is not in the future.
+  * `isDateBeforeFutureNoOfMonths`: Will fail validation if the date is after the given number of months. Requires an argument of the number of months to check.
+  * `isDateLessThanXMonthsAgo`: Will fail validation if the date is more than the given number of months in the past. Requires an argument of the number of months to check.
+
+* #### `datevalidation.args : string`
+The value of any arguments to be passed to the selected function.
+
+* #### `datevalidation.message : string`
+The error message to display if validation fails.
 
 ## Examples
 
