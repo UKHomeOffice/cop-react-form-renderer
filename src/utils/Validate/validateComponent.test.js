@@ -1,5 +1,4 @@
 // Local imports
-import { Component } from 'react';
 import { ComponentTypes } from '../../models';
 import validateComponent from './validateComponent';
 
