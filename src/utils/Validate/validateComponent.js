@@ -17,7 +17,7 @@ const validateComponent = (component, formData) => {
   const data = formData && typeof formData === 'object' ? formData : {};
   if (component && showComponent(component, formData)) {
     const value = data[component.fieldId];
-    delete component.propsinerror;
+    delete component.propsInError;
     if (component.required) {
       error = validateRequired(value, component.label, component.custom_errors);
     }
@@ -25,14 +25,14 @@ const validateComponent = (component, formData) => {
       error = validateEmail(value, component.label);
     }
     if (!error && component.type === ComponentTypes.DATE && value) {
-      const { message, propsinerror } = validateDate(value);
-      component.propsinerror = propsinerror;
+      const { message, propsInError } = validateDate(value);
+      component.propsInError = propsInError;
       error = message;
     }
     if (!error && component.additionalValidation) {
       error = runAdditionalComponentValidation(component, value);
       if (component.type === ComponentTypes.DATE && error) {
-        component.propsinerror = { day: true, month: true, year: true };
+        component.propsInError = { day: true, month: true, year: true };
       }
     }
     component.error = error;
