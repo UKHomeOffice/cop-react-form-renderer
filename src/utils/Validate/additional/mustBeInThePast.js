@@ -20,6 +20,7 @@ dayjs.extend(isToday);
 const mustBeInThePast = (date, config) => {
   const beforeToday = dayjs(formatString(date), DATE_FORMAT).isBefore(dayjs());
   const isToday = dayjs(formatString(date), DATE_FORMAT).isToday();
+  //dayjs classifies the current day as in the past so exclude it here
   if (beforeToday && !isToday) {
     return true;
   }
