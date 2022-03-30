@@ -25,7 +25,7 @@ export {maxMonthDays};
 /**
  * Checks if a date passed is a valid date.
  * This will validate for 'leap years', missing components, invalid day, monnth or year components.
- * EXAMPLE USE : const { message, propsinerror } = validateDate('2-11-2020')
+ * EXAMPLE USE : const { message, propsInError } = validateDate('2-11-2020')
  * @param {string} date  date as a string
  * @returns an object with an error message and instructions for which parts of the date are in error
  * or undefined for both if the date is valid
@@ -38,32 +38,32 @@ const validateDate = (date) => {
 
 
   if (year.length === 0) {
-    return { message: 'Date must include a year', propsinerror: { year: true } };
+    return { message: 'Date must include a year', propsInError: { year: true } };
   }
   if (year.length !== 4) {
-    return { message: 'Year must be 4 numbers', propsinerror: { year: true } };
+    return { message: 'Year must be 4 numbers', propsInError: { year: true } };
   }
 
   if (month.length === 0) {
-    return { message: 'Date must include a month', propsinerror: { month: true } };
+    return { message: 'Date must include a month', propsInError: { month: true } };
   }
   if (intMonth > 12 || intMonth < 1) {
-    return { message: 'Month must be between 1 and 12', propsinerror: { month: true } };
+    return { message: 'Month must be between 1 and 12', propsInError: { month: true } };
   }
 
   if (day.length === 0) {
-    return { message: 'Date must include a day', propsinerror: { day: true } };
+    return { message: 'Date must include a day', propsInError: { day: true } };
   }
   const maxDays = maxMonthDays(month, year);
   if (intDay > maxDays || intDay < 1) {
-    return { message: `Day must be between 1 and ${maxDays}`, propsinerror: { day: true } };
+    return { message: `Day must be between 1 and ${maxDays}`, propsInError: { day: true } };
   }
 
   if (dayjs(formattedDate, DATE_FORMAT).format(DATE_FORMAT) !== formattedDate) {
-    return { message: 'Enter a valid date', propsinerror: { day: true, month: true, year: true } };
+    return { message: 'Enter a valid date', propsInError: { day: true, month: true, year: true } };
   }
 
-  return { message: undefined, propsinerror: undefined };
+  return { message: undefined, propsInError: undefined };
 };
 
 export default validateDate;
