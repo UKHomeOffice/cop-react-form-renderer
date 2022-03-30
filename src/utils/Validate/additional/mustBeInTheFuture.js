@@ -20,7 +20,7 @@ const mustBeInTheFuture = (date, config) => {
   if (afterToday) {
     return true;
   }
-  return dayjs(formatString(date), DATE_FORMAT).isToday() && !!config?.todayAllowed;
+  return !!config?.todayAllowed && dayjs(formatString(date), DATE_FORMAT).isToday();
 };
 
 export default mustBeInTheFuture;
