@@ -1,5 +1,5 @@
 // Local imports
-import mustBeAfter from './mustbeAfter';
+import mustBeAfter from './mustBeAfter';
 import mustBeBefore from './mustBeBefore';
 import mustBeInThePast from './mustBeInThePast';
 import mustBeInTheFuture from './mustBeInTheFuture';

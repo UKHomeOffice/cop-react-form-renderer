@@ -10,9 +10,9 @@ dayjs.extend(customParseFormat);
 /**
  * Function returns false if the date string parameter is for a date more than N in the future
  * where N is the number of months parameter
- * @param {*} dateToCheck - date string in a valid date format e.g. DD-MM-YYYY
- * @param {*} config.unit - day, month or year
- * @param {*} config.value - number of the unit to be before
+ * @param {string} dateToCheck - date string in a valid date format e.g. DD-MM-YYYY
+ * @param {string} config.unit - day, month or year
+ * @param {number} config.value - number of the unit to be before
  * @returns true if date is not after the no of months in future.
  */
 const mustBeBefore = (date, config) => {

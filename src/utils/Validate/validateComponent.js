@@ -17,6 +17,7 @@ const validateComponent = (component, formData) => {
   const data = formData && typeof formData === 'object' ? formData : {};
   if (component && showComponent(component, formData)) {
     const value = data[component.fieldId];
+    delete component.propsinerror;
     if (component.required) {
       error = validateRequired(value, component.label, component.custom_errors);
     }

@@ -1,4 +1,5 @@
 // Local imports
+import { Component } from 'react';
 import { ComponentTypes } from '../../models';
 import validateComponent from './validateComponent';
 
@@ -8,8 +9,8 @@ describe('utils', () => {
 
     describe('component', () => {
 
-      const setup = (id, type, label, required, datevalidation) => {
-        return { id, fieldId: id, type, label, required, datevalidation };
+      const setup = (id, type, label, required, additionalValidation) => {
+        return { id, fieldId: id, type, label, required, additionalValidation };
       };
 
       it('should return no error when the component is null', () => {
@@ -130,25 +131,16 @@ describe('utils', () => {
           expect(validateComponent(COMPONENT, DATA)).toEqual({ error: 'Month must be between 1 and 12', id: ID });
         });
 
-        // it('should apply optional validators when specified', () => {
-        //   const LABEL = 'Field';
-        //   const DATE_VALIDATION = [
-        //     { function: 'isDateInPast', args: 'true', message: 'Date must be today or in the past' },
-        //   ];
-        //   const DATA = { [ID]: '25-3-3033' };
-        //   const COMPONENT = setup(ID, ComponentTypes.DATE, LABEL, false, DATE_VALIDATION);
-        //   expect(validateComponent(COMPONENT, DATA)).toEqual({ error: 'Date must be today or in the past', id: ID });
-        // });
+        it('should apply optional validators when specified', () => {
+          const LABEL = 'Field';
+          const DATA = { [ID]: '25-3-3033' };
+          const ADDITIONAL_VALIDATION = [
+            { function: 'mustBeBefore', value: 3, unit: 'day', message: 'Date must be less than 3 days in the future' },
+          ]
+          const COMPONENT = setup(ID, ComponentTypes.DATE, LABEL, false, ADDITIONAL_VALIDATION);
+          expect(validateComponent(COMPONENT, DATA)).toEqual({ error: 'Date must be less than 3 days in the future', id: ID });
+        });
 
-        // it('should return no error for dates passing all specified validation', () => {
-        //   const LABEL = 'Field';
-        //   const DATE_VALIDATION = [
-        //     { function: 'isDateInPast', args: 'true', message: 'Date must be today or in the past' },
-        //   ];
-        //   const DATA = { [ID]: '25-3-1990' };
-        //   const COMPONENT = setup(ID, ComponentTypes.DATE, LABEL, false, DATE_VALIDATION);
-        //   expect(validateComponent(COMPONENT, DATA)).toBeUndefined();
-        // });
       });
     });
   });
