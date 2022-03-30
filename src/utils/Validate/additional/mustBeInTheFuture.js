@@ -11,8 +11,8 @@ dayjs.extend(isToday);
 
 /**
  * Function returns true if the date parameter is a date after today, else returns false
- * @param {*} date - date string e.g. '03-12-2021'
- * @param {*} config.todayAllowed - true if today should be a valid date
+ * @param {string} date - date string e.g. '03-12-2021'
+ * @param {boolean} config.todayAllowed - true if today should be a valid date
  * @returns true if date is after current date
  */
 const mustBeInTheFuture = (date, config) => {

@@ -11,20 +11,14 @@ const formatString = (date) => {
  * Prepends a leading zero if the 'date component' parameter contains only a single digit.
  * if the parameter contains more than one digit it is returned unchanged.
  * If the parameter contains a non-numeric value it returned as an empty string.
- * @param {*} dateComponent - the value representing a day or month.
+ * @param {string} dateComponent - the value representing a day or month.
  * @returns  the value (appended with a leading zero, if the value passed in was a single digit)
  */
 const formatInTwoDigits = (dateComponent) => {
-  let result = '';
-
   if (isNumeric(dateComponent)) {
-    if (dateComponent.toString().length === 1) {
-      result = `0${dateComponent}`;
-    } else {
-      result = dateComponent;
-    }
+    return dateComponent.padStart(2, '0');
   }
-  return result;
+  return '';
 };
 
 const DATE_FORMAT = 'DD-MM-YYYY';
