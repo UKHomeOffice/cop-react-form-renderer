@@ -113,3 +113,36 @@ on the basis of a <Link href="/?path=/docs/f-json-form">JSON</Link> that describ
     }}
   </Story>
 </Canvas>
+
+## Read-only style
+
+<Canvas>
+  <Story name="Read-only style" parameters={{
+    mockData: [
+      {
+        url: `${USER_PROFILE_DATA.urls.refData}/areYouACivilServant`,
+        method: 'GET',
+        status: 200,
+        response: CIVIL_SERVANT
+      },
+      {
+        url: `${USER_PROFILE_DATA.urls.refData}/grade`,
+        method: 'GET',
+        status: 200,
+        response: GRADE
+      },
+      {
+        url: `${USER_PROFILE_DATA.urls.refData}/team`,
+        method: 'GET',
+        status: 200,
+        response: TEAMS
+      }
+    ]
+  }}>
+    {() => {
+      return (
+        <FormRenderer {...USER_PROFILE} data={USER_PROFILE_DATA} summaryListClassModifiers='no-border' hide_title={true} noAction={true} invertWeight={true}/>
+      );
+    }}
+  </Story>
+</Canvas>

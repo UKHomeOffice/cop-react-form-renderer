@@ -27,7 +27,11 @@ const FormRenderer = ({
   hooks: _hooks,
   classBlock,
   classModifiers,
-  className
+  className,
+  hide_title,
+  summaryListClassModifiers,
+  noAction,
+  invertWeight
 }) => {
   // Set up the initial states.
   const [data, setData] = useState({});
@@ -144,7 +148,7 @@ const FormRenderer = ({
   const classes = Utils.classBuilder(classBlock, classModifiers, className);
   return (
     <div className={classes()}>
-      {title && pageId === FormPages.HUB && <LargeHeading>{title}</LargeHeading>}
+      {title && !hide_title && pageId === FormPages.HUB && <LargeHeading>{title}</LargeHeading>}
       {
         formState.cya &&
         <CheckYourAnswers
@@ -153,6 +157,10 @@ const FormRenderer = ({
           {...formState.cya}
           onAction={onCYAAction}
           onRowAction={onCYARowAction}
+          summaryListClassModifiers={summaryListClassModifiers}
+          hide_title={hide_title}
+          noAction={noAction}
+          invertWeight={invertWeight}
         />
       }
       {formState.page && <FormPage page={formState.page} onAction={onPageAction} />}
@@ -177,7 +185,11 @@ FormRenderer.propTypes = {
   }),
   classBlock: PropTypes.string,
   classModifiers: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
-  className: PropTypes.string
+  className: PropTypes.string,
+  hide_title: PropTypes.bool,
+  summaryListClassModifiers: PropTypes.string,
+  noAction: PropTypes.bool,
+  invertWeight: PropTypes.bool
 };
 
 FormRenderer.defaultProps = {
@@ -185,7 +197,11 @@ FormRenderer.defaultProps = {
   components: [],
   pages: [],
   classBlock: DEFAULT_CLASS,
-  classModifiers: []
+  classModifiers: [],
+  hide_title: false,
+  summaryListClassModifiers: null,
+  noAction: false,
+  invertWeight:false
 };
 
 export default FormRenderer;

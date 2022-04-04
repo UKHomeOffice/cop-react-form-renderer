@@ -227,6 +227,17 @@ describe('components', () => {
       expect(newPageHeading.textContent).toEqual(USER_PROFILE.pages[5].title);
     });
 
+    it('should show no title when hide_title is set to true', async () => {
+      await act(async () => {
+        render(<FormRenderer {...USER_PROFILE} data={USER_PROFILE_DATA} hide_title={true} />, container);
+      });
+      const form = checkForm(container);
+      expect(form.childNodes.length).toEqual(1); //Hub page (= CYA)
+      const hub = form.childNodes[0];
+      expect(hub.tagName).toEqual('DIV');
+      expect(hub.classList).toContain(CYA_DEFAULT_CLASS);
+    });
+
   });
 
 });
