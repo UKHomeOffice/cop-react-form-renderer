@@ -129,6 +129,17 @@ describe('components', () => {
       checkRow(status, 'Are you a civil servant?', 'Yes', true);
     });
 
+    it('should show no title if is set to hidden', async () => {
+      await act(async () => {
+        render(<CheckYourAnswers pages={PAGES} onRowAction={ON_ROW_ACTION} onAction={ON_ACTION} hide_title={true}/>, container);
+      });
+      const cya = checkCYA(container);
+      const title = cya.childNodes[0];
+      expect(title.classList).not.toContain('govuk-heading-l');
+      expect(title.textContent).not.toEqual(DEFAULT_TITLE);
+    });
+
+
   });
 
 });
