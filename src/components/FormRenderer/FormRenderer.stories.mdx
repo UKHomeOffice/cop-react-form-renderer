@@ -1,29 +1,29 @@
 <!-- Global imports -->
 
-import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs";
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
 import {
   Button,
   Details,
   Heading,
   Link,
   Panel,
-} from "@ukhomeoffice/cop-react-components";
-import { useState } from "react";
-import withMock from "storybook-addon-mock";
+} from '@ukhomeoffice/cop-react-components';
+import { useState } from 'react';
+import withMock from 'storybook-addon-mock';
 
 <!-- Local imports -->
 
-import { addHook } from "../../hooks/useHooks";
-import FormRenderer from "./FormRenderer";
+import { addHook } from '../../hooks/useHooks';
+import FormRenderer from './FormRenderer';
 
 <!-- JSON documents -->
 
-import CIVIL_SERVANT from "../../json/areYouACivilServant.json";
-import FIRST_FORM from "../../json/firstForm.json";
-import GRADE from "../../json/grade.json";
-import TEAMS from "../../json/team.json";
-import USER_PROFILE_DATA from "../../json/userProfile.data.json";
-import USER_PROFILE from "../../json/userProfile.json";
+import CIVIL_SERVANT from '../../json/areYouACivilServant.json';
+import FIRST_FORM from '../../json/firstForm.json';
+import GRADE from '../../json/grade.json';
+import TEAMS from '../../json/team.json';
+import USER_PROFILE_DATA from '../../json/userProfile.data.json';
+import USER_PROFILE from '../../json/userProfile.json';
 
 <Meta
   title='Components/Form renderer'
@@ -46,19 +46,19 @@ on the basis of a <Link href="/?path=/docs/f-json-form">JSON</Link> that describ
       mockData: [
         {
           url: `${USER_PROFILE_DATA.urls.refData}/areYouACivilServant`,
-          method: "GET",
+          method: 'GET',
           status: 200,
           response: CIVIL_SERVANT,
         },
         {
           url: `${USER_PROFILE_DATA.urls.refData}/grade`,
-          method: "GET",
+          method: 'GET',
           status: 200,
           response: GRADE,
         },
         {
           url: `${USER_PROFILE_DATA.urls.refData}/team`,
-          method: "GET",
+          method: 'GET',
           status: 200,
           response: TEAMS,
         },
@@ -82,27 +82,27 @@ on the basis of a <Link href="/?path=/docs/f-json-form">JSON</Link> that describ
     {() => {
       const [complete, setComplete] = useState(false);
       const [returnLater, setReturnLater] = useState(false);
-      addHook("onRequest", (req) => {
+      addHook('onRequest', (req) => {
         // Do whatever you need to do to the request in here, such as adding an Authorization header.
-        console.log("onRequest hook called");
+        console.log('onRequest hook called');
         return req;
       });
-      addHook("onFormLoad", () => {
-        console.log("onFormLoad called");
+      addHook('onFormLoad', () => {
+        console.log('onFormLoad called');
       });
-      addHook("onFormComplete", () => {
-        console.log("onFormComplete called");
+      addHook('onFormComplete', () => {
+        console.log('onFormComplete called');
         setComplete(true);
       });
-      addHook("onPageChange", (pageId) => {
-        console.log("onPageChange called", pageId);
+      addHook('onPageChange', (pageId) => {
+        console.log('onPageChange called', pageId);
         setReturnLater(!!pageId === false);
       });
-      addHook("onSubmit", (type, payload, onSuccess, onError) => {
+      addHook('onSubmit', (type, payload, onSuccess, onError) => {
         console.log(
-          "onSubmit called of type",
+          'onSubmit called of type',
           type,
-          "called, with the payload",
+          'called, with the payload',
           payload
         );
         onSuccess();
@@ -147,19 +147,19 @@ on the basis of a <Link href="/?path=/docs/f-json-form">JSON</Link> that describ
       mockData: [
         {
           url: `${USER_PROFILE_DATA.urls.refData}/areYouACivilServant`,
-          method: "GET",
+          method: 'GET',
           status: 200,
           response: CIVIL_SERVANT,
         },
         {
           url: `${USER_PROFILE_DATA.urls.refData}/grade`,
-          method: "GET",
+          method: 'GET',
           status: 200,
           response: GRADE,
         },
         {
           url: `${USER_PROFILE_DATA.urls.refData}/team`,
-          method: "GET",
+          method: 'GET',
           status: 200,
           response: TEAMS,
         },

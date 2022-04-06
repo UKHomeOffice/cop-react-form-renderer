@@ -1,27 +1,27 @@
 <!-- Global imports -->
 
-import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs";
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
 import {
   Details,
   Heading,
   Link,
   Tag,
-} from "@ukhomeoffice/cop-react-components";
-import withMock from "storybook-addon-mock";
+} from '@ukhomeoffice/cop-react-components';
+import withMock from 'storybook-addon-mock';
 
 <!-- Local imports -->
 
-import Utils from "../../utils";
-import CheckYourAnswers from "./CheckYourAnswers";
+import Utils from '../../utils';
+import CheckYourAnswers from './CheckYourAnswers';
 
 <!-- JSON documents -->
 
-import CIVIL_SERVANT from "../../json/areYouACivilServant.json";
-import GRADE from "../../json/grade.json";
-import TEAMS from "../../json/team.json";
-import USER_PROFILE_DATA from "../../json/userProfile.data.json";
-import USER_PROFILE from "../../json/userProfile.json";
-import FIRST_FORM from "../../json/firstForm.json";
+import CIVIL_SERVANT from '../../json/areYouACivilServant.json';
+import GRADE from '../../json/grade.json';
+import TEAMS from '../../json/team.json';
+import USER_PROFILE_DATA from '../../json/userProfile.data.json';
+import USER_PROFILE from '../../json/userProfile.json';
+import FIRST_FORM from '../../json/firstForm.json';
 
 <Meta
   title='Components/Check your answers'
@@ -43,19 +43,19 @@ Renders the **Check your answers** screen for a form.
       mockData: [
         {
           url: `${USER_PROFILE_DATA.urls.refData}/areYouACivilServant`,
-          method: "GET",
+          method: 'GET',
           status: 200,
           response: CIVIL_SERVANT,
         },
         {
           url: `${USER_PROFILE_DATA.urls.refData}/grade`,
-          method: "GET",
+          method: 'GET',
           status: 200,
           response: GRADE,
         },
         {
           url: `${USER_PROFILE_DATA.urls.refData}/team`,
-          method: "GET",
+          method: 'GET',
           status: 200,
           response: TEAMS,
         },
@@ -74,10 +74,10 @@ Renders the **Check your answers** screen for a form.
         { ...DATA }
       );
       const ON_ACTION = (action, patch, onError) => {
-        console.log("action invoked", action, patch);
+        console.log('action invoked', action, patch);
       };
       const ON_ROW_ACTION = (page) => {
-        console.log("row action invoked", page);
+        console.log('row action invoked', page);
       };
       return (
         <CheckYourAnswers
@@ -105,19 +105,19 @@ Renders the **Check your answers** screen for a form.
       mockData: [
         {
           url: `${USER_PROFILE_DATA.urls.refData}/areYouACivilServant`,
-          method: "GET",
+          method: 'GET',
           status: 200,
           response: CIVIL_SERVANT,
         },
         {
           url: `${USER_PROFILE_DATA.urls.refData}/grade`,
-          method: "GET",
+          method: 'GET',
           status: 200,
           response: GRADE,
         },
         {
           url: `${USER_PROFILE_DATA.urls.refData}/team`,
-          method: "GET",
+          method: 'GET',
           status: 200,
           response: TEAMS,
         },
@@ -136,10 +136,10 @@ Renders the **Check your answers** screen for a form.
         { ...DATA }
       );
       const ON_ACTION = (action, patch, onError) => {
-        console.log("action invoked", action, patch);
+        console.log('action invoked', action, patch);
       };
       const ON_ROW_ACTION = (page) => {
-        console.log("row action invoked", page);
+        console.log('row action invoked', page);
       };
       return (
         <CheckYourAnswers
@@ -162,19 +162,19 @@ Renders the **Check your answers** screen for a form.
       mockData: [
         {
           url: `${USER_PROFILE_DATA.urls.refData}/areYouACivilServant`,
-          method: "GET",
+          method: 'GET',
           status: 200,
           response: CIVIL_SERVANT,
         },
         {
           url: `${USER_PROFILE_DATA.urls.refData}/grade`,
-          method: "GET",
+          method: 'GET',
           status: 200,
           response: GRADE,
         },
         {
           url: `${USER_PROFILE_DATA.urls.refData}/team`,
-          method: "GET",
+          method: 'GET',
           status: 200,
           response: TEAMS,
         },
@@ -182,7 +182,7 @@ Renders the **Check your answers** screen for a form.
     }}
   >
     {() => {
-      const DATA = { firstName: "John", surname: "Smith", age: 41 };
+      const DATA = { firstName: 'John', surname: 'Smith', age: 41 };
       const PAGES = Utils.FormPage.getAll(
         FIRST_FORM.pages,
         FIRST_FORM.components,
@@ -190,10 +190,10 @@ Renders the **Check your answers** screen for a form.
       );
       const ACTIONS = FIRST_FORM.cya.actions;
       const ON_ACTION = (action, patch, onError) => {
-        console.log("action invoked", action, patch);
+        console.log('action invoked', action, patch);
       };
       const ON_ROW_ACTION = (page) => {
-        console.log("row action invoked", page);
+        console.log('row action invoked', page);
       };
       return (
         <CheckYourAnswers
@@ -217,19 +217,19 @@ Renders the **Check your answers** screen for a form.
       mockData: [
         {
           url: `${USER_PROFILE_DATA.urls.refData}/areYouACivilServant`,
-          method: "GET",
+          method: 'GET',
           status: 200,
           response: CIVIL_SERVANT,
         },
         {
           url: `${USER_PROFILE_DATA.urls.refData}/grade`,
-          method: "GET",
+          method: 'GET',
           status: 200,
           response: GRADE,
         },
         {
           url: `${USER_PROFILE_DATA.urls.refData}/team`,
-          method: "GET",
+          method: 'GET',
           status: 200,
           response: TEAMS,
         },
@@ -248,10 +248,10 @@ Renders the **Check your answers** screen for a form.
         { ...DATA }
       );
       const ON_ACTION = (action, patch, onError) => {
-        console.log("action invoked", action, patch);
+        console.log('action invoked', action, patch);
       };
       const ON_ROW_ACTION = (page) => {
-        console.log("row action invoked", page);
+        console.log('row action invoked', page);
       };
       return (
         <CheckYourAnswers

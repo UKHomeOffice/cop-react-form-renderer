@@ -1,12 +1,12 @@
 <!-- Global imports -->
 
-import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs";
-import { Details, Heading } from "@ukhomeoffice/cop-react-components";
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
+import { Details, Heading } from '@ukhomeoffice/cop-react-components';
 
 <!-- Local imports -->
 
-import Utils from "../../utils";
-import SummaryList from "./SummaryList";
+import Utils from '../../utils';
+import SummaryList from './SummaryList';
 
 <Meta
   title='Components/Summary list'
@@ -25,22 +25,22 @@ display action links.
   <Story name='Default'>
     {() => {
       const onAction = (row) => {
-        console.log("action clicked", row);
+        console.log('action clicked', row);
       };
       const ROWS = [
         {
-          pageId: "p1",
-          fieldId: "forename",
-          key: "Forename(s)",
-          value: "John",
+          pageId: 'p1',
+          fieldId: 'forename',
+          key: 'Forename(s)',
+          value: 'John',
         },
-        { pageId: "p1", fieldId: "surname", key: "Surname", value: "Smith" },
+        { pageId: 'p1', fieldId: 'surname', key: 'Surname', value: 'Smith' },
         {
-          pageId: "p2",
-          fieldId: "dob",
-          key: "Date of birth",
-          value: "29/08/1993",
-          action: { label: "Change", onAction },
+          pageId: 'p2',
+          fieldId: 'dob',
+          key: 'Date of birth',
+          value: '29/08/1993',
+          action: { label: 'Change', onAction },
         },
       ];
       return <SummaryList rows={ROWS} />;
@@ -60,22 +60,22 @@ display action links.
   <Story name='Read-only style'>
     {() => {
       const onAction = (row) => {
-        console.log("action clicked", row);
+        console.log('action clicked', row);
       };
       const ROWS = [
         {
-          pageId: "p1",
-          fieldId: "forename",
-          key: "Forename(s)",
-          value: "John",
+          pageId: 'p1',
+          fieldId: 'forename',
+          key: 'Forename(s)',
+          value: 'John',
         },
-        { pageId: "p1", fieldId: "surname", key: "Surname", value: "Smith" },
+        { pageId: 'p1', fieldId: 'surname', key: 'Surname', value: 'Smith' },
         {
-          pageId: "p2",
-          fieldId: "dob",
-          key: "Date of birth",
-          value: "29/08/1993",
-          action: { label: "Change", onAction },
+          pageId: 'p2',
+          fieldId: 'dob',
+          key: 'Date of birth',
+          value: '29/08/1993',
+          action: { label: 'Change', onAction },
         },
       ];
       return (
