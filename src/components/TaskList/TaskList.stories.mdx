@@ -1,0 +1,56 @@
+<!-- Global imports -->
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
+import { Details, Heading } from '@ukhomeoffice/cop-react-components';
+
+<!-- Local imports -->
+import Utils from '../../utils';
+import TaskList from './TaskList';
+
+<Meta title="Components/Task list" id="D-TaskList" component={ TaskList } />
+
+<Heading size="xl" caption="Components">Task list</Heading>
+
+Renders a list of tasks along with the current status for each. Each task that is not in the `Cannot start yet` state can be 
+selected to navigate to that task.
+
+<Canvas withToolbar>
+  <Story name="Default">
+    {() => {
+      const onAction = (row) => {
+        console.log('action clicked', row);
+      };
+      const COP_REF = '123';
+      const SECTIONS = [
+        {
+          title: 'Add event details',
+          tasks: [
+            { taskName: 'Date, location and mode details', state: 'complete' },
+            { taskName: 'Officer and agency details', state: 'inProgress' },
+          ],
+        },
+        {
+          title: 'Add people details',
+          tasks: [
+            { taskName: 'People details', state: 'complete' },
+            { taskName: 'Immigration details', state: 'inProgress' },
+            { taskName: 'Journey details', state: 'notStarted' },
+          ],
+        },
+        {
+          title: 'Add item details',
+          tasks: [
+            { taskName: 'Item details', state: 'cannotStartYet' },
+            { taskName: 'Search and interception details', state: 'cannotStartYet' },
+          ],
+        },
+      ];
+      return (
+        <TaskList copRefNum={COP_REF} sections={SECTIONS} />
+      );
+    }}
+  </Story>
+</Canvas>
+
+<Details summary="Properties" className="no-indent">
+  <ArgsTable of={ TaskList } />
+</Details>
