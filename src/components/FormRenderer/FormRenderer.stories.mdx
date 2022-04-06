@@ -1,88 +1,110 @@
 <!-- Global imports -->
-import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
-import { Button, Details, Heading, Link, Panel } from '@ukhomeoffice/cop-react-components';
-import { useState } from 'react';
-import withMock from 'storybook-addon-mock';
+
+import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs";
+import {
+  Button,
+  Details,
+  Heading,
+  Link,
+  Panel,
+} from "@ukhomeoffice/cop-react-components";
+import { useState } from "react";
+import withMock from "storybook-addon-mock";
 
 <!-- Local imports -->
-import { addHook } from '../../hooks/useHooks';
-import FormRenderer from './FormRenderer';
+
+import { addHook } from "../../hooks/useHooks";
+import FormRenderer from "./FormRenderer";
 
 <!-- JSON documents -->
-import CIVIL_SERVANT from '../../json/areYouACivilServant.json';
-import FIRST_FORM from '../../json/firstForm.json';
-import GRADE from '../../json/grade.json';
-import TEAMS from '../../json/team.json';
-import USER_PROFILE_DATA from '../../json/userProfile.data.json';
-import USER_PROFILE from '../../json/userProfile.json';
 
-<Meta title="Components/Form renderer" id="D-FormRenderer" component={ FormRenderer } decorators={[withMock]} />
+import CIVIL_SERVANT from "../../json/areYouACivilServant.json";
+import FIRST_FORM from "../../json/firstForm.json";
+import GRADE from "../../json/grade.json";
+import TEAMS from "../../json/team.json";
+import USER_PROFILE_DATA from "../../json/userProfile.data.json";
+import USER_PROFILE from "../../json/userProfile.json";
 
-<Heading size="xl" caption="Components">Form renderer</Heading>
+<Meta
+  title='Components/Form renderer'
+  id='D-FormRenderer'
+  component={FormRenderer}
+  decorators={[withMock]}
+/>
+
+<Heading size='xl' caption='Components'>
+  Form renderer
+</Heading>
 
 Renders a form with <Link href="https://ukhomeoffice.github.io/cop-react-components/?path=/docs/d-alert--default-story">COP React components</Link>,
 on the basis of a <Link href="/?path=/docs/f-json-form">JSON</Link> that describes which elements are required.
 
 <Canvas withToolbar>
-  <Story name="Default" parameters={{
-    mockData: [
-      {
-        url: `${USER_PROFILE_DATA.urls.refData}/areYouACivilServant`,
-        method: 'GET',
-        status: 200,
-        response: CIVIL_SERVANT
-      },
-      {
-        url: `${USER_PROFILE_DATA.urls.refData}/grade`,
-        method: 'GET',
-        status: 200,
-        response: GRADE
-      },
-      {
-        url: `${USER_PROFILE_DATA.urls.refData}/team`,
-        method: 'GET',
-        status: 200,
-        response: TEAMS
-      }
-    ]
-  }}>
+  <Story
+    name='Default'
+    parameters={{
+      mockData: [
+        {
+          url: `${USER_PROFILE_DATA.urls.refData}/areYouACivilServant`,
+          method: "GET",
+          status: 200,
+          response: CIVIL_SERVANT,
+        },
+        {
+          url: `${USER_PROFILE_DATA.urls.refData}/grade`,
+          method: "GET",
+          status: 200,
+          response: GRADE,
+        },
+        {
+          url: `${USER_PROFILE_DATA.urls.refData}/team`,
+          method: "GET",
+          status: 200,
+          response: TEAMS,
+        },
+      ],
+    }}
+  >
     {() => {
-      return (
-        <FormRenderer {...USER_PROFILE} data={USER_PROFILE_DATA} />
-      );
+      return <FormRenderer {...USER_PROFILE} data={USER_PROFILE_DATA} />;
     }}
   </Story>
 </Canvas>
 
-<Details summary="Properties" className="no-indent">
-  <ArgsTable of={ FormRenderer } />
+<Details summary='Properties' className='no-indent'>
+  <ArgsTable of={FormRenderer} />
 </Details>
 
 ## CYA type
 
 <Canvas>
-  <Story name="CYA">
+  <Story name='CYA'>
     {() => {
       const [complete, setComplete] = useState(false);
       const [returnLater, setReturnLater] = useState(false);
-      addHook('onRequest', (req) => {
+      addHook("onRequest", (req) => {
         // Do whatever you need to do to the request in here, such as adding an Authorization header.
-        console.log('onRequest hook called');
+        console.log("onRequest hook called");
         return req;
       });
-      addHook('onFormLoad', () => {
-        console.log('onFormLoad called');
+      addHook("onFormLoad", () => {
+        console.log("onFormLoad called");
       });
-      addHook('onFormComplete', () => {
-        console.log('onFormComplete called');
+      addHook("onFormComplete", () => {
+        console.log("onFormComplete called");
         setComplete(true);
       });
-      addHook('onPageChange', (pageId) => {
-        console.log('onPageChange called', pageId);
+      addHook("onPageChange", (pageId) => {
+        console.log("onPageChange called", pageId);
         setReturnLater(!!pageId === false);
       });
-      addHook('onSubmit', (type, payload, onSuccess, onError) => {
-        console.log('onSubmit called of type', type, 'called, with the payload', payload);
+      addHook("onSubmit", (type, payload, onSuccess, onError) => {
+        console.log(
+          "onSubmit called of type",
+          type,
+          "called, with the payload",
+          payload
+        );
         onSuccess();
       });
       const reset = () => {
@@ -91,23 +113,25 @@ on the basis of a <Link href="/?path=/docs/f-json-form">JSON</Link> that describ
       };
       return (
         <>
-        {!complete && !returnLater && <FormRenderer {...FIRST_FORM} data={{}} />}
-        {complete &&
-          <div>
-            <Panel title="Submission successful">
-              Your submission was successful.
-            </Panel>
-            <Button onClick={() => reset()}>Start again</Button>
-          </div>
-        }
-        {!complete && returnLater &&
-          <div>
-            <Panel title="Saved to return later">
-              You clicked on "Save and return later".
-            </Panel>
-            <Button onClick={() => reset()}>Start again</Button>
-          </div>
-        }
+          {!complete && !returnLater && (
+            <FormRenderer {...FIRST_FORM} data={{}} />
+          )}
+          {complete && (
+            <div>
+              <Panel title='Submission successful'>
+                Your submission was successful.
+              </Panel>
+              <Button onClick={() => reset()}>Start again</Button>
+            </div>
+          )}
+          {!complete && returnLater && (
+            <div>
+              <Panel title='Saved to return later'>
+                You clicked on "Save and return later".
+              </Panel>
+              <Button onClick={() => reset()}>Start again</Button>
+            </div>
+          )}
         </>
       );
     }}
@@ -117,31 +141,40 @@ on the basis of a <Link href="/?path=/docs/f-json-form">JSON</Link> that describ
 ## Read-only style
 
 <Canvas>
-  <Story name="Read-only style" parameters={{
-    mockData: [
-      {
-        url: `${USER_PROFILE_DATA.urls.refData}/areYouACivilServant`,
-        method: 'GET',
-        status: 200,
-        response: CIVIL_SERVANT
-      },
-      {
-        url: `${USER_PROFILE_DATA.urls.refData}/grade`,
-        method: 'GET',
-        status: 200,
-        response: GRADE
-      },
-      {
-        url: `${USER_PROFILE_DATA.urls.refData}/team`,
-        method: 'GET',
-        status: 200,
-        response: TEAMS
-      }
-    ]
-  }}>
+  <Story
+    name='Read-only style'
+    parameters={{
+      mockData: [
+        {
+          url: `${USER_PROFILE_DATA.urls.refData}/areYouACivilServant`,
+          method: "GET",
+          status: 200,
+          response: CIVIL_SERVANT,
+        },
+        {
+          url: `${USER_PROFILE_DATA.urls.refData}/grade`,
+          method: "GET",
+          status: 200,
+          response: GRADE,
+        },
+        {
+          url: `${USER_PROFILE_DATA.urls.refData}/team`,
+          method: "GET",
+          status: 200,
+          response: TEAMS,
+        },
+      ],
+    }}
+  >
     {() => {
       return (
-        <FormRenderer {...USER_PROFILE} data={USER_PROFILE_DATA} summaryListClassModifiers='no-border' hide_title={true} noAction={true} invertWeight={true}/>
+        <FormRenderer
+          {...USER_PROFILE}
+          data={USER_PROFILE_DATA}
+          summaryListClassModifiers='no-border'
+          hide_title={true}
+          noChangeAction={true}
+        />
       );
     }}
   </Story>

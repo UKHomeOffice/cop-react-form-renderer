@@ -29,8 +29,7 @@ const CheckYourAnswers = ({
   hide_actions,
   hide_title,
   summaryListClassModifiers,
-  noAction,
-  invertWeight
+  noChangeAction,
 }) => {
   const [pages, setPages] = useState([]);
   const [errors, setErrors] = useState([]);
@@ -90,8 +89,7 @@ const CheckYourAnswers = ({
                 className={className}
                 rows={page.rows}
                 classModifiers={summaryListClassModifiers}
-                noAction={noAction}
-                invertWeight={invertWeight}
+                noChangeAction={noChangeAction}
               />
             </Fragment>
           );
@@ -115,9 +113,11 @@ CheckYourAnswers.propTypes = {
   hide_page_titles: PropTypes.bool,
   hide_actions: PropTypes.bool,
   hide_title: PropTypes.bool,
-  summaryListClassModifiers: PropTypes.string,
-  noAction: PropTypes.bool,
-  invertWeight: PropTypes.bool
+  summaryListClassModifiers: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.arrayOf(PropTypes.string)
+  ]),
+  noChangeAction: PropTypes.bool,
 };
 
 CheckYourAnswers.defaultProps = {
@@ -126,8 +126,7 @@ CheckYourAnswers.defaultProps = {
   hide_actions: false,
   hide_title: false,
   summaryListClassModifiers: null,
-  noAction: false,
-  invertWeight:false
+  noChangeAction: false,
 };
 
 export default CheckYourAnswers;

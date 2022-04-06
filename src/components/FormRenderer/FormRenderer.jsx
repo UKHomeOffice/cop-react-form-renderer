@@ -30,8 +30,7 @@ const FormRenderer = ({
   className,
   hide_title,
   summaryListClassModifiers,
-  noAction,
-  invertWeight
+  noChangeAction,
 }) => {
   // Set up the initial states.
   const [data, setData] = useState({});
@@ -159,8 +158,7 @@ const FormRenderer = ({
           onRowAction={onCYARowAction}
           summaryListClassModifiers={summaryListClassModifiers}
           hide_title={hide_title}
-          noAction={noAction}
-          invertWeight={invertWeight}
+          noChangeAction={noChangeAction}
         />
       }
       {formState.page && <FormPage page={formState.page} onAction={onPageAction} />}
@@ -187,9 +185,11 @@ FormRenderer.propTypes = {
   classModifiers: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
   className: PropTypes.string,
   hide_title: PropTypes.bool,
-  summaryListClassModifiers: PropTypes.string,
-  noAction: PropTypes.bool,
-  invertWeight: PropTypes.bool
+  summaryListClassModifiers: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.arrayOf(PropTypes.string)
+  ]),
+  noChangeAction: PropTypes.bool,
 };
 
 FormRenderer.defaultProps = {
@@ -199,9 +199,8 @@ FormRenderer.defaultProps = {
   classBlock: DEFAULT_CLASS,
   classModifiers: [],
   hide_title: false,
-  summaryListClassModifiers: null,
-  noAction: false,
-  invertWeight:false
+  summaryListClassModifiers: [],
+  noChangeAction: false,
 };
 
 export default FormRenderer;

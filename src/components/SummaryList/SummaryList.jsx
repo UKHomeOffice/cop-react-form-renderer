@@ -12,8 +12,7 @@ import './SummaryList.scss';
 export const DEFAULT_CLASS = 'govuk-summary-list';
 const SummaryList = ({
   rows,
-  noAction,
-  invertWeight,
+  noChangeAction,
   classBlock,
   classModifiers,
   className,
@@ -22,28 +21,16 @@ const SummaryList = ({
   const classes = Utils.classBuilder(classBlock, classModifiers, className);
   return (
     <dl {...attrs} className={classes()}>
-      {rows.map((row) =>
-        invertWeight ? (
-          <div key={`${row.pageId}_${row.fieldId}`} className={classes('row')}>
-            <dt className={classes('key caseview__key')}>{row.key}</dt>
-            <dd className={classes('value caseview__value')}>{row.value}</dd>
-            {!noAction && (
-              <dd className={classes('actions')}>
-                {row.action && <RowAction row={row} />}
-              </dd>
-            )}
-          </div>
-        ) : (
+      {rows.map((row) =>  
           <div key={`${row.pageId}_${row.fieldId}`} className={classes('row')}>
             <dt className={classes('key')}>{row.key}</dt>
             <dd className={classes('value')}>{row.value}</dd>
-            {!noAction && (
+            {!noChangeAction && (
               <dd className={classes('actions')}>
                 {row.action && <RowAction row={row} />}
               </dd>
             )}
-          </div>
-        )
+          </div>     
       )}
     </dl>
   );
@@ -70,14 +57,12 @@ SummaryList.propTypes = {
     PropTypes.arrayOf(PropTypes.string)
   ]),
   className: PropTypes.string,
-  noAction: PropTypes.bool,
-  invertWeight: PropTypes.bool
+  noChangeAction: PropTypes.bool,
 };
 
 SummaryList.defaultProps = {
   classBlock: DEFAULT_CLASS,
-  noAction: false,
-  invertWeight: false
+  noChangeAction: false,
 };
 
 export default SummaryList;
