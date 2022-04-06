@@ -129,6 +129,20 @@ describe('components', () => {
       checkRow(status, 'Are you a civil servant?', 'Yes', true);
     });
 
+    it('should show no title if is set to hidden', async () => {
+      await act(async () => {
+        render(<CheckYourAnswers pages={PAGES} onRowAction={ON_ROW_ACTION} onAction={ON_ACTION} hide_title={true}/>, container);
+      });
+      const cya = checkCYA(container);
+      const [ names ] = cya.childNodes;
+      expect(names.tagName).toEqual('DL');
+      expect(names.classList).toContain(`govuk-!-margin-bottom-${DEFAULT_MARGIN_BOTTOM}`);
+      const [ firstName, surname ] = names.childNodes;
+      checkRow(firstName, 'First name', 'John', false);
+      checkRow(surname, 'Last name', 'Smith', false);
+    });
+
+
   });
 
 });
