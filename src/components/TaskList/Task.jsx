@@ -30,6 +30,7 @@ const Task = ({ task, state, onClick }) => {
 TaskState.propTypes = {
   task: PropTypes.object,
   state: PropTypes.string,
+  onClick: PropTypes.function,
 };
 
 export default Task;
