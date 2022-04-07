@@ -6,7 +6,7 @@ import { Link, Utils } from '@ukhomeoffice/cop-react-components';
 //Local imports
 import TaskState from './TaskState';
 
-export const DEFAULT_CLASS = 'app-task-list';
+export const DEFAULT_CLASS = 'hods-task-list';
 
 const Task = ({ task, state, onClick }) => {
   const classes = Utils.classBuilder(DEFAULT_CLASS, undefined, undefined);
@@ -30,7 +30,7 @@ const Task = ({ task, state, onClick }) => {
 TaskState.propTypes = {
   task: PropTypes.object,
   state: PropTypes.string,
-  onClick: PropTypes.function,
+  onClick: PropTypes.func,
 };
 
 export default Task;

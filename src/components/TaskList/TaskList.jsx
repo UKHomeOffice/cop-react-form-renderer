@@ -8,7 +8,7 @@ import Task from './Task';
 
 import './TaskList.scss';
 
-export const DEFAULT_CLASS = 'app-task-list';
+export const DEFAULT_CLASS = 'hods-task-list';
 
 const TaskList = ({ copRefNum, sections, fieldId, onTaskAction, classBlock, classModifiers, className, ...attrs }) => {
   const classes = Utils.classBuilder(classBlock, classModifiers, className);

@@ -2,7 +2,7 @@
 
 // Task list pattern
 
-.app-task-list {
+.hods-task-list {
   list-style-type: none;
   padding-left: 0;
   margin-top: 0;
@@ -12,12 +12,12 @@
   }
 }
 
-.app-task-list__section {
+.hods-task-list__section {
   display: table;
   @include govuk-font($size: 24, $weight: bold);
 }
 
-.app-task-list__section-number {
+.hods-task-list__section-number {
   display: table-cell;
 
   @include govuk-media-query($from: tablet) {
@@ -26,7 +26,7 @@
   }
 }
 
-.app-task-list__items {
+.hods-task-list__items {
   @include govuk-font($size: 19);
   @include govuk-responsive-margin(9, 'bottom');
   list-style: none;
@@ -36,7 +36,7 @@
   }
 }
 
-.app-task-list__item {
+.hods-task-list__item {
   border-bottom: 1px solid $govuk-border-colour;
   margin-bottom: 0 !important;
   padding-top: govuk-spacing(2);
@@ -44,22 +44,22 @@
   @include govuk-clearfix;
 }
 
-.app-task-list__item:first-child {
+.hods-task-list__item:first-child {
   border-top: 1px solid $govuk-border-colour;
 }
 
-.app-task-list__task-name {
+.hods-task-list__task-name {
   display: block;
   @include govuk-media-query($from: 450px) {
     float: left;
   }
 }
 
-// The `app-task-list__task-completed` class was previously used on the task
+// The `hods-task-list__task-completed` class was previously used on the task
 // list for the completed tag (changed in 86c90ec) – it's still included here to
 // avoid breaking task lists in existing prototypes.
-.app-task-list__tag,
-.app-task-list__task-completed {
+.hods-task-list__tag,
+.hods-task-list__task-completed {
   margin-top: govuk-spacing(2);
   margin-bottom: govuk-spacing(1);
 

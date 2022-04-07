@@ -13,11 +13,11 @@ describe('components', () => {
       const ON_CLICK = () => {};
       const { container } = render(<Task task={TASK} state={STATE} onClick={ON_CLICK} />);
       expect(container.childNodes.length).toEqual(1);
-      expect(container.childNodes[0].classList).toContain('app-task-list__item');
+      expect(container.childNodes[0].classList).toContain('hods-task-list__item');
 
       const span = container.childNodes[0].childNodes[0];
       const state = container.childNodes[0].childNodes[1];
-      expect(span.classList).toContain('app-task-list__task-name');
+      expect(span.classList).toContain('hods-task-list__task-name');
       expect(state.textContent).toEqual('Completed');
     });
 
