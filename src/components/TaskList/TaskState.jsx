@@ -1,16 +1,9 @@
 //Global Imports
 import PropTypes from 'prop-types';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Tag } from '@ukhomeoffice/cop-react-components';
 
 const TaskState = ({ state }) => {
-
-  const [currentState, setCurrentState] = useState(state);
-
-  useEffect(() => {
-    setCurrentState(state);
-  }, [state]);
-
   const STATE_OPTIONS = {
     complete: { label: 'Completed', colour: '' },
     inProgress: { label: 'In Progress', colour: 'blue' },
@@ -18,8 +11,8 @@ const TaskState = ({ state }) => {
     cannotStartYet: { label: 'Cannot Start Yet', colour: 'grey' },
   };
   return (
-    <Tag classModifiers={[STATE_OPTIONS[currentState].colour]} style={{ float: 'right' }}>
-      {STATE_OPTIONS[currentState].label}
+    <Tag classModifiers={[STATE_OPTIONS[state].colour]} style={{ float: 'right' }}>
+      {STATE_OPTIONS[state].label}
     </Tag>
   );
 };

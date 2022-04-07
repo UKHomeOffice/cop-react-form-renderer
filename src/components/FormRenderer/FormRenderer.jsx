@@ -11,6 +11,7 @@ import CheckYourAnswers from '../CheckYourAnswers';
 import FormPage from '../FormPage';
 import handlers from './handlers';
 import helpers from './helpers';
+import TaskList from '../TaskList';
 
 // Styles
 import './FormRenderer.scss';
@@ -125,6 +126,10 @@ const FormRenderer = ({
     handlers.cyaAction(page, pageId, onPageChange);
   };
 
+  const onTaskAction = (page) => {
+    //TODO Lauch pages for task, covered under COP-7991
+  }
+
   // Handle actions from "Check your answers".
   const onCYAAction = (action, onError) => {
     // Check to see whether the action is able to proceed, which in
@@ -161,6 +166,7 @@ const FormRenderer = ({
           noChangeAction={noChangeAction}
         />
       }
+      {hub === 'TASK' && <TaskList sections={_hub.sections} copRefNum={_hub.copRefNum} onTaskAction={onTaskAction}/>}
       {formState.page && <FormPage page={formState.page} onAction={onPageAction} />}
     </div>
   );
@@ -169,7 +175,7 @@ const FormRenderer = ({
 FormRenderer.propTypes = {
   title: PropTypes.string,
   /** See <a href="/?path=/docs/f-json--page#formtypes">FormTypes</a>. */
-  type: PropTypes.oneOf([FormTypes.CYA, FormTypes.FORM, FormTypes.HUB, FormTypes.WIZARD]).isRequired,
+  type: PropTypes.oneOf([FormTypes.CYA, FormTypes.FORM, FormTypes.HUB, FormTypes.WIZARD, FormTypes.TASK]).isRequired,
   components: PropTypes.arrayOf(PropTypes.object).isRequired,
   pages: PropTypes.arrayOf(PropTypes.object).isRequired,
   hub: PropTypes.object,

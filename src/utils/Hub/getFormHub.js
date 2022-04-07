@@ -24,6 +24,9 @@ const getFormHub = (type, hub, components, formData) => {
       return FormPage.get(hub, components, formData);
     }
   }
+  if(type === FormTypes.TASK && hub){
+    return HubFormats.TASK;
+  }
   return undefined;
 };
 

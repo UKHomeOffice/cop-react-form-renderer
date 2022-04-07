@@ -6,12 +6,12 @@ import React from 'react';
 import TaskList from './TaskList';
 
 describe('components', () => {
-  describe('TaskList.TaskList', () => {
+  describe('TaskList', () => {
     it('should render a TaskList', () => {
       const COP_REF = '123';
       const sections = [
         {
-          title: 'These are your tasks',
+          sectionName: 'These are your tasks',
           tasks: [
             { taskName: 'Nice task', state: 'complete' },
             { taskName: 'Ok task', state: 'inProgress' },
@@ -19,7 +19,7 @@ describe('components', () => {
           ],
         },
         {
-          title: 'These are your extra bonus tasks',
+          sectionName: 'These are your extra bonus tasks',
           tasks: [
             { taskName: 'Nice task', state: 'complete' },
             { taskName: 'Ok task', state: 'cannotStartYet' },
@@ -62,7 +62,7 @@ describe('components', () => {
       const COP_REF = '123';
       const sections = [
         {
-          title: 'These are your tasks',
+          sectionName: 'These are your tasks',
           tasks: [
             { taskName: 'Nice task', state: 'complete' },
             { taskName: 'Ok task', state: 'complete' },
@@ -70,7 +70,7 @@ describe('components', () => {
           ],
         },
         {
-          title: 'These are your extra bonus tasks',
+          sectionName: 'These are your extra bonus tasks',
           tasks: [
             { taskName: 'Nice task', state: 'complete' },
             { taskName: 'Ok task', state: 'complete' },
@@ -94,7 +94,7 @@ describe('components', () => {
       const COP_REF = '123';
       const sections = [
         {
-          title: 'These are your tasks',
+          sectionName: 'These are your tasks',
           tasks: [
             { taskName: 'Nice task', state: 'complete' },
             { taskName: 'Ok task', state: 'complete' },

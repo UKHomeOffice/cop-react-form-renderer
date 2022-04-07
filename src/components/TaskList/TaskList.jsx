@@ -10,7 +10,7 @@ import './TaskList.scss';
 
 export const DEFAULT_CLASS = 'app-task-list';
 
-const TaskList = ({ copRefNum, sections, fieldId, classBlock, classModifiers, className, ...attrs }) => {
+const TaskList = ({ copRefNum, sections, fieldId, onTaskAction, classBlock, classModifiers, className, ...attrs }) => {
   const classes = Utils.classBuilder(classBlock, classModifiers, className);
 
   //TODO state will be retrieved from a document in S3 rather than given in the component definition, covered under COP-9885
@@ -27,9 +27,11 @@ const TaskList = ({ copRefNum, sections, fieldId, classBlock, classModifiers, cl
     return totalSections + current.tasks.length;
   }, 0);
 
-  const onClick = (taskName) => {
-    //TODO Lauch pages for task, covered under COP-7991
-  }
+  const onClick = (firstPage) => {
+    if(typeof onTaskAction === 'function'){
+      onTaskAction(firstPage);
+    }
+  };
 
   return (
     <div {...attrs} className={classes()}>
@@ -38,13 +40,13 @@ const TaskList = ({ copRefNum, sections, fieldId, classBlock, classModifiers, cl
         <h2 className='govuk-heading-s govuk-!-margin-bottom-2'>Incomplete form</h2>
       )}
       <p className='govuk-body govuk-!-margin-bottom-7'>{`You have completed ${numberOfCompleteSections} of ${numberOfSections} sections`}</p>
-      {sections.map((list, index) => {
+      {sections.map((section, index) => {
         return (
-          <Fragment key={`${list.title}-${index}`}>
-            <h2 className={classes('section')}>{sections.length > 1 ? `${index + 1}. ${list.title}` : list.title}</h2>
+          <Fragment key={`${section.title}-${index}`}>
+            <h2 className={classes('section')}>{sections.length > 1 ? `${index + 1}. ${section.sectionName}` : section.sectionName}</h2>
             <ol className={classes('items')}>
-              {list.tasks.map((task, taskIndex) => (
-                <Task key={`task-${taskIndex}`} taskName={task.taskName} state={task.state} onClick={onClick}/>
+              {section.tasks.map((task, taskIndex) => (
+                <Task key={`task-${taskIndex}`} task={task} state={task.state} onClick={onClick} />
               ))}
             </ol>
           </Fragment>

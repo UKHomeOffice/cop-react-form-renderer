@@ -7,7 +7,6 @@ import cleanAttributes from './cleanAttributes';
 import { ComponentTypes } from '../../models';
 import Data from '../Data';
 import isEditable from './isEditable';
-import TaskList from '../../components/TaskList';
 import wrapInFormGroup from './wrapInFormGroup';
 
 /** 
@@ -61,11 +60,6 @@ const getRadios = (config) => {
   return <Radios {...attrs} options={options} />;
 };
 
-const getTaskList = (config) => {
-  const attrs = cleanAttributes(config);
-  return <TaskList {...attrs} />;
-};
-
 const getTextArea = (config) => {
   const attrs = cleanAttributes(config);
   return <TextArea {...attrs} />;
@@ -98,8 +92,6 @@ const getComponentByType = (config) => {
       return getDate(config);
     case ComponentTypes.CHECKBOXES:
       return getCheckboxes(config);
-    case ComponentTypes.TASKLIST:
-      return getTaskList(config);
     default: {
       return null;
     }
