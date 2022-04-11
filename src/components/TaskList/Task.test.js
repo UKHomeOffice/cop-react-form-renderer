@@ -3,12 +3,13 @@ import { fireEvent, render } from '@testing-library/react';
 import React from 'react';
 
 // Local imports
+import { TaskStates } from '../../models';
 import Task from './Task';
 
 describe('components', () => {
   describe('TaskList.Task', () => {
     it('should render a task', () => {
-      const STATE = 'complete';
+      const STATE = TaskStates.TYPES.COMPLETE;
       const TASK = { name: 'taskName', firstPage: 'pageName', state: STATE };
       const ON_CLICK = () => {};
       const { container } = render(<Task task={TASK} onClick={ON_CLICK} />);
@@ -23,7 +24,7 @@ describe('components', () => {
 
     it('should render a task with inactive link if state is cannotStartYet', () => {
       const NAME = 'taskName';
-      const STATE = 'cannotStartYet';
+      const STATE =  TaskStates.TYPES.CANNOT_START_YET;
       const TASK = { name: 'taskName', firstPage: 'pageName', state: STATE };
       const ON_CLICK = () => {};
       const { container } = render(<Task task={TASK} onClick={ON_CLICK} />);
@@ -33,7 +34,7 @@ describe('components', () => {
     });
 
     it('should render a task with a link if state is not cannotStartYet', () => {
-      const STATE = 'inProgress';
+      const STATE =  TaskStates.TYPES.IN_PROGRESS;
       const TASK = { name: 'taskName', firstPage: 'pageName', state: STATE };
       const ON_CLICK = () => {};
       const { container } = render(<Task task={TASK} onClick={ON_CLICK} />);
@@ -43,7 +44,7 @@ describe('components', () => {
     });
 
     it('should call then given onClick function when the link is clicked', () => {
-      const STATE = 'inProgress';
+      const STATE =  TaskStates.TYPES.IN_PROGRESS;
       const TASK = { name: 'taskName', firstPage: 'pageName', state: STATE };
       const ON_CLICK_CALLS = [];
       const ON_CLICK = (value) => {

@@ -42,5 +42,23 @@ describe('components', () => {
       expect(container.childNodes[0].classList).toContain(`hods-tag--${TaskStates.DETAILS.cannotStartYet.colour}`);
       expect(container.childNodes[0].textContent).toEqual(TaskStates.DETAILS.cannotStartYet.label);
     });
+
+    it('should not render a state if given an unknown value', () => {
+      const STATE = 'spellingError';
+      const { container } = render(<TaskState state={STATE} />);
+      expect(container.childNodes.length).toEqual(0);
+    });
+
+    it('should not render a state if given null', () => {
+      const STATE = null;
+      const { container } = render(<TaskState state={STATE} />);
+      expect(container.childNodes.length).toEqual(0);
+    });
+
+    it('should not render a state if given undefined', () => {
+      const STATE = undefined;
+      const { container } = render(<TaskState state={STATE} />);
+      expect(container.childNodes.length).toEqual(0);
+    });
   });
 });

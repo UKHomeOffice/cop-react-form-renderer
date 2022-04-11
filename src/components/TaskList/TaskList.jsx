@@ -4,6 +4,7 @@ import React, { Fragment } from 'react';
 import { Utils } from '@ukhomeoffice/cop-react-components';
 
 //Local Imports
+import { TaskStates } from '../../models';
 import Task from './Task';
 
 import './TaskList.scss';
@@ -15,7 +16,7 @@ const TaskList = ({ refTitle, refNumber, sections, fieldId, onTaskAction, classB
 
   //TODO state will be retrieved from a document in S3 rather than given in the component definition, covered under COP-9885
   const numberOfCompleteSections = sections.reduce((totalComplete, currentSection) => {
-    return totalComplete + currentSection.tasks.filter((t) => t.state === 'complete').length;
+    return totalComplete + currentSection.tasks.filter((t) => t.state === TaskStates.TYPES.COMPLETE).length;
   }, 0);
 
   const numberOfSections = sections.reduce((totalSections, current) => {
@@ -56,20 +57,19 @@ const TaskList = ({ refTitle, refNumber, sections, fieldId, onTaskAction, classB
 
 TaskList.propTypes = {
   refNumber: PropTypes.string,
-  refNumber: PropTypes.string,
+  refTitle: PropTypes.string,
   sections: PropTypes.arrayOf(
     PropTypes.shape({
-      name: PropTypes.string,
+      name: PropTypes.string.isRequired,
       tasks: PropTypes.arrayOf(
         PropTypes.shape({
-          name: PropTypes.string,
-          firstPage: PropTypes.string,
-          state: PropTypes.string,
+          name: PropTypes.string.isRequired,
+          firstPage: PropTypes.string.isRequired,
+          state: PropTypes.string.isRequired,
         })
-      ),
+      ).isRequired,
     })
-  ),
-  fieldId: PropTypes.string,
+  ).isRequired,
   classBlock: PropTypes.string,
   classModifiers: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
   className: PropTypes.string,
