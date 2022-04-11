@@ -11,7 +11,7 @@ import { FormPages, HubFormats } from '../../../models';
 const getPage = (pageId, pages, hub) => {
   if (pageId) {
     if (pageId === FormPages.HUB) {
-      return hub === HubFormats.CYA ? undefined : hub;
+      return hub === HubFormats.CYA || hub === HubFormats.TASK ? undefined : hub;
     }
     return pages.find(p => p.id === pageId);
   }

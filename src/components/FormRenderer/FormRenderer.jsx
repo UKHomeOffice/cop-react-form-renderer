@@ -5,13 +5,13 @@ import React, { useEffect, useState } from 'react';
 
 // Local imports
 import { useHooks } from '../../hooks';
-import { EventTypes, FormPages, FormTypes, PageAction } from '../../models';
+import { EventTypes, FormPages, FormTypes, HubFormats, PageAction } from '../../models';
 import Utils from '../../utils';
 import CheckYourAnswers from '../CheckYourAnswers';
 import FormPage from '../FormPage';
+import TaskList from '../TaskList';
 import handlers from './handlers';
 import helpers from './helpers';
-import TaskList from '../TaskList';
 
 // Styles
 import './FormRenderer.scss';
@@ -166,7 +166,7 @@ const FormRenderer = ({
           noChangeAction={noChangeAction}
         />
       }
-      {hub === 'TASK' && <TaskList sections={_hub.sections} copRefNum={_hub.copRefNum} onTaskAction={onTaskAction}/>}
+      {hub === HubFormats.TASK && <TaskList sections={_hub.sections} refNumber={data['businessKey']} refTitle={_hub.refTitle} onTaskAction={onTaskAction}/>}
       {formState.page && <FormPage page={formState.page} onAction={onPageAction} />}
     </div>
   );
@@ -175,7 +175,7 @@ const FormRenderer = ({
 FormRenderer.propTypes = {
   title: PropTypes.string,
   /** See <a href="/?path=/docs/f-json--page#formtypes">FormTypes</a>. */
-  type: PropTypes.oneOf([FormTypes.CYA, FormTypes.FORM, FormTypes.HUB, FormTypes.WIZARD, FormTypes.TASK]).isRequired,
+  type: PropTypes.oneOf([FormTypes.CYA, FormTypes.FORM, FormTypes.HUB, FormTypes.TASK, FormTypes.WIZARD]).isRequired,
   components: PropTypes.arrayOf(PropTypes.object).isRequired,
   pages: PropTypes.arrayOf(PropTypes.object).isRequired,
   hub: PropTypes.object,

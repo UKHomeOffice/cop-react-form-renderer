@@ -4,42 +4,43 @@ import React from 'react';
 
 // Local imports
 import TaskState from './TaskState';
+import { TaskStates } from '../../models'
 
 describe('components', () => {
   describe('TaskList.TaskState', () => {
     it('should render a complete state icon', () => {
-      const STATE = 'complete';
+      const STATE = TaskStates.TYPES.COMPLETE;
       const { container } = render(<TaskState state={STATE} />);
       expect(container.childNodes.length).toEqual(1);
       expect(container.childNodes[0].classList).toContain('hods-tag');
-      expect(container.childNodes[0].textContent).toEqual('Completed');
+      expect(container.childNodes[0].textContent).toEqual(TaskStates.DETAILS.complete.label);
     });
 
     it('should render an in progress state icon', () => {
-      const STATE = 'inProgress';
+      const STATE = TaskStates.TYPES.IN_PROGRESS;
       const { container } = render(<TaskState state={STATE} />);
       expect(container.childNodes.length).toEqual(1);
       expect(container.childNodes[0].classList).toContain('hods-tag');
-      expect(container.childNodes[0].classList).toContain('hods-tag--blue');
-      expect(container.childNodes[0].textContent).toEqual('In Progress');
+      expect(container.childNodes[0].classList).toContain(`hods-tag--${TaskStates.DETAILS.inProgress.colour}`);
+      expect(container.childNodes[0].textContent).toEqual(TaskStates.DETAILS.inProgress.label);
     });
 
     it('should render a not started state icon', () => {
-      const STATE = 'notStarted';
+      const STATE = TaskStates.TYPES.NOT_STARTED;
       const { container } = render(<TaskState state={STATE} />);
       expect(container.childNodes.length).toEqual(1);
       expect(container.childNodes[0].classList).toContain('hods-tag');
-      expect(container.childNodes[0].classList).toContain('hods-tag--grey');
-      expect(container.childNodes[0].textContent).toEqual('Not Started');
+      expect(container.childNodes[0].classList).toContain(`hods-tag--${TaskStates.DETAILS.notStarted.colour}`);
+      expect(container.childNodes[0].textContent).toEqual(TaskStates.DETAILS.notStarted.label);
     });
 
     it('should render a cannot start state icon', () => {
-      const STATE = 'cannotStartYet';
+      const STATE = TaskStates.TYPES.CANNOT_START_YET;
       const { container } = render(<TaskState state={STATE} />);
       expect(container.childNodes.length).toEqual(1);
       expect(container.childNodes[0].classList).toContain('hods-tag');
-      expect(container.childNodes[0].classList).toContain('hods-tag--grey');
-      expect(container.childNodes[0].textContent).toEqual('Cannot Start Yet');
+      expect(container.childNodes[0].classList).toContain(`hods-tag--${TaskStates.DETAILS.cannotStartYet.colour}`);
+      expect(container.childNodes[0].textContent).toEqual(TaskStates.DETAILS.cannotStartYet.label);
     });
   });
 });

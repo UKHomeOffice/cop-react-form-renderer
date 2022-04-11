@@ -54,6 +54,29 @@ An array of <Link href="/?path=/docs/f-json-page">page</Link> configuration obje
 
 Configuration for the hub, which is only appropriate for certain <Link href="/?path=/docs/f-json-form-types">form types</Link>.
 
+The following are only required for `task-list` form types.
+
+* #### `hub.refTitle : string`
+The text displayed before the reference number.
+
+* #### `hub.sections : [ object ]`
+The sections to group tasks in. Consists of a title and an array of tasks to display.
+
+  * ##### `hub.sections.name : string`
+  The name for the task list section.
+
+  * ##### `hub.sections.tasks : [ object ]`
+  An array of tasks to display, each task requires the following properties:
+
+    * ###### `hub.sections.tasks.name : string`
+    The display name for the task.
+
+    * ###### `hub.sections.tasks.firstPage : string`
+    The first page to launch for the task.
+
+    * ###### `hub.sections.tasks.state : string`
+    The current state of the task.
+
 ### `cya : object`
 *Required for <Link href="/?path=/docs/f-json-form-types--page#cya">cya</Link> form type*
 

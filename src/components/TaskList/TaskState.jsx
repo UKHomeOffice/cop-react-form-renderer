@@ -3,16 +3,13 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Tag } from '@ukhomeoffice/cop-react-components';
 
+//Local imports
+import { TaskStates } from '../../models';
+
 const TaskState = ({ state }) => {
-  const STATE_OPTIONS = {
-    complete: { label: 'Completed', colour: '' },
-    inProgress: { label: 'In Progress', colour: 'blue' },
-    notStarted: { label: 'Not Started', colour: 'grey' },
-    cannotStartYet: { label: 'Cannot Start Yet', colour: 'grey' },
-  };
   return (
-    <Tag classModifiers={[STATE_OPTIONS[state].colour]} style={{ float: 'right' }}>
-      {STATE_OPTIONS[state].label}
+    <Tag classModifiers={[TaskStates.DETAILS[state].colour]} style={{ float: 'right' }}>
+      {TaskStates.DETAILS[state].label}
     </Tag>
   );
 };

@@ -1,5 +1,5 @@
 // Global imports
-import { render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 import React from 'react';
 
 // Local imports
@@ -9,25 +9,26 @@ describe('components', () => {
   describe('TaskList', () => {
     it('should render a TaskList', () => {
       const COP_REF = '123';
+      const REF_TITLE = 'COP reference number';
       const sections = [
         {
-          sectionName: 'These are your tasks',
+          name: 'These are your tasks',
           tasks: [
-            { taskName: 'Nice task', state: 'complete' },
-            { taskName: 'Ok task', state: 'inProgress' },
-            { taskName: 'Terrible task', state: 'notStarted' },
+            { name: 'Nice task', state: 'complete', firstPage: 'pageOne' },
+            { name: 'Ok task', state: 'inProgress', firstPage: 'pageTwo' },
+            { name: 'Terrible task', state: 'notStarted', firstPage: 'pageThree' },
           ],
         },
         {
-          sectionName: 'These are your extra bonus tasks',
+          name: 'These are your extra bonus tasks',
           tasks: [
-            { taskName: 'Nice task', state: 'complete' },
-            { taskName: 'Ok task', state: 'cannotStartYet' },
-            { taskName: 'Terrible task', state: 'cannotStartYet' },
+            { name: 'Nice task', state: 'complete', firstPage: 'pageFour' },
+            { name: 'Ok task', state: 'cannotStartYet', firstPage: 'pageFive' },
+            { name: 'Terrible task', state: 'cannotStartYet', firstPage: 'pageSix' },
           ],
         },
       ];
-      const { container } = render(<TaskList copRefNum={COP_REF} sections={sections} />);
+      const { container } = render(<TaskList refNumber={COP_REF} refTitle={REF_TITLE} sections={sections} />);
       expect(container.childNodes.length).toEqual(1);
 
       const referenceHeading = container.childNodes[0].childNodes[0];
@@ -42,7 +43,7 @@ describe('components', () => {
       expect(numComplete.tagName).toEqual('P');
       expect(numComplete.textContent).toEqual('You have completed 2 of 6 sections');
 
-      expect(container.childNodes[0].childNodes.length).toEqual(7); 
+      expect(container.childNodes[0].childNodes.length).toEqual(7);
 
       const subSectionOneHeading = container.childNodes[0].childNodes[3];
       expect(subSectionOneHeading.tagName).toEqual('H2');
@@ -60,25 +61,26 @@ describe('components', () => {
 
     it('should not show incomplete form if form is complete', () => {
       const COP_REF = '123';
+      const REF_TITLE = 'COP reference number';
       const sections = [
         {
-          sectionName: 'These are your tasks',
+          name: 'These are your tasks',
           tasks: [
-            { taskName: 'Nice task', state: 'complete' },
-            { taskName: 'Ok task', state: 'complete' },
-            { taskName: 'Terrible task', state: 'complete' },
+            { name: 'Nice task', state: 'complete', firstPage: 'pageOne' },
+            { name: 'Ok task', state: 'complete', firstPage: 'pageTwo' },
+            { name: 'Terrible task', state: 'complete', firstPage: 'pageThree' },
           ],
         },
         {
-          sectionName: 'These are your extra bonus tasks',
+          name: 'These are your extra bonus tasks',
           tasks: [
-            { taskName: 'Nice task', state: 'complete' },
-            { taskName: 'Ok task', state: 'complete' },
-            { taskName: 'Terrible task', state: 'complete' },
+            { name: 'Nice task', state: 'complete', firstPage: 'pageFour' },
+            { name: 'Ok task', state: 'complete', firstPage: 'pageFive' },
+            { name: 'Terrible task', state: 'complete', firstPage: 'pageSix' },
           ],
         },
       ];
-      const { container } = render(<TaskList copRefNum={COP_REF} sections={sections} />);
+      const { container } = render(<TaskList refNumber={COP_REF} refTitle={REF_TITLE} sections={sections} />);
       expect(container.childNodes[0].childNodes.length).toEqual(6);
 
       const referenceHeading = container.childNodes[0].childNodes[0];
@@ -92,19 +94,55 @@ describe('components', () => {
 
     it('should not show numbers on section headings if there is only one section', () => {
       const COP_REF = '123';
+      const REF_TITLE = 'COP reference number';
       const sections = [
         {
-          sectionName: 'These are your tasks',
+          name: 'These are your tasks',
           tasks: [
-            { taskName: 'Nice task', state: 'complete' },
-            { taskName: 'Ok task', state: 'complete' },
-            { taskName: 'Terrible task', state: 'notStarted' },
+            { name: 'Nice task', state: 'complete', firstPage: 'pageOne' },
+            { name: 'Ok task', state: 'complete', firstPage: 'pageTwo' },
+            { name: 'Terrible task', state: 'notStarted', firstPage: 'pageThree' },
           ],
         },
       ];
-      const { container } = render(<TaskList copRefNum={COP_REF} sections={sections} />);
+      const { container } = render(<TaskList refNumber={COP_REF} refTitle={REF_TITLE} sections={sections} />);
       const subSectionOne = container.childNodes[0].childNodes[3];
-      expect(subSectionOne.childNodes[0].textContent).toEqual('These are your tasks');
+      expect(subSectionOne.childNodes[0].textContent).toEqual('');
+      expect(subSectionOne.childNodes[1].textContent).toEqual('These are your tasks');
     });
+  });
+
+  it('should pass the first page of the selected task to the given onTaskAction function', () => {
+    const COP_REF = '123';
+    const REF_TITLE = 'COP reference number';
+    const ON_CLICK_CALLS = [];
+    const ON_CLICK = (value) => {
+      ON_CLICK_CALLS.push(value);
+    };
+    const sections = [
+      {
+        name: 'These are your tasks',
+        tasks: [
+          { name: 'Nice task', state: 'complete', firstPage: 'pageOne' },
+          { name: 'Ok task', state: 'complete', firstPage: 'pageTwo' },
+          { name: 'Terrible task', state: 'notStarted', firstPage: 'pageThree' },
+        ],
+      },
+    ];
+    const { container } = render(<TaskList refNumber={COP_REF} refTitle={REF_TITLE} sections={sections} onTaskAction={ON_CLICK}/>);
+
+    const firstTask = container.childNodes[0].childNodes[4].childNodes[0].childNodes[0].childNodes[0];
+    const secondTask = container.childNodes[0].childNodes[4].childNodes[1].childNodes[0].childNodes[0];
+    const thirdTask = container.childNodes[0].childNodes[4].childNodes[2].childNodes[0].childNodes[0];
+
+    fireEvent.click(firstTask.childNodes[0]);
+    expect(ON_CLICK_CALLS[0]).toEqual('pageOne');
+
+    fireEvent.click(secondTask.childNodes[0]);
+    expect(ON_CLICK_CALLS[1]).toEqual('pageTwo');
+
+    fireEvent.click(thirdTask.childNodes[0]);
+    expect(ON_CLICK_CALLS[2]).toEqual('pageThree');
+
   });
 });

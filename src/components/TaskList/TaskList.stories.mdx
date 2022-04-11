@@ -20,32 +20,33 @@ selected to navigate to that task.
         console.log('action clicked', row);
       };
       const COP_REF = '123';
+      const REF_TITLE = 'COP reference number';
       const SECTIONS = [
         {
-          sectionName: 'Add event details',
+          name: 'Add event details',
           tasks: [
-            { taskName: 'Date, location and mode details', state: 'complete' },
-            { taskName: 'Officer and agency details', state: 'inProgress' },
+            { name: 'Date, location and mode details', state: 'complete' },
+            { name: 'Officer and agency details', state: 'inProgress' },
           ],
         },
         {
-          sectionName: 'Add people details',
+          name: 'Add people details',
           tasks: [
-            { taskName: 'People details', state: 'complete' },
-            { taskName: 'Immigration details', state: 'inProgress' },
-            { taskName: 'Journey details', state: 'notStarted' },
+            { name: 'People details', state: 'complete' },
+            { name: 'Immigration details', state: 'inProgress' },
+            { name: 'Journey details', state: 'notStarted' },
           ],
         },
         {
-          sectionName: 'Add item details',
+          name: 'Add item details',
           tasks: [
-            { taskName: 'Item details', state: 'cannotStartYet' },
-            { taskName: 'Search and interception details', state: 'cannotStartYet' },
+            { name: 'Item details', state: 'cannotStartYet' },
+            { name: 'Search and interception details', state: 'cannotStartYet' },
           ],
         },
       ];
       return (
-        <TaskList copRefNum={COP_REF} sections={SECTIONS} />
+        <TaskList refNumber={COP_REF} refTitle={REF_TITLE} sections={SECTIONS} />
       );
     }}
   </Story>
