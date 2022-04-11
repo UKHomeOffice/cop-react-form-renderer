@@ -127,6 +127,24 @@ The value to compare the `show_when.field`'s value to. This is applicable for eq
 * #### `show_when.values : [ string | number | boolean ]`
 The set of values in which to look for the `show_when.field`'s value. This is applicable for `in` and `nin` operators only.
 
+### `additionalValidation : [ object ]`
+*Optional*
+
+An array of configuration objects for determining which validators should be applied to the component.
+
+* #### `additionalValidation.function : string`
+The name of the validation function to apply, options include:
+  * `mustBeInThePast`: Will fail validation if the date is not in the past. Add optional property `additionalValidation.todayAllowed: true` to allow the current day to pass the check.
+  * `mustBeInTheFuture`: Will fail validation if the date is not in the future. Add optional property `additionalValidation.todayAllowed: true` to allow the current day to pass the check.
+  * `mustBeAfter`: Will fail validation if the date is after the given number of time units. Requires additional properties on the `additionalValidation` object of:
+    * `unit`: Either `day`, `month`, or `year`.
+    * `value`: The amount of units that the date must be after, can be negative if the date must be after a point in the past.
+  * `mustBeBefore`: Will fail validation if the date is before the given number of time units. Requires additional properties on the `additionalValidation` object of:
+    * `unit`: Either `day`, `month`, or `year`.
+    * `value`: The amount of units that the date must be before, can be negative if the date must be before a point in the past.
+
+* #### `additionalValidation.message : string`
+The error message to display if validation fails.
 
 ## Examples
 
