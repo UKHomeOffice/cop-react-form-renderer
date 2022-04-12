@@ -1,8 +1,8 @@
 //Local imports
 import { formatTimeString } from './additional/utils';
 
-const validateTime = (time) => {
-  const formattedDate = formatTimeString(time);
+const validateTime = (Time) => {
+  const formattedDate = formatTimeString(Time);
   const [hour, minute] = formattedDate.split(':');
   const intHour = parseInt(hour, 10);
   const intMinute = parseInt(minute, 10);
