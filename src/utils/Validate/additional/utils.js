@@ -7,7 +7,7 @@ const formatString = (date) => {
   return `${formatInTwoDigits(day)}-${formatInTwoDigits(month)}-${year}`;
 };
 
-const formatTimeString = (time) => {
+const formattedTime = (time) => {
   const [hour, minute] = time.split(':');
   return `${formatInTwoDigits(hour)}:${formatInTwoDigits(minute)}`;
 };
@@ -28,4 +28,4 @@ const formatInTwoDigits = (dateComponent) => {
 
 const DATE_FORMAT = 'DD-MM-YYYY';
 
-export { DATE_FORMAT, formatString, formatTimeString };
+export { DATE_FORMAT, formatString, formattedTime };
