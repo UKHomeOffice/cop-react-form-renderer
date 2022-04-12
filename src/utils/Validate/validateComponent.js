@@ -30,16 +30,16 @@ const validateComponent = (component, formData) => {
       component.propsInError = propsInError;
       error = message;
     }
+    if (!error && component.type === ComponentTypes.TIME && value) {
+      const { message, propsInError } = validateTime(value);
+      component.propsInError = propsInError;
+      error = message;
+    }
     if (!error && component.additionalValidation) {
       error = runAdditionalComponentValidation(component, value);
       if (component.type === ComponentTypes.DATE && error) {
         component.propsInError = { day: true, month: true, year: true };
       }
-    }
-    if (!error && component.type === ComponentTypes.TIME && value) {
-      const { message, propsInError } = validateTime(value);
-      component.propsInError = propsInError;
-      error = message;
     }
     component.error = error;
   }
