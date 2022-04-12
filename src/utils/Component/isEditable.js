@@ -9,7 +9,8 @@ export const EDITABLE_TYPES = [
   ComponentTypes.PHONE_NUMBER,
   ComponentTypes.RADIOS,
   ComponentTypes.TEXT,
-  ComponentTypes.TEXT_AREA
+  ComponentTypes.TEXT_AREA,
+  ComponentTypes.TIME,
 ];
 
 const isEditable = (options) => {
