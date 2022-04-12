@@ -4,6 +4,7 @@ import showComponent from '../Component/showComponent';
 import validateEmail from './validateEmail';
 import validateRequired from './validateRequired';
 import validateDate from './validateDate';
+import validateTime from './validateTime';
 import runAdditionalComponentValidation from './additional';
 
 /**
@@ -34,6 +35,11 @@ const validateComponent = (component, formData) => {
       if (component.type === ComponentTypes.DATE && error) {
         component.propsInError = { day: true, month: true, year: true };
       }
+    }
+    if (!error && component.type === ComponentTypes.TIME && value) {
+      const { message, propsInError } = validateTime(value);
+      component.propsInError = propsInError;
+      error = message;
     }
     component.error = error;
   }
