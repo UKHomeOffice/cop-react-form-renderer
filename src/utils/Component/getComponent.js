@@ -1,6 +1,6 @@
 // Global imports
 import React from 'react';
-import { Autocomplete, Checkboxes, DateInput, Heading, InsetText, Markup, Radios, TextArea, TextInput } from '@ukhomeoffice/cop-react-components';
+import { Autocomplete, Checkboxes, DateInput, Heading, InsetText, Markup, Radios, TextArea, TextInput, TimeInput } from '@ukhomeoffice/cop-react-components';
 
 // Local imports
 import cleanAttributes from './cleanAttributes';
@@ -70,6 +70,12 @@ const getTextInput = (config) => {
   return <TextInput {...attrs} />;
 };
 
+const getTime = (config) => {
+  const attrs = cleanAttributes(config);
+  return <TimeInput {...attrs} />;
+};
+
+
 const getComponentByType = (config) => {
   switch (config.type) {
     case ComponentTypes.HTML:
@@ -90,6 +96,8 @@ const getComponentByType = (config) => {
       return getRadios(config);
     case ComponentTypes.DATE:
       return getDate(config);
+    case ComponentTypes.TIME:
+         return getTime(config);
     case ComponentTypes.CHECKBOXES:
       return getCheckboxes(config);
     default: {

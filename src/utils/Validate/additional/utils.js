@@ -7,6 +7,13 @@ const formatString = (date) => {
   return `${formatInTwoDigits(day)}-${formatInTwoDigits(month)}-${year}`;
 };
 
+const formattedTime = (time) => {
+  const [hour, minute] = time.split(':');
+  return `${formatInTwoDigits(hour)}:${formatInTwoDigits(minute)}`;
+};
+
+/**
+
 /**
  * Prepends a leading zero if the 'date component' parameter contains only a single digit.
  * if the parameter contains more than one digit it is returned unchanged.
@@ -23,4 +30,4 @@ const formatInTwoDigits = (dateComponent) => {
 
 const DATE_FORMAT = 'DD-MM-YYYY';
 
-export { DATE_FORMAT, formatString };
+export { DATE_FORMAT, formatString, formattedTime };

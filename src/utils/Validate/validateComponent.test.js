@@ -129,7 +129,7 @@ describe('utils', () => {
           const DATA = { [ID]: '25-45-2033' };
           expect(validateComponent(COMPONENT, DATA)).toEqual({ error: 'Month must be between 1 and 12', id: ID });
         });
-
+        
         it('should apply optional validators when specified', () => {
           const LABEL = 'Field';
           const DATA = { [ID]: '25-3-3033' };
@@ -138,6 +138,17 @@ describe('utils', () => {
           ]
           const COMPONENT = setup(ID, ComponentTypes.DATE, LABEL, false, ADDITIONAL_VALIDATION);
           expect(validateComponent(COMPONENT, DATA)).toEqual({ error: 'Date must be less than 3 days in the future', id: ID });
+        });
+
+      });
+
+      describe('when the component is a Time Input', () => {
+        const ID = 'field';
+        it('should always reject invalid time', () => {
+          const LABEL = 'Field';
+          const COMPONENT = setup(ID, ComponentTypes.TIME, LABEL, false);
+          const DATA = { [ID]: '25:45' };
+          expect(validateComponent(COMPONENT, DATA)).toEqual({ error: 'Hour must be between 0 and 23', id: ID });
         });
 
       });
