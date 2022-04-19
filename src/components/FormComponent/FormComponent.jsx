@@ -31,7 +31,6 @@ const FormComponent = ({
     options,
     value: value || '',
     onChange
-  }, wrap);
   }, wrap, hooks.onGetComponent);
 };
 
