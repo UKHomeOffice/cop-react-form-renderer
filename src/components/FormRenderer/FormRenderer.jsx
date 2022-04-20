@@ -40,7 +40,7 @@ const FormRenderer = ({
   const [hub, setHub] = useState(undefined);
   const [pageId, setPageId] = useState(helpers.getNextPageId(type, _pages));
   const [formState, setFormState] = useState(helpers.getFormState(pageId, pages, hub));
-  const [currentTask, setCurrentTask] = useState(undefined);
+  const [currentTask, setCurrentTask] = useState({});
   // Set up hooks.
   const { hooks, addHook } = useHooks();
   useEffect(() => {
@@ -88,14 +88,16 @@ const FormRenderer = ({
     hooks.onFormLoad();
   }, [hooks]);
 
-  //Update task list pages
+  //Update task list pages with form data
   useEffect(() => {
-    if(currentTask && currentTask.fullPages){
-      currentTask.fullPages.forEach(page => {
-        page.formData = data
-      })
+    const pages = currentTask.fullPages;
+    if(pages){
+      pages.forEach(page => {
+        page.formData = data;
+      });
+      setCurrentTask(prev => ({...prev, fullpages: pages}));
     }
-  } ,[currentTask, data]);
+  } , [currentTask.fullPages, data]);
 
   const onPageChange = (newPageId) => {
     setPageId(newPageId);
@@ -193,7 +195,7 @@ const FormRenderer = ({
       {
         formState.cya &&
         <CheckYourAnswers
-          pages={currentTask ? currentTask.fullPages : pages}
+          pages={currentTask.fullPages ? currentTask.fullPages : pages}
           {...cya}
           {...formState.cya}
           onAction={onCYAAction}
