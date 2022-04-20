@@ -23,9 +23,9 @@ const TaskList = ({ refTitle, refNumber, sections, fieldId, onTaskAction, classB
     return totalSections + current.tasks.length;
   }, 0);
 
-  const onClick = (firstPage) => {
+  const onClick = (task) => {
     if (typeof onTaskAction === 'function') {
-      onTaskAction(firstPage);
+      onTaskAction(task);
     }
   };
 
@@ -64,7 +64,7 @@ TaskList.propTypes = {
       tasks: PropTypes.arrayOf(
         PropTypes.shape({
           name: PropTypes.string.isRequired,
-          firstPage: PropTypes.string.isRequired,
+          pages: PropTypes.array.isRequired,
           state: PropTypes.string.isRequired,
         })
       ).isRequired,

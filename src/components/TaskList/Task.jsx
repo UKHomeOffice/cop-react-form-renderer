@@ -23,7 +23,7 @@ const Task = ({ task, onClick }) => {
   return (
     <li className={classes('item')}>
       <span className={classes('task-name')}>
-        {linkActive ? <Link onClick={() => onClick(task.firstPage)}>{task.name}</Link> : task.name}
+        {linkActive ? <Link onClick={() => onClick(task)}>{task.name}</Link> : task.name}
       </span>
       <TaskState state={currentState} />
     </li>
@@ -33,7 +33,7 @@ const Task = ({ task, onClick }) => {
 Task.propTypes = {
   task: PropTypes.shape({
     name: PropTypes.string.isRequired,
-    firstPage: PropTypes.string.isRequired,
+    pages: PropTypes.array.isRequired,
     state: PropTypes.string.isRequired,
   }).isRequired,
   onClick: PropTypes.func.isRequired,

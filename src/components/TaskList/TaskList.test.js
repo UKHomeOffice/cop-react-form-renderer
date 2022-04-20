@@ -14,17 +14,17 @@ describe('components', () => {
         {
           name: 'These are your tasks',
           tasks: [
-            { name: 'Nice task', state: 'complete', firstPage: 'pageOne' },
-            { name: 'Ok task', state: 'inProgress', firstPage: 'pageTwo' },
-            { name: 'Terrible task', state: 'notStarted', firstPage: 'pageThree' },
+            { name: 'Nice task', state: 'complete', pages: ['pageOne'] },
+            { name: 'Ok task', state: 'inProgress', pages: ['pageTwo'] },
+            { name: 'Terrible task', state: 'notStarted', pages: ['pageThree'] },
           ],
         },
         {
           name: 'These are your extra bonus tasks',
           tasks: [
-            { name: 'Nice task', state: 'complete', firstPage: 'pageFour' },
-            { name: 'Ok task', state: 'cannotStartYet', firstPage: 'pageFive' },
-            { name: 'Terrible task', state: 'cannotStartYet', firstPage: 'pageSix' },
+            { name: 'Nice task', state: 'complete', pages: ['pageFour'] },
+            { name: 'Ok task', state: 'cannotStartYet', pages: ['pageFive'] },
+            { name: 'Terrible task', state: 'cannotStartYet', pages: ['pageSix'] },
           ],
         },
       ];
@@ -66,17 +66,17 @@ describe('components', () => {
         {
           name: 'These are your tasks',
           tasks: [
-            { name: 'Nice task', state: 'complete', firstPage: 'pageOne' },
-            { name: 'Ok task', state: 'complete', firstPage: 'pageTwo' },
-            { name: 'Terrible task', state: 'complete', firstPage: 'pageThree' },
+            { name: 'Nice task', state: 'complete', pages: ['pageOne'] },
+            { name: 'Ok task', state: 'complete', pages: ['pageTwo'] },
+            { name: 'Terrible task', state: 'complete', pages: ['pageThree'] },
           ],
         },
         {
           name: 'These are your extra bonus tasks',
           tasks: [
-            { name: 'Nice task', state: 'complete', firstPage: 'pageFour' },
-            { name: 'Ok task', state: 'complete', firstPage: 'pageFive' },
-            { name: 'Terrible task', state: 'complete', firstPage: 'pageSix' },
+            { name: 'Nice task', state: 'complete', pages: ['pageFour'] },
+            { name: 'Ok task', state: 'complete', pages: ['pageFive'] },
+            { name: 'Terrible task', state: 'complete', pages: ['pageSix'] },
           ],
         },
       ];
@@ -99,9 +99,9 @@ describe('components', () => {
         {
           name: 'These are your tasks',
           tasks: [
-            { name: 'Nice task', state: 'complete', firstPage: 'pageOne' },
-            { name: 'Ok task', state: 'complete', firstPage: 'pageTwo' },
-            { name: 'Terrible task', state: 'notStarted', firstPage: 'pageThree' },
+            { name: 'Nice task', state: 'complete', pages: ['pageOne'] },
+            { name: 'Ok task', state: 'complete', pages: ['pageTwo'] },
+            { name: 'Terrible task', state: 'notStarted', pages: ['pageThree'] },
           ],
         },
       ];
@@ -112,7 +112,7 @@ describe('components', () => {
     });
   });
 
-  it('should pass the first page of the selected task to the given onTaskAction function', () => {
+  it('should pass the the selected task to the given onTaskAction function', () => {
     const COP_REF = '123';
     const REF_TITLE = 'COP reference number';
     const ON_CLICK_CALLS = [];
@@ -123,9 +123,9 @@ describe('components', () => {
       {
         name: 'These are your tasks',
         tasks: [
-          { name: 'Nice task', state: 'complete', firstPage: 'pageOne' },
-          { name: 'Ok task', state: 'complete', firstPage: 'pageTwo' },
-          { name: 'Terrible task', state: 'notStarted', firstPage: 'pageThree' },
+          { name: 'Nice task', state: 'complete', pages: ['pageOne'] },
+          { name: 'Ok task', state: 'complete', pages: ['pageTwo'] },
+          { name: 'Terrible task', state: 'notStarted', pages: ['pageThree'] },
         ],
       },
     ];
@@ -136,13 +136,13 @@ describe('components', () => {
     const thirdTask = container.childNodes[0].childNodes[4].childNodes[2].childNodes[0].childNodes[0];
 
     fireEvent.click(firstTask.childNodes[0]);
-    expect(ON_CLICK_CALLS[0]).toEqual('pageOne');
+    expect(ON_CLICK_CALLS[0]).toEqual({ pages: ['pageOne'], name: "Nice task", state: 'complete'});
 
     fireEvent.click(secondTask.childNodes[0]);
-    expect(ON_CLICK_CALLS[1]).toEqual('pageTwo');
+    expect(ON_CLICK_CALLS[1]).toEqual({pages: ['pageTwo'], name: "Ok task", state: 'complete'});
 
     fireEvent.click(thirdTask.childNodes[0]);
-    expect(ON_CLICK_CALLS[2]).toEqual('pageThree');
+    expect(ON_CLICK_CALLS[2]).toEqual({pages: ['pageThree'], name: "Terrible task", state: 'notStarted'});
 
   });
 });
