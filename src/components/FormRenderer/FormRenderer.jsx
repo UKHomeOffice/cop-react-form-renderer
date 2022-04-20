@@ -186,8 +186,10 @@ const FormRenderer = ({
   };
 
   const classes = Utils.classBuilder(classBlock, classModifiers, className);
-  const cyaAction =
-    hub === HubFormats.TASK ? [{ type: PageAction.TYPES.SAVE_AND_RETURN, label: 'Submit', validate: true }] : undefined;
+
+  if(hub === HubFormats.TASK){
+    cya.actions = [{ type: PageAction.TYPES.SAVE_AND_RETURN, label: 'Submit', validate: true }];
+  }
 
   return (
     <div className={classes()}>
@@ -203,7 +205,6 @@ const FormRenderer = ({
           summaryListClassModifiers={summaryListClassModifiers}
           hide_title={hide_title}
           noChangeAction={noChangeAction}
-          actions={cyaAction}
         />
       }
       {hub === HubFormats.TASK && formState.pageId === FormPages.HUB && (
