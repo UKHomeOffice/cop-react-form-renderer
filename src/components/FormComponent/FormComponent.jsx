@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 
 // Local imports
+import useHooks from '../../hooks/useHooks';
 import useRefData, { STATUS_COMPLETE } from '../../hooks/useRefData';
 import Utils from '../../utils';
 
@@ -13,6 +14,7 @@ const FormComponent = ({
   onChange,
   ...attrs
 }) => {
+  const { hooks } = useHooks();
   const { data, status } = useRefData(component);
   const [ options, setOptions ] = useState([]);
   useEffect(() => {
@@ -29,7 +31,7 @@ const FormComponent = ({
     options,
     value: value || '',
     onChange
-  }, wrap);
+  }, wrap, hooks.onGetComponent);
 };
 
 FormComponent.propTypes = {

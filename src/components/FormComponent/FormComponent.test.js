@@ -3,11 +3,16 @@ import { render } from '@testing-library/react';
 import React from 'react';
 
 // Local imports
+import { addHook, resetHooks } from '../../hooks/useHooks';
 import FormComponent from './FormComponent';
 
 describe('components', () => {
 
   describe('FormComponent', () => {
+
+    beforeEach(() => {
+      resetHooks();
+    });
 
     it('should render a text component appropriately', async () => {
       const ID = 'component';
@@ -56,6 +61,34 @@ describe('components', () => {
     });
 
     it('should render an html component appropriately', async () => {
+      const ID = 'component';
+      const COMPONENT = { type: 'html', tagName: 'p', content: 'HTML content' };
+      const { container } = render(
+        <FormComponent data-testid={ID} component={COMPONENT} />
+      );
+      const p = container.childNodes[0];
+      expect(p.tagName).toEqual('P');
+      expect(p.textContent).toEqual(COMPONENT.content);
+    });
+
+    it('should render an overridden html component appropriately', async () => {
+      addHook('onGetComponent', (config, wrap) => {
+        return <div>{`${config.type} | ${config.tagName} | ${config.content} | ${wrap}`}</div>
+      });
+      const ID = 'component';
+      const COMPONENT = { type: 'html', tagName: 'p', content: 'HTML content' };
+      const { container } = render(
+        <FormComponent data-testid={ID} component={COMPONENT} />
+      );
+      const div = container.childNodes[0];
+      expect(div.tagName).toEqual('DIV');
+      expect(div.textContent).toEqual(`${COMPONENT.type} | ${COMPONENT.tagName} | ${COMPONENT.content} | true`);
+    });
+
+    it('should render the correct html component when the override returns null', async () => {
+      addHook('onGetComponent', () => {
+        return null;
+      });
       const ID = 'component';
       const COMPONENT = { type: 'html', tagName: 'p', content: 'HTML content' };
       const { container } = render(
