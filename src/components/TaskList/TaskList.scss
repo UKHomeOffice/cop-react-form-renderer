@@ -48,6 +48,7 @@
 
 .hods-task-list__task-name {
   display: block;
+  cursor: pointer;
   @include govuk-media-query($from: 450px) {
     float: left;
   }

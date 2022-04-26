@@ -31,6 +31,9 @@ const getPageActions = (page) => {
         return PageAction.DEFAULTS[a];
       }
       if (a && typeof a === 'object') {
+        if(PageAction.DEFAULTS[a.type]?.validate){
+          a.validate = true;
+        }
         return standardiseAction(a);
       }
       return undefined;

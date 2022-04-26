@@ -9,6 +9,7 @@ import { act } from 'react-dom/test-utils';
 // Local imports
 import { PageAction } from '../../models';
 import { DEFAULT_CLASS as CYA_DEFAULT_CLASS } from '../CheckYourAnswers/CheckYourAnswers';
+import { DEFAULT_CLASS as TASK_LIST_DEFAULT_CLASS } from '../TaskList/TaskList';
 import FormRenderer, { DEFAULT_CLASS } from './FormRenderer';
 
 // JSON
@@ -17,6 +18,7 @@ import GRADE from '../../json/grade.json';
 import TEAMS from '../../json/team.json';
 import USER_PROFILE_DATA from '../../json/userProfile.data.json';
 import USER_PROFILE from '../../json/userProfile.json';
+import TASK_LIST from '../../json/taskList.json';
 
 describe('components', () => {
 
@@ -236,6 +238,69 @@ describe('components', () => {
       const hub = form.childNodes[0];
       expect(hub.tagName).toEqual('DIV');
       expect(hub.classList).toContain(CYA_DEFAULT_CLASS);
+    });
+
+    it('should render a tasklist', async () => {
+      await act(async () => {
+        render(<FormRenderer {...TASK_LIST} />, container);
+      });
+      const taskList = container.childNodes[0].childNodes[1];
+      expect(taskList.classList).toContain(TASK_LIST_DEFAULT_CLASS);
+    });
+
+    it('should handle navigating between task list pages', async () => {
+      const ON_SUBMIT = (type, payload, onSuccess, onError) => {
+        onSuccess();
+      };
+      const HOOKS = {
+        onSubmit: ON_SUBMIT
+      };
+
+      await act(async () => {
+        render(<FormRenderer {...TASK_LIST}  hooks={HOOKS}/>, container);
+      });
+
+      //Launch into task 
+      const taskList = container.childNodes[0].childNodes[1];
+      const taskLink = taskList.childNodes[4].childNodes[1].childNodes[0].childNodes[0]
+      expect(taskLink.textContent).toEqual('Officer and agency details')
+      fireEvent.click(taskLink, {});
+
+      //Complete the only page in the task and continue
+      const newPage = container.childNodes[0].childNodes[0];
+      expect(newPage.childNodes[0].textContent).toEqual('Officer Details')
+      const continueButton = newPage.childNodes[2].childNodes[0];
+      fireEvent.click(continueButton, {});
+
+      //Continue on from CYA page
+      expect(container.childNodes[0].childNodes[0].childNodes[0].textContent).toEqual('Check your answers');
+      expect(container.childNodes[0].childNodes[0].childNodes[3].textContent).toEqual('Submit');
+      fireEvent.click(container.childNodes[0].childNodes[0].childNodes[3].childNodes[0], {});
+
+      //Should be back at task list
+      expect(container.childNodes[0].childNodes[0].textContent).toEqual('Event at the border');
+    });
+
+    it('should go straight to CYA page if a complete task is selected', async () => {
+      const ON_SUBMIT = (type, payload, onSuccess, onError) => {
+        onSuccess();
+      };
+      const HOOKS = {
+        onSubmit: ON_SUBMIT
+      };
+
+      await act(async () => {
+        render(<FormRenderer {...TASK_LIST}  hooks={HOOKS}/>, container);
+      });
+
+      //Launch into task with complete state
+      const taskList = container.childNodes[0].childNodes[1];
+      const taskLink = taskList.childNodes[4].childNodes[0].childNodes[0].childNodes[0]
+      expect(taskLink.textContent).toEqual('Date, location and mode details')
+      fireEvent.click(taskLink, {});
+
+      //Should be at CYA page
+      expect(container.childNodes[0].childNodes[0].childNodes[0].textContent).toEqual('Check your answers');
     });
 
   });
