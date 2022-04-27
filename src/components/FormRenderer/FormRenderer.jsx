@@ -10,7 +10,6 @@ import Utils from '../../utils';
 import CheckYourAnswers from '../CheckYourAnswers';
 import FormPage from '../FormPage';
 import TaskList from '../TaskList';
-import getPage from './helpers/getPage';
 import handlers from './handlers';
 import helpers from './helpers';
 
@@ -41,6 +40,8 @@ const FormRenderer = ({
   const [pageId, setPageId] = useState(helpers.getNextPageId(type, _pages));
   const [formState, setFormState] = useState(helpers.getFormState(pageId, pages, hub));
   const [currentTask, setCurrentTask] = useState({});
+  const [hubDetails, setHubDetails] = useState({});
+
   // Set up hooks.
   const { hooks, addHook } = useHooks();
   useEffect(() => {
@@ -88,16 +89,26 @@ const FormRenderer = ({
     hooks.onFormLoad();
   }, [hooks]);
 
-  //Update task list pages with form data
+  useEffect(() => {
+    setHubDetails(_hub);
+  }, [_hub])
+
+  // Update task list pages with form data and update states
   useEffect(() => {
     const pages = currentTask.fullPages;
     if(pages){
       pages.forEach(page => {
         page.formData = data;
       });
-      setCurrentTask(prev => ({...prev, fullpages: pages}));
+      setCurrentTask(prev => ({ ...prev, fullPages: pages }));
     }
-  } , [currentTask.fullPages, data]);
+
+    if (hubDetails?.sections) {
+      const tasks = data?.formStatus?.tasks ? data.formStatus.tasks : {};
+      const updatedSections = helpers.getUpdatedSectionStates(hubDetails.sections, tasks);
+      setHubDetails(prev => ({ ...prev, ...updatedSections }));
+    }
+  }, [currentTask.fullPages, data, hubDetails?.sections]);
 
   const onPageChange = (newPageId) => {
     setPageId(newPageId);
@@ -114,7 +125,7 @@ const FormRenderer = ({
       } else {
         // Save draft or submit.
         const submissionData = Utils.Format.form({ pages, components }, { ...data, ...patch }, EventTypes.SUBMIT);
-        submissionData.formStatus = helpers.getSubmissionStatus(type, pages, pageId, action, submissionData);
+        submissionData.formStatus = helpers.getSubmissionStatus(type, pages, pageId, action, submissionData, currentTask);
         if (patch) {
           setData(submissionData);
         }
@@ -149,7 +160,7 @@ const FormRenderer = ({
     if (currentTask) {
       currentTask.fullPages = [];
       currentTask.pages.forEach((page) => {
-        currentTask.fullPages.push(getPage(page, pages));
+        currentTask.fullPages.push(helpers.getPage(page, pages));
       });
       setCurrentTask(currentTask);
       if(currentTask.state === TaskStates.TYPES.COMPLETE){
@@ -180,7 +191,13 @@ const FormRenderer = ({
     }
     if (action.type === PageAction.TYPES.SAVE_AND_RETURN) {
       if (helpers.canCYASubmit(currentTask.fullPages, onError)) {
-        onPageChange(FormPages.HUB);
+        const submissionData = Utils.Format.form({ pages, components }, { ...data }, EventTypes.SUBMIT);
+        submissionData.formStatus = helpers.getSubmissionStatus(type, pages, pageId, action, submissionData, currentTask);
+        setData(submissionData);
+        hooks.onSubmit(action.type, submissionData, 
+          () => onPageChange(FormPages.HUB),
+          (errors) => handlers.submissionError(errors, onError)
+        );
       }
     }
   };
@@ -209,7 +226,7 @@ const FormRenderer = ({
       }
       {hub === HubFormats.TASK && formState.pageId === FormPages.HUB && (
         <TaskList
-          sections={_hub.sections}
+          sections={hubDetails.sections}
           refNumber={data['businessKey']}
           refTitle={_hub.refTitle}
           onTaskAction={onTaskAction}

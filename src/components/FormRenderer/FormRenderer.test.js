@@ -11,6 +11,7 @@ import { PageAction } from '../../models';
 import { DEFAULT_CLASS as CYA_DEFAULT_CLASS } from '../CheckYourAnswers/CheckYourAnswers';
 import { DEFAULT_CLASS as TASK_LIST_DEFAULT_CLASS } from '../TaskList/TaskList';
 import FormRenderer, { DEFAULT_CLASS } from './FormRenderer';
+import { TaskStates } from '../../models';
 
 // JSON
 import CIVIL_SERVANT from '../../json/areYouACivilServant.json';
@@ -249,36 +250,74 @@ describe('components', () => {
     });
 
     it('should handle navigating between task list pages', async () => {
+      const ON_SUBMIT_CALLS = [];
       const ON_SUBMIT = (type, payload, onSuccess, onError) => {
+        ON_SUBMIT_CALLS.push(payload);
         onSuccess();
       };
       const HOOKS = {
-        onSubmit: ON_SUBMIT
+        onSubmit: ON_SUBMIT,
       };
 
       await act(async () => {
-        render(<FormRenderer {...TASK_LIST}  hooks={HOOKS}/>, container);
+        render(<FormRenderer {...TASK_LIST} hooks={HOOKS} />, container);
       });
 
-      //Launch into task 
       const taskList = container.childNodes[0].childNodes[1];
-      const taskLink = taskList.childNodes[4].childNodes[1].childNodes[0].childNodes[0]
-      expect(taskLink.textContent).toEqual('Officer and agency details')
-      fireEvent.click(taskLink, {});
 
-      //Complete the only page in the task and continue
-      const newPage = container.childNodes[0].childNodes[0];
-      expect(newPage.childNodes[0].textContent).toEqual('Officer Details')
-      const continueButton = newPage.childNodes[2].childNodes[0];
+      //Check status's are correct
+      let firstTaskStatus = taskList.childNodes[4].childNodes[0].childNodes[1];
+      expect(firstTaskStatus.textContent).toEqual(TaskStates.DETAILS[TaskStates.TYPES.NOT_STARTED].label);
+      let secondTaskStatus = taskList.childNodes[4].childNodes[1].childNodes[1];
+      expect(secondTaskStatus.textContent).toEqual(TaskStates.DETAILS[TaskStates.TYPES.CANNOT_START_YET].label);
+
+      //Launch first task
+      const firstTask = taskList.childNodes[4].childNodes[0].childNodes[0].childNodes[0];
+      expect(firstTask.textContent).toEqual('Date, location and mode details');
+      fireEvent.click(firstTask, {});
+
+      //Fill first page and navigate
+      let newPage = container.childNodes[0].childNodes[0];
+      expect(newPage.childNodes[0].textContent).toEqual('Event Date');
+      fireEvent.change(newPage.childNodes[1].childNodes[2].childNodes[0].childNodes[1], {
+        target: { name: 'date-day', value: '7' },
+      });
+      fireEvent.change(newPage.childNodes[1].childNodes[2].childNodes[1].childNodes[1], {
+        target: { name: 'date-month', value: '7' },
+      });
+      fireEvent.change(newPage.childNodes[1].childNodes[2].childNodes[2].childNodes[1], {
+        target: { name: 'date-year', value: '2022' },
+      });
+      let continueButton = newPage.childNodes[2].childNodes[0];
+      fireEvent.click(continueButton, {});
+
+      //Fill second page and navigate
+      newPage = container.childNodes[0].childNodes[0];
+      expect(newPage.childNodes[0].textContent).toEqual('Event Mode');
+      fireEvent.click(newPage.childNodes[1].childNodes[2].childNodes[0].childNodes[0], {});
+      continueButton = newPage.childNodes[2].childNodes[0];
       fireEvent.click(continueButton, {});
 
       //Continue on from CYA page
-      expect(container.childNodes[0].childNodes[0].childNodes[0].textContent).toEqual('Check your answers');
-      expect(container.childNodes[0].childNodes[0].childNodes[3].textContent).toEqual('Submit');
-      fireEvent.click(container.childNodes[0].childNodes[0].childNodes[3].childNodes[0], {});
+      const cyaPage = container.childNodes[0].childNodes[0];
+      expect(cyaPage.childNodes[0].textContent).toEqual('Check your answers');
+      expect(cyaPage.childNodes[5].textContent).toEqual('Submit');
+      fireEvent.click(cyaPage.childNodes[5].childNodes[0], {});
 
       //Should be back at task list
       expect(container.childNodes[0].childNodes[0].textContent).toEqual('Event at the border');
+
+      //Check status's are correct
+      firstTaskStatus = container.childNodes[0].childNodes[1].childNodes[4].childNodes[0].childNodes[1];
+      expect(firstTaskStatus.textContent).toEqual(TaskStates.DETAILS[TaskStates.TYPES.COMPLETE].label);
+      secondTaskStatus = container.childNodes[0].childNodes[1].childNodes[4].childNodes[1].childNodes[1];
+      expect(secondTaskStatus.textContent).toEqual(TaskStates.DETAILS[TaskStates.TYPES.NOT_STARTED].label);
+
+      //Check final data submitted to backend is as expected
+      const finalSubmit = ON_SUBMIT_CALLS[ON_SUBMIT_CALLS.length - 1];
+      expect(finalSubmit.date).toEqual('7-7-2022');
+      expect(finalSubmit.mode).toEqual('sea');
+      expect(finalSubmit.formStatus.tasks['Date, location and mode details'].complete).toEqual(true);
     });
 
     it('should go straight to CYA page if a complete task is selected', async () => {
@@ -286,18 +325,41 @@ describe('components', () => {
         onSuccess();
       };
       const HOOKS = {
-        onSubmit: ON_SUBMIT
+        onSubmit: ON_SUBMIT,
       };
 
       await act(async () => {
-        render(<FormRenderer {...TASK_LIST}  hooks={HOOKS}/>, container);
+        render(<FormRenderer {...TASK_LIST} hooks={HOOKS} />, container);
       });
 
-      //Launch into task with complete state
       const taskList = container.childNodes[0].childNodes[1];
-      const taskLink = taskList.childNodes[4].childNodes[0].childNodes[0].childNodes[0]
-      expect(taskLink.textContent).toEqual('Date, location and mode details')
-      fireEvent.click(taskLink, {});
+
+      //Launch first task
+      fireEvent.click(taskList.childNodes[4].childNodes[0].childNodes[0].childNodes[0], {});
+
+      //Fill first page and navigate
+      let newPage = container.childNodes[0].childNodes[0];
+      fireEvent.change(newPage.childNodes[1].childNodes[2].childNodes[0].childNodes[1], {
+        target: { name: 'date-day', value: '7' },
+      });
+      fireEvent.change(newPage.childNodes[1].childNodes[2].childNodes[1].childNodes[1], {
+        target: { name: 'date-month', value: '7' },
+      });
+      fireEvent.change(newPage.childNodes[1].childNodes[2].childNodes[2].childNodes[1], {
+        target: { name: 'date-year', value: '2022' },
+      });
+      fireEvent.click(newPage.childNodes[2].childNodes[0], {});
+
+      //Fill second page and navigate
+      newPage = container.childNodes[0].childNodes[0];
+      fireEvent.click(newPage.childNodes[1].childNodes[2].childNodes[0].childNodes[0], {});
+      fireEvent.click(newPage.childNodes[2].childNodes[0], {});
+
+      //Continue on from CYA page
+      fireEvent.click(container.childNodes[0].childNodes[0].childNodes[5].childNodes[0], {});
+
+      //Launch same task again
+      fireEvent.click(container.childNodes[0].childNodes[1].childNodes[4].childNodes[0].childNodes[0].childNodes[0], {});
 
       //Should be at CYA page
       expect(container.childNodes[0].childNodes[0].childNodes[0].textContent).toEqual('Check your answers');
