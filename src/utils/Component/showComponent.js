@@ -1,6 +1,5 @@
 // Local imports
-import Data from '../Data';
-import meetsCondition from '../meetsCondition';
+import Condition from '../Condition';
 
 const showComponent = (component, data) => {
   if (!component) {
@@ -9,20 +8,7 @@ const showComponent = (component, data) => {
   if (component.hidden && component.disabled) {
     return false;
   }
-  if (component.show_when) {
-    if (Array.isArray(component.show_when)) {
-      let allConditionsMet = true;
-      component.show_when.forEach(condition => {
-        const sourceDataValue = Data.getSource(data, condition.field);
-        allConditionsMet = allConditionsMet && meetsCondition(condition, sourceDataValue);
-      });
-      return allConditionsMet;
-    } else {
-      const sourceDataValue = Data.getSource(data, component.show_when.field);
-      return meetsCondition(component.show_when, sourceDataValue);
-    }
-  }
-  return true;
+  return Condition.meetsAll(component.show_when, data);
 };
 
 export default showComponent;
