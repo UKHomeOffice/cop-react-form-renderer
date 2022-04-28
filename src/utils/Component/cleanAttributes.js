@@ -2,7 +2,8 @@ export const JSON_ONLY_PROPERTIES = [
   'source',
   'use',
   'show_when',
-  'options'
+  'options',
+  'additionalValidation'
 ];
 
 /**
