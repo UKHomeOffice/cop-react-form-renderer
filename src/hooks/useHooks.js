@@ -1,8 +1,16 @@
-export const ALLOWED_HOOKS = ['onRequest', 'onFormComplete', 'onFormLoad', 'onPageChange', 'onSubmit'];
+export const ALLOWED_HOOKS = [
+  'onFormComplete',
+  'onFormLoad',
+  'onGetComponent',
+  'onPageChange',
+  'onRequest',
+  'onSubmit'
+];
 
 const DEFAULT_HOOKS = {
   onFormComplete: () => {},
   onFormLoad: () => {},
+  onGetComponent: (config, wrap) => null,
   onPageChange: (pageId) => pageId,
   onRequest: (req) => req,
   onSubmit: (type, payload, onSuccess, onError) => {
@@ -13,6 +21,7 @@ const DEFAULT_HOOKS = {
 const hooks = {
   onFormComplete: DEFAULT_HOOKS.onFormComplete,
   onFormLoad: DEFAULT_HOOKS.onFormLoad,
+  onGetComponent: DEFAULT_HOOKS.onGetComponent,
   onPageChange: DEFAULT_HOOKS.onPageChange,
   onRequest: DEFAULT_HOOKS.onRequest,
   onSubmit: DEFAULT_HOOKS.onSubmit

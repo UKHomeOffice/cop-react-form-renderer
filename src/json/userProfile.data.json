@@ -10,5 +10,6 @@
   "userDetails": {
     "linemanagerEmail": "line.manager@digital.homeoffice.gov.uk",
     "delegateEmails": "del.egate@digital.homeoffice.gov.uk"
-  }
+  },
+  "businessKey": "123456789"
 }

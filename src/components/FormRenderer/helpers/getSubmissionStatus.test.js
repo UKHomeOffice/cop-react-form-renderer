@@ -1,5 +1,6 @@
 // Local imports
 import { ComponentTypes, FormPages, FormTypes, PageAction } from '../../../models';
+import { PageActionTypes } from '../../../models/PageAction';
 import getSubmissionStatus from './getSubmissionStatus';
 
 describe('components', () => {
@@ -55,12 +56,14 @@ describe('components', () => {
         describe(`when the action type is '${PageAction.TYPES.SAVE_AND_RETURN}'`, () => {
 
           Object.values(FormTypes).forEach(formType => {
-            it(`should return the current page if the form type is '${formType}'`, () => {
-              const ACTION = PageAction.DEFAULTS.saveAndReturn;
-              expect(getSubmissionStatus(formType, PAGES, PAGES[0].id, ACTION, FORM_DATA)).toMatchObject({
-                page: PAGES[0].id
+            if(formType !== FormTypes.TASK){
+              it(`should return the current page if the form type is '${formType}'`, () => {
+                const ACTION = PageAction.DEFAULTS.saveAndReturn;
+                expect(getSubmissionStatus(formType, PAGES, PAGES[0].id, ACTION, FORM_DATA)).toMatchObject({
+                  page: PAGES[0].id
+                });
               });
-            });
+            }
           });
 
         });
@@ -166,7 +169,35 @@ describe('components', () => {
 
         });
 
+      describe(`when the form type is '${FormTypes.TASK}'`, () => {
+        const FORM_TYPE = FormTypes.TASK;
+
+        it(`should mark the current task as complete if the current page is '${FormPages.CYA}'`, () => {
+          const CURRENT_PAGE_ID = FormPages.CYA;
+          const TASK_NAME = 'taskName';
+          const CURRENT_TASK = { name: TASK_NAME };
+          expect(getSubmissionStatus(FORM_TYPE, PAGES, CURRENT_PAGE_ID, undefined, {}, CURRENT_TASK)).toMatchObject({
+            tasks: { [TASK_NAME]: { complete: true } },
+          });
+        });
+
+        it(`should update the current task with the next page and a false complete flag if the current page is not '${FormPages.CYA}'`, () => {
+          const CURRENT_PAGE_ID = 'eventDate';
+          const TASK_NAME = 'taskName';
+          const CURRENT_TASK = { name: TASK_NAME };
+          const NEXT_PAGE_ID = 'eventMode';
+          const ACTION = {
+            type:PageActionTypes.SAVE_AND_NAVIGATE,
+            page: NEXT_PAGE_ID,
+          };
+          expect(getSubmissionStatus(FORM_TYPE, PAGES, CURRENT_PAGE_ID, ACTION, {}, CURRENT_TASK)).toMatchObject({
+            tasks: { [TASK_NAME]: { complete: false, currentPage: NEXT_PAGE_ID } },
+          });
+        });
+
       });
+
+    });
 
     });
 
