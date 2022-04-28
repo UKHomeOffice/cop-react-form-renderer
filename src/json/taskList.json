@@ -1,0 +1,228 @@
+{
+  "id": "eventAtTheBorder",
+  "version": "1",
+  "name": "Event at the border",
+  "title": "Event at the border",
+  "type": "task-list",
+  "components": [
+    {
+      "id": "firstName",
+      "fieldId": "firstName",
+      "label": "First name",
+      "type": "text",
+      "required": true
+    },
+    {
+      "id": "surname",
+      "fieldId": "surname",
+      "label": "Last name",
+      "type": "text",
+      "required": true
+    },
+    {
+      "id": "date",
+      "fieldId": "date",
+      "label": "Date",
+      "type": "date",
+      "required": true
+    },
+    {
+      "id": "officerName",
+      "fieldId": "officerName",
+      "label": "Officer Name",
+      "type": "text"
+    },
+    {
+      "id": "immigrationDate",
+      "fieldId": "immigrationDate",
+      "label": "Immigration Date",
+      "type": "date",
+      "required": true
+    },
+    {
+      "id": "mode",
+      "fieldId": "mode",
+      "label": "Mode",
+      "type": "radios",
+      "data": {
+        "options": [
+          {
+            "value": "sea",
+            "label": "Sea"
+          },
+          {
+            "value": "air",
+            "label": "Air"
+          }
+        ]
+      },
+      "required": true
+    }
+  ],
+  "pages": [
+    {
+      "id": "eventDate",
+      "name": "eventDate",
+      "title": "Event Date",
+      "components": [
+        {
+          "use": "date"
+        }
+      ],
+      "actions": [
+        {
+          "type": "saveAndNavigate",
+          "page": "eventMode"
+        }
+      ],
+      "cya_link": {
+        "page": "eventDate",
+        "aria_suffix": "Event Date"
+      }
+    },
+    {
+      "id": "eventMode",
+      "name": "eventMode",
+      "title": "Event Mode",
+      "components": [
+        {
+          "use": "mode"
+        }
+      ],
+      "actions": [
+        {
+          "type": "saveAndNavigate",
+          "page": "cya"
+        }
+      ],
+      "cya_link": {
+        "page": "eventMode",
+        "aria_suffix": "Event Mode"
+      }
+    },
+    {
+      "id": "officeDetails",
+      "name": "officeDetails",
+      "title": "Officer Details",
+      "components": [
+        {
+          "use": "officerName"
+        }
+      ],
+      "actions": [
+        {
+          "type": "saveAndNavigate",
+          "page": "cya"
+        }
+      ],
+      "cya_link": {
+        "page": "officeDetails",
+        "aria_suffix": "Officer Details"
+      }
+    },
+    {
+      "id": "immigrationDate",
+      "name": "immigrationDate",
+      "title": "Immigration Date",
+      "components": [
+        {
+          "use": "immigrationDate"
+        }
+      ],
+      "actions": [
+        {
+          "type": "saveAndNavigate",
+          "page": "cya"
+        }
+      ],
+      "cya_link": {
+        "page": "immigrationDate",
+        "aria_suffix": "Immigration Date"
+      }
+    },
+    {
+      "id": "firstName",
+      "name": "firstName",
+      "title": "First Name",
+      "components": [
+        {
+          "use": "firstName"
+        }
+      ],
+      "actions": [
+        {
+          "type": "saveAndNavigate",
+          "page": "surname"
+        }
+      ],
+      "cya_link": {
+        "page": "firstName",
+        "aria_suffix": "First Name"
+      }
+    },
+    {
+      "id": "surname",
+      "name": "surname",
+      "title": "Surname",
+      "components": [
+        {
+          "use": "surname"
+        }
+      ],
+      "actions": [
+        {
+          "type": "saveAndNavigate",
+          "page": "cya"
+        }
+      ],
+      "cya_link": {
+        "page": "surname",
+        "aria_suffix": "Surname"
+      }
+    }
+  ],
+  "hub": {
+    "format": "CYA",
+    "refTitle": "COP reference number",
+    "sections": [
+      {
+        "name": "Add event details",
+        "tasks": [
+          {
+            "name": "Date, location and mode details",
+            "pages": ["eventDate", "eventMode"],
+            "state": "complete"
+          },
+          {
+            "name": "Officer and agency details",
+            "pages": ["officeDetails"],
+            "state": "inProgress"
+          }
+        ]
+      },
+      {
+        "name": "Add people details",
+        "tasks": [
+          {
+            "name": "People details",
+            "pages": ["firstName", "surname"],
+            "state": "complete"
+          },
+          {
+            "name": "Immigration details",
+            "pages": ["immigrationDate"],
+            "state": "inProgress"
+          },
+          {
+            "name": "Journey details",
+            "pages": ["none"],
+            "state": "cannotStartYet"
+          }
+        ]
+      }
+    ]
+  },
+  "cya": {
+    "hide_page_titles": false
+  }
+}

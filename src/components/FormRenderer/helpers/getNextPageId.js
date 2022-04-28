@@ -38,6 +38,8 @@ const getNextPageId = (formType, pages, currentPageId, action, formData) => {
       return getNextHubPageId(action);
     case FormTypes.CYA:
       return getNextCYAPageId(pages, currentPageId, formData);
+    case FormTypes.TASK:
+      return getNextHubPageId(action); 
     case FormTypes.WIZARD:
       return getNextWizardPageId(pages, currentPageId, formData);
     default:

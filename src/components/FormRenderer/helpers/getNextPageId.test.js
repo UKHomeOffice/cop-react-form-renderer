@@ -139,6 +139,15 @@ describe('components', () => {
 
         });
 
+        describe(`when the form type is '${FormTypes.TASK}'`, () => {
+          const FORM_TYPE = FormTypes.TASK;
+
+          it(`should return '${FormPages.HUB}' by default`, () => {
+            expect(getNextPageId(FORM_TYPE, PAGES)).toEqual(FormPages.HUB);
+          });
+
+        });
+
       });
 
     });

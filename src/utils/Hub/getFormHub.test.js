@@ -49,9 +49,9 @@ describe('utils', () => {
           const HUB = {
             title: 'Hub title',
             components: [
-              "Opening paragraph",
+              'Opening paragraph',
               { type: 'heading', size: 'l', content: 'Hub heading' },
-              "Closing paragraph",
+              'Closing paragraph',
               { use: 'a' }
             ]
           };
@@ -67,11 +67,14 @@ describe('utils', () => {
             formData: FORM_DATA
           });
         });
-
       });
 
+      describe(`when the FormType is "${FormTypes.TASK}"`, () => {
+        it(`should return the string "${HubFormats.TASK}" when the format is set to "${HubFormats.TASK}"`, () => {
+          const HUB = { format: HubFormats.TASK };
+          expect(getFormHub(FormTypes.TASK, HUB, FORM_COMPONENTS, FORM_DATA)).toEqual(HubFormats.TASK);
+        });
+      });
     });
-
   });
-
 });
