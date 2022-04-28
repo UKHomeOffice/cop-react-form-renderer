@@ -18,7 +18,7 @@ const Task = ({ task, onClick }) => {
   useEffect(() => {
     setLinkActive(task.state !== TaskStates.TYPES.CANNOT_START_YET);
     setCurrentState(task.state);
-  }, [task, setLinkActive, setCurrentState]);
+  }, [task.state, setLinkActive, setCurrentState]);
 
   return (
     <li className={classes('item')}>
