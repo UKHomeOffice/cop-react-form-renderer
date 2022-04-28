@@ -98,7 +98,20 @@ const getComponentByType = (config) => {
   }
 };
 
-const getComponent = (config, wrap = true) => {
+/**
+ * Get a renderable component, based on a configuration object.
+ * @param {object} config The configuration object for the component.
+ * @param {boolean} wrap Indicates whether or not the component should be wrapped.
+ * @param {Function} fnOverride An optional override function for component rendering.
+ * @returns A renderable component.
+ */
+const getComponent = (config, wrap = true, fnOverride = undefined) => {
+  if (typeof fnOverride === 'function') {
+    const overrideComponent = fnOverride(config, wrap);
+    if (overrideComponent) {
+      return overrideComponent;
+    }
+  }
   const component = getComponentByType(config);
   if (component && wrap && isEditable(config)) {
     const attrs = cleanAttributes(config, ['fieldId', 'displayMenu']);
