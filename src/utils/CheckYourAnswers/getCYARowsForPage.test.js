@@ -1,4 +1,5 @@
 // Local imports
+import { ComponentTypes } from '../../models';
 import getCYARowsForPage from './getCYARowsForPage';
 
 describe('utils', () => {
@@ -81,6 +82,41 @@ describe('utils', () => {
             value: `${PAGE.components[index].label} Charlie`
           });
           expectObjectLike(row.action, { onAction: ON_ACTION });
+        });
+      });
+
+      it('should get a appropriate row for a page with a single readonly text component inside of a container', () => {
+        const FORM_DATA = {
+          container: {
+            a: 'Bravo'
+          }
+        };
+        const COMPONENT = { type: 'text', readonly: true, id: 'a', fieldId: 'a', label: 'Alpha' };
+        const CONTAINER = {
+          id: 'container',
+          fieldId: 'container',
+          type: ComponentTypes.CONTAINER,
+          components: [ COMPONENT ],
+          value: FORM_DATA.container,
+          formData: FORM_DATA
+        };
+        const PAGE = {
+          id: 'page',
+          components: [ CONTAINER ],
+          formData: FORM_DATA
+        };
+        const ON_ACTION = () => {};
+        const ROWS = getCYARowsForPage(PAGE, ON_ACTION);
+        expect(ROWS.length).toEqual(1);
+        ROWS.forEach((row, index) => {
+          expectObjectLike(row, {
+            pageId: PAGE.id,
+            fieldId: CONTAINER.components[index].fieldId,
+            key: CONTAINER.components[index].label,
+            action: null,
+            component: COMPONENT,
+            value: 'Bravo'
+          });
         });
       });
       
