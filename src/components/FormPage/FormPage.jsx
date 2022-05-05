@@ -49,6 +49,7 @@ const FormPage = ({
           component={component}
           onChange={onPageChange}
           value={page.formData[component.fieldId] || ''}
+          formData={page.formData}
         />
       ))}
       <PageActions actions={page.actions} onAction={(action) => onAction(action, patch, onError)} />
