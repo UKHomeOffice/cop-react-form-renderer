@@ -1,6 +1,7 @@
 // Local imports
 import { ComponentTypes } from '../../models';
 import Component from '../Component';
+import Container from '../Container';
 
 const EXCLUDE_FROM_CYA = [
   ComponentTypes.HEADING,
@@ -22,6 +23,9 @@ const showComponentCYA = (options, data) => {
   }
   if (EXCLUDE_FROM_CYA.includes(options.type)) {
     return false;
+  }
+  if (options.type === ComponentTypes.CONTAINER) {
+    return Container.show(options, data);
   }
   return Component.show(options, data);
 };
