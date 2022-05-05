@@ -4,6 +4,11 @@ import { maxMonthDays } from './validateDate';
 describe('utils', () => {
   describe('Validate', () => {
     describe('date', () => {
+
+      test('should return no error when the value is an empty string', () => {
+        expect(validateDate('', 'DD-MM-YYYY')).toEqual({ message: undefined, propsInError: undefined });
+      });
+
       test('should return undefined if a date string is valid', () => {
         const output = validateDate('28-02-2024', 'DD-MM-YYYY');
         expect(output).toEqual({ message: undefined, propsInError: undefined });
@@ -64,6 +69,7 @@ describe('utils', () => {
         max = maxMonthDays('07', '2023');
         expect(max).toEqual(31);
       });
+
     });
   });
 });

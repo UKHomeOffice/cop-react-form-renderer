@@ -8,13 +8,12 @@ import validateComponent from './validateComponent';
  * @returns An array containing all of the errors.
  */
 const validatePage = (components, formData) => {
-  const errors = [];
   if (Array.isArray(components)) {
-    components.forEach(component => {
-      errors.push(validateComponent(component, formData));
-    });
+    return components.reduce((errors, component) => {
+      return errors.concat(validateComponent(component, formData));
+    }, []).filter(e => !!e);
   }
-  return errors.filter(e => !!e);
+  return [];
 };
 
 export default validatePage;
