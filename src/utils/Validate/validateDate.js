@@ -26,11 +26,19 @@ export {maxMonthDays};
  * Checks if a date passed is a valid date.
  * This will validate for 'leap years', missing components, invalid day, monnth or year components.
  * EXAMPLE USE : const { message, propsInError } = validateDate('2-11-2020')
+ * 
+ * Note that an empty string is not considered invalid. You should use
+ * validateRequired (Validate.required) for that sort of validation.
+ * 
  * @param {string} date  date as a string
  * @returns an object with an error message and instructions for which parts of the date are in error
  * or undefined for both if the date is valid
  */
 const validateDate = (date) => {
+  if (!date) {
+    return { message: undefined, propsInError: undefined };
+  }
+
   const formattedDate = formatString(date);
   const [day, month, year] = formattedDate.split('-');
   const intDay = parseInt(day, 10);

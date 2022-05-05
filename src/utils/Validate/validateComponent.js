@@ -1,11 +1,22 @@
 // Local imports
 import { ComponentTypes } from '../../models';
 import showComponent from '../Component/showComponent';
+import runAdditionalComponentValidation from './additional';
+import validateDate from './validateDate';
 import validateEmail from './validateEmail';
 import validateRequired from './validateRequired';
-import validateDate from './validateDate';
 import validateTime from './validateTime';
-import runAdditionalComponentValidation from './additional';
+
+const validateContainer = (container, formData) => {
+  const errors = [];
+  if (Array.isArray(container.components)) {
+    const fd = formData && container.fieldId ? formData[container.fieldId] : formData;
+    container.components.forEach(component => {
+      errors.push(validateComponent(component, fd));
+    });
+  }
+  return errors.filter(e => !!e);
+};
 
 /**
  * Validates a single component.
@@ -17,6 +28,9 @@ const validateComponent = (component, formData) => {
   let error = undefined;
   const data = formData && typeof formData === 'object' ? formData : {};
   if (component && showComponent(component, formData)) {
+    if (component.type === ComponentTypes.CONTAINER) {
+      return validateContainer(component, formData);
+    }
     const value = data[component.fieldId];
     delete component.propsInError;
     if (component.required) {
@@ -25,12 +39,12 @@ const validateComponent = (component, formData) => {
     if (!error && component.type === ComponentTypes.EMAIL) {
       error = validateEmail(value, component.label);
     }
-    if (!error && component.type === ComponentTypes.DATE && value) {
+    if (!error && component.type === ComponentTypes.DATE) {
       const { message, propsInError } = validateDate(value);
       component.propsInError = propsInError;
       error = message;
     }
-    if (!error && component.type === ComponentTypes.TIME && value) {
+    if (!error && component.type === ComponentTypes.TIME) {
       const { message, propsInError } = validateTime(value);
       component.propsInError = propsInError;
       error = message;
