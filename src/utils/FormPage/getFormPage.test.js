@@ -52,7 +52,7 @@ describe('utils', () => {
           title: PAGE.title,
           components: [
             { type: 'html', tagName: 'p', content: PAGE.components[0] },
-            PAGE.components[1],
+            { ...PAGE.components[1], full_path: PAGE.components[1].fieldId },
             { type: 'html', tagName: 'p', content: PAGE.components[2] }
           ],
           formData: FORM_DATA
@@ -74,9 +74,9 @@ describe('utils', () => {
           title: PAGE.title,
           components: [
             { type: 'html', tagName: 'p', content: PAGE.components[0] },
-            PAGE.components[1],
+            { ...PAGE.components[1], full_path: PAGE.components[1].fieldId },
             { type: 'html', tagName: 'p', content: PAGE.components[2] },
-            { use: 'a', ...A, cya_label: A.label }
+            { use: 'a', ...A, cya_label: A.label, full_path: A.fieldId }
           ],
           formData: FORM_DATA
         });
@@ -97,9 +97,9 @@ describe('utils', () => {
           title: PAGE.title,
           components: [
             { type: 'html', tagName: 'p', content: PAGE.components[0] },
-            PAGE.components[1],
+            { ...PAGE.components[1], full_path: PAGE.components[1].fieldId },
             { type: 'html', tagName: 'p', content: PAGE.components[2] },
-            { use: 'c', ...C, cya_label: C.label, data: { url: `${FORM_DATA.urls.refData}/v3/charlies` } }
+            { use: 'c', ...C, cya_label: C.label, data: { url: `${FORM_DATA.urls.refData}/v3/charlies` }, full_path: C.fieldId }
           ],
           formData: FORM_DATA
         });
@@ -120,9 +120,9 @@ describe('utils', () => {
           title: PAGE.title,
           components: [
             { type: 'html', tagName: 'p', content: PAGE.components[0] },
-            PAGE.components[1],
+            { ...PAGE.components[1], full_path: PAGE.components[1].fieldId },
             { type: 'html', tagName: 'p', content: PAGE.components[2] },
-            { use: 'c', ...C, cya_label: C.label }
+            { use: 'c', ...C, cya_label: C.label, full_path: C.fieldId }
           ],
           formData: {}
         });

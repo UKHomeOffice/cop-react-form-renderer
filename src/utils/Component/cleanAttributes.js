@@ -3,7 +3,8 @@ export const JSON_ONLY_PROPERTIES = [
   'use',
   'show_when',
   'options',
-  'additionalValidation'
+  'additionalValidation',
+  'full_path'
 ];
 
 /**
