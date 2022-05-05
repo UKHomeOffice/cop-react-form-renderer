@@ -11,7 +11,7 @@ const validatePage = (components, formData) => {
   if (Array.isArray(components)) {
     return components.reduce((errors, component) => {
       return errors.concat(validateComponent(component, formData));
-    }, []).filter(e => !!e);
+    }, []).filter(e => !!e).flat();
   }
   return [];
 };
