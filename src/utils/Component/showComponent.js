@@ -8,7 +8,7 @@ const showComponent = (component, data) => {
   if (component.hidden && component.disabled) {
     return false;
   }
-  return Condition.meetsAll(component.show_when, data);
+  return Condition.meetsAll(component, data);
 };
 
 export default showComponent;
