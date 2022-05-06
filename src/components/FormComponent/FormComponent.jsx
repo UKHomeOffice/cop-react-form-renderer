@@ -1,6 +1,6 @@
 // Global imports
 import PropTypes from 'prop-types';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 // Local imports
 import { STATUS_COMPLETE, useHooks, useRefData } from '../../hooks';
