@@ -43,24 +43,22 @@
     "@testing-library/react-hooks": "^7.0.2",
     "@testing-library/user-event": "^12.1.10",
     "axios-mock-adapter": "^1.18.1",
-    "babel-loader": "8.1.0",
     "cross-env": "^7.0.3",
     "html-react-parser": "^0.10.5",
     "node-sass": "^6.0.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "4.0.3",
-    "storybook-addon-mock": "^2.0.1",
-    "webpack": "4.44.2"
+    "storybook-addon-mock": "^2.0.1"
   },
   "peerDependencies": {
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "4.0.3"
   },
-  "optionalDependencies": {},
-  "resolutions": {
-    "immer": "9.0.6"
+  "optionalDependencies": {
+    "babel-loader": "8.1.0",
+    "webpack": "4.44.2"
   },
   "main": "dist/index.js",
   "files": [
