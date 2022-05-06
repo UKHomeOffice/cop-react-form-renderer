@@ -52,8 +52,8 @@
     "storybook-addon-mock": "^2.0.1"
   },
   "peerDependencies": {
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
+    "react": ">=16.13.1",
+    "react-dom": ">=16.13.1",
     "react-scripts": "4.0.3"
   },
   "optionalDependencies": {
