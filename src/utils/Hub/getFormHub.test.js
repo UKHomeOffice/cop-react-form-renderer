@@ -60,9 +60,9 @@ describe('utils', () => {
             title: HUB.title,
             components: [
               { type: 'html', tagName: 'p', content: HUB.components[0] },
-              HUB.components[1],
+              { ...HUB.components[1], full_path: HUB.components[1].fieldId },
               { type: 'html', tagName: 'p', content: HUB.components[2] },
-              { use: 'a', ...A, cya_label: A.label }
+              { use: 'a', ...A, cya_label: A.label, full_path: A.fieldId }
             ],
             formData: FORM_DATA
           });

@@ -55,9 +55,9 @@ describe('utils', () => {
             title: PAGE_2.title,
             components: [
               { type: 'html', tagName: 'p', content: PAGE_2.components[0] },
-              PAGE_2.components[1],
+              { ...PAGE_2.components[1], full_path: PAGE_2.components[1].fieldId },
               { type: 'html', tagName: 'p', content: PAGE_2.components[2] },
-              { use: 'c', ...C, cya_label: C.label, data: { url: `${FORM_DATA.urls.refData}/v3/charlies` } }
+              { use: 'c', ...C, cya_label: C.label, data: { url: `${FORM_DATA.urls.refData}/v3/charlies` }, full_path: C.fieldId }
             ],
             formData: FORM_DATA
           }

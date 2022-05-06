@@ -1,4 +1,5 @@
 // Local imports
+import Container from '../Container';
 import Data from '../Data';
 import getPageActions from './getPageActions';
 import getParagraphFromText from './getParagraphFromText';
@@ -29,12 +30,12 @@ const getFormPage = (pageOptions, formComponents, formData) => {
     return formData && formData.urls ? Data.refData.setupUrl(ret, formData) : ret;
   });
   const actions = getPageActions(pageOptions);
-  return {
+  return Container.setup({
     ...pageOptions,
     formData,
     components,
     actions
-  };
+  });
 };
 
 export default getFormPage;

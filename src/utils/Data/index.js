@@ -1,5 +1,6 @@
 // Local imports
 import getAutocompleteSource from './getAutocompleteSource';
+import getDataPath from './getDataPath';
 import getOptions from './getOptions';
 import getSourceData from './getSourceData';
 import refDataToOptions from './refDataToOptions';
@@ -8,6 +9,7 @@ import setupRefDataUrlForComponent from './setupRefDataUrlForComponent';
 
 const Data = {
   getAutocompleteSource,
+  getDataPath,
   getOptions,
   getSource: getSourceData,
   refData: {
