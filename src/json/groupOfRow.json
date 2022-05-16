@@ -1,126 +1,10 @@
 {
   "id": "userProfile",
   "version": "1",
-  "name": "userProfile",
-  "title": "Your profile",
+  "name": "datLocDetails",
+  "title": "Date and Location Details",
   "type": "hub-and-spoke",
   "components": [
-    {
-      "id": "firstName",
-      "fieldId": "firstName",
-      "label": "First name",
-      "type": "text",
-      "readonly": false,
-      "source": {
-        "field": "currentUser.givenName"
-      }
-    },
-    {
-      "id": "surname",
-      "fieldId": "surname",
-      "label": "Last name",
-      "type": "text",
-      "readonly": false,
-      "source": {
-        "field": "currentUser.familyName"
-      }
-    },
-    {
-      "id": "areYouACivilServant",
-      "fieldId": "areYouACivilServant",
-      "label": "Are you a civil servant?",
-      "type": "radios",
-      "required": true,
-      "data": {
-        "url": "${urls.refData}/areYouACivilServant"
-      }
-    },
-    {
-      "id": "staffGradeId",
-      "fieldId": "staffGradeId",
-      "label": "Grade",
-      "hint": "We use this to assign you tasks",
-      "type": "radios",
-      "required": true,
-      "data": {
-        "url": "${urls.refData}/grade"
-      },
-      "source": {
-        "field": "userDetails.gradeid"
-      },
-      "show_when": {
-        "field": "areYouACivilServant",
-        "op": "eq",
-        "value": "yes"
-      }
-    },
-    {
-      "id": "team",
-      "fieldId": "team",
-      "label": "Team",
-      "hint": "We use this to assign you tasks",
-      "type": "autocomplete",
-      "required": true,
-      "item": {
-        "value": "id",
-        "label": "name"
-      },
-      "data": {
-        "url": "${urls.refData}/team"
-      },
-      "displayMenu": "inline",
-      "source": {
-        "field": "userDetails.defaultteam"
-      }
-    },
-    {
-      "id": "linemanagerEmail",
-      "fieldId": "linemanagerEmail",
-      "label": "Line manager email",
-      "hint": "Must be a homeoffice.gov.uk or digital.homeoffice.gov.uk address",
-      "type": "email",
-      "format": {
-        "type": "lowercase",
-        "on": "submit"
-      },
-      "required": true,
-      "source": {
-        "field": "userDetails.linemanagerEmail"
-      }
-    },
-    {
-      "id": "delegateEmails",
-      "fieldId": "delegateEmails",
-      "label": "Delegate email",
-      "hint": "Must be a homeoffice.gov.uk or digital.homeoffice.gov.uk address",
-      "type": "email",
-      "format": {
-        "type": "lowercase",
-        "on": "submit"
-      },
-      "required": true,
-      "source": {
-        "field": "userDetails.delegateEmails"
-      },
-      "show_when": [
-        {
-          "field": "areYouACivilServant",
-          "op": "eq",
-          "value": "yes"
-        },
-        {
-          "field": "staffGradeId",
-          "op": "in",
-          "values": [
-            "373979c1-2360-46be-b712-0409ac068059",
-            "36c80dfe-0aae-455b-9445-2e1c09dcafdc",
-            "1b041cda-b151-4769-b76a-d42d67b0b960",
-            "172de41d-f7b0-4be9-b7e8-0cf4f1a1342f",
-            "39e18b45-0358-4a45-83ec-5a70b74641e8"
-          ]
-        }
-      ]
-    },
     {
       "id": "dateGroup",
       "fieldId": "dateGroup",
@@ -168,44 +52,6 @@
   ],
   "pages": [
     {
-      "id": "names",
-      "name": "names",
-      "title": "Name",
-      "components": [
-        {
-          "use": "firstName"
-        },
-        {
-          "use": "surname"
-        }
-      ],
-      "cya_link": {
-        "page": "names",
-        "aria_suffix": "names"
-      },
-      "actions": [
-        "submit"
-      ]
-    },
-    {
-      "id": "civil-servant-status",
-      "name": "civil-servant-status",
-      "title": "Are you a civil servant?",
-      "components": [
-        {
-          "use": "areYouACivilServant",
-          "label": ""
-        }
-      ],
-      "actions": [
-        "submit"
-      ],
-      "cya_link": {
-        "page": "civil-servant-status",
-        "aria_suffix": "civil servant status"
-      }
-    },
-    {
       "id": "dateLocDet",
       "name": "dateLocDetName",
       "title": "Date and location details",
@@ -230,105 +76,6 @@
       "actions": [
         "submit"
       ]
-    },
-    {
-      "id": "grade",
-      "name": "grade",
-      "title": "What's your grade?",
-      "components": [
-        {
-          "use": "staffGradeId",
-          "label": ""
-        }
-      ],
-      "actions": [
-        "submit"
-      ],
-      "cya_link": {
-        "page": "grade",
-        "aria_suffix": "grade"
-      }
-    },
-    {
-      "id": "team-name",
-      "name": "team-name",
-      "title": "What's your team name?",
-      "components": [
-        {
-          "use": "team",
-          "label": ""
-        }
-      ],
-      "actions": [
-        "submit"
-      ],
-      "cya_link": {
-        "page": "team-name",
-        "aria_suffix": "teams"
-      }
-    },
-    {
-      "id": "add-or-change-line-manager",
-      "name": "add-or-change-line-manager",
-      "title": "Add or change a line manager",
-      "components": [
-        "Your line manager will need to review some of your forms. It’s important to keep their details up-to-date.",
-        "An email will be sent to your line manager to ask if they want to approve your request to add them.",
-        {
-          "type": "inset-text",
-          "content": "The changes will show in your profile when they approve your request."
-        },
-        {
-          "type": "heading",
-          "size": "m",
-          "content": "Mandatory declarations"
-        },
-        "Mandatory declarations will not go to your line manager until they have approved your request."
-      ],
-      "actions": [
-        {
-          "type": "navigate",
-          "page": "line-manager-email"
-        }
-      ],
-      "show_on_cya": false
-    },
-    {
-      "id": "line-manager-email",
-      "name": "line-manager-email",
-      "title": "What’s your line manager’s email address?",
-      "components": [
-        {
-          "use": "linemanagerEmail"
-        }
-      ],
-      "actions": [
-        "submit"
-      ],
-      "cya_link": {
-        "page": "add-or-change-line-manager",
-        "aria_suffix": "line manager email address"
-      }
-    },
-    {
-      "id": "add-or-change-delegate",
-      "name": "add-or-change-delegate",
-      "title": "Add or change a delegate",
-      "components": [
-        "A delegate can review a mandatory declaration on your behalf.",
-        "An email will be sent to the delegate to ask if they want to approve your request.",
-        {
-          "type": "inset-text",
-          "content": "The changes will show in your profile when they approve your request."
-        }
-      ],
-      "actions": [
-        {
-          "type": "navigate",
-          "page": "delegate-email"
-        }
-      ],
-      "show_on_cya": false
     }
   ],
   "hub": {
@@ -357,19 +104,6 @@
           }
         ],
         "linkTo": "dateLocDet"
-      },
-      {
-        "pageId": "names",
-        "title":"Names",
-        "type":"fields",
-        "fields": [
-          {
-            "id": "firstName"
-          },
-          {
-            "id": "surname"
-          }
-        ]
       }
     ]
   }
