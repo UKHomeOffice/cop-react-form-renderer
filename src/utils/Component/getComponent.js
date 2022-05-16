@@ -1,11 +1,23 @@
 // Global imports
+import {
+  Autocomplete,
+  Checkboxes,
+  DateInput,
+  FileUpload,
+  Heading,
+  InsetText,
+  Markup,
+  Radios,
+  TextArea,
+  TextInput,
+  TimeInput,
+} from '@ukhomeoffice/cop-react-components';
 import React from 'react';
-import { Autocomplete, Checkboxes, DateInput, Heading, InsetText, Markup, Radios, TextArea, TextInput, TimeInput } from '@ukhomeoffice/cop-react-components';
 
 // Local imports
-import cleanAttributes from './cleanAttributes';
 import { ComponentTypes } from '../../models';
 import Data from '../Data';
+import cleanAttributes from './cleanAttributes';
 import isEditable from './isEditable';
 import wrapInFormGroup from './wrapInFormGroup';
 
@@ -34,6 +46,11 @@ const getCheckboxes = (config) => {
 const getDate = (config) => {
   const attrs = cleanAttributes(config);
   return <DateInput {...attrs} />;
+};
+
+const getFileUpload = (config) => {
+  const attrs = cleanAttributes(config);
+  return <FileUpload {...attrs} />;
 };
 
 const getHeading = (config) => {
@@ -94,12 +111,14 @@ const getComponentByType = (config) => {
       return getAutocomplete(config);
     case ComponentTypes.RADIOS:
       return getRadios(config);
+    case ComponentTypes.CHECKBOXES:
+      return getCheckboxes(config);
     case ComponentTypes.DATE:
       return getDate(config);
     case ComponentTypes.TIME:
-         return getTime(config);
-    case ComponentTypes.CHECKBOXES:
-      return getCheckboxes(config);
+      return getTime(config);
+    case ComponentTypes.FILE:
+      return getFileUpload(config);
     default: {
       return null;
     }
