@@ -12,7 +12,7 @@ import Utils from '../../../utils';
  */
 const canActionProceed = (action, page, onError) => {
   if (action.validate) {
-    const errors = Utils.Validate.page(page.components, page.formData);
+    const errors = Utils.Validate.page(page.components, page.formData, page);
     onError(errors);
     return errors.length === 0;
   }

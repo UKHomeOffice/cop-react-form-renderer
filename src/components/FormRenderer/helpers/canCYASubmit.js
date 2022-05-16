@@ -12,7 +12,7 @@ import Utils from '../../../utils';
 const canCYASubmit = (pages, onError) => {
   const errors = [];
   pages.forEach(p => {
-    errors.push(...Utils.Validate.page(p.components, p.formData));
+    errors.push(...Utils.Validate.page(p.components, p.formData, p));
   });
   onError(errors);
   return errors.length === 0;
