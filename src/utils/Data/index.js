@@ -4,6 +4,7 @@ import getDataPath from './getDataPath';
 import getOptions from './getOptions';
 import getSourceData from './getSourceData';
 import refDataToOptions from './refDataToOptions';
+import setDataItem from './setDataItem';
 import setupFormData from './setupFormData';
 import setupRefDataUrlForComponent from './setupRefDataUrlForComponent';
 
@@ -16,6 +17,7 @@ const Data = {
     setupUrl: setupRefDataUrlForComponent,
     toOptions: refDataToOptions
   },
+  setDataItem,
   setupForm: setupFormData
 };
 
