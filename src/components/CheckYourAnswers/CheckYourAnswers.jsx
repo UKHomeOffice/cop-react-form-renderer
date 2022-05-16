@@ -30,6 +30,7 @@ const CheckYourAnswers = ({
   hide_title,
   summaryListClassModifiers,
   noChangeAction,
+  groups
 }) => {
   const [pages, setPages] = useState([]);
   const [errors, setErrors] = useState([]);
@@ -68,6 +69,34 @@ const CheckYourAnswers = ({
     setErrors(errors);
   };
 
+  const isGroup = (pageId) => {
+
+    let groupId = [];
+    
+    groups !== undefined &&
+      groups.length && pageId !== undefined && groups.forEach((group) => {
+        const groupedTitle = group.pageId;
+        groupId.push(groupedTitle);
+        console.log(groupId);
+        console.log(pageId);
+      })
+      console.log(groupId.includes(pageId));
+      return(groupId.includes(pageId));
+  }
+
+  const groupedFields = (pageId) => {
+  
+    let groupAnswer;
+    groups !== undefined &&
+      groups.length && pageId !== undefined && groups.forEach((group) => {
+        if (group.pageId === pageId) {
+          groupAnswer = group;
+        }
+      })
+    console.log(groupAnswer);
+    return (groupAnswer);
+}
+
   return (
     <div className={DEFAULT_CLASS}>
       {title && !hide_title && (
@@ -75,21 +104,36 @@ const CheckYourAnswers = ({
       )}
       {errors && errors.length > 0 && <ErrorSummary errors={errors} />}
       {pages &&
-        pages.map((page, pageIndex) => {
-          const pageMarginBottom = isLastPage(pageIndex)
+        pages.map((page, pageIndex, array) => {
+
+         
+          let pageMarginBottom = isLastPage(pageIndex)
             ? DEFAULT_MARGIN_BOTTOM
             : listMarginBottom;
+          if (!isLastPage(pageIndex)) {
+            pageMarginBottom = isGroup(array[pageIndex + 1].id)
+              ? DEFAULT_MARGIN_BOTTOM
+              : listMarginBottom
+          }
+          const currentGroup = groupedFields(page.id);
           const className = `govuk-!-margin-bottom-${pageMarginBottom}`;
+          let hideActionButtons;
+          isGroup(page.id) ? hideActionButtons = true : hideActionButtons = noChangeAction;
           return (
             <Fragment key={pageIndex}>
-              {!hide_page_titles && page.title && (
+              {(!hide_page_titles && page.title)   && (
                 <MediumHeading>{page.title}</MediumHeading>
+              )}
+              {(isGroup(page.id))   && (
+                <MediumHeading>{currentGroup.title}</MediumHeading>
               )}
               <SummaryList
                 className={className}
                 rows={page.rows}
                 classModifiers={summaryListClassModifiers}
-                noChangeAction={noChangeAction}
+                noChangeAction={hideActionButtons}
+                isGroup={isGroup(page.id)}
+                groupObject={currentGroup}
               />
             </Fragment>
           );
