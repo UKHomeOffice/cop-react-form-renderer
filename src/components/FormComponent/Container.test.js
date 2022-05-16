@@ -1,10 +1,11 @@
 // Global imports
 import { fireEvent, render } from '@testing-library/react';
+import user from '@testing-library/user-event';
 import React from 'react';
 
 // Local imports
 import { ComponentTypes } from '../../models';
-import FormComponent, { DEFAULT_CONTAINER_CLASS } from './FormComponent';
+import FormComponent, { DEFAULT_CONTAINER_CLASS, META_DOCUMENTS_PROPERTY, META_PROPERTY } from './FormComponent';
 
 describe('components.FormComponent.Container', () => {
   const ID = 'container';
@@ -18,6 +19,11 @@ describe('components.FormComponent.Container', () => {
       [NESTED_ID]: {
         [TEXT_ID]: NESTED_TEXT_VALUE
       }
+    },
+    [META_PROPERTY]: {
+      [META_DOCUMENTS_PROPERTY]: [
+        { field: 'epsilon.zeta', name: 'ez.jpg', type: 'image/jpg', extension: 'jpg', url: 'http://files.com/ez.jpg' }
+      ]
     }
   };
   const TEXT_COMPONENT = {
@@ -133,6 +139,52 @@ describe('components.FormComponent.Container', () => {
     expect(ON_CHANGE_EVENTS[0].target.value[TEXT_ID]).toEqual(NEW_TEXT_VALUE);
   });
 
+  it('should handle a change to a file type component appropriately', async () => {
+    const FILE_ID = 'file';
+    const ON_CHANGE_EVENTS = [];
+    const ON_CHANGE = (e) => {
+      ON_CHANGE_EVENTS.push(e);
+    };
+    const CONTAINER = {
+      id: ID, fieldId: ID, type: ComponentTypes.CONTAINER,
+      components: [
+        { id: FILE_ID, fieldId: FILE_ID, full_path: `${ID}.${FILE_ID}`, type: ComponentTypes.FILE, label: 'File component' }
+      ]
+    };
+    const { container } = render(
+      <FormComponent
+        component={CONTAINER}
+        value={FORM_DATA[ID]}
+        formData={FORM_DATA}
+        onChange={ON_CHANGE}
+      />
+    );
+    
+    // Get hold of the text input.
+    const c = container.childNodes[0];
+    const formGroup = c.childNodes[0];
+    const input = formGroup.childNodes[2].childNodes[0];
+
+    const FILE_EXTENSION = 'json';
+    const FILE_NAME = `test.${FILE_EXTENSION}`;
+    const FILE_TYPE = 'application/JSON';
+    const str = JSON.stringify({ alpha: 'bravo' });
+    const blob = new Blob([str]);
+    const FILE = new File([blob], FILE_NAME, { type: FILE_TYPE });
+    user.upload(input, FILE);
+
+    // And confirm the formData has been changed.
+    expect(ON_CHANGE_EVENTS.length).toEqual(2); // One for the file, another for the meta.
+    expect(ON_CHANGE_EVENTS[0].target.name).toEqual(ID);
+    expect(ON_CHANGE_EVENTS[1].target.name).toEqual(META_PROPERTY);
+    const containerChangeValue = JSON.parse(JSON.stringify(ON_CHANGE_EVENTS[0].target.value));
+    const metaChangeValue = JSON.parse(JSON.stringify(ON_CHANGE_EVENTS[1].target.value));
+    expect(metaChangeValue.documents.length).toEqual(2); // Existing one, plus this new one.
+    expect(metaChangeValue.documents[1]).toMatchObject({
+      ...containerChangeValue[FILE_ID],
+      field: `${ID}.${FILE_ID}`
+    });
+  });
 
   it('should handle a null value appropriately', async () => {
     const CONTAINER = {
