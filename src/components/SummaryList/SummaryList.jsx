@@ -24,7 +24,7 @@ const SummaryList = ({
       {rows.map((row) => (
         <div key={`${row.pageId}_${row.fieldId}`} className={classes('row')}>
           <dt className={classes('key')}>{row.key}</dt>
-          {row && row.group ? (
+          {row.group ? (
             <dd className={classes('value ')}>
               {Array.from(row.value.props.value).join('\r\n')}
             </dd>
