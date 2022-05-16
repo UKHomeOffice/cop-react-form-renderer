@@ -21,17 +21,23 @@ const SummaryList = ({
   const classes = Utils.classBuilder(classBlock, classModifiers, className);
   return (
     <dl {...attrs} className={classes()}>
-      {rows.map((row) =>  
-          <div key={`${row.pageId}_${row.fieldId}`} className={classes('row')}>
-            <dt className={classes('key')}>{row.key}</dt>
+      {rows.map((row) => (
+        <div key={`${row.pageId}_${row.fieldId}`} className={classes('row')}>
+          <dt className={classes('key')}>{row.key}</dt>
+          {row && row.group ? (
+            <dd className={classes('value ')}>
+              {Array.from(row.value.props.value).join('\r\n')}
+            </dd>
+          ) : (
             <dd className={classes('value')}>{row.value}</dd>
-            {!noChangeAction && (
-              <dd className={classes('actions')}>
-                {row.action && <RowAction row={row} />}
-              </dd>
-            )}
-          </div>     
-      )}
+          )}
+          {!noChangeAction && (
+            <dd className={classes('actions')}>
+              {row.action && <RowAction row={row} />}
+            </dd>
+          )}
+        </div>
+      ))}
     </dl>
   );
 };

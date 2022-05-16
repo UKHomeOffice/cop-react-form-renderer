@@ -11,5 +11,11 @@
     "linemanagerEmail": "line.manager@digital.homeoffice.gov.uk",
     "delegateEmails": "del.egate@digital.homeoffice.gov.uk"
   },
+  "addressDetails": {
+    "firstLineOfTheAddress": "10 Downing Street",
+    "city": "London",
+    "town": "City of Westminster",
+    "postCode": "SW1A 2AA"
+  },
   "businessKey": "123456789"
 }
