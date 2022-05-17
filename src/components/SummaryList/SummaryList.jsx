@@ -23,30 +23,22 @@ const SummaryList = ({
 }) => {
   const classes = Utils.classBuilder(classBlock, classModifiers, className);
   return (
-    <>
-      <div>
-        {isGroup &&
-          <div className='changeRow'>
-            <GroupAction group={rows[0]} />
-          </div>
-        }
-      </div>
-      <dl {...attrs} className={classes()}>
-        {rows.map((row) =>
+    <div>
+    <dl {...attrs} className={classes()}>
+      {rows.map((row) =>  
           <div key={`${row.pageId}_${row.fieldId}`} className={classes('row')}>
+            <dt className={classes('key')}>{row.key}</dt>
+            <dd className={classes('value')}>{row.value}</dd>
             {!noChangeAction && (
               <dd className={classes('actions')}>
                 {row.action && <RowAction row={row} />}
               </dd>
             )}
-            <dt className={classes('key')}>{row.key}</dt>
-            <dd className={classes('value')}>{row.value}</dd>
-
-          </div>
-        )}
+          </div>     
+      )}
 
       </dl>
-    </>
+      </div>
   );
 };
 

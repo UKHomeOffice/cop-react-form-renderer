@@ -1,2 +1,25 @@
 @import "node_modules/govuk-frontend/govuk/_base";
 @import "node_modules/govuk-frontend/govuk/overrides/spacing";
+
+.govuk-link {
+    @include govuk-font($size: 19);
+    color: govuk-colour('blue');
+    cursor: pointer;
+  }
+
+  .flex-container {
+    display: flex;
+}
+
+.flex-child {
+    flex: 1;
+   
+}  
+
+.flex-child:first-child {
+    margin-right: 20px;
+} 
+
+.change-group-button{
+    float: right;
+}

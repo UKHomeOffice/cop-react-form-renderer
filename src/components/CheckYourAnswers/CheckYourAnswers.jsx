@@ -4,6 +4,7 @@ import {
   LargeHeading,
   MediumHeading
 } from '@ukhomeoffice/cop-react-components';
+import GroupAction from '../SummaryList/GroupAction';
 import PropTypes from 'prop-types';
 import React, { Fragment, useEffect, useState } from 'react';
 
@@ -75,8 +76,8 @@ const CheckYourAnswers = ({
     
     groups !== undefined &&
       groups.length && pageId !== undefined && groups.forEach((group) => {
-        const groupedTitle = group.pageId;
-        groupId.push(groupedTitle);
+        const groupedPageId = group.pageId;
+        groupId.push(groupedPageId);
         console.log(groupId);
         console.log(pageId);
       })
@@ -124,8 +125,17 @@ const CheckYourAnswers = ({
               {(!hide_page_titles && page.title)   && (
                 <MediumHeading>{page.title}</MediumHeading>
               )}
-              {(isGroup(page.id))   && (
-                <MediumHeading>{currentGroup.title}</MediumHeading>
+              {(isGroup(page.id)) && (
+                <div className='flex-container'>
+                  <div className='flex-child'>
+                    <MediumHeading>{currentGroup.title}</MediumHeading>
+                  </div>
+                  <div className='flex-child '>
+                    <div className='change-group-button'>
+                      <GroupAction group={page.rows[0]} />
+                      </div>
+                    </div>
+              </div>
               )}
               <SummaryList
                 className={className}
