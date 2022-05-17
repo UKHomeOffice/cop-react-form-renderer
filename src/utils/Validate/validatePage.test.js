@@ -38,7 +38,7 @@ describe('utils', () => {
             setup('d', ComponentTypes.TEXT, 'Delta', true),
             setup('e', ComponentTypes.TEXT, 'Echo', true)
           ];
-          const RESULT = validatePage(COMPONENTS, null);
+          const RESULT = validatePage(COMPONENTS, null, []);
           expect(RESULT.length).toEqual(4);
           expect(RESULT[0]).toEqual({ id: 'a', error: 'Alpha is required' });
           expect(RESULT[1]).toEqual({ id: 'b', error: 'Bravo is required' });
@@ -109,7 +109,7 @@ describe('utils', () => {
             setup('bravo', ComponentTypes.TEXT, 'Bravo', true),
             setup('charlie', ComponentTypes.TEXT, 'Charlie', true)
           ];
-          const RESULT = validatePage(COMPONENTS, DATA);
+          const RESULT = validatePage(COMPONENTS, DATA, []);
           expect(RESULT.length).toEqual(1);
           expect(RESULT[0]).toEqual({
             id: 'charlie',
@@ -123,7 +123,7 @@ describe('utils', () => {
             setup('bravo', ComponentTypes.EMAIL, 'Bravo', false),
             setup('charlie', ComponentTypes.EMAIL, 'Charlie', false)
           ];
-          const RESULT = validatePage(COMPONENTS, DATA);
+          const RESULT = validatePage(COMPONENTS, DATA, []);
           expect(RESULT.length).toEqual(1);
           expect(RESULT[0]).toEqual({
             id: 'bravo',
@@ -137,7 +137,7 @@ describe('utils', () => {
             setup('bravo', ComponentTypes.EMAIL, 'Bravo', true),
             setup('charlie', ComponentTypes.EMAIL, 'Charlie', true)
           ];
-          const RESULT = validatePage(COMPONENTS, DATA);
+          const RESULT = validatePage(COMPONENTS, DATA, []);
           expect(RESULT.length).toEqual(2);
           expect(RESULT[0]).toEqual({
             id: 'bravo',
