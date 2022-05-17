@@ -21,7 +21,7 @@ const getCYARowsForPage = (page, onAction) => {
       let answers = [];
       Object.entries(page.formData[page.groupId]).forEach(([key, value]) => {
         if (page.formData[key] !== '') {
-          return answers.push(page.formData[key]);
+          answers.push(page.formData[page.groupId][key]);
         }
       });
       return [

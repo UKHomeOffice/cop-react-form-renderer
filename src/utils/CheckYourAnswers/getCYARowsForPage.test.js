@@ -119,7 +119,41 @@ describe('utils', () => {
           });
         });
       });
-      
+
+      it('Add ability to display answers from multiple fields in a single row', () => {
+        const COMPONENT_ADDRESS = {id: 'firstLineOfTheAddress', fieldId: 'firstLineOfTheAddress', label: 'Address', type: 'text'};
+        const COMPONENT_TOWN = {id: '  town', fieldId: 'town', label: 'Town', type: 'text'};
+        const COMPONENT_CITY = {id: 'city', fieldId: 'city', label: 'City', type: 'text'};
+        const COMPONENT_POSTCODE = {id: 'postCode', fieldId: 'postCode', label: 'postCode', type: 'text'};
+
+        const PAGE = {
+          components: [ COMPONENT_ADDRESS, COMPONENT_TOWN, COMPONENT_CITY, COMPONENT_POSTCODE, COMPONENT_TOWN ],
+          id: 'addressDetails',
+          groupLabel: 'UK address',
+          group: true, 
+          fieldId: 'addressDetails',
+          groupId: 'addressDetails',
+          formData: {addressDetails : [{
+            firstLineOfTheAddress: '10 Downing Street',
+            city: 'London',
+            town: 'City of Westminster',
+            postCode: 'SW1A 2AA'}]},
+        };
+
+        const ON_ACTION = () => {};
+        const ROWS = getCYARowsForPage(PAGE, ON_ACTION);
+        expect(ROWS.length).toEqual(1);
+          expectObjectLike(ROWS[0], {
+            pageId: PAGE.groupId,
+            fieldId: PAGE.fieldId,
+            key: PAGE.fieldId,
+            action: null,
+            component: PAGE.formData[0],
+            value: PAGE.formData.addressDetails
+          })
+     
+      });
+
     });
 
   });
