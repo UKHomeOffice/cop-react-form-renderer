@@ -10,12 +10,13 @@ import showFormPage from '../FormPage/showFormPage';
  * @returns An array containing all of the errors.
  */
  const validatePage = (page) => {
-  if (Array.isArray(page.components) && showFormPage(page, page.formData)) {
+  if (Array.isArray(page?.components) && showFormPage(page, page.formData)) {
     return page.components.reduce((errors, component) => {
       return errors.concat(validateComponent(component, page.formData));
     }, []).filter(e => !!e).flat();
   }
   return [];
 };
+
 
 export default validatePage;
