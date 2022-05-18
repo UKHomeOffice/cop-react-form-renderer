@@ -13,11 +13,11 @@ describe('utils', () => {
       };
 
       it('should return no error when the components array is null', () => {
-        expect(validatePage(null, {}).length).toEqual(0);
+        expect(validatePage(null).length).toEqual(0);
       });
 
       it('should return no error when the components array is empty', () => {
-        expect(validatePage([], {}).length).toEqual(0);
+        expect(validatePage(null).length).toEqual(0);
       });
 
       describe('when there is no form data', () => {
@@ -27,7 +27,11 @@ describe('utils', () => {
             setup('a', ComponentTypes.TEXT, 'Alpha', false),
             setup('b', ComponentTypes.TEXT, 'Bravo', false)
           ];
-          expect(validatePage(COMPONENTS, null).length).toEqual(0);
+          const PAGE = {
+            components: COMPONENTS,
+            formData: null
+          };
+          expect(validatePage(PAGE).length).toEqual(0);
         });
 
         it('should return an error for each required component', () => {
@@ -63,7 +67,11 @@ describe('utils', () => {
             setup('alpha', ComponentTypes.TEXT, 'Alpha', false),
             setup('bravo', ComponentTypes.TEXT, 'Bravo', false)
           ];
-          expect(validatePage(COMPONENTS, DATA).length).toEqual(0);
+          const PAGE = {
+            components: COMPONENTS,
+            formData: DATA
+          };
+          expect(validatePage(PAGE).length).toEqual(0);
         });
 
         it('should return no errors when all of the components are required but not email types', () => {
