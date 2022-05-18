@@ -38,7 +38,11 @@ describe('utils', () => {
             setup('d', ComponentTypes.TEXT, 'Delta', true),
             setup('e', ComponentTypes.TEXT, 'Echo', true)
           ];
-          const RESULT = validatePage(COMPONENTS, null, []);
+          const PAGE = {
+            components: COMPONENTS,
+            formData: null
+          };
+          const RESULT = validatePage(PAGE);
           expect(RESULT.length).toEqual(4);
           expect(RESULT[0]).toEqual({ id: 'a', error: 'Alpha is required' });
           expect(RESULT[1]).toEqual({ id: 'b', error: 'Bravo is required' });
@@ -109,7 +113,11 @@ describe('utils', () => {
             setup('bravo', ComponentTypes.TEXT, 'Bravo', true),
             setup('charlie', ComponentTypes.TEXT, 'Charlie', true)
           ];
-          const RESULT = validatePage(COMPONENTS, DATA, []);
+          const PAGE = {
+            components: COMPONENTS,
+            formData: null
+          };
+          const RESULT = validatePage(PAGE);
           expect(RESULT.length).toEqual(1);
           expect(RESULT[0]).toEqual({
             id: 'charlie',
