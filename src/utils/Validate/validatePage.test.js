@@ -13,7 +13,14 @@ describe('utils', () => {
       };
 
       it('should return no error when the components array is null', () => {
-        expect(validatePage(null).length).toEqual(0);
+        const PAGE = {
+          components: null,
+          formData: {
+            alpha: 'alpha.smith@digital.homeoffice.gov.uk',
+            bravo: 'bravo.jones@digital.homeoffice.gov.uk'
+          }
+        };
+        expect(validatePage(PAGE).length).toEqual(0);
       });
 
       it('should return no error when the components array is empty', () => {
