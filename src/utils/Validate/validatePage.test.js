@@ -15,10 +15,7 @@ describe('utils', () => {
       it('should return no error when the components array is null', () => {
         const PAGE = {
           components: null,
-          formData: {
-            alpha: 'alpha.smith@digital.homeoffice.gov.uk',
-            bravo: 'bravo.jones@digital.homeoffice.gov.uk'
-          }
+          formData: {}
         };
         expect(validatePage(PAGE).length).toEqual(0);
       });
