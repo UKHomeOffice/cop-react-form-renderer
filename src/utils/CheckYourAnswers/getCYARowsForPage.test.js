@@ -118,39 +118,95 @@ describe('utils', () => {
             value: 'Bravo'
           });
         });
-      });
+      }); 
 
       it('Add ability to display answers from multiple fields in a single row', () => {
-        const COMPONENT_ADDRESS = {id: 'firstLineOfTheAddress', fieldId: 'firstLineOfTheAddress', label: 'Address', type: 'text'};
-        const COMPONENT_TOWN = {id: '  town', fieldId: 'town', label: 'Town', type: 'text'};
+        const COMPONENT_ADDRESS = {id: 'firstLineOfTheAddress', fieldId: 'firstLineOfTheAddress', label: 'address', type: 'text'};
+        const COMPONENT_TOWN = {id: 'town', fieldId: 'town', label: 'Town', type: 'text'};
         const COMPONENT_CITY = {id: 'city', fieldId: 'city', label: 'City', type: 'text'};
         const COMPONENT_POSTCODE = {id: 'postCode', fieldId: 'postCode', label: 'postCode', type: 'text'};
 
         const PAGE = {
-          components: [ COMPONENT_ADDRESS, COMPONENT_TOWN, COMPONENT_CITY, COMPONENT_POSTCODE, COMPONENT_TOWN ],
+          components : [ COMPONENT_ADDRESS, COMPONENT_TOWN, COMPONENT_CITY, COMPONENT_POSTCODE ],
           id: 'addressDetails',
           groupLabel: 'UK address',
-          group: true, 
-          fieldId: 'addressDetails',
-          groupId: 'addressDetails',
-          formData: {addressDetails : [{
+          fieldId : "UK address",
+          groups: [
+            {
+              id: "address",
+              label: "Address details",
+              components: [
+                 "firstLineOfTheAddress",
+                 "town",
+                 "city",
+                 "postCode"
+              ]
+            }
+          ],
+           name: "address-details",
+           title: "Address details",
+          formData: {
             firstLineOfTheAddress: '10 Downing Street',
-            city: 'London',
             town: 'City of Westminster',
-            postCode: 'SW1A 2AA'}]},
+            city: 'London',
+            postCode: 'SW1A 2AA'},
         };
 
         const ON_ACTION = () => {};
         const ROWS = getCYARowsForPage(PAGE, ON_ACTION);
         expect(ROWS.length).toEqual(1);
-          expectObjectLike(ROWS[0], {
-            pageId: PAGE.groupId,
-            fieldId: PAGE.fieldId,
-            key: PAGE.fieldId,
-            action: null,
-            component: PAGE.formData[0],
-            value: PAGE.formData.addressDetails
-          })
+        expect(ROWS[0].pageId).toEqual(PAGE.id);
+        expect(ROWS[0].fieldId).toEqual(PAGE.components[0].label);
+        expect(ROWS[0].value.props.children.length).toEqual(4);
+        expect(ROWS[0].value.props.children[0].props.children.props.value).toEqual(PAGE.formData.firstLineOfTheAddress);
+        expect(ROWS[0].value.props.children[1].props.children.props.value).toEqual(PAGE.formData.town);
+        expect(ROWS[0].value.props.children[2].props.children.props.value).toEqual(PAGE.formData.city);
+        expect(ROWS[0].value.props.children[3].props.children.props.value).toEqual(PAGE.formData.postCode);
+     
+      });
+
+      it('Test for blank field in group block', () => {
+        const COMPONENT_ADDRESS = {id: 'firstLineOfTheAddress', fieldId: 'firstLineOfTheAddress', label: 'address', type: 'text'};
+        const COMPONENT_TOWN = {id: 'town', fieldId: 'town', label: 'Town', type: 'text'};
+        const COMPONENT_CITY = {id: 'city', fieldId: 'city', label: 'City', type: 'text'};
+        const COMPONENT_POSTCODE = {id: 'postCode', fieldId: 'postCode', label: 'postCode', type: 'text'};
+
+        const PAGE = {
+          components : [ COMPONENT_ADDRESS, COMPONENT_TOWN, COMPONENT_CITY, COMPONENT_POSTCODE ],
+          id: 'addressDetails',
+          groupLabel: 'UK address',
+          fieldId : "UK address",
+          groups: [
+            {
+              id: "address",
+              label: "Address details",
+              components: [
+                 "firstLineOfTheAddress",
+                 "town",
+                 "city",
+                 "postCode"
+              ]
+            }
+          ],
+           name: "address-details",
+           title: "Address details",
+          formData: {
+            firstLineOfTheAddress: '10 Downing Street',
+            town: 'City of Westminster',
+            city: '',
+            postCode: 'SW1A 2AA'},
+        };
+
+        const ON_ACTION = () => {};
+        const ROWS = getCYARowsForPage(PAGE, ON_ACTION);
+        expect(ROWS.length).toEqual(1);
+        expect(ROWS[0].pageId).toEqual(PAGE.id);
+        expect(ROWS[0].fieldId).toEqual(PAGE.components[0].label);
+        expect(ROWS[0].value.props.children.length).toEqual(4);
+        expect(ROWS[0].value.props.children[0].props.children.props.value).toEqual(PAGE.formData.firstLineOfTheAddress);
+        expect(ROWS[0].value.props.children[1].props.children.props.value).toEqual(PAGE.formData.town);
+        expect(ROWS[0].value.props.children[2]).toEqual(null);
+        expect(ROWS[0].value.props.children[3].props.children.props.value).toEqual(PAGE.formData.postCode);
      
       });
 

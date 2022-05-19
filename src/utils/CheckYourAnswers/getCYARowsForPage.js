@@ -33,7 +33,6 @@ const getCYARowsForPage = (page, onAction) => {
         }
       });
       const allReplacedIds = page.groups.flatMap(g => g.components);
-      console.log(rows.filter(r => !allReplacedIds.includes(r.id)));
       return rows.filter(r => !allReplacedIds.includes(r.id));
     }
     
