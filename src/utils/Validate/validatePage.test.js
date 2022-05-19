@@ -15,7 +15,7 @@ describe('utils', () => {
       it('should return no error when the components array is null', () => {
         const PAGE = {
           components: null,
-          formData: {}
+          formData: null
         };
         expect(validatePage(PAGE).length).toEqual(0);
       });
