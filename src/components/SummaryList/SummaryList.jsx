@@ -24,13 +24,7 @@ const SummaryList = ({
       {rows.map((row) => (
         <div key={`${row.pageId}_${row.fieldId}`} className={classes('row')}>
           <dt className={classes('key')}>{row.key}</dt>
-          {row.group ? (
-            <dd className={classes('value ')}>
-              {Array.from(row.value.props.value).join('\r\n')}
-            </dd>
-          ) : (
-            <dd className={classes('value')}>{row.value}</dd>
-          )}
+          <dd className={classes('value')}>{row.value}</dd>
           {!noChangeAction && (
             <dd className={classes('actions')}>
               {row.action && <RowAction row={row} />}

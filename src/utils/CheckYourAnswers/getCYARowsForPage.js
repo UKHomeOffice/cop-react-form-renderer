@@ -2,10 +2,9 @@
 import { ComponentTypes } from '../../models';
 import FormPage from '../FormPage';
 import getCYARow from './getCYARow';
+import getCYARowForGroup from './getCYARowForGroup';
 import getCYARowsForContainer from './getCYARowsForContainer';
 import showComponentCYA from './showComponentCYA';
-import getCYAAction from './getCYAAction';
-import Component from '../Component';
 
 /**
  * Gets an array of row objects, each configured appropriately for a Check your answers component.
@@ -17,39 +16,28 @@ import Component from '../Component';
  */
 const getCYARowsForPage = (page, onAction) => {
   if (FormPage.show(page, page.formData)) {
-    if (page.groupId) {
-      let answers = [];
-      Object.entries(page.formData[page.groupId]).forEach(([key, value]) => {
-        if (page.formData[key] !== '') {
-          answers.push(page.formData[page.groupId][key]);
-        }
-      });
-      return [
-        {
-          pageId: page.id,
-          fieldId: page.fieldId,
-          key: page.fieldId || page.cya_label,
-          page: Component.editable(page) ? page : undefined,
-          value: answers || '',
-          action: getCYAAction(page.readonly, page, onAction),
-          group: true,
-        },
-      ];
-    }
+    const rows = page.components.filter(c => showComponentCYA(c, page.formData)).flatMap(component => {
+      if (component.type === ComponentTypes.CONTAINER) {
+        return getCYARowsForContainer(page, component, page.formData[component.fieldId], onAction);
+      }
+      return getCYARow(page, component, onAction);
+    });
 
-    return page.components
-      .filter((c) => showComponentCYA(c, page.formData))
-      .flatMap((component) => {
-        if (component.type === ComponentTypes.CONTAINER) {
-          return getCYARowsForContainer(
-            page,
-            component,
-            page.formData[component.fieldId],
-            onAction
-          );
+    if (page.groups?.length > 0) {
+      page.groups.forEach(group => {
+        const { row, insertAt } = getCYARowForGroup(page, group, rows, onAction);
+        if (insertAt > -1) {
+          rows.splice(insertAt, 0, row);
+        } else {
+          rows.push(row);
         }
-        return getCYARow(page, component, onAction);
       });
+      const allReplacedIds = page.groups.flatMap(g => g.components);
+      console.log(rows.filter(r => !allReplacedIds.includes(r.id)));
+      return rows.filter(r => !allReplacedIds.includes(r.id));
+    }
+    
+    return rows;
   }
   return [];
 };
