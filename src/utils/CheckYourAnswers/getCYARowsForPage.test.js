@@ -134,10 +134,10 @@ describe('utils', () => {
               id: 'address',
               label: 'Address details',
               components: [
-                 'firstLineOfTheAddress',
-                 'town',
-                 'city',
-                 'postCode'
+                'firstLineOfTheAddress',
+                'town',
+                'city',
+                'postCode'
               ]
             }
           ],
@@ -176,10 +176,10 @@ describe('utils', () => {
               id: 'address',
               label: 'Address details',
               components: [
-                 'firstLineOfTheAddress',
-                 'town',
-                 'city',
-                 'postCode'
+                'firstLineOfTheAddress',
+                'town',
+                'city',
+                'postCode'
               ]
             }
           ],
