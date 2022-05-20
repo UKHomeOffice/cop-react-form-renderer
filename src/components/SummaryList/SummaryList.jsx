@@ -23,7 +23,7 @@ const SummaryList = ({
 }) => {
   const classes = Utils.classBuilder(classBlock, classModifiers, className);
   return (
-    <div className = 'parent'>
+    <div className = 'group-of-rows'>
     <dl {...attrs} className={classes()}>
       {rows.map((row) =>  
           <div key={`${row.pageId}_${row.fieldId}`} className={classes('row')}>
