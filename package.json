@@ -1,6 +1,6 @@
 {
   "name": "@ukhomeoffice/cop-react-form-renderer",
-  "version": "2.6.1",
+  "version": "2.6.2",
   "private": false,
   "scripts": {
     "clean": "rimraf dist",
@@ -16,7 +16,7 @@
     "post-compile": "rimraf dist/*.test.* dist/**/*.test.* dist/**/*.stories.* dist/docs dist/assets"
   },
   "dependencies": {
-    "@ukhomeoffice/cop-react-components": "1.2.0",
+    "@ukhomeoffice/cop-react-components": "1.3.0",
     "axios": "^0.21.1",
     "dayjs": "^1.11.0",
     "govuk-frontend": "^3.13.0",
