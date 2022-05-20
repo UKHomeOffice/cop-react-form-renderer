@@ -128,7 +128,6 @@ describe('utils', () => {
         const PAGE = {
           components : [ COMPONENT_ADDRESS, COMPONENT_TOWN, COMPONENT_CITY, COMPONENT_POSTCODE ],
           id: 'addressDetails',
-          groupLabel: 'UK address',
           fieldId : 'UK address',
           groups: [
             {
@@ -142,13 +141,14 @@ describe('utils', () => {
               ]
             }
           ],
-           name: 'address-details',
-           title: 'Address details',
+          name: 'address-details',
+          title: 'Address details',
           formData: {
             firstLineOfTheAddress: '10 Downing Street',
             town: 'City of Westminster',
             city: 'London',
-            postCode: 'SW1A 2AA'},
+            postCode: 'SW1A 2AA'
+          },
         };
 
         const ON_ACTION = () => {};
@@ -160,7 +160,6 @@ describe('utils', () => {
         expect(ROWS[0].value.props.children[1].props.children.props.value).toEqual(PAGE.formData.town);
         expect(ROWS[0].value.props.children[2].props.children.props.value).toEqual(PAGE.formData.city);
         expect(ROWS[0].value.props.children[3].props.children.props.value).toEqual(PAGE.formData.postCode);
-     
       });
 
       it('Test for blank field in group block', () => {
@@ -171,7 +170,6 @@ describe('utils', () => {
         const PAGE = {
           components : [ COMPONENT_ADDRESS, COMPONENT_TOWN, COMPONENT_CITY, COMPONENT_POSTCODE ],
           id: 'addressDetails',
-          groupLabel: 'UK address',
           fieldId : 'UK address',
           groups: [
             {
@@ -185,21 +183,20 @@ describe('utils', () => {
               ]
             }
           ],
-           name: 'address-details',
-           title: 'Address details',
+          name: 'address-details',
+          title: 'Address details',
           formData: {
             firstLineOfTheAddress: '10 Downing Street',
             town: 'City of Westminster',
             city: '',
-            postCode: 'SW1A 2AA'},
+            postCode: 'SW1A 2AA'
+          },
         };
         const ON_ACTION = () => {};
         const ROWS = getCYARowsForPage(PAGE, ON_ACTION);
         expect(ROWS.length).toEqual(1);
         expect(ROWS[0].pageId).toEqual(PAGE.id);
         expect(ROWS[0].value.props.children[2]).toEqual(null);
-        
-     
       });
 
     });
