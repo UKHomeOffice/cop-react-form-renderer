@@ -23,28 +23,26 @@ const SummaryList = ({
 }) => {
   const classes = Utils.classBuilder(classBlock, classModifiers, className);
   return (
+    <div className = 'parent'>
     <dl {...attrs} className={classes()}>
+      {rows.map((row) =>  
+          <div key={`${row.pageId}_${row.fieldId}`} className={classes('row')}>
+            <dt className={classes('key')}>{row.key}</dt>
+            <dd className={classes('value')}>{row.value}</dd>
+            {!noChangeAction && (
+              <dd className={classes('actions')}>
+                {row.action && <RowAction row={row} />}
+              </dd>
+            )}
+          </div>     
+      )}
       {isGroup &&
-        <div className={classes('row')}>
-          <dd className={classes('actions')}>
-            <GroupAction group={rows[0]} />
-          </dd>
+        <div className='change-group-button'>
+            <GroupAction group={rows[0]} groupObj={groupObject} />
         </div>
       }
-      {rows.map((row) =>
-        <div key={`${row.pageId}_${row.fieldId}`} className={classes('row')}>
-          {!noChangeAction && (
-            <dd className={classes('actions')}>
-              {row.action && <RowAction row={row} />}
-            </dd>
-          )}
-          <dt className={classes('key')}>{row.key}</dt>
-          <dd className={classes('value')}>{row.value}</dd>
-
-        </div>
-      )}
-
-    </dl>
+      </dl>
+      </div>
   );
 };
 

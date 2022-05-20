@@ -1,2 +1,12 @@
 @import "node_modules/govuk-frontend/govuk/_base";
 @import "node_modules/govuk-frontend/govuk/overrides/spacing";
+
+.govuk-link {
+    @include govuk-font($size: 19);
+    color: govuk-colour('blue');
+    cursor: pointer;
+  }
+
+.group-title{
+    padding-right: 75px;
+}

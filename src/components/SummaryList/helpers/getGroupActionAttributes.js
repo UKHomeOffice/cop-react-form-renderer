@@ -1,6 +1,5 @@
 const getGroupActionAttributes = (groupRow) => {
-  console.log(groupRow.action.onAction);
-  if (groupRow && groupRow.action.onAction) {
+  if (groupRow && Object.prototype.hasOwnProperty.call(groupRow, 'action')) {
     if (typeof(groupRow.action.onAction) === 'function') {
       return { onClick: () => groupRow.action.onAction(groupRow) };
     } else if (groupRow.action.page) {

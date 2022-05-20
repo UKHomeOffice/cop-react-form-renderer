@@ -1,6 +1,6 @@
 // Global imports
 import React, { useEffect, useState } from 'react';
-import { Link, VisuallyHidden } from '@ukhomeoffice/cop-react-components';
+import { Link } from '@ukhomeoffice/cop-react-components';
 import PropTypes from 'prop-types';
 
 // Local imports
@@ -9,6 +9,7 @@ import getGroupActionAttributes from './helpers/getGroupActionAttributes';
 const GroupAction = ({ group }) => {
   const [attrs, setAttrs] = useState({});
   console.log(group);
+
   useEffect(() => {
     setAttrs(getGroupActionAttributes(group));
   }, [group, setAttrs]);
@@ -20,7 +21,9 @@ const GroupAction = ({ group }) => {
   return (
     <Link {...attrs}>
       {group.action.label}
-      {group.action.aria_suffix && <VisuallyHidden> {group.action.aria_suffix}</VisuallyHidden>}
+      {group.action.aria_suffix && (
+      <span className='mobile-text govuk-link'>{' '}{`${group.action.aria_suffix}`}</span>
+      )}
     </Link>
   );
 };

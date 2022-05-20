@@ -8,10 +8,25 @@
   }
 }
 
-.caseview__key {
-  font-weight: normal;
+.parent {
+  position:relative;
+}
+ 
+.mobile-text{
+  text-transform: lowercase;
 }
 
-.caseview__value {
-  @include govuk-typography-weight-bold;
+@media screen and (min-width: 640px) {
+   .change-group-button {
+    position: absolute;
+    top: -47px;
+    right: 0;
+  }
+
+  .mobile-text{
+    display:none; 
+  }
+
+
 }
+

@@ -96,7 +96,8 @@ describe('components', () => {
         render(<CheckYourAnswers pages={PAGES} onRowAction={ON_ROW_ACTION} onAction={ON_ACTION} />, container);
       });
       const cya = checkCYA(container);
-      const [ , names ] = cya.childNodes;
+      const [, cyaChildNode] = cya.childNodes;
+      const names = cyaChildNode.childNodes[0];
       expect(names.tagName).toEqual('DL');
       expect(names.classList).toContain(`govuk-!-margin-bottom-${DEFAULT_MARGIN_BOTTOM}`);
       const [ firstName, surname ] = names.childNodes;
@@ -109,7 +110,8 @@ describe('components', () => {
         render(<CheckYourAnswers pages={PAGES} onRowAction={ON_ROW_ACTION} onAction={ON_ACTION} />, container);
       });
       const cya = checkCYA(container);
-      const [ , , title, civilServant ] = cya.childNodes;
+      const [, , title, cyaChildNode] = cya.childNodes;
+      const civilServant = cyaChildNode.childNodes[0];
       expect(title.textContent).toEqual('Are you a civil servant?');
       expect(civilServant.tagName).toEqual('DL');
       expect(civilServant.classList).toContain(`govuk-!-margin-bottom-${DEFAULT_MARGIN_BOTTOM}`);
@@ -122,7 +124,8 @@ describe('components', () => {
         render(<CheckYourAnswers pages={PAGES} onRowAction={ON_ROW_ACTION} onAction={ON_ACTION} hide_page_titles={true} />, container);
       });
       const cya = checkCYA(container);
-      const [ , , civilServant ] = cya.childNodes; // The title simply isn't returned
+      const [, , cyaChildNode] = cya.childNodes; // The title simply isn't returned
+      const civilServant = cyaChildNode.childNodes[0];
       expect(civilServant.tagName).toEqual('DL');
       expect(civilServant.classList).toContain(`govuk-!-margin-bottom-0`); // Changed margin if no titles
       const [ status ] = civilServant.childNodes;
@@ -134,7 +137,8 @@ describe('components', () => {
         render(<CheckYourAnswers pages={PAGES} onRowAction={ON_ROW_ACTION} onAction={ON_ACTION} hide_title={true}/>, container);
       });
       const cya = checkCYA(container);
-      const [ names ] = cya.childNodes;
+      const [cyaChildNode] = cya.childNodes;
+      const names = cyaChildNode.childNodes[0];
       expect(names.tagName).toEqual('DL');
       expect(names.classList).toContain(`govuk-!-margin-bottom-${DEFAULT_MARGIN_BOTTOM}`);
       const [ firstName, surname ] = names.childNodes;
