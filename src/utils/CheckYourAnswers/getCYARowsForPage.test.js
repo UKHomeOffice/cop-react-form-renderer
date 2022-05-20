@@ -125,26 +125,25 @@ describe('utils', () => {
         const COMPONENT_TOWN = {id: 'town', fieldId: 'town', label: 'Town', type: 'text'};
         const COMPONENT_CITY = {id: 'city', fieldId: 'city', label: 'City', type: 'text'};
         const COMPONENT_POSTCODE = {id: 'postCode', fieldId: 'postCode', label: 'postCode', type: 'text'};
-
         const PAGE = {
           components : [ COMPONENT_ADDRESS, COMPONENT_TOWN, COMPONENT_CITY, COMPONENT_POSTCODE ],
           id: 'addressDetails',
           groupLabel: 'UK address',
-          fieldId : "UK address",
+          fieldId : 'UK address',
           groups: [
             {
-              id: "address",
-              label: "Address details",
+              id: 'address',
+              label: 'Address details',
               components: [
-                 "firstLineOfTheAddress",
-                 "town",
-                 "city",
-                 "postCode"
+                 'firstLineOfTheAddress',
+                 'town',
+                 'city',
+                 'postCode'
               ]
             }
           ],
-           name: "address-details",
-           title: "Address details",
+           name: 'address-details',
+           title: 'Address details',
           formData: {
             firstLineOfTheAddress: '10 Downing Street',
             town: 'City of Westminster',
@@ -156,7 +155,6 @@ describe('utils', () => {
         const ROWS = getCYARowsForPage(PAGE, ON_ACTION);
         expect(ROWS.length).toEqual(1);
         expect(ROWS[0].pageId).toEqual(PAGE.id);
-        expect(ROWS[0].fieldId).toEqual(PAGE.components[0].label);
         expect(ROWS[0].value.props.children.length).toEqual(4);
         expect(ROWS[0].value.props.children[0].props.children.props.value).toEqual(PAGE.formData.firstLineOfTheAddress);
         expect(ROWS[0].value.props.children[1].props.children.props.value).toEqual(PAGE.formData.town);
@@ -170,38 +168,35 @@ describe('utils', () => {
         const COMPONENT_TOWN = {id: 'town', fieldId: 'town', label: 'Town', type: 'text'};
         const COMPONENT_CITY = {id: 'city', fieldId: 'city', label: 'City', type: 'text'};
         const COMPONENT_POSTCODE = {id: 'postCode', fieldId: 'postCode', label: 'postCode', type: 'text'};
-
         const PAGE = {
           components : [ COMPONENT_ADDRESS, COMPONENT_TOWN, COMPONENT_CITY, COMPONENT_POSTCODE ],
           id: 'addressDetails',
           groupLabel: 'UK address',
-          fieldId : "UK address",
+          fieldId : 'UK address',
           groups: [
             {
-              id: "address",
-              label: "Address details",
+              id: 'address',
+              label: 'Address details',
               components: [
-                 "firstLineOfTheAddress",
-                 "town",
-                 "city",
-                 "postCode"
+                 'firstLineOfTheAddress',
+                 'town',
+                 'city',
+                 'postCode'
               ]
             }
           ],
-           name: "address-details",
-           title: "Address details",
+           name: 'address-details',
+           title: 'Address details',
           formData: {
             firstLineOfTheAddress: '10 Downing Street',
             town: 'City of Westminster',
             city: '',
             postCode: 'SW1A 2AA'},
         };
-
         const ON_ACTION = () => {};
         const ROWS = getCYARowsForPage(PAGE, ON_ACTION);
         expect(ROWS.length).toEqual(1);
         expect(ROWS[0].pageId).toEqual(PAGE.id);
-        expect(ROWS[0].fieldId).toEqual(PAGE.components[0].label);
         expect(ROWS[0].value.props.children.length).toEqual(4);
         expect(ROWS[0].value.props.children[0].props.children.props.value).toEqual(PAGE.formData.firstLineOfTheAddress);
         expect(ROWS[0].value.props.children[1].props.children.props.value).toEqual(PAGE.formData.town);
