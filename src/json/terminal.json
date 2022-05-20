@@ -1,0 +1,81 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "name": "Terminal 1",
+      "validfrom": "2019-01-01T00:01:00.000Z",
+      "validto": null,
+      "updatedby": null
+    },
+    {
+      "id": 2,
+      "name": "Terminal 2",
+      "validfrom": "2019-01-01T00:01:00.000Z",
+      "validto": null,
+      "updatedby": null
+    },
+    {
+      "id": 3,
+      "name": "Terminal 3",
+      "validfrom": "2019-01-01T00:01:00.000Z",
+      "validto": null,
+      "updatedby": null
+    },
+    {
+      "id": 4,
+      "name": "Terminal 4",
+      "validfrom": "2019-01-01T00:01:00.000Z",
+      "validto": null,
+      "updatedby": null
+    },
+    {
+      "id": 5,
+      "name": "Terminal 5",
+      "validfrom": "2019-01-01T00:01:00.000Z",
+      "validto": null,
+      "updatedby": null
+    },
+    {
+      "id": 6,
+      "name": "North Terminal",
+      "validfrom": "2019-01-01T00:01:00.000Z",
+      "validto": null,
+      "updatedby": null
+    },
+    {
+      "id": 7,
+      "name": "South Terminal",
+      "validfrom": "2019-01-01T00:01:00.000Z",
+      "validto": null,
+      "updatedby": null
+    },
+    {
+      "id": 8,
+      "name": "Eastern Docks",
+      "validfrom": "2019-01-01T00:01:00.000Z",
+      "validto": null,
+      "updatedby": null
+    },
+    {
+      "id": 9,
+      "name": "Western Docks",
+      "validfrom": "2019-01-01T00:01:00.000Z",
+      "validto": null,
+      "updatedby": null
+    },
+    {
+      "id": 10,
+      "name": "Tourist",
+      "validfrom": "2021-05-07T00:01:00.000Z",
+      "validto": null,
+      "updatedby": "Ben Milnes"
+    },
+    {
+      "id": 11,
+      "name": "Freight",
+      "validfrom": "2021-05-07T00:01:00.000Z",
+      "validto": null,
+      "updatedby": "Ben Milnes"
+    }
+  ]
+}
