@@ -3,6 +3,7 @@ const TYPE_CHECKBOXES = 'checkboxes';
 const TYPE_CONTAINER = 'container';
 const TYPE_DATE = 'date';
 const TYPE_EMAIL = 'email';
+const TYPE_FILE = 'file';
 const TYPE_HEADING = 'heading';
 const TYPE_HTML = 'html';
 const TYPE_INSET_TEXT = 'inset-text';
@@ -18,6 +19,7 @@ const ComponentTypes = {
   CONTAINER: TYPE_CONTAINER,
   DATE: TYPE_DATE,
   EMAIL: TYPE_EMAIL,
+  FILE: TYPE_FILE,
   HEADING: TYPE_HEADING,
   HTML: TYPE_HTML,
   INSET_TEXT: TYPE_INSET_TEXT,

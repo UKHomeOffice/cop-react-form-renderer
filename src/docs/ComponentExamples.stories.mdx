@@ -47,6 +47,19 @@ Use the email component when you want users to enter an email address.
 }
 ```
 
+## `file`
+Use the file component when you want users to upload a file.
+
+```json
+{
+  "id": "photo",
+  "fieldId": "photo",
+  "label": "Upload a photo",
+  "type": "file",
+  "required": true
+}
+```
+
 ## `heading`
 A `govuk-heading` heading component (`h1`, `h2`, etc.).
 
@@ -174,5 +187,43 @@ submission payload - as it is an <Link href="/?path=/docs/f-editable-components"
   "source": {
     "field": "currentUser.givenName"
   }
+}
+```
+
+## `textarea`
+Use the textarea component when you want users to enter multiple lines of text.
+
+```json
+{
+  "id": "additionalInfo",
+  "fieldId": "additionalInfo",
+  "label": "Please add additional information",
+  "type": "textarea"
+}
+```
+
+## `date`
+Use the date component when you want users to input a date.
+
+```json
+{
+  "id": "startDate",
+  "fieldId": "startDate",
+  "label": "Please enter the start date",
+  "type": "date",
+  "required": true
+}
+```
+
+## `time`
+Use the time component when you want users to input a time.
+
+```json
+{
+  "id": "startTime",
+  "fieldId": "startTime",
+  "label": "Please enter the start time",
+  "type": "time",
+  "required": true
 }
 ```

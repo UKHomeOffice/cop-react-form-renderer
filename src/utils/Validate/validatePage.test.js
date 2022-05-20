@@ -13,11 +13,19 @@ describe('utils', () => {
       };
 
       it('should return no error when the components array is null', () => {
-        expect(validatePage(null, {}).length).toEqual(0);
+        const PAGE = {
+          components: null,
+          formData: null
+        };
+        expect(validatePage(PAGE).length).toEqual(0);
       });
 
       it('should return no error when the components array is empty', () => {
-        expect(validatePage([], {}).length).toEqual(0);
+        const PAGE = {
+          components: [],
+          formData: null
+        };
+        expect(validatePage(PAGE).length).toEqual(0);
       });
 
       describe('when there is no form data', () => {
@@ -27,7 +35,11 @@ describe('utils', () => {
             setup('a', ComponentTypes.TEXT, 'Alpha', false),
             setup('b', ComponentTypes.TEXT, 'Bravo', false)
           ];
-          expect(validatePage(COMPONENTS, null).length).toEqual(0);
+          const PAGE = {
+            components: COMPONENTS,
+            formData: null
+          };
+          expect(validatePage(PAGE).length).toEqual(0);
         });
 
         it('should return an error for each required component', () => {
@@ -38,7 +50,11 @@ describe('utils', () => {
             setup('d', ComponentTypes.TEXT, 'Delta', true),
             setup('e', ComponentTypes.TEXT, 'Echo', true)
           ];
-          const RESULT = validatePage(COMPONENTS, null);
+          const PAGE = {
+            components: COMPONENTS,
+            formData: null
+          };
+          const RESULT = validatePage(PAGE);
           expect(RESULT.length).toEqual(4);
           expect(RESULT[0]).toEqual({ id: 'a', error: 'Alpha is required' });
           expect(RESULT[1]).toEqual({ id: 'b', error: 'Bravo is required' });
@@ -59,7 +75,11 @@ describe('utils', () => {
             setup('alpha', ComponentTypes.TEXT, 'Alpha', false),
             setup('bravo', ComponentTypes.TEXT, 'Bravo', false)
           ];
-          expect(validatePage(COMPONENTS, DATA).length).toEqual(0);
+          const PAGE = {
+            components: COMPONENTS,
+            formData: DATA
+          };
+          expect(validatePage(PAGE).length).toEqual(0);
         });
 
         it('should return no errors when all of the components are required but not email types', () => {
@@ -67,15 +87,24 @@ describe('utils', () => {
             setup('alpha', ComponentTypes.TEXT, 'Alpha', true),
             setup('bravo', ComponentTypes.TEXT, 'Bravo', true)
           ];
-          expect(validatePage(COMPONENTS, DATA).length).toEqual(0);
+          const PAGE = {
+            components: COMPONENTS,
+            formData: DATA
+          };
+          expect(validatePage(PAGE).length).toEqual(0);
         });
+
 
         it('should return no errors when none of the components are required but are all email types', () => {
           const COMPONENTS = [
             setup('alpha', ComponentTypes.EMAIL, 'Alpha', false),
             setup('bravo', ComponentTypes.EMAIL, 'Bravo', false)
           ];
-          expect(validatePage(COMPONENTS, DATA).length).toEqual(0);
+          const PAGE = {
+            components: COMPONENTS,
+            formData: DATA
+          };
+          expect(validatePage(PAGE).length).toEqual(0);
         });
 
         it('should return no errors when all of the components are required and email types', () => {
@@ -83,7 +112,11 @@ describe('utils', () => {
             setup('alpha', ComponentTypes.EMAIL, 'Alpha', true),
             setup('bravo', ComponentTypes.EMAIL, 'Bravo', true)
           ];
-          expect(validatePage(COMPONENTS, DATA).length).toEqual(0);
+          const PAGE = {
+            components: COMPONENTS,
+            formData: DATA
+          };
+          expect(validatePage(PAGE).length).toEqual(0);
         });
 
       });
@@ -100,7 +133,11 @@ describe('utils', () => {
             setup('bravo', ComponentTypes.TEXT, 'Bravo', false),
             setup('charlie', ComponentTypes.TEXT, 'Charlie', false)
           ];
-          expect(validatePage(COMPONENTS, DATA).length).toEqual(0);
+          const PAGE = {
+            components: COMPONENTS,
+            formData: null
+          };
+          expect(validatePage(PAGE).length).toEqual(0);
         });
 
         it('should return an error for the missing field when all are required but not email types', () => {
@@ -109,7 +146,11 @@ describe('utils', () => {
             setup('bravo', ComponentTypes.TEXT, 'Bravo', true),
             setup('charlie', ComponentTypes.TEXT, 'Charlie', true)
           ];
-          const RESULT = validatePage(COMPONENTS, DATA);
+          const PAGE = {
+            components: COMPONENTS,
+            formData: DATA
+          };
+          const RESULT = validatePage(PAGE);
           expect(RESULT.length).toEqual(1);
           expect(RESULT[0]).toEqual({
             id: 'charlie',
@@ -123,7 +164,11 @@ describe('utils', () => {
             setup('bravo', ComponentTypes.EMAIL, 'Bravo', false),
             setup('charlie', ComponentTypes.EMAIL, 'Charlie', false)
           ];
-          const RESULT = validatePage(COMPONENTS, DATA);
+          const PAGE = {
+            components: COMPONENTS,
+            formData: DATA
+          };
+          const RESULT = validatePage(PAGE);
           expect(RESULT.length).toEqual(1);
           expect(RESULT[0]).toEqual({
             id: 'bravo',
@@ -137,7 +182,11 @@ describe('utils', () => {
             setup('bravo', ComponentTypes.EMAIL, 'Bravo', true),
             setup('charlie', ComponentTypes.EMAIL, 'Charlie', true)
           ];
-          const RESULT = validatePage(COMPONENTS, DATA);
+          const PAGE = {
+            components: COMPONENTS,
+            formData: DATA
+          };
+          const RESULT = validatePage(PAGE);
           expect(RESULT.length).toEqual(2);
           expect(RESULT[0]).toEqual({
             id: 'bravo',

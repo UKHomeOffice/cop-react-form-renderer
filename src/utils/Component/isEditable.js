@@ -6,6 +6,7 @@ export const EDITABLE_TYPES = [
   ComponentTypes.CHECKBOXES,
   ComponentTypes.DATE,
   ComponentTypes.EMAIL,
+  ComponentTypes.FILE,
   ComponentTypes.PHONE_NUMBER,
   ComponentTypes.RADIOS,
   ComponentTypes.TEXT,
