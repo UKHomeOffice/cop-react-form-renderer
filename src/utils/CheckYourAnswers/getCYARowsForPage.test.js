@@ -197,11 +197,8 @@ describe('utils', () => {
         const ROWS = getCYARowsForPage(PAGE, ON_ACTION);
         expect(ROWS.length).toEqual(1);
         expect(ROWS[0].pageId).toEqual(PAGE.id);
-        expect(ROWS[0].value.props.children.length).toEqual(4);
-        expect(ROWS[0].value.props.children[0].props.children.props.value).toEqual(PAGE.formData.firstLineOfTheAddress);
-        expect(ROWS[0].value.props.children[1].props.children.props.value).toEqual(PAGE.formData.town);
         expect(ROWS[0].value.props.children[2]).toEqual(null);
-        expect(ROWS[0].value.props.children[3].props.children.props.value).toEqual(PAGE.formData.postCode);
+        
      
       });
 
