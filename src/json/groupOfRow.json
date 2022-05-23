@@ -118,7 +118,7 @@
       ],
       "cya_link": {
         "page": "dateLocDet",
-        "aria_suffix": "dateLocDet"
+        "aria_suffix": "Date and location details"
       },
       "actions": [
         "submit"

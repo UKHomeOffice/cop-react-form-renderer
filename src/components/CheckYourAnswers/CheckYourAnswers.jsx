@@ -129,15 +129,16 @@ const CheckYourAnswers = ({
               {(!hide_page_titles && page.title && !isGroup(page.id))   && (
                 <MediumHeading>{page.title}</MediumHeading>
               )}
-              {(isGroup(page.id)) && (currentGroup.title ? (
+              {(isGroup(page.id)) && (
                 <div className='group-title'>
-                    <MediumHeading>{currentGroup.title}</MediumHeading>
-              </div>
-              ) : (
-                <div className='group-title'>
-                  <MediumHeading>{page.title}</MediumHeading>
-                </div>
-              ))}
+                  <MediumHeading>
+                {(currentGroup.title ? (
+                  currentGroup.title
+                    ) : (
+                  page.title
+                ))}
+                  </MediumHeading>
+                </div>)}
               <SummaryList
                 className={className}
                 rows={page.rows}
