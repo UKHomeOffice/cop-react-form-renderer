@@ -12,7 +12,7 @@ describe('components', () => {
     it('should handle a group row without an action', () => {
       const ROW = {};
       const { container } = render(
-          <GroupAction group={ROW} groupObj={{}} />
+          <GroupAction group={ROW} />
       );
       expect(container.childNodes.length).toEqual(0);
     });

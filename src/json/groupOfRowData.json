@@ -1,0 +1,19 @@
+{
+  "urls": {
+    "refData": "/ref-data"
+  },
+  "currentUser": {
+    "givenName": "John",
+    "familyName": "Smith"
+  },
+  "areYouACivilServant": "yes",
+  "userDetails": {
+    "linemanagerEmail": "line.manager@digital.homeoffice.gov.uk",
+    "delegateEmails": "del.egate@digital.homeoffice.gov.uk"
+  },
+  "businessKey": "123456789",
+  "dateGroupField": "01-01-2022",
+  "timeGroupField": "14:57",
+  "portGroupField": "Glasgow",
+  "whereGroupField": "terminal"
+}

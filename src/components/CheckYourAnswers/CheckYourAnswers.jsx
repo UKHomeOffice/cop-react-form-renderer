@@ -149,7 +149,6 @@ const CheckYourAnswers = ({
                 classModifiers={summaryListClassModifiers}
                 noChangeAction={hideActionButtons}
                 isGroup={isGroup(page.id)}
-                groupObject={currentGroup}
               />
             </Fragment>
           );

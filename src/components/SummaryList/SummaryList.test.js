@@ -173,5 +173,46 @@ describe('components', () => {
         expect(valueDiv.textContent).toEqual(VALUES[index]);
       });
     });
+
+    it('should render groups of rows corretly', () => {
+      const ID = 'test-id';
+      const VALUES = ['Alpha component value', 'Bravo component value', 'Charlie component value'];
+      const ISGROUP = true;
+      const ROWS = [
+        {
+          pageId: 'p1',
+          fieldId: 'a',
+          key: 'Alpha',
+          value: <div>{VALUES[0]}</div>
+        },
+        {
+          pageId: 'p1',
+          fieldId: 'b',
+          key: 'Bravo',
+          value: <div>{VALUES[1]}</div>
+        },
+        {
+          pageId: 'p1',
+          fieldId: 'c',
+          key: 'Charlie',
+          value: <div>{VALUES[2]}</div>
+        }
+      ];
+      const { container } = render(
+        <SummaryList data-testid={ID} rows={ROWS} isGroup={ISGROUP} />
+      );
+      const summaryList = checkSummaryList(container, ID);
+      expect(summaryList.childNodes.length).toEqual(ROWS.length + 1);
+      ROWS.forEach((row, index) => {
+        const [key, value] = checkRow(summaryList, index);
+        expect(key.textContent).toEqual(row.key);
+        expect(value.childNodes.length).toEqual(1);
+        const valueDiv = value.childNodes[0];
+        expect(valueDiv.tagName).toEqual('DIV');
+        expect(valueDiv.textContent).toEqual(VALUES[index]);
+      });
+    });
+
+
   });
 });

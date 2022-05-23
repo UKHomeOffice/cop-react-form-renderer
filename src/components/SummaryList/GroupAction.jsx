@@ -22,7 +22,7 @@ const GroupAction = ({ group }) => {
     <Link {...attrs}>
       {group.action.label}
       {group.action.aria_suffix && (
-      <span className='mobile-text govuk-link'>{' '}{`${group.action.aria_suffix}`}</span>
+        <span className='mobile-text govuk-link'>{' '}{`${group.action.aria_suffix}`}</span>
       )}
     </Link>
   );

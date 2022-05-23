@@ -15,7 +15,6 @@ const SummaryList = ({
   rows,
   noChangeAction,
   isGroup,
-  groupObject,
   classBlock,
   classModifiers,
   className,
@@ -38,7 +37,7 @@ const SummaryList = ({
       )}
       {isGroup &&
         <div className='change-group-button'>
-            <GroupAction group={rows[0]} groupObj={groupObject} />
+            <GroupAction group={rows[0]} />
         </div>
       }
       </dl>
