@@ -74,16 +74,14 @@ const CheckYourAnswers = ({
 
     const groupsList = () => {
 
-      let groupId = [];
+      let groupIds = [];
       
       groups !== undefined &&
         groups.length && groups.forEach((group) => {
           const groupedPageId = group.pageId;
-          groupId.push(groupedPageId);
+          groupIds.push(groupedPageId);
         })
-      console.log('object');
-  
-        setListOfGroups(groupId);
+        setListOfGroups(groupIds);
     }
 
     groupsList();
@@ -91,12 +89,10 @@ const CheckYourAnswers = ({
   }, [setListOfGroups, groups]);
 
   const isGroup = (pageId) => {
-
     return (listOfGroups.includes(pageId));
-    
   }
 
-  const groupedFields = (pageId) => {
+  const getGroupForPage = (pageId) => {
   
     let groupAnswer;
     groups !== undefined &&
@@ -105,8 +101,7 @@ const CheckYourAnswers = ({
           groupAnswer = group;
         }
       })
-    console.log(groupAnswer);
-    return (groupAnswer);
+    return groupAnswer;
 }
 
   return (
@@ -125,7 +120,7 @@ const CheckYourAnswers = ({
 
           let currentGroup;
           
-          isGroup(page.id) && (currentGroup = groupedFields(page.id));
+          isGroup(page.id) && (currentGroup = getGroupForPage(page.id));
           const className = `govuk-!-margin-bottom-${pageMarginBottom}`;
           let hideActionButtons;
           isGroup(page.id) ? hideActionButtons = true : hideActionButtons = noChangeAction;

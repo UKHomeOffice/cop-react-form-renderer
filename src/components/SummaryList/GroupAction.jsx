@@ -8,7 +8,6 @@ import getGroupActionAttributes from './helpers/getGroupActionAttributes';
 
 const GroupAction = ({ group }) => {
   const [attrs, setAttrs] = useState({});
-  console.log(group);
 
   useEffect(() => {
     setAttrs(getGroupActionAttributes(group));
