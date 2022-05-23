@@ -1,0 +1,15 @@
+{
+  "currentUser": {
+    "givenName": "John",
+    "familyName": "Smith"
+  },
+  "businessKey": "123456789",
+  "dateGroupField": "01-01-2022",
+  "timeGroupField": "14:57",
+  "portGroupField": "Glasgow",
+  "whereGroupField": "terminal",
+  "firstName": "sample",
+  "surname": "test",
+  "age": "12",
+  "extraDetails": "extra notes here"
+}

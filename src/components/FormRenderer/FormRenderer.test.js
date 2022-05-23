@@ -56,7 +56,7 @@ describe('components', () => {
     };
 
     const getChangeLink = (summaryList) => {
-      const [ , , actions ] = summaryList.childNodes[0].childNodes;
+      const [ , , actions ] = summaryList.childNodes[0].childNodes[0].childNodes;
       return actions.childNodes[0];
     };
 

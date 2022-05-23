@@ -1,0 +1,158 @@
+{
+  "id": "userProfile",
+  "version": "1",
+  "name": "userProfile",
+  "title": "Your profile",
+  "type": "cya",
+  "components": [
+    {
+      "id": "firstName",
+      "fieldId": "firstName",
+      "label": "First name",
+      "type": "text",
+      "readonly": false,
+      "source": {
+        "field": "currentUser.givenName"
+      }
+    },
+    {
+      "id": "surname",
+      "fieldId": "surname",
+      "label": "Last name",
+      "type": "text",
+      "readonly": false,
+      "source": {
+        "field": "currentUser.familyName"
+      }
+    },
+    {
+      "id": "dateGroup",
+      "fieldId": "dateGroup",
+      "label": "Date",
+      "type": "date",
+      "required": true,
+      "readonly": false,
+      "source": {
+        "field": "dateGroupField"
+      }
+    },
+    {
+      "id": "timeGroup",
+      "fieldId": "timeGroup",
+      "label": "Time",
+      "type": "time",
+      "required": true,
+      "readonly": false,
+      "source": {
+        "field": "timeGroupField"
+      }
+    },
+    {
+      "id": "portGroup",
+      "fieldId": "portGroup",
+      "label": "Port",
+      "type": "text",
+      "required": true,
+      "readonly": false,
+      "source": {
+        "field": "portGroupField"
+      }
+    },
+    {
+      "id": "whereGroup",
+      "fieldId": "whereGroup",
+      "label": "Where did you see the incident take place",
+      "type": "text",
+      "required": true,
+      "readonly": false,
+      "source": {
+        "field": "whereGroupField"
+      }
+    },
+    {
+      "id": "extraDetails",
+      "fieldId": "extraDetails",
+      "label": "Extra details",
+      "type": "textarea",
+      "readonly": false
+    }
+  ],
+  "pages": [
+    {
+      "id": "names",
+      "name": "names",
+      "title": "Name",
+      "components": [
+        {
+          "use": "firstName"
+        },
+        {
+          "use": "surname"
+        }
+      ],
+      "cya_link": {
+        "page": "names",
+        "aria_suffix": "names"
+      },
+      "actions": [
+        "submit"
+      ]
+    },
+    {
+      "id": "dateLocDet",
+      "name": "dateLocDetName",
+      "title": "Date and location details",
+      "components": [
+        {
+          "use": "dateGroup"
+        },
+        {
+          "use": "timeGroup"
+        },
+        {
+          "use": "portGroup"
+        },
+        {
+          "use": "whereGroup"
+        }
+      ],
+      "cya_link": {
+        "page": "dateLocDet",
+        "aria_suffix": "Date and location details"
+      },
+      "actions": [
+        "submit"
+      ]
+    },
+    {
+      "id": "additional-info",
+      "name": "additional-info",
+      "title": "Additional Information",
+      "components": [
+        {
+          "use": "extraDetails"
+        }
+      ],
+      "cya_link": {
+        "page": "additional-info",
+        "aria_suffix": "Additional Information"
+      },
+      "actions": [
+        "submit"
+      ]
+    }
+  ],
+  "cya": {
+    "hide_page_titles": true,
+    "hide_actions": true,
+    "groups": [
+      {
+        "pageId": "dateLocDet"
+      },
+      {
+        "pageId": "names",
+        "title": "Names"
+      }
+    ]
+  }
+}
