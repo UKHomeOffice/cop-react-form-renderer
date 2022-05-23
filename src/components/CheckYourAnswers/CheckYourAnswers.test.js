@@ -11,6 +11,7 @@ import GRADE from '../../json/grade.json';
 import TEAMS from '../../json/team.json';
 import USER_PROFILE_DATA from '../../json/userProfile.data.json';
 import USER_PROFILE from '../../json/userProfile.json';
+import GROUP_ROWS from '../../json/groupOfRow.json';
 import Utils from '../../utils';
 import CheckYourAnswers, { DEFAULT_CLASS, DEFAULT_MARGIN_BOTTOM, DEFAULT_TITLE } from './CheckYourAnswers';
 
@@ -96,7 +97,8 @@ describe('components', () => {
         render(<CheckYourAnswers pages={PAGES} onRowAction={ON_ROW_ACTION} onAction={ON_ACTION} />, container);
       });
       const cya = checkCYA(container);
-      const [ , names ] = cya.childNodes;
+      const [, cyaChildNode] = cya.childNodes;
+      const names = cyaChildNode.childNodes[0];
       expect(names.tagName).toEqual('DL');
       expect(names.classList).toContain(`govuk-!-margin-bottom-${DEFAULT_MARGIN_BOTTOM}`);
       const [ firstName, surname ] = names.childNodes;
@@ -109,7 +111,8 @@ describe('components', () => {
         render(<CheckYourAnswers pages={PAGES} onRowAction={ON_ROW_ACTION} onAction={ON_ACTION} />, container);
       });
       const cya = checkCYA(container);
-      const [ , , title, civilServant ] = cya.childNodes;
+      const [, , title, cyaChildNode] = cya.childNodes;
+      const civilServant = cyaChildNode.childNodes[0];
       expect(title.textContent).toEqual('Are you a civil servant?');
       expect(civilServant.tagName).toEqual('DL');
       expect(civilServant.classList).toContain(`govuk-!-margin-bottom-${DEFAULT_MARGIN_BOTTOM}`);
@@ -122,7 +125,8 @@ describe('components', () => {
         render(<CheckYourAnswers pages={PAGES} onRowAction={ON_ROW_ACTION} onAction={ON_ACTION} hide_page_titles={true} />, container);
       });
       const cya = checkCYA(container);
-      const [ , , civilServant ] = cya.childNodes; // The title simply isn't returned
+      const [, , cyaChildNode] = cya.childNodes; // The title simply isn't returned
+      const civilServant = cyaChildNode.childNodes[0];
       expect(civilServant.tagName).toEqual('DL');
       expect(civilServant.classList).toContain(`govuk-!-margin-bottom-0`); // Changed margin if no titles
       const [ status ] = civilServant.childNodes;
@@ -134,12 +138,44 @@ describe('components', () => {
         render(<CheckYourAnswers pages={PAGES} onRowAction={ON_ROW_ACTION} onAction={ON_ACTION} hide_title={true}/>, container);
       });
       const cya = checkCYA(container);
-      const [ names ] = cya.childNodes;
+      const [cyaChildNode] = cya.childNodes;
+      const names = cyaChildNode.childNodes[0];
       expect(names.tagName).toEqual('DL');
       expect(names.classList).toContain(`govuk-!-margin-bottom-${DEFAULT_MARGIN_BOTTOM}`);
       const [ firstName, surname ] = names.childNodes;
       checkRow(firstName, 'First name', 'John', false);
       checkRow(surname, 'Last name', 'Smith', false);
+    });
+
+    it('should render a group with one action button', async () => {
+
+    const GROUP_PAGES = Utils.FormPage.getAll(GROUP_ROWS.pages, GROUP_ROWS.components, { ...DATA });
+
+      await act(async () => {
+        render(<CheckYourAnswers pages={GROUP_PAGES} onRowAction={ON_ROW_ACTION} onAction={ON_ACTION} groups={GROUP_ROWS.cya.groups} />, container);
+      });
+      const cya = checkCYA(container);
+      const namesGroup = cya.childNodes[2];
+
+      const firstNameRow = namesGroup.childNodes[0].childNodes[0];
+      expect(firstNameRow.childNodes.length).toEqual(2);
+      expect(firstNameRow.childNodes[0].textContent).toEqual('First name');
+      expect(firstNameRow.childNodes[0].tagName).toEqual('DT');
+      expect(firstNameRow.childNodes[1].textContent).toEqual('John');
+      expect(firstNameRow.childNodes[1].tagName).toEqual('DD');
+
+      const surname = namesGroup.childNodes[0].childNodes[1];
+      expect(surname.childNodes.length).toEqual(2);
+      expect(surname.childNodes[0].textContent).toEqual('Last name');
+      expect(surname.childNodes[0].tagName).toEqual('DT');
+      expect(surname.childNodes[1].textContent).toEqual('Smith');
+      expect(surname.childNodes[1].tagName).toEqual('DD');
+
+      const changeButtonDiv = namesGroup.childNodes[0].childNodes[2];
+      expect(changeButtonDiv.classList).toContain('change-group-button');
+      const changeButton = changeButtonDiv.childNodes[0];
+      expect(changeButton.tagName).toEqual('A');
+      expect(changeButton.textContent).toEqual('Change names');
     });
 
 
