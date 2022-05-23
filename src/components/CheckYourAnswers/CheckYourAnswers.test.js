@@ -160,11 +160,11 @@ describe('components', () => {
 
       const cya = checkCYA(container);
       const groupedComponent = cya.childNodes[10];
-      const keyGroup = groupedComponent.childNodes[0].childNodes[0];
+      const keyGroup = groupedComponent.childNodes[0].childNodes[0].childNodes[0];
       expect(keyGroup.tagName).toEqual('DT');
       expect(keyGroup.textContent).toEqual('Address details');
-      
-      const valueGroup = groupedComponent.childNodes[0].childNodes[1];
+
+      const valueGroup = groupedComponent.childNodes[0].childNodes[0].childNodes[1];
       expect(valueGroup.childNodes.length).toEqual(4);
       expect(valueGroup.tagName).toEqual('DD');
       expect(valueGroup.childNodes[0].textContent).toContain('10 Downing Street');
@@ -172,11 +172,12 @@ describe('components', () => {
       expect(valueGroup.childNodes[2].textContent).toContain('London');
       expect(valueGroup.childNodes[3].textContent).toContain('SW1A 2AA');
 
-      const changeButtonDiv = groupedComponent.childNodes[0].childNodes[2];
+      const changeButtonDiv = groupedComponent.childNodes[0].childNodes[0].childNodes[2];
       expect(changeButtonDiv.classList).toContain('govuk-summary-list__actions');
       const changeButton = changeButtonDiv.childNodes[0];
       expect(changeButton.tagName).toEqual('A');
       expect(changeButton.textContent).toEqual('Change address details');
+      });
 
     it('should render a group with one action button', async () => {
 
