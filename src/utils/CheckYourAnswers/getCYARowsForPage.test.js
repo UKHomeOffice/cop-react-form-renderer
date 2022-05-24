@@ -155,11 +155,12 @@ describe('utils', () => {
         const ROWS = getCYARowsForPage(PAGE, ON_ACTION);
         expect(ROWS.length).toEqual(1);
         expect(ROWS[0].pageId).toEqual(PAGE.id);
-        expect(ROWS[0].value.props.children.length).toEqual(4);
-        expect(ROWS[0].value.props.children[0].props.children.props.value).toEqual(PAGE.formData.firstLineOfTheAddress);
-        expect(ROWS[0].value.props.children[1].props.children.props.value).toEqual(PAGE.formData.town);
-        expect(ROWS[0].value.props.children[2].props.children.props.value).toEqual(PAGE.formData.city);
-        expect(ROWS[0].value.props.children[3].props.children.props.value).toEqual(PAGE.formData.postCode);
+        const rowsValue = ROWS[0].value.props;
+        expect(rowsValue.children.length).toEqual(4);
+        expect(rowsValue.children[0].props.children.props.value).toContain('10 Downing Street');
+        expect(rowsValue.children[1].props.children.props.value).toContain('City of Westminster');
+        expect(rowsValue.children[2].props.children.props.value).toContain('London');
+        expect(rowsValue.children[3].props.children.props.value).toContain('SW1A 2AA');
       });
 
       it('Test for blank field in group block', () => {

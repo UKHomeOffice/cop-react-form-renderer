@@ -51,7 +51,6 @@ describe('utils', () => {
                 expect(addressRows[1].props.children.props.value).toEqual(PAGE.formData.town);
                 expect(addressRows[2].props.children.props.value).toEqual(PAGE.formData.city);
                 expect(addressRows[3].props.children.props.value).toEqual(PAGE.formData.postCode);
- 
             })
 
         })
