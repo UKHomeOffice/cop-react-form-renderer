@@ -159,14 +159,14 @@ describe('components', () => {
 
       const firstNameRow = namesGroup.childNodes[0].childNodes[0];
       expect(firstNameRow.childNodes.length).toEqual(2);
-      expect(firstNameRow.childNodes[0].textContent).toEqual('First name');
+      expect(firstNameRow.childNodes[0].textContent).toEqual('First name (optional)');
       expect(firstNameRow.childNodes[0].tagName).toEqual('DT');
       expect(firstNameRow.childNodes[1].textContent).toEqual('John');
       expect(firstNameRow.childNodes[1].tagName).toEqual('DD');
 
       const surname = namesGroup.childNodes[0].childNodes[1];
       expect(surname.childNodes.length).toEqual(2);
-      expect(surname.childNodes[0].textContent).toEqual('Last name');
+      expect(surname.childNodes[0].textContent).toEqual('Last name (optional)');
       expect(surname.childNodes[0].tagName).toEqual('DT');
       expect(surname.childNodes[1].textContent).toEqual('Smith');
       expect(surname.childNodes[1].tagName).toEqual('DD');

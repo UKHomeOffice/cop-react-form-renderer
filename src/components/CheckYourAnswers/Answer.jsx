@@ -1,13 +1,15 @@
 // Global imports
 import PropTypes from 'prop-types';
 import React from 'react';
+import VisuallyHidden from '@ukhomeoffice/cop-react-components/dist/VisuallyHidden';
 
 // Local imports
 import FormComponent from '../FormComponent';
 
 const Answer = ({ value, component }) => {
   if (!value) {
-    return null;
+   return <VisuallyHidden>No answer</VisuallyHidden>;
+   // return 'test text';
   }
   if (!component) {
     return value;
