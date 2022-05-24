@@ -89,10 +89,8 @@ The value to compare the `show_when.field`'s value to. This is applicable for eq
 The set of values in which to look for the `show_when.field`'s value. This is applicable for `in` and `nin` operators only.
 
 * #### `group: [object]`
-The value for this object are `id, label and component` component is a array of string.
-  * `""id": "address-details"`: The is a page Id.
-  * `"groupLabel": "UK address""`: This value will be key for the group label.
-  * `"groups[]"`: Groups conatins an object which has an array of the component `""groups": [
+Group is an array, which has `id, label and a components`. Components is an array of strings
+  "groups": [
           {
             "id": "address",
             "label": "Address details",
@@ -103,7 +101,7 @@ The value for this object are `id, label and component` component is a array of 
               "postCode"
             ]
           }
-        ], "`.
+        ], 
 
 
 ## Examples
