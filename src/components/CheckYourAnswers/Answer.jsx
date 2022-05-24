@@ -9,7 +9,6 @@ import FormComponent from '../FormComponent';
 const Answer = ({ value, component }) => {
   if (!value) {
    return <VisuallyHidden>No answer</VisuallyHidden>;
-   // return 'test text';
   }
   if (!component) {
     return value;
