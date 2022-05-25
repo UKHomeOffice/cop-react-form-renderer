@@ -16,7 +16,8 @@ describe('components', () => {
       const { container } = render(
         <Answer value={VALUE} component={COMPONENT} />
       );
-      expect(container.childNodes.length).toEqual(0);
+      expect(container.childNodes.length).toEqual(1);
+      expect(container.childNodes[0].textContent).toEqual('No answer');
     });
 
     it('should handle a null component', async () => {

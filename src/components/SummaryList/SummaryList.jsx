@@ -26,7 +26,10 @@ const SummaryList = ({
     <dl {...attrs} className={classes()}>
       {rows.map((row) =>  
           <div key={`${row.pageId}_${row.fieldId}`} className={classes('row')}>
-            <dt className={classes('key')}>{row.key}</dt>
+          <dt className={classes('key')}>
+            {row.key}
+            {!row.component?.required && ` (optional)`}
+          </dt>
             <dd className={classes('value')}>{row.value}</dd>
             {!noChangeAction && (
               <dd className={classes('actions')}>
