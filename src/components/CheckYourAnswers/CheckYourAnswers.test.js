@@ -150,7 +150,6 @@ describe('components', () => {
     });
 
     it('Show answers from multiple address fields into in one DL', async () => {
-
       const DATA = Utils.Data.setupForm(GROUPED_ADDRESS.pages, GROUPED_ADDRESS.components, GROUPED_ADDRESS_DATA_JSON)
       const GROUP_PAGES = Utils.FormPage.getAll(GROUPED_ADDRESS.pages, GROUPED_ADDRESS.components, { ...DATA });
 
@@ -177,10 +176,9 @@ describe('components', () => {
       const changeButton = changeButtonDiv.childNodes[0];
       expect(changeButton.tagName).toEqual('A');
       expect(changeButton.textContent).toEqual('Change address details');
-      });
+    });
 
     it('should render a group with one action button', async () => {
-
       const GROUP_PAGES = Utils.FormPage.getAll(GROUP_ROWS.pages, GROUP_ROWS.components, { ...DATA });
 
       await act(async () => {
@@ -209,7 +207,6 @@ describe('components', () => {
       expect(changeButton.tagName).toEqual('A');
       expect(changeButton.textContent).toEqual('Change names');
     });
-
 
   });
 

@@ -75,4 +75,3 @@ SummaryList.defaultProps = {
 };
 
 export default SummaryList;
-
