@@ -106,7 +106,6 @@ const FormComponent = ({
   };
 
   const onComponentChange = ({ target }) => {
-    console.log(target);
     if (typeof onChange === 'function') {
       onChange({ target });
       if (component.type === ComponentTypes.FILE) {
@@ -135,7 +134,8 @@ const FormComponent = ({
     hint: component.hint || '',
     options,
     value: value || defaultValue,
-    onChange: onComponentChange
+    onChange: onComponentChange,
+    formData: {formData}
   }, wrap, hooks.onGetComponent);
 };
 

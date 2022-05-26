@@ -26,6 +26,7 @@ const validateContainer = (container, formData) => {
  */
 const validateComponent = (component, formData) => {
   let error = undefined;
+  let nestedId = undefined;
   const data = formData && typeof formData === 'object' ? formData : {};
   if (component && showComponent(component, formData)) {
     if (component.type === ComponentTypes.CONTAINER) {
@@ -37,14 +38,17 @@ const validateComponent = (component, formData) => {
       error = validateRequired(value, component.label, component.custom_errors);
     }
     if (!error && component.type === ComponentTypes.RADIOS) {
-      console.log(formData);
-      console.log(JSON.stringify(component.data.options));
       component.data.options.some((option) => {
+        let nestedError;
         if (option.nested) {
-          console.log(JSON.stringify(option.nested));
-          error = validateComponent(option.nested, formData);
+          nestedError = validateComponent(option.nested, formData);
+          error = nestedError.error;
+          if(nestedError){
+            nestedId = nestedError.id;
+          }
+          console.log('setting an error of ' + error + ' of type: ' + typeof(error));
         }
-        return error;
+        return nestedError;
       });
     }
     if (!error && component.type === ComponentTypes.EMAIL) {
@@ -69,7 +73,9 @@ const validateComponent = (component, formData) => {
     }
     component.error = error;
   }
-  return error ? { id: component.id, error: error } : undefined;
+  console.log("!!!! " + nestedId + ' componentid ' + component.id)
+  const tmpId = nestedId ? nestedId : component.id
+  return error ? { id: tmpId, error: error } : undefined;
 };
 
 export default validateComponent;

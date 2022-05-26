@@ -28,11 +28,13 @@ const FormPage = ({
    * time as the onAction handler is invoked.
   */
   const onPageChange = ({ target }) => {
+    console.log("onpagechange: " + target.name + ' value: ' + target.value + ' previous value ' + page.formData[target.name])
     page.formData[target.name] = target.value;
     setPatch(prev => ({
       ...prev,
       [target.name]: target.value
     }));
+    console.log("new value: " + page.formData[target.name])
   };
 
   const onError = (errors) => {
