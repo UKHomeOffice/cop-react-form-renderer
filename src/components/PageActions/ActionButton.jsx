@@ -12,7 +12,9 @@ const ActionButton = ({
   onAction,
   ...attrs
 }) => {
-  const action = typeof(_action) === 'string' ? PageAction.DEFAULTS[_action] : _action;
+  const action = typeof (_action) === 'string' ? PageAction.DEFAULTS[_action] : _action;
+  let actionLabel = PageAction.DEFAULTS[_action.type];
+  console.log(actionLabel);
   if (!action) {
     return null;
   }
@@ -24,10 +26,10 @@ const ActionButton = ({
       start={action.start || false}
       onClick={() => onAction(action)}
     >
-      {action.label || DEFAULT_LABEL}
+      {action.label || actionLabel?.label || DEFAULT_LABEL}
     </Button>
   );
-};
+  };
 
 ActionButton.propTypes = {
   action: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]).isRequired,
