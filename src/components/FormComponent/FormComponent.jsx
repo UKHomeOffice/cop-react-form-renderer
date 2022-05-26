@@ -106,6 +106,7 @@ const FormComponent = ({
   };
 
   const onComponentChange = ({ target }) => {
+    console.log(target);
     if (typeof onChange === 'function') {
       onChange({ target });
       if (component.type === ComponentTypes.FILE) {

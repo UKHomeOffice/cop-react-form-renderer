@@ -73,6 +73,13 @@ const getRadios = (config) => {
   Data.getOptions(config, (val) => {
     options = val;
   });
+
+  options.forEach((option) => {
+    if (option.nested) {
+      option.nestedJSX = getComponent(option.nested);
+    }
+  });
+
   const attrs = cleanAttributes(config);
   return <Radios {...attrs} options={options} />;
 };

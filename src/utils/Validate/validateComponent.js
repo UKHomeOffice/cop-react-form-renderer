@@ -36,10 +36,22 @@ const validateComponent = (component, formData) => {
     if (component.required) {
       error = validateRequired(value, component.label, component.custom_errors);
     }
+    if (!error && component.type === ComponentTypes.RADIOS) {
+      console.log(formData);
+      console.log(JSON.stringify(component.data.options));
+      component.data.options.some((option) => {
+        if (option.nested) {
+          console.log(JSON.stringify(option.nested));
+          error = validateComponent(option.nested, formData);
+        }
+        return error;
+      });
+    }
     if (!error && component.type === ComponentTypes.EMAIL) {
       error = validateEmail(value, component.label);
     }
     if (!error && component.type === ComponentTypes.DATE) {
+      console.log("Validating date: " + component.fieldId + ", " + value);
       const { message, propsInError } = validateDate(value);
       component.propsInError = propsInError;
       error = message;
