@@ -15,9 +15,7 @@
     @include govuk-responsive-margin(9, 'bottom');
     list-style: none;
     padding-left: 0;
-    @include govuk-media-query($from: tablet) {
-      padding-left: govuk-spacing(6);
-    }
+    padding-left: govuk-spacing(4);
   }
 }
 
@@ -52,6 +50,16 @@
   @include govuk-media-query($from: 450px) {
     float: left;
   }
+}
+
+.hods-task-reference-description{
+  @include govuk-media-query($from: 450px) {
+    float: left;
+  }
+}
+
+.hods-task-reference{
+  font-weight: normal;
 }
 
 // The `hods-task-list__task-completed` class was previously used on the task

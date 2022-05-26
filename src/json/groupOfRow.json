@@ -1,8 +1,8 @@
 {
-  "id": "userProfile",
+  "id": "cop-secondForm",
   "version": "1",
-  "name": "userProfile",
-  "title": "Your profile",
+  "name": "cop-secondForm",
+  "title": "Cop - Second Form",
   "type": "cya",
   "components": [
     {
@@ -10,20 +10,14 @@
       "fieldId": "firstName",
       "label": "First name",
       "type": "text",
-      "readonly": false,
-      "source": {
-        "field": "currentUser.givenName"
-      }
+      "readonly": false
     },
     {
       "id": "surname",
       "fieldId": "surname",
       "label": "Last name",
       "type": "text",
-      "readonly": false,
-      "source": {
-        "field": "currentUser.familyName"
-      }
+      "readonly": false
     },
     {
       "id": "dateGroup",
@@ -31,10 +25,7 @@
       "label": "Date",
       "type": "date",
       "required": true,
-      "readonly": false,
-      "source": {
-        "field": "dateGroupField"
-      }
+      "readonly": false
     },
     {
       "id": "timeGroup",
@@ -42,10 +33,7 @@
       "label": "Time",
       "type": "time",
       "required": true,
-      "readonly": false,
-      "source": {
-        "field": "timeGroupField"
-      }
+      "readonly": false
     },
     {
       "id": "portGroup",
@@ -53,10 +41,7 @@
       "label": "Port",
       "type": "text",
       "required": true,
-      "readonly": false,
-      "source": {
-        "field": "portGroupField"
-      }
+      "readonly": false
     },
     {
       "id": "whereGroup",
@@ -64,10 +49,7 @@
       "label": "Where did you see the incident take place",
       "type": "text",
       "required": true,
-      "readonly": false,
-      "source": {
-        "field": "whereGroupField"
-      }
+      "readonly": false
     },
     {
       "id": "extraDetails",
@@ -94,9 +76,7 @@
         "page": "names",
         "aria_suffix": "names"
       },
-      "actions": [
-        "submit"
-      ]
+      "actions": [ "saveAndContinue", "saveAndReturn" ]
     },
     {
       "id": "dateLocDet",
@@ -120,9 +100,7 @@
         "page": "dateLocDet",
         "aria_suffix": "Date and location details"
       },
-      "actions": [
-        "submit"
-      ]
+      "actions": [ "saveAndContinue", "saveAndReturn" ]
     },
     {
       "id": "additional-info",
@@ -137,14 +115,12 @@
         "page": "additional-info",
         "aria_suffix": "Additional Information"
       },
-      "actions": [
-        "submit"
-      ]
+      "actions": [ "saveAndContinue", "saveAndReturn" ]
     }
   ],
   "cya": {
-    "hide_page_titles": true,
-    "hide_actions": true,
+    "hide_page_titles": false,
+    "hide_actions": false,
     "groups": [
       {
         "pageId": "dateLocDet"
@@ -153,6 +129,9 @@
         "pageId": "names",
         "title": "Names"
       }
+    ],
+    "actions": [
+      { "type": "submit", "label": "Submit", "validate": true }
     ]
   }
 }
