@@ -305,7 +305,7 @@ describe('components', () => {
       fireEvent.click(cyaPage.childNodes[5].childNodes[0], {});
 
       //Should be back at task list
-      expect(container.childNodes[0].childNodes[0].textContent).toEqual('Event at the border');
+      expect(container.childNodes[0].childNodes[0].textContent).toEqual('Task List Form');
 
       //Check status's are correct
       firstTaskStatus = container.childNodes[0].childNodes[1].childNodes[5].childNodes[0].childNodes[1];
