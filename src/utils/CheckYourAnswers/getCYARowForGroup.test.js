@@ -349,7 +349,6 @@ describe('utils', () => {
             }
           }
         ];
-        
         const { container } = render(getCYARowForGroup(PAGE, PAGE.groups[0], rowsObj, ON_ACTION).row.value);
         expect(container.childNodes.length).toEqual(4);
         const addressValues = container.childNodes;

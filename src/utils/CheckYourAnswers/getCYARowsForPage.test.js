@@ -151,7 +151,6 @@ describe('utils', () => {
             postCode: 'SW1A 2AA'
           },
         };
-
         const ON_ACTION = () => {};
         const { container } = render(getCYARowsForPage(PAGE, ON_ACTION).map(row => row.value));
         expect(container.childNodes.length).toEqual(4);
