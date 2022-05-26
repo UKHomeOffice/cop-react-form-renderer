@@ -1,4 +1,5 @@
 // Local imports
+import { render } from '@testing-library/react';
 import { ComponentTypes } from '../../models';
 import getCYARowsForPage from './getCYARowsForPage';
 
@@ -152,52 +153,13 @@ describe('utils', () => {
         };
 
         const ON_ACTION = () => {};
-        const ROWS = getCYARowsForPage(PAGE, ON_ACTION);
-        expect(ROWS.length).toEqual(1);
-        expect(ROWS[0].pageId).toEqual(PAGE.id);
-        const rowsValue = ROWS[0].value.props;
-        expect(rowsValue.children.length).toEqual(4);
-        expect(rowsValue.children[0].props.children.props.value).toContain('10 Downing Street');
-        expect(rowsValue.children[1].props.children.props.value).toContain('City of Westminster');
-        expect(rowsValue.children[2].props.children.props.value).toContain('London');
-        expect(rowsValue.children[3].props.children.props.value).toContain('SW1A 2AA');
-      });
-
-      it('Test for blank field in group block', () => {
-        const COMPONENT_ADDRESS = {id: 'firstLineOfTheAddress', fieldId: 'firstLineOfTheAddress', label: 'address', type: 'text'};
-        const COMPONENT_TOWN = {id: 'town', fieldId: 'town', label: 'Town', type: 'text'};
-        const COMPONENT_CITY = {id: 'city', fieldId: 'city', label: 'City', type: 'text'};
-        const COMPONENT_POSTCODE = {id: 'postCode', fieldId: 'postCode', label: 'postCode', type: 'text'};
-        const PAGE = {
-          components : [ COMPONENT_ADDRESS, COMPONENT_TOWN, COMPONENT_CITY, COMPONENT_POSTCODE ],
-          id: 'addressDetails',
-          fieldId : 'UK address',
-          groups: [
-            {
-              id: 'address',
-              label: 'Address details',
-              components: [
-                'firstLineOfTheAddress',
-                'town',
-                'city',
-                'postCode'
-              ]
-            }
-          ],
-          name: 'address-details',
-          title: 'Address details',
-          formData: {
-            firstLineOfTheAddress: '10 Downing Street',
-            town: 'City of Westminster',
-            city: '',
-            postCode: 'SW1A 2AA'
-          },
-        };
-        const ON_ACTION = () => {};
-        const ROWS = getCYARowsForPage(PAGE, ON_ACTION);
-        expect(ROWS.length).toEqual(1);
-        expect(ROWS[0].pageId).toEqual(PAGE.id);
-        expect(ROWS[0].value.props.children[2]).toEqual(null);
+        const { container } = render(getCYARowsForPage(PAGE, ON_ACTION).map(row => row.value));
+        expect(container.childNodes.length).toEqual(4);
+        const addressValues = container.childNodes;
+        expect(addressValues[0].childNodes[0].textContent).toEqual('10 Downing Street')
+        expect(addressValues[1].childNodes[0].textContent).toEqual('City of Westminster')
+        expect(addressValues[2].childNodes[0].textContent).toEqual('London')
+        expect(addressValues[3].childNodes[0].textContent).toEqual('SW1A 2AA')
       });
 
     });
