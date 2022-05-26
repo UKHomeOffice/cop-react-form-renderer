@@ -266,13 +266,13 @@ describe('components', () => {
       const taskList = container.childNodes[0].childNodes[1];
 
       //Check status's are correct
-      let firstTaskStatus = taskList.childNodes[4].childNodes[0].childNodes[1];
+      let firstTaskStatus = taskList.childNodes[5].childNodes[0].childNodes[1];
       expect(firstTaskStatus.textContent).toEqual(TaskStates.DETAILS[TaskStates.TYPES.NOT_STARTED].label);
-      let secondTaskStatus = taskList.childNodes[4].childNodes[1].childNodes[1];
+      let secondTaskStatus = taskList.childNodes[5].childNodes[1].childNodes[1];
       expect(secondTaskStatus.textContent).toEqual(TaskStates.DETAILS[TaskStates.TYPES.CANNOT_START_YET].label);
 
       //Launch first task
-      const firstTask = taskList.childNodes[4].childNodes[0].childNodes[0].childNodes[0];
+      const firstTask = taskList.childNodes[5].childNodes[0].childNodes[0].childNodes[0];
       expect(firstTask.textContent).toEqual('Date, location and mode details');
       fireEvent.click(firstTask, {});
 
@@ -308,9 +308,9 @@ describe('components', () => {
       expect(container.childNodes[0].childNodes[0].textContent).toEqual('Event at the border');
 
       //Check status's are correct
-      firstTaskStatus = container.childNodes[0].childNodes[1].childNodes[4].childNodes[0].childNodes[1];
+      firstTaskStatus = container.childNodes[0].childNodes[1].childNodes[5].childNodes[0].childNodes[1];
       expect(firstTaskStatus.textContent).toEqual(TaskStates.DETAILS[TaskStates.TYPES.COMPLETE].label);
-      secondTaskStatus = container.childNodes[0].childNodes[1].childNodes[4].childNodes[1].childNodes[1];
+      secondTaskStatus = container.childNodes[0].childNodes[1].childNodes[5].childNodes[1].childNodes[1];
       expect(secondTaskStatus.textContent).toEqual(TaskStates.DETAILS[TaskStates.TYPES.NOT_STARTED].label);
 
       //Check final data submitted to backend is as expected
@@ -335,7 +335,7 @@ describe('components', () => {
       const taskList = container.childNodes[0].childNodes[1];
 
       //Launch first task
-      fireEvent.click(taskList.childNodes[4].childNodes[0].childNodes[0].childNodes[0], {});
+      fireEvent.click(taskList.childNodes[5].childNodes[0].childNodes[0].childNodes[0], {});
 
       //Fill first page and navigate
       let newPage = container.childNodes[0].childNodes[0];
@@ -359,7 +359,7 @@ describe('components', () => {
       fireEvent.click(container.childNodes[0].childNodes[0].childNodes[5].childNodes[0], {});
 
       //Launch same task again
-      fireEvent.click(container.childNodes[0].childNodes[1].childNodes[4].childNodes[0].childNodes[0].childNodes[0], {});
+      fireEvent.click(container.childNodes[0].childNodes[1].childNodes[5].childNodes[0].childNodes[0].childNodes[0], {});
 
       //Should be at CYA page
       expect(container.childNodes[0].childNodes[0].childNodes[0].textContent).toEqual('Check your answers');

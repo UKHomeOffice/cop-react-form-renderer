@@ -72,8 +72,10 @@
       "actions": [
         {
           "type": "saveAndNavigate",
-          "page": "eventMode"
-        }
+          "page": "eventMode",
+          "label": "Save and continue"
+        },
+        "saveAndReturn"
       ],
       "cya_link": {
         "page": "eventDate",
@@ -93,7 +95,8 @@
         {
           "type": "saveAndNavigate",
           "page": "cya"
-        }
+        },
+        "saveAndReturn"
       ],
       "cya_link": {
         "page": "eventMode",
@@ -113,7 +116,8 @@
         {
           "type": "saveAndNavigate",
           "page": "cya"
-        }
+        },
+        "saveAndReturn"
       ],
       "cya_link": {
         "page": "officeDetails",
@@ -133,7 +137,8 @@
         {
           "type": "saveAndNavigate",
           "page": "cya"
-        }
+        },
+        "saveAndReturn"
       ],
       "cya_link": {
         "page": "immigrationDate",
@@ -153,7 +158,8 @@
         {
           "type": "saveAndNavigate",
           "page": "surname"
-        }
+        },
+        "saveAndReturn"
       ],
       "cya_link": {
         "page": "firstName",
@@ -173,7 +179,8 @@
         {
           "type": "saveAndNavigate",
           "page": "cya"
-        }
+        },
+        "saveAndReturn"
       ],
       "cya_link": {
         "page": "surname",
@@ -223,6 +230,9 @@
     ]
   },
   "cya": {
-    "hide_page_titles": false
+    "hide_page_titles": false,
+    "actions": [
+      { "type": "saveAndContinue", "label": "save cont", "validate": true }
+    ]
   }
 }
