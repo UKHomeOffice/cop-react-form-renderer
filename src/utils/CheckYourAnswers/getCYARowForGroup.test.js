@@ -1,8 +1,8 @@
-//local imports 
+// Global imports
 import {render } from '@testing-library/react';
+
+//local imports 
 import getCYARowForGroup from './getCYARowForGroup';
-
-
 
 describe('utils', () => {
 

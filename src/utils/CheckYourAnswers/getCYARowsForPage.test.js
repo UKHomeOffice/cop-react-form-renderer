@@ -1,5 +1,7 @@
+// Global imports
+import {render } from '@testing-library/react';
+
 // Local imports
-import { render } from '@testing-library/react';
 import { ComponentTypes } from '../../models';
 import getCYARowsForPage from './getCYARowsForPage';
 
