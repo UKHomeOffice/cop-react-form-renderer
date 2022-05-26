@@ -223,17 +223,12 @@
         "tasks": [
           {
             "name": "Date, location and mode details",
-            "pages": [
-              "eventDate",
-              "eventMode"
-            ],
+            "pages": ["eventDate", "eventMode"],
             "state": "complete"
           },
           {
             "name": "Officer and agency details",
-            "pages": [
-              "officeDetails"
-            ],
+            "pages": ["officeDetails"],
             "state": "inProgress"
           }
         ]
@@ -243,25 +238,18 @@
         "tasks": [
           {
             "name": "People details",
-            "pages": [
-              "firstName",
-              "surname"
-            ],
+            "pages": ["firstName", "surname"],
             "state": "complete"
           },
           {
             "name": "Immigration details",
             "firstPage": "immigrationDate",
-            "pages": [
-              "immigrationDate"
-            ],
+            "pages": ["immigrationDate"],
             "state": "inProgress"
           },
           {
             "name": "Journey details",
-            "pages": [
-              "journeyDetails"
-            ],
+            "pages": ["journeyDetails"],
             "state": "cannotStartYet"
           }
         ]
