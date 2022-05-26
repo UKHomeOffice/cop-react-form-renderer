@@ -1,8 +1,8 @@
 {
-  "id": "eventAtTheBorder",
+  "id": "cop-taskListForm",
   "version": "1",
-  "name": "Event at the border",
-  "title": "Event at the border",
+  "name": "cop-taskListForm",
+  "title": "Task List Form",
   "type": "task-list",
   "components": [
     {
@@ -57,6 +57,13 @@
         ]
       },
       "required": true
+    },
+    {
+      "id": "journeyDetails",
+      "fieldId": "journeyDetails",
+      "label": "Input the details of the journey",
+      "type": "textarea",
+      "required": true
     }
   ],
   "pages": [
@@ -72,8 +79,7 @@
       "actions": [
         {
           "type": "saveAndNavigate",
-          "page": "eventMode",
-          "label": "Save and continue"
+          "page": "eventMode"
         },
         "saveAndReturn"
       ],
@@ -186,6 +192,26 @@
         "page": "surname",
         "aria_suffix": "Surname"
       }
+    },
+    {
+      "id": "journeyDetails",
+      "name": "journeyDetails",
+      "title": "Journey Details",
+      "components": [
+        {
+          "use": "journeyDetails"
+        }
+      ],
+      "actions": [
+        {
+          "type": "saveAndNavigate",
+          "page": "cya"
+        }
+      ],
+      "cya_link": {
+        "page": "journeyDetails",
+        "aria_suffix": "Journey Details"
+      }
     }
   ],
   "hub": {
@@ -197,12 +223,17 @@
         "tasks": [
           {
             "name": "Date, location and mode details",
-            "pages": ["eventDate", "eventMode"],
+            "pages": [
+              "eventDate",
+              "eventMode"
+            ],
             "state": "complete"
           },
           {
             "name": "Officer and agency details",
-            "pages": ["officeDetails"],
+            "pages": [
+              "officeDetails"
+            ],
             "state": "inProgress"
           }
         ]
@@ -212,17 +243,25 @@
         "tasks": [
           {
             "name": "People details",
-            "pages": ["firstName", "surname"],
+            "pages": [
+              "firstName",
+              "surname"
+            ],
             "state": "complete"
           },
           {
             "name": "Immigration details",
-            "pages": ["immigrationDate"],
+            "firstPage": "immigrationDate",
+            "pages": [
+              "immigrationDate"
+            ],
             "state": "inProgress"
           },
           {
             "name": "Journey details",
-            "pages": ["none"],
+            "pages": [
+              "journeyDetails"
+            ],
             "state": "cannotStartYet"
           }
         ]

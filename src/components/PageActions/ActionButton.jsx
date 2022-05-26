@@ -12,9 +12,8 @@ const ActionButton = ({
   onAction,
   ...attrs
 }) => {
-  const action = typeof (_action) === 'string' ? PageAction.DEFAULTS[_action] : _action;
-  let actionLabel = PageAction.DEFAULTS[_action.type];
-  console.log(actionLabel);
+  const action = typeof(_action) === 'string' ? PageAction.DEFAULTS[_action] : _action;
+  const actionLabel = PageAction.DEFAULTS[_action.type];
   if (!action) {
     return null;
   }
