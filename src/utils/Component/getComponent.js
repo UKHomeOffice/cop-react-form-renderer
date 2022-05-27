@@ -79,10 +79,12 @@ const getRadios = (config) => {
       if(!option.nested.onChange){
         option.nested.onChange = config.onChange;
       }
-      option.nested.sethidden = (hide) => {
-        option.nested.shown =  hide;
+      if(config?.formData?.formData){
+        option.nested.value = config.formData.formData[option.nested.fieldId] ? config.formData.formData[option.nested.fieldId] : '';
       }
-      option.nested.value = config.formData[option.nested.fieldId] ? config.formData[option.nested.fieldId] : '';
+      else{
+        option.nested.value = '';
+      }
       option.nestedJSX = getComponent(option.nested);
     }
   });

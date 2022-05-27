@@ -28,6 +28,7 @@ const FormPage = ({
    * time as the onAction handler is invoked.
   */
   const onPageChange = ({ target }) => {
+    console.log('onpagechange ' + target.name)
     page.formData[target.name] = target.value;
     setPatch(prev => ({
       ...prev,
