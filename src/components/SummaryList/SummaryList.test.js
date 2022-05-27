@@ -64,7 +64,7 @@ describe('components', () => {
       expect(summaryList.childNodes.length).toEqual(ROWS.length);
       ROWS.forEach((row, index) => {
         const [key, value, actions] = checkRow(summaryList, index);
-        expect(key.textContent).toEqual(row.key);
+        expect(key.textContent).toEqual(`${row.key} (optional)`);
         expect(value.textContent).toEqual(row.value);
         expect(actions.childNodes.length).toEqual(0);
       });
@@ -94,7 +94,7 @@ describe('components', () => {
       expect(summaryList.childNodes.length).toEqual(ROWS.length);
       ROWS.forEach((row, index) => {
         const [key, value, actions] = checkRow(summaryList, index);
-        expect(key.textContent).toEqual(row.key);
+        expect(key.textContent).toEqual(`${row.key} (optional)`);
         expect(value.childNodes.length).toEqual(1);
         const valueDiv = value.childNodes[0];
         expect(valueDiv.tagName).toEqual('DIV');
@@ -132,7 +132,7 @@ describe('components', () => {
       expect(summaryList.childNodes.length).toEqual(ROWS.length);
       ROWS.forEach((row, index) => {
         const [key, value, actions] = checkRow(summaryList, index);
-        expect(key.textContent).toEqual(row.key);
+        expect(key.textContent).toEqual(`${row.key} (optional)`);
         expect(value.textContent).toEqual(row.value);
         const a = actions.childNodes[0];
         expect(a.textContent).toEqual(row.action.label);
@@ -166,7 +166,7 @@ describe('components', () => {
       expect(summaryList.childNodes.length).toEqual(ROWS.length);
       ROWS.forEach((row, index) => {
         const [key, value] = checkRowNoChangeActions(summaryList, index);
-        expect(key.textContent).toEqual(row.key);
+        expect(key.textContent).toEqual(`${row.key} (optional)`);
         expect(value.childNodes.length).toEqual(1);
         const valueDiv = value.childNodes[0];
         expect(valueDiv.tagName).toEqual('DIV');
@@ -205,7 +205,7 @@ describe('components', () => {
       expect(summaryList.childNodes.length).toEqual(ROWS.length + 1);
       ROWS.forEach((row, index) => {
         const [key, value] = checkRow(summaryList, index);
-        expect(key.textContent).toEqual(row.key);
+        expect(key.textContent).toEqual(`${row.key} (optional)`);
         expect(value.childNodes.length).toEqual(1);
         const valueDiv = value.childNodes[0];
         expect(valueDiv.tagName).toEqual('DIV');
