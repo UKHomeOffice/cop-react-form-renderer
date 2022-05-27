@@ -45,8 +45,6 @@ const getCheckboxes = (config) => {
 
 const getDate = (config) => {
   const attrs = cleanAttributes(config);
-  console.log("date config ")
-  console.log(config)
   return <DateInput {...attrs} />;
 };
 
@@ -71,7 +69,6 @@ const getInsetText = (config) => {
 };
 
 const getRadios = (config) => {
-  console.log('calling get radios')
   let options = [];
   Data.getOptions(config, (val) => {
     options = val;
@@ -79,15 +76,11 @@ const getRadios = (config) => {
 
   options.forEach((option) => {
     if (option.nested) {
-      // const onOtherChange = (target) => {
-      //   if(target){
-      //     console.log('val: ' + target.target.value)
-      //     config.onChange(target)
-      //   }
-      // }
       if(!option.nested.onChange){
-        console.log("updating onchange")
         option.nested.onChange = config.onChange;
+      }
+      option.nested.sethidden = (hide) => {
+        option.nested.shown =  hide;
       }
       option.nested.value = config.formData[option.nested.fieldId] ? config.formData[option.nested.fieldId] : '';
       option.nestedJSX = getComponent(option.nested);

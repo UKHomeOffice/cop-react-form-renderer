@@ -40,13 +40,12 @@ const validateComponent = (component, formData) => {
     if (!error && component.type === ComponentTypes.RADIOS) {
       component.data.options.some((option) => {
         let nestedError;
-        if (option.nested) {
+        if (option.nested && option.nested.shown) {
           nestedError = validateComponent(option.nested, formData);
-          error = nestedError.error;
+          error = nestedError?.error;
           if(nestedError){
             nestedId = nestedError.id;
           }
-          console.log('setting an error of ' + error + ' of type: ' + typeof(error));
         }
         return nestedError;
       });
@@ -55,7 +54,6 @@ const validateComponent = (component, formData) => {
       error = validateEmail(value, component.label);
     }
     if (!error && component.type === ComponentTypes.DATE) {
-      console.log("Validating date: " + component.fieldId + ", " + value);
       const { message, propsInError } = validateDate(value);
       component.propsInError = propsInError;
       error = message;
@@ -71,9 +69,10 @@ const validateComponent = (component, formData) => {
         component.propsInError = { day: true, month: true, year: true };
       }
     }
-    component.error = error;
+    if(!nestedId){
+      component.error = error;
+    }
   }
-  console.log("!!!! " + nestedId + ' componentid ' + component.id)
   const tmpId = nestedId ? nestedId : component.id
   return error ? { id: tmpId, error: error } : undefined;
 };
