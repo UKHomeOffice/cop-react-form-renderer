@@ -1,0 +1,418 @@
+{
+  "id": "userProfile",
+  "version": "1",
+  "name": "userProfile",
+  "title": "Your profile",
+  "type": "hub-and-spoke",
+  "components": [
+    {
+      "id": "firstName",
+      "fieldId": "firstName",
+      "label": "First name",
+      "type": "input",
+      "readonly": true,
+      "groupId": "addressDetails",
+      "source": {
+        "field": "currentUser.givenName"
+      }
+    },
+    {
+      "id": "surname",
+      "fieldId": "surname",
+      "label": "Last name",
+      "type": "text",
+      "readonly": true,
+      "groupId": "addressDetails",
+      "source": {
+        "field": "currentUser.familyName"
+      }
+    },
+    {
+      "id": "areYouACivilServant",
+      "fieldId": "areYouACivilServant",
+      "label": "Are you a civil servant?",
+      "type": "radios",
+      "required": true,
+      "groupId": "addressDetails",
+      "data": {
+        "url": "${urls.refData}/areYouACivilServant"
+      }
+    },
+    {
+      "id": "staffGradeId",
+      "fieldId": "staffGradeId",
+      "label": "Grade",
+      "hint": "We use this to assign you tasks",
+      "type": "radios",
+      "required": true,
+      "data": {
+        "url": "${urls.refData}/grade"
+      },
+      "source": {
+        "field": "userDetails.gradeid"
+      },
+      "show_when": {
+        "field": "areYouACivilServant",
+        "op": "eq",
+        "value": "yes"
+      }
+    },
+    {
+      "id": "team",
+      "fieldId": "team",
+      "label": "Team",
+      "hint": "We use this to assign you tasks",
+      "type": "autocomplete",
+      "required": true,
+      "item": {
+        "value": "id",
+        "label": "name"
+      },
+      "data": {
+        "url": "${urls.refData}/team"
+      },
+      "displayMenu": "inline",
+      "source": {
+        "field": "userDetails.defaultteam"
+      }
+    },
+    {
+      "id": "linemanagerEmail",
+      "fieldId": "linemanagerEmail",
+      "label": "Line manager email",
+      "hint": "Must be a homeoffice.gov.uk or digital.homeoffice.gov.uk address",
+      "type": "email",
+      "format": {
+        "type": "lowercase",
+        "on": "submit"
+      },
+      "required": true,
+      "source": {
+        "field": "userDetails.linemanagerEmail"
+      }
+    },
+    {
+      "id": "delegateEmails",
+      "fieldId": "delegateEmails",
+      "label": "Delegate email",
+      "hint": "Must be a homeoffice.gov.uk or digital.homeoffice.gov.uk address",
+      "type": "email",
+      "format": {
+        "type": "lowercase",
+        "on": "submit"
+      },
+      "required": true,
+      "source": {
+        "field": "userDetails.delegateEmails"
+      },
+      "show_when": [
+        {
+          "field": "areYouACivilServant",
+          "op": "eq",
+          "value": "yes"
+        },
+        {
+          "field": "staffGradeId",
+          "op": "in",
+          "values": [
+            "373979c1-2360-46be-b712-0409ac068059",
+            "36c80dfe-0aae-455b-9445-2e1c09dcafdc",
+            "1b041cda-b151-4769-b76a-d42d67b0b960",
+            "172de41d-f7b0-4be9-b7e8-0cf4f1a1342f",
+            "39e18b45-0358-4a45-83ec-5a70b74641e8"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "firstLineOfTheAddress",
+      "fieldId": "firstLineOfTheAddress",
+      "label": "Address",
+      "type": "text",
+      "required": true,
+      "groupId": "addressDetails",
+      "custom_errors": [
+        {
+          "type": "required",
+          "message": "Please enter first line of the the address"
+        }
+      ],
+      "source": {
+        "field": "addressDetails.firstLineOfTheAddress"
+      }
+    },
+    {
+      "id": "city",
+      "fieldId": "city",
+      "label": "City",
+      "type": "text",
+      "required": true,
+      "groupId": "addressDetails",
+      "custom_errors": [
+        {
+          "type": "required",
+          "message": "Please enter city"
+        }
+      ],
+      "source": {
+        "field": "addressDetails.city"
+      }
+    },
+    {
+      "id": "town",
+      "fieldId": "town",
+      "label": "Town",
+      "type": "text",
+      "required": true,
+
+      "custom_errors": [
+        {
+          "type": "required",
+          "message": "Please enter Town"
+        }
+      ],
+      "source": {
+        "field": "addressDetails.town"
+      }
+    },
+    {
+      "id": "postCode",
+      "fieldId": "postCode",
+      "label": "Postcode",
+      "type": "text",
+      "required": true,
+      "groupId": "addressDetails",
+      "custom_errors": [
+        {
+          "type": "required",
+          "message": "Please enter postcode"
+        }
+      ],
+      "source": {
+        "field": "addressDetails.postCode"
+      }
+    },
+    {
+      "id": "postCode",
+      "fieldId": "postCode",
+      "label": "Postcode",
+      "type": "text",
+      "required": true,
+      "groupId": "addressDetails",
+      "custom_errors": [
+        {
+          "type": "required",
+          "message": "Please enter postcode"
+        }
+      ],
+      "source": {
+        "field": "addressDetails.postCode"
+      }
+    }
+  ],
+  "pages": [
+    {
+      "id": "names",
+      "name": "names",
+      "components": [
+        {
+          "use": "firstName"
+        },
+        {
+          "use": "surname"
+        }
+      ]
+    },
+    {
+      "id": "civil-servant-status",
+      "name": "civil-servant-status",
+      "title": "Are you a civil servant?",
+      "components": [
+        {
+          "use": "areYouACivilServant",
+          "label": ""
+        }
+      ],
+      "actions": ["submit"],
+      "cya_link": {
+        "page": "civil-servant-status",
+        "aria_suffix": "civil servant status"
+      }
+    },
+    {
+      "id": "grade",
+      "name": "grade",
+      "title": "What's your grade?",
+      "components": [
+        {
+          "use": "staffGradeId",
+          "label": ""
+        }
+      ],
+      "actions": ["submit"],
+      "cya_link": {
+        "page": "grade",
+        "aria_suffix": "grade"
+      }
+    },
+    {
+      "id": "team-name",
+      "name": "team-name",
+      "title": "What's your team name?",
+      "components": [
+        {
+          "use": "team",
+          "label": ""
+        }
+      ],
+      "actions": ["submit"],
+      "cya_link": {
+        "page": "team-name",
+        "aria_suffix": "teams"
+      }
+    },
+    {
+      "id": "add-or-change-line-manager",
+      "name": "add-or-change-line-manager",
+      "title": "Add or change a line manager",
+      "components": [
+        "Your line manager will need to review some of your forms. It’s important to keep their details up-to-date.",
+        "An email will be sent to your line manager to ask if they want to approve your request to add them.",
+        {
+          "type": "inset-text",
+          "content": "The changes will show in your profile when they approve your request."
+        },
+        {
+          "type": "heading",
+          "size": "m",
+          "content": "Mandatory declarations"
+        },
+        "Mandatory declarations will not go to your line manager until they have approved your request."
+      ],
+      "actions": [
+        {
+          "type": "navigate",
+          "page": "line-manager-email"
+        }
+      ],
+      "show_on_cya": false
+    },
+    {
+      "id": "line-manager-email",
+      "name": "line-manager-email",
+      "title": "What’s your line manager’s email address?",
+      "components": [
+        {
+          "use": "linemanagerEmail"
+        }
+      ],
+      "actions": ["submit"],
+      "cya_link": {
+        "page": "add-or-change-line-manager",
+        "aria_suffix": "line manager email address"
+      }
+    },
+    {
+      "id": "add-or-change-delegate",
+      "name": "add-or-change-delegate",
+      "title": "Add or change a delegate",
+      "components": [
+        "A delegate can review a mandatory declaration on your behalf.",
+        "An email will be sent to the delegate to ask if they want to approve your request.",
+        {
+          "type": "inset-text",
+          "content": "The changes will show in your profile when they approve your request."
+        }
+      ],
+      "actions": [
+        {
+          "type": "navigate",
+          "page": "delegate-email"
+        }
+      ],
+      "show_on_cya": false
+    },
+    {
+      "id": "delegate-email",
+      "name": "delegate-email",
+      "title": "What’s your delegate's email address?",
+      "components": [
+        {
+          "use": "delegateEmails",
+          "label": "Delegate email address"
+        },
+        {
+          "use": "delegateEmails",
+          "label": "Delegate email address"
+        }
+      ],
+      "actions": ["submit"],
+      "cya_link": {
+        "page": "add-or-change-delegate"
+      },
+      "show_when": [
+        {
+          "field": "areYouACivilServant",
+          "op": "eq",
+          "value": "yes"
+        },
+        {
+          "field": "staffGradeId",
+          "op": "in",
+          "values": [
+            "373979c1-2360-46be-b712-0409ac068059",
+            "36c80dfe-0aae-455b-9445-2e1c09dcafdc",
+            "1b041cda-b151-4769-b76a-d42d67b0b960",
+            "172de41d-f7b0-4be9-b7e8-0cf4f1a1342f",
+            "39e18b45-0358-4a45-83ec-5a70b74641e8"
+          ]
+        }
+      ]
+    },
+
+    {
+      "id": "address-details",
+      "groupLabel": "UK address",
+      "fieldId": "UK address",
+      "groups": [
+        {
+          "id": "address",
+          "label": "Address details",
+          "components": ["firstLineOfTheAddress", "town", "city", "postCode"]
+        }
+      ],
+      "name": "address-details",
+      "title": "Address details",
+      "components": [
+        {
+          "use": "firstLineOfTheAddress",
+          "label": "Address"
+        },
+        {
+          "use": "town",
+          "label": "Town"
+        },
+        {
+          "use": "city",
+          "label": "City"
+        },
+        {
+          "use": "postCode",
+          "label": "Postcode"
+        }
+      ],
+      "actions": ["saveAndContinue", "saveAndReturn"],
+      "cya_link": {
+        "url": "/address-details",
+        "aria_suffix": "address details"
+      }
+    }
+  ],
+  "hub": {
+    "format": "CYA"
+  },
+  "cya": {
+    "hide_page_titles": true,
+    "hide_actions": true
+  }
+}
