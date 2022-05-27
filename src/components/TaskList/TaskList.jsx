@@ -31,8 +31,12 @@ const TaskList = ({ refTitle, refNumber, sections, fieldId, onTaskAction, classB
 
   return (
     <div {...attrs} className={classes()}>
-        <h2 className='hods-task-reference-description govuk-heading-s govuk-!-margin-bottom-2 govuk-!-padding-right-1'>{`${refTitle}`}</h2>
-        <h2 className='govuk-heading-s hods-task-reference'>{`${refNumber}`}</h2>
+      {refNumber !== null && refNumber !== undefined && (    
+        <>
+          <h2 className='hods-task-reference-description govuk-heading-s govuk-!-margin-bottom-2 govuk-!-padding-right-1'>{`${refTitle}`}</h2>
+          <h2 className='govuk-heading-s govuk-!-font-weight-regular'>{`${refNumber}`}</h2>
+        </>
+        )}
       {numberOfSections !== numberOfCompleteSections && (
         <h2 className='govuk-heading-s govuk-!-margin-bottom-2'>Incomplete form</h2>
       )}
