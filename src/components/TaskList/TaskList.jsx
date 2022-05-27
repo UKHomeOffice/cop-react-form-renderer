@@ -31,7 +31,7 @@ const TaskList = ({ refTitle, refNumber, sections, fieldId, onTaskAction, classB
 
   return (
     <div {...attrs} className={classes()}>
-      {refNumber !== null && refNumber !== undefined && (    
+      {refNumber && (    
         <>
           <h2 className='hods-task-reference-description govuk-heading-s govuk-!-margin-bottom-2 govuk-!-padding-right-1'>{`${refTitle}`}</h2>
           <h2 className='govuk-heading-s govuk-!-font-weight-regular'>{`${refNumber}`}</h2>
