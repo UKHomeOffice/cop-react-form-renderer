@@ -11,6 +11,8 @@ import GRADE from '../../json/grade.json';
 import TEAMS from '../../json/team.json';
 import USER_PROFILE_DATA from '../../json/userProfile.data.json';
 import USER_PROFILE from '../../json/userProfile.json';
+import GROUPED_ADDRESS_DATA_JSON from '../../json/group.data.json';
+import GROUPED_ADDRESS  from '../../json/group.json';
 import GROUP_ROWS from '../../json/groupOfRow.json';
 import Utils from '../../utils';
 import CheckYourAnswers, { DEFAULT_CLASS, DEFAULT_MARGIN_BOTTOM, DEFAULT_TITLE } from './CheckYourAnswers';
@@ -147,9 +149,37 @@ describe('components', () => {
       checkRow(surname, 'Last name', 'Smith', false);
     });
 
-    it('should render a group with one action button', async () => {
+    it('Show answers from multiple address fields into in one DL', async () => {
+      const DATA = Utils.Data.setupForm(GROUPED_ADDRESS.pages, GROUPED_ADDRESS.components, GROUPED_ADDRESS_DATA_JSON)
+      const GROUP_PAGES = Utils.FormPage.getAll(GROUPED_ADDRESS.pages, GROUPED_ADDRESS.components, { ...DATA });
 
-    const GROUP_PAGES = Utils.FormPage.getAll(GROUP_ROWS.pages, GROUP_ROWS.components, { ...DATA });
+      await act(async () => {
+        render(<CheckYourAnswers pages={GROUP_PAGES} onRowAction={ON_ROW_ACTION} onAction={ON_ACTION} hide_title={true}/>, container);
+      });
+
+      const cya = checkCYA(container);
+      const groupedComponent = cya.childNodes[10];
+      const keyGroup = groupedComponent.childNodes[0].childNodes[0].childNodes[0];
+      expect(keyGroup.tagName).toEqual('DT');
+      expect(keyGroup.textContent).toEqual('Address details (optional)');
+
+      const valueGroup = groupedComponent.childNodes[0].childNodes[0].childNodes[1];
+      expect(valueGroup.childNodes.length).toEqual(4);
+      expect(valueGroup.tagName).toEqual('DD');
+      expect(valueGroup.childNodes[0].textContent).toContain('10 Downing Street');
+      expect(valueGroup.childNodes[1].textContent).toContain('City of Westminster');
+      expect(valueGroup.childNodes[2].textContent).toContain('London');
+      expect(valueGroup.childNodes[3].textContent).toContain('SW1A 2AA');
+
+      const changeButtonDiv = groupedComponent.childNodes[0].childNodes[0].childNodes[2];
+      expect(changeButtonDiv.classList).toContain('govuk-summary-list__actions');
+      const changeButton = changeButtonDiv.childNodes[0];
+      expect(changeButton.tagName).toEqual('A');
+      expect(changeButton.textContent).toEqual('Change address details');
+    });
+
+    it('should render a group with one action button', async () => {
+      const GROUP_PAGES = Utils.FormPage.getAll(GROUP_ROWS.pages, GROUP_ROWS.components, { ...DATA });
 
       await act(async () => {
         render(<CheckYourAnswers pages={GROUP_PAGES} onRowAction={ON_ROW_ACTION} onAction={ON_ACTION} groups={GROUP_ROWS.cya.groups} />, container);
@@ -177,7 +207,6 @@ describe('components', () => {
       expect(changeButton.tagName).toEqual('A');
       expect(changeButton.textContent).toEqual('Change names');
     });
-
 
   });
 
