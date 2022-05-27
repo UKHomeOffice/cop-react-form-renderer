@@ -412,7 +412,7 @@
     "format": "CYA"
   },
   "cya": {
-    "hide_page_titles": true,
+    "hide_page_titles": true, 
     "hide_actions": true
   }
 }
