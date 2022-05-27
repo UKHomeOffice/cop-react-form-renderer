@@ -75,18 +75,14 @@ const getRadios = (config) => {
   });
 
   options.forEach((option) => {
-    if (option.nested) {
-      if(!option.nested.onChange){
-        option.nested.onChange = config.onChange;
-      }
-      if(config?.formData?.formData){
-        option.nested.value = config.formData.formData[option.nested.fieldId] ? config.formData.formData[option.nested.fieldId] : '';
-      }
-      else{
-        option.nested.value = '';
-      }
-      option.nestedJSX = getComponent(option.nested);
+    if (!option.nested){
+      return;
     }
+    if(!option.nested.onChange){
+      option.nested.onChange = config.onChange;
+    }
+    option.nested.value = config?.formData?.formData?.[option.nested.fieldId] ? config.formData.formData[option.nested.fieldId] : '';
+    option.nestedJSX = getComponent(option.nested);
   });
 
   const attrs = cleanAttributes(config);
