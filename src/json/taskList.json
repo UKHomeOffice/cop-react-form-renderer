@@ -277,7 +277,7 @@
             "pages": [
               "submitForm"
             ],
-            "state": "cannotStartYet"
+            "state": "inProgress"
           }
         ]
       }

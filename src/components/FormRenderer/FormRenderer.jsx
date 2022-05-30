@@ -130,7 +130,12 @@ const FormRenderer = ({
           setData(submissionData);
           // Now submit the data to the backend...
           hooks.onSubmit(action.type, submissionData,
-            () => hooks.onFormComplete(),
+            () => {
+              hooks.onFormComplete();
+              const submitted = true;
+              submissionData.formStatus = helpers.getSubmissionStatus(type, pages, pageId, action, submissionData, currentTask, submitted);
+              setData(submissionData);
+            },
             (errors) => handlers.submissionError(errors, onError)
           );
         }
