@@ -206,7 +206,8 @@
         {
           "type": "saveAndNavigate",
           "page": "cya"
-        }
+        },
+        "saveAndReturn"
       ],
       "cya_link": {
         "page": "journeyDetails",
@@ -223,7 +224,8 @@
           "type": "submit",
           "label": "Submit",
           "validate": true
-        }
+        },
+        "saveAndReturn"
       ]
     }
   ],
