@@ -33,12 +33,12 @@ const validateComponent = (component, formData) => {
       return validateContainer(component, formData);
     }
     const value = data[component.fieldId];
-    delete component.propsInError;
+    delete component.propsInError; //TODO check this
     if (component.required) {
       error = validateRequired(value, component.label, component.custom_errors);
     }
     if (!error && component.type === ComponentTypes.RADIOS) {
-      component.data.options.some((option) => {
+      component.data.options?.some((option) => {
         let nestedError;
         if (option.nested && option.nested.shown) {
           nestedError = validateComponent(option.nested, formData);
@@ -73,7 +73,7 @@ const validateComponent = (component, formData) => {
       component.error = error;
     }
   }
-  const tmpId = nestedId ? nestedId : component.id
+  const tmpId = nestedId ? nestedId : component?.id
   return error ? { id: tmpId, error: error } : undefined;
 };
 

@@ -73,18 +73,12 @@ const getRadios = (config) => {
   Data.getOptions(config, (val) => {
     options = val;
   });
-
   options.forEach((option) => {
     if (!option.nested){
       return;
     }
-    if(!option.nested.onChange){
-      option.nested.onChange = config.onChange;
-    }
-    option.nested.value = config?.formData?.formData?.[option.nested.fieldId] ? config.formData.formData[option.nested.fieldId] : '';
-    option.nestedJSX = getComponent(option.nested);
+    option.nestedJSX = getNestedComponent(config, option);
   });
-
   const attrs = cleanAttributes(config);
   return <Radios {...attrs} options={options} />;
 };
@@ -103,7 +97,6 @@ const getTime = (config) => {
   const attrs = cleanAttributes(config);
   return <TimeInput {...attrs} />;
 };
-
 
 const getComponentByType = (config) => {
   switch (config.type) {
@@ -136,6 +129,22 @@ const getComponentByType = (config) => {
     }
   }
 };
+
+/**
+ * Get nested component with form data
+ * @param {*} parentConfig 
+ * @param {*} nestedConfig 
+ */
+const getNestedComponent = (parentConfig, nestedConfig) => {
+  nestedConfig.nested.onChange = parentConfig.onChange;
+  if (parentConfig.formData) {
+    nestedConfig.nested.value = parentConfig?.formData?.[nestedConfig.nested.fieldId] ? parentConfig.formData[nestedConfig.nested.fieldId] : '';
+  }
+  nestedConfig.nested.readonly = parentConfig.readonly;
+  return getComponent(nestedConfig.nested);
+};
+
+export { getNestedComponent };
 
 /**
  * Get a renderable component, based on a configuration object.

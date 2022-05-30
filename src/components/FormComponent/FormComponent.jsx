@@ -135,7 +135,7 @@ const FormComponent = ({
     options,
     value: value || defaultValue,
     onChange: onComponentChange,
-    formData: {formData}
+    formData: formData
   }, wrap, hooks.onGetComponent);
 };
 
