@@ -9,7 +9,9 @@ const getSubmissionStatus = (formType, pages, currentPageId, action, formData, c
 
     if (currentPageId === FormPages.CYA) {
       formStatus.tasks[currentTask.name].complete = true;
-    } else {
+    } else if (currentPageId === FormPages.SUBMIT) { 
+      formStatus.tasks[currentTask.name].complete = true;
+    } else{
       formStatus.tasks[currentTask.name] = {
         complete: false,
         currentPage: action.page

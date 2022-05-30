@@ -212,6 +212,19 @@
         "page": "journeyDetails",
         "aria_suffix": "Journey Details"
       }
+    },
+    {
+      "id": "submitForm",
+      "name": "submitForm",
+      "title": "Submit",
+      "components": [],
+      "actions": [
+        {
+          "type": "submit",
+          "label": "Submit",
+          "validate": true
+        }
+      ]
     }
   ],
   "hub": {
@@ -253,13 +266,29 @@
             "state": "cannotStartYet"
           }
         ]
+      },
+      {
+        "name": "Submit form",
+        "tasks": [
+          {
+            "name": "Accept and submit",
+            "pages": [
+              "submitForm"
+            ],
+            "state": "cannotStartYet"
+          }
+        ]
       }
     ]
   },
   "cya": {
     "hide_page_titles": false,
     "actions": [
-      { "type": "saveAndContinue", "label": "save cont", "validate": true }
+      {
+        "type": "saveAndContinue",
+        "label": "save cont",
+        "validate": true
+      }
     ]
   }
 }

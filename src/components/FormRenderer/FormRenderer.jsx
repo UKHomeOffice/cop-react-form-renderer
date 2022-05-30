@@ -122,7 +122,20 @@ const FormRenderer = ({
     if (helpers.canActionProceed(action, formState.page, onError)) {
       if (action.type === PageAction.TYPES.NAVIGATE) {
         handlers.navigate(action, pageId, onPageChange);
-      } else {
+      } else if (action.type === PageAction.TYPES.SUBMIT && type === FormTypes.TASK) {
+        if (helpers.canCYASubmit(pages, onError)) {
+          // Submit.
+          const submissionData = Utils.Format.form({ pages, components }, { ...data }, EventTypes.SUBMIT);
+          submissionData.formStatus = helpers.getSubmissionStatus(type, pages, pageId, action, submissionData, currentTask);
+          setData(submissionData);
+          // Now submit the data to the backend...
+          hooks.onSubmit(action.type, submissionData,
+            () => hooks.onFormComplete(),
+            (errors) => handlers.submissionError(errors, onError)
+          );
+        }
+      }
+      else {
         // Save draft or submit.
         const submissionData = Utils.Format.form({ pages, components }, { ...data, ...patch }, EventTypes.SUBMIT);
         submissionData.formStatus = helpers.getSubmissionStatus(type, pages, pageId, action, submissionData, currentTask);
