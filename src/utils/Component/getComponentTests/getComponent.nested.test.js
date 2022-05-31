@@ -1,12 +1,11 @@
 // Global imports
-import { getAllByTestId, render } from '@testing-library/react';
-import { act } from 'react-dom/test-utils';
+import { render } from '@testing-library/react';
 // Local imports
 import { getNestedComponent } from '../getComponent';
 
 describe('utils.Component.get', () => {
-      
-  it('should return a component that is nested within another component', () => {
+
+  it('should return a component that is nested within another component', async () => {
     const ID = 'testId';
     const FIELD_ID = 'fieldId';
     const LABEL = 'Test label';
@@ -25,7 +24,6 @@ describe('utils.Component.get', () => {
             type: 'text'
         }
     };
-
     const { container } = render(getNestedComponent(PARENT_CONFIG, NESTED_CONFIG));
     const child = container.childNodes[0];
     expect(child.classList).toContain('govuk-form-group');
@@ -38,9 +36,6 @@ describe('utils.Component.get', () => {
     expect(input.tagName).toEqual('INPUT');
     expect(input.classList).toContain('govuk-input');
     expect(input.id).toEqual(ID);
-    console.log(input)
-    expect(input.textContent).toContain(VALUE);
-
+    expect(input.value).toEqual(VALUE);
   });
-
 });
