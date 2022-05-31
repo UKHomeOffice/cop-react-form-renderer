@@ -33,7 +33,7 @@ const validateComponent = (component, formData) => {
       return validateContainer(component, formData);
     }
     const value = data[component.fieldId];
-    delete component.propsInError; //TODO check this
+    delete component.propsInError;
     if (component.required) {
       error = validateRequired(value, component.label, component.custom_errors);
     }
