@@ -6,8 +6,7 @@ export const JSON_ONLY_PROPERTIES = [
   'additionalValidation',
   'full_path',
   'shown',
-  'formData',
-  'readonly'
+  'formData'
 ];
 
 /**
