@@ -85,6 +85,29 @@ describe('utils', () => {
         expectObjectLike(ROW.action, { onAction: ON_ACTION });
       });
 
+      it('should update update any nested components with corresponding values from the stored formdata', () => {
+        const SELECTED_VALUE = 'selectedValue';
+        const NESTED_ID = 'nestedId';
+        const NESTED_VALUE = 'nestedValue';
+        const PAGE = { id: 'page', formData: { a: SELECTED_VALUE, [NESTED_ID]: NESTED_VALUE }, cya_link: {} };
+        const COMPONENT = {
+          type: 'radios',
+          id: 'a',
+          data: {
+            options: [
+              {
+                value: SELECTED_VALUE,
+                nested: {
+                  id: NESTED_ID,
+                },
+              }
+            ],
+          },
+        }; 
+        const ROW = getCYARow(PAGE, COMPONENT, () => {});
+        expect(ROW.component.data.options[0].nested.value).toEqual(NESTED_VALUE);
+      });
+
     });
 
   });

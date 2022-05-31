@@ -33,9 +33,9 @@ export default getCYARow;
 
 const setNestedValue = (component, page) => {
   component.data?.options?.forEach((option, index) => {
+    //check if option is selected and has nested component
     if (page.formData[component.id] === option.value && option.nested) {
       component.data.options[index].nested.value = page.formData[option.nested.id];
     }
   });
 }
-

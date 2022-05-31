@@ -38,4 +38,31 @@ describe('utils.Component.get', () => {
     expect(input.id).toEqual(ID);
     expect(input.value).toEqual(VALUE);
   });
+
+  it('should return a read only component that is nested within another readonly component', async () => {
+    const ID = 'testId';
+    const FIELD_ID = 'fieldId';
+    const LABEL = 'Test label';
+    const VALUE = 'nestedValue';
+    const PARENT_CONFIG = {
+        onChange: () => {},
+        formData: {
+            [FIELD_ID]: VALUE
+        },
+        readonly: true
+    };
+    const NESTED_CONFIG = {
+        nested: {
+            id: ID,
+            fieldId: FIELD_ID,
+            label: LABEL,
+            type: 'text',
+            readonly: true
+        }
+    };
+    const { container } = render(getNestedComponent(PARENT_CONFIG, NESTED_CONFIG));
+    const child = container.childNodes[0];
+    expect(child.classList).toContain('hods-readonly');
+
+  });
 });
