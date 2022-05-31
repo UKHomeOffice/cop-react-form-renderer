@@ -140,7 +140,12 @@ const getNestedComponent = (parentConfig, nestedConfig) => {
   if (parentConfig.formData) {
     nestedConfig.nested.value = parentConfig?.formData?.[nestedConfig.nested.fieldId] ? parentConfig.formData[nestedConfig.nested.fieldId] : '';
   }
-  nestedConfig.nested.readonly = parentConfig.readonly;
+  if ('readonly' in nestedConfig.nested)
+    delete nestedConfig.nested.readonly;
+  if(parentConfig.readonly){
+    nestedConfig.nested.readonly = parentConfig.readonly;
+    return getComponent(nestedConfig.nested, false);
+  }
   return getComponent(nestedConfig.nested);
 };
 
@@ -160,7 +165,7 @@ const getComponent = (config, wrap = true, fnOverride = undefined) => {
       return overrideComponent;
     }
   }
-  const component = getComponentByType(config);
+const component = getComponentByType(config);
   if (component && wrap && isEditable(config)) {
     const attrs = cleanAttributes(config, ['fieldId', 'displayMenu']);
     return wrapInFormGroup(attrs, component);
