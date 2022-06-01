@@ -195,7 +195,31 @@ const FormRenderer = ({
         submissionData.formStatus = helpers.getSubmissionStatus(type, pages, pageId, action, submissionData, currentTask);
         setData(submissionData);
         hooks.onSubmit(action.type, submissionData, 
-          () => onPageChange(FormPages.HUB),
+          () => {
+            if (type === FormTypes.TASK) {
+              onPageChange(undefined)
+             }
+            else {
+              onPageChange(FormPages.HUB)
+            }
+
+          },
+          (errors) => handlers.submissionError(errors, onError)
+        );
+      }
+    }
+
+    if (action.type === PageAction.TYPES.SAVE_AND_CONTINUE) {
+      if (helpers.canCYASubmit(currentTask.fullPages, onError)) {
+        const submissionData = Utils.Format.form({ pages, components }, { ...data }, EventTypes.SUBMIT);
+        submissionData.formStatus = helpers.getSubmissionStatus(type, pages, pageId, action, submissionData, currentTask);
+        setData(submissionData);
+        hooks.onSubmit(action.type, submissionData, 
+          () => {
+            if (type === FormTypes.TASK) {
+              onPageChange(FormPages.HUB)
+            }
+          },
           (errors) => handlers.submissionError(errors, onError)
         );
       }
@@ -205,7 +229,8 @@ const FormRenderer = ({
   const classes = Utils.classBuilder(classBlock, classModifiers, className);
 
   if(hub === HubFormats.TASK){
-    cya.actions = [{ type: PageAction.TYPES.SAVE_AND_RETURN, label: 'Submit', validate: true }];
+    cya.actions = [ "saveAndContinue",
+                    "saveAndReturn"];
   }
 
   return (

@@ -301,7 +301,8 @@ describe('components', () => {
       //Continue on from CYA page
       const cyaPage = container.childNodes[0].childNodes[0];
       expect(cyaPage.childNodes[0].textContent).toEqual('Check your answers');
-      expect(cyaPage.childNodes[5].textContent).toEqual('Submit');
+      expect(cyaPage.childNodes[5].childNodes[0].textContent).toEqual('Save and continue');
+      expect(cyaPage.childNodes[5].childNodes[1].textContent).toEqual('Save and return later');
       fireEvent.click(cyaPage.childNodes[5].childNodes[0], {});
 
       //Should be back at task list
