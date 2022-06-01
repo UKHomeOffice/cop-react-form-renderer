@@ -184,7 +184,7 @@ const FormRenderer = ({
       if (helpers.canCYASubmit(pages, onError)) {
         // Submit.
         const submissionData = Utils.Format.form({ pages, components }, { ...data }, EventTypes.SUBMIT);
-        submissionData.formStatus = helpers.getSubmissionStatus(type, pages, pageId, action);
+        submissionData.formStatus = helpers.getSubmissionStatus(type, pages, pageId, action, submissionData, currentTask, true);
         setData(submissionData);
         // Now submit the data to the backend...
         hooks.onSubmit(action.type, submissionData,
@@ -196,7 +196,8 @@ const FormRenderer = ({
     if (action.type === PageAction.TYPES.SAVE_AND_RETURN) {
       if (helpers.canCYASubmit(currentTask.fullPages, onError)) {
         const submissionData = Utils.Format.form({ pages, components }, { ...data }, EventTypes.SUBMIT);
-        submissionData.formStatus = helpers.getSubmissionStatus(type, pages, pageId, action, submissionData, currentTask);
+        const submitted = false;
+        submissionData.formStatus = helpers.getSubmissionStatus(type, pages, pageId, action, submissionData, currentTask, submitted);
         setData(submissionData);
         hooks.onSubmit(action.type, submissionData,
           () => onPageChange(FormPages.HUB),
