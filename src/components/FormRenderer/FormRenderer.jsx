@@ -202,7 +202,6 @@ const FormRenderer = ({
             else {
               onPageChange(FormPages.HUB)
             }
-
           },
           (errors) => handlers.submissionError(errors, onError)
         );
