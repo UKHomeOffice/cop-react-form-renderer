@@ -34,6 +34,7 @@ describe('utils', () => {
         const ON_ACTION = () => {};
         expect(getCYARow(PAGE, COMPONENT, ON_ACTION)).toEqual({
           pageId: PAGE.id,
+          id: COMPONENT.id,
           fieldId: COMPONENT.fieldId,
           key: COMPONENT.label,
           value: '',
@@ -48,6 +49,7 @@ describe('utils', () => {
         const ON_ACTION = () => {};
         expect(getCYARow(PAGE, COMPONENT, ON_ACTION)).toEqual({
           pageId: PAGE.id,
+          id: COMPONENT.id,
           fieldId: COMPONENT.fieldId,
           key: COMPONENT.label,
           value: 'BLAH',

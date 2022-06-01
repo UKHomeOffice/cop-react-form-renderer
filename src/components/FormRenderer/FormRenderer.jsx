@@ -96,7 +96,7 @@ const FormRenderer = ({
   // Update task list pages with form data and update states
   useEffect(() => {
     const pages = currentTask.fullPages;
-    if(pages){
+    if (pages) {
       pages.forEach(page => {
         page.formData = data;
       });
@@ -163,10 +163,14 @@ const FormRenderer = ({
         currentTask.fullPages.push(helpers.getPage(page, pages));
       });
       setCurrentTask(currentTask);
-      if(currentTask.state === TaskStates.TYPES.COMPLETE){
+      if (currentTask.state === TaskStates.TYPES.COMPLETE) {
         onPageChange(FormPages.CYA);
       }
-      else{
+      if (currentTask.state === TaskStates.TYPES.IN_PROGRESS) {
+        const currentPage = currentTask.fullPages[0].formData.formStatus.tasks[currentTask.name].currentPage;
+        onPageChange(currentPage || currentTask.pages[0]);
+      }
+      else {
         onPageChange(currentTask.pages[0]);
       }
     }
@@ -180,7 +184,7 @@ const FormRenderer = ({
       if (helpers.canCYASubmit(pages, onError)) {
         // Submit.
         const submissionData = Utils.Format.form({ pages, components }, { ...data }, EventTypes.SUBMIT);
-        submissionData.formStatus = helpers.getSubmissionStatus(type, pages, pageId, action);
+        submissionData.formStatus = helpers.getSubmissionStatus(type, pages, pageId, action, submissionData, currentTask, true);
         setData(submissionData);
         // Now submit the data to the backend...
         hooks.onSubmit(action.type, submissionData,
@@ -203,10 +207,35 @@ const FormRenderer = ({
     if (action.type === PageAction.TYPES.SAVE_AND_RETURN) {
       if (helpers.canCYASubmit(currentTask.fullPages, onError)) {
         const submissionData = Utils.Format.form({ pages, components }, { ...data }, EventTypes.SUBMIT);
+        // const submitted = false;
+        console.log(currentTask);
         submissionData.formStatus = helpers.getSubmissionStatus(type, pages, pageId, action, submissionData, currentTask);
         setData(submissionData);
-        hooks.onSubmit(action.type, submissionData, 
-          () => onPageChange(FormPages.HUB),
+        hooks.onSubmit(action.type, submissionData,
+          () => {
+            if (type === FormTypes.TASK) {
+              onPageChange(undefined)
+            }
+            else {
+              onPageChange(FormPages.HUB)
+            }
+          },
+          (errors) => handlers.submissionError(errors, onError)
+        );
+      }
+    }
+
+    if (action.type === PageAction.TYPES.SAVE_AND_CONTINUE) {
+      if (helpers.canCYASubmit(currentTask.fullPages, onError)) {
+        const submissionData = Utils.Format.form({ pages, components }, { ...data }, EventTypes.SUBMIT);
+        submissionData.formStatus = helpers.getSubmissionStatus(type, pages, pageId, action, submissionData, currentTask);
+        setData(submissionData);
+        hooks.onSubmit(action.type, submissionData,
+          () => {
+            if (type === FormTypes.TASK) {
+              onPageChange(FormPages.HUB)
+            }
+          },
           (errors) => handlers.submissionError(errors, onError)
         );
       }
