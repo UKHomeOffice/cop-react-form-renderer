@@ -1,13 +1,13 @@
 import { FormPages, FormTypes, PageAction } from '../../../models';
 import getNextPageId from './getNextPageId';
 
-const getSubmissionStatus = (formType, pages, currentPageId, action, formData, currentTask) => {
+const getSubmissionStatus = (formType, pages, currentPageId, action, formData, currentTask, isSubmitted) => {
   if (formType === FormTypes.TASK) {
     const formStatus = formData.formStatus ? formData.formStatus : {};
     formStatus.tasks = formStatus.tasks ? formStatus.tasks : {};
     formStatus.tasks[currentTask.name] = formStatus.tasks[currentTask.name] ? formStatus.tasks[currentTask.name] : {};
 
-    if (currentPageId === FormPages.CYA) {
+    if (currentPageId === FormPages.CYA && isSubmitted) {
       formStatus.tasks[currentTask.name].complete = true;
     } else {
       formStatus.tasks[currentTask.name] = {

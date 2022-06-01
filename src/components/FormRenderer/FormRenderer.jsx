@@ -184,7 +184,7 @@ const FormRenderer = ({
       if (helpers.canCYASubmit(pages, onError)) {
         // Submit.
         const submissionData = Utils.Format.form({ pages, components }, { ...data }, EventTypes.SUBMIT);
-        submissionData.formStatus = helpers.getSubmissionStatus(type, pages, pageId, action);
+        submissionData.formStatus = helpers.getSubmissionStatus(type, pages, pageId, action, submissionData, currentTask, true);
         setData(submissionData);
         // Now submit the data to the backend...
         hooks.onSubmit(action.type, submissionData,
