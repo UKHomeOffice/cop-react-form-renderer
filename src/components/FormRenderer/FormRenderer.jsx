@@ -96,7 +96,7 @@ const FormRenderer = ({
   // Update task list pages with form data and update states
   useEffect(() => {
     const pages = currentTask.fullPages;
-    if(pages){
+    if (pages) {
       pages.forEach(page => {
         page.formData = data;
       });
@@ -163,10 +163,14 @@ const FormRenderer = ({
         currentTask.fullPages.push(helpers.getPage(page, pages));
       });
       setCurrentTask(currentTask);
-      if(currentTask.state === TaskStates.TYPES.COMPLETE){
+      if (currentTask.state === TaskStates.TYPES.COMPLETE) {
         onPageChange(FormPages.CYA);
       }
-      else{
+      if (currentTask.state === TaskStates.TYPES.IN_PROGRESS) {
+        const currentPage = currentTask.fullPages[0].formData.formStatus.tasks[currentTask.name].currentPage;
+        onPageChange(currentPage || currentTask.pages[0]);
+      }
+      else {
         onPageChange(currentTask.pages[0]);
       }
     }
@@ -194,7 +198,7 @@ const FormRenderer = ({
         const submissionData = Utils.Format.form({ pages, components }, { ...data }, EventTypes.SUBMIT);
         submissionData.formStatus = helpers.getSubmissionStatus(type, pages, pageId, action, submissionData, currentTask);
         setData(submissionData);
-        hooks.onSubmit(action.type, submissionData, 
+        hooks.onSubmit(action.type, submissionData,
           () => onPageChange(FormPages.HUB),
           (errors) => handlers.submissionError(errors, onError)
         );
@@ -204,7 +208,7 @@ const FormRenderer = ({
 
   const classes = Utils.classBuilder(classBlock, classModifiers, className);
 
-  if(hub === HubFormats.TASK){
+  if (hub === HubFormats.TASK) {
     cya.actions = [{ type: PageAction.TYPES.SAVE_AND_RETURN, label: 'Submit', validate: true }];
   }
 
