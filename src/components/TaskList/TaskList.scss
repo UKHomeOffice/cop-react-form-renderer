@@ -11,7 +11,7 @@
     min-width: 550px;
   }
   .hods-task-list__items {
-    @include govuk-font($size: 19);
+   font-size: 19px;
     @include govuk-responsive-margin(9, 'bottom');
     list-style: none;
     padding-left: 0;
@@ -21,7 +21,8 @@
 
 .hods-task-list__section {
   display: table;
-  @include govuk-font($size: 24, $weight: bold);
+ font-size: 24px;
+ font-weight: bold;
 }
 
 .hods-task-list__section-number {
