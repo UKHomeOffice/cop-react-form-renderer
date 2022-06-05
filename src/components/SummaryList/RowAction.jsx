@@ -17,7 +17,7 @@ const RowAction = ({ row }) => {
   }
 
   return (
-    <Link {...attrs}>
+    <Link {...attrs} tabIndex='0'>
       {row.action.label}
       {row.action.aria_suffix && <VisuallyHidden> {row.action.aria_suffix}</VisuallyHidden>}
     </Link>

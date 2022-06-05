@@ -18,7 +18,7 @@ const GroupAction = ({ group }) => {
   }
 
   return (
-    <Link {...attrs}>
+    <Link {...attrs} tabIndex='0'>
       {group.action.label}
       {group.action.aria_suffix && (
         <span className='mobile-text govuk-link'>{' '}{`${group.action.aria_suffix}`}</span>
