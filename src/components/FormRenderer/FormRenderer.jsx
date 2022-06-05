@@ -125,7 +125,7 @@ const FormRenderer = ({
       } else {
         // Save draft or submit.
         const submissionData = Utils.Format.form({ pages, components }, { ...data, ...patch }, EventTypes.SUBMIT);
-        submissionData.formStatus = helpers.getSubmissionStatus(type, pages, pageId, action, submissionData, currentTask);
+        submissionData.formStatus = helpers.getSubmissionStatus(type, pages, pageId, action, submissionData, currentTask, true);
         if (patch) {
           setData(submissionData);
         }
@@ -196,7 +196,7 @@ const FormRenderer = ({
     if (action.type === PageAction.TYPES.SAVE_AND_CONTINUE && hub === HubFormats.TASK) {
       if (helpers.canCYASubmit(currentTask.fullPages, onError)) {
         const submissionData = Utils.Format.form({ pages, components }, { ...data }, EventTypes.SUBMIT);
-        submissionData.formStatus = helpers.getSubmissionStatus(type, pages, pageId, action, submissionData, currentTask);
+        submissionData.formStatus = helpers.getSubmissionStatus(type, pages, pageId, action, submissionData, currentTask, true);
         setData(submissionData);
         hooks.onSubmit(action.type, submissionData, 
           () => onPageChange(FormPages.HUB),
@@ -207,8 +207,6 @@ const FormRenderer = ({
     if (action.type === PageAction.TYPES.SAVE_AND_RETURN) {
       if (helpers.canCYASubmit(currentTask.fullPages, onError)) {
         const submissionData = Utils.Format.form({ pages, components }, { ...data }, EventTypes.SUBMIT);
-        // const submitted = false;
-        console.log(currentTask);
         submissionData.formStatus = helpers.getSubmissionStatus(type, pages, pageId, action, submissionData, currentTask);
         setData(submissionData);
         hooks.onSubmit(action.type, submissionData,
@@ -225,21 +223,6 @@ const FormRenderer = ({
       }
     }
 
-    if (action.type === PageAction.TYPES.SAVE_AND_CONTINUE) {
-      if (helpers.canCYASubmit(currentTask.fullPages, onError)) {
-        const submissionData = Utils.Format.form({ pages, components }, { ...data }, EventTypes.SUBMIT);
-        submissionData.formStatus = helpers.getSubmissionStatus(type, pages, pageId, action, submissionData, currentTask);
-        setData(submissionData);
-        hooks.onSubmit(action.type, submissionData,
-          () => {
-            if (type === FormTypes.TASK) {
-              onPageChange(FormPages.HUB)
-            }
-          },
-          (errors) => handlers.submissionError(errors, onError)
-        );
-      }
-    }
   };
 
   const classes = Utils.classBuilder(classBlock, classModifiers, className);
