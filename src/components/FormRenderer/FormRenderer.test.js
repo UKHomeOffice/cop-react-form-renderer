@@ -364,7 +364,7 @@ describe('components', () => {
 
 
       //Should be at CYA page
-      expect(container.childNodes[0].childNodes[0].childNodes[0].textContent).toEqual('Event Date');
+      expect(container.childNodes[0].childNodes[0].childNodes[0].textContent).toEqual('Check your answers');
     });
 
   });

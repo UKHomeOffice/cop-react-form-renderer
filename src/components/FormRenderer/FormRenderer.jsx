@@ -164,14 +164,11 @@ const FormRenderer = ({
       });
       setCurrentTask(currentTask);
       if (currentTask.state === TaskStates.TYPES.COMPLETE) {
-        console.log(FormPages.CYA);
         onPageChange(FormPages.CYA);
       }
-      if (currentTask.state === TaskStates.TYPES.IN_PROGRESS) {
-        console.log(data);
+      else if (currentTask.state === TaskStates.TYPES.IN_PROGRESS) {
         const currentPage = data.formStatus.tasks[currentTask.name].currentPage;
-        console.log(currentPage);
-        onPageChange(currentPage || FormPages.CYA);
+        onPageChange(currentPage || currentTask.pages[0]);
       }
       else {
         onPageChange(currentTask.pages[0]);
