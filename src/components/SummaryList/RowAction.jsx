@@ -17,7 +17,12 @@ const RowAction = ({ row }) => {
   }
 
   return (
-    <Link {...attrs} tabIndex='0'>
+    <Link {...attrs} tabIndex='0'
+      onKeyPress={(event) => {
+      if (event.key === 'Enter') {
+        ({...attrs})
+      }
+    }}>
       {row.action.label}
       {row.action.aria_suffix && <VisuallyHidden> {row.action.aria_suffix}</VisuallyHidden>}
     </Link>

@@ -18,7 +18,12 @@ const GroupAction = ({ group }) => {
   }
 
   return (
-    <Link {...attrs} tabIndex='0'>
+    <Link {...attrs} tabIndex='0'
+      onKeyPress={(event) => {
+      if (event.key === 'Enter') {
+        onClick(...attrs);
+      }
+    }}>
       {group.action.label}
       {group.action.aria_suffix && (
         <span className='mobile-text govuk-link'>{' '}{`${group.action.aria_suffix}`}</span>
