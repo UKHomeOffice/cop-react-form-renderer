@@ -9,7 +9,17 @@ const getSubmissionStatus = (formType, pages, currentPageId, action, formData, c
 
     if (currentPageId === (FormPages.CYA || 'submitForm') && isCompleted) {
       formStatus.tasks[currentTask.name].complete = true;
-    } else {
+    }
+    else if (action?.type === PageAction.TYPES.SAVE_AND_NAVIGATE) {
+      console.log('pg action sc');
+      formStatus.tasks[currentTask.name] = {
+        complete: false,
+        currentPage: getNextPageId(formType, pages, currentPageId, action, formData)
+      };
+    }
+    else
+    {
+      console.log('got to else stmt');
       formStatus.tasks[currentTask.name] = {
         complete: false,
         currentPage: currentPageId
