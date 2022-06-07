@@ -1,4 +1,5 @@
 // Local imports
+import { expectObjectLike } from '../../setupTests';
 import getCYARow from './getCYARow';
 
 describe('utils', () => {
@@ -6,12 +7,6 @@ describe('utils', () => {
   describe('CheckYourAnswers', () => {
     
     describe('getCYARow', () => {
-
-      const expectObjectLike = (received, expected) => {
-        Object.keys(expected).forEach(key => {
-          expect(received[key]).toEqual(expected[key]);
-        });
-      };
 
       it('should get an appropriate row for a readonly text component', () => {
         const PAGE = { id: 'page', formData: { a: 'Bravo' } };

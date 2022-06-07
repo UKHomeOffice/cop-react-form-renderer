@@ -3,6 +3,7 @@ import { ComponentTypes } from '../../models';
 import FormPage from '../FormPage';
 import getCYARow from './getCYARow';
 import getCYARowForGroup from './getCYARowForGroup';
+import getCYARowsForCollection from './getCYARowsForCollection';
 import getCYARowsForContainer from './getCYARowsForContainer';
 import showComponentCYA from './showComponentCYA';
 
@@ -17,10 +18,14 @@ import showComponentCYA from './showComponentCYA';
 const getCYARowsForPage = (page, onAction) => {
   if (FormPage.show(page, page.formData)) {
     const rows = page.components.filter(c => showComponentCYA(c, page.formData)).flatMap(component => {
-      if (component.type === ComponentTypes.CONTAINER) {
-        return getCYARowsForContainer(page, component, page.formData[component.fieldId], onAction);
+      switch (component.type) {
+        case ComponentTypes.CONTAINER:
+          return getCYARowsForContainer(page, component, page.formData[component.fieldId], onAction);
+        case ComponentTypes.COLLECTION:
+          return getCYARowsForCollection(page, component, page.formData[component.fieldId], onAction);
+        default:
+          return getCYARow(page, component, onAction);
       }
-      return getCYARow(page, component, onAction);
     });
 
     if (page.groups?.length > 0) {
