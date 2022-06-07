@@ -29,8 +29,6 @@ const getCYARow = (page, component, onAction) => {
   };
 };
 
-export default getCYARow;
-
 const setNestedValue = (component, page) => {
   component.data?.options?.forEach((option, index) => {
     //check if option is selected and has nested component
@@ -39,3 +37,5 @@ const setNestedValue = (component, page) => {
     }
   });
 }
+
+export default getCYARow;
