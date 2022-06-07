@@ -10,17 +10,19 @@ import Data from './Data';
 import Format from './Format';
 import FormPage from './FormPage';
 import Hub from './Hub';
+import Meta from './Meta';
 import Validate from './Validate';
 
 const Utils = {
   CheckYourAnswers,
   Component,
+  Condition,
   Container,
   Data,
   Format,
   FormPage,
   Hub,
-  Condition,
+  Meta,
   Validate,
   ...HOUtils
 };
