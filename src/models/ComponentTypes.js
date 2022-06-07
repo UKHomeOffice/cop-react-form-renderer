@@ -1,5 +1,6 @@
 const TYPE_AUTOCOMPLETE = 'autocomplete';
 const TYPE_CHECKBOXES = 'checkboxes';
+const TYPE_COLLECTION = 'collection';
 const TYPE_CONTAINER = 'container';
 const TYPE_DATE = 'date';
 const TYPE_EMAIL = 'email';
@@ -16,6 +17,7 @@ const TYPE_TIME = 'time'
 const ComponentTypes = {
   AUTOCOMPLETE: TYPE_AUTOCOMPLETE,
   CHECKBOXES: TYPE_CHECKBOXES,
+  COLLECTION: TYPE_COLLECTION,
   CONTAINER: TYPE_CONTAINER,
   DATE: TYPE_DATE,
   EMAIL: TYPE_EMAIL,
