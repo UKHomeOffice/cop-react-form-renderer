@@ -7,8 +7,9 @@ const changeDocuments = (document, formData, field) => {
   if (document) {
     documents.push({ ...document, field });
   }
+  const existing = formData ? formData[META_PROPERTY] : undefined;
   return {
-    ...formData[META_PROPERTY],
+    ...existing,
     [META_DOCUMENTS_PROPERTY]: documents
   };
 };
