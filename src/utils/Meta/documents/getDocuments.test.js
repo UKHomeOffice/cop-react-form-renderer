@@ -14,12 +14,6 @@ describe('Utils.Meta.documents.get', () => {
     };
     expect(getDocuments(FORM_DATA)).toEqual([]);
   });
-  it('should return an empty array if the meta property is undefined', () => {
-    const FORM_DATA = {
-      [META_PROPERTY]: undefined
-    };
-    expect(getDocuments(FORM_DATA)).toEqual([]);
-  });
   it('should return an empty array if the meta property contains no documents property', () => {
     const FORM_DATA = {
       [META_PROPERTY]: {}
