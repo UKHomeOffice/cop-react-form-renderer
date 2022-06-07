@@ -2,21 +2,12 @@
 import { ComponentTypes } from '../../models';
 import showComponent from '../Component/showComponent';
 import runAdditionalComponentValidation from './additional';
+import validateCollection from './validateCollection';
+import validateContainer from './validateContainer';
 import validateDate from './validateDate';
 import validateEmail from './validateEmail';
 import validateRequired from './validateRequired';
 import validateTime from './validateTime';
-
-const validateContainer = (container, formData) => {
-  const errors = [];
-  if (Array.isArray(container.components)) {
-    const fd = formData && container.fieldId ? formData[container.fieldId] : formData;
-    container.components.forEach(component => {
-      errors.push(validateComponent(component, fd));
-    });
-  }
-  return errors.filter(e => !!e);
-};
 
 /**
  * Validates a single component.
@@ -25,56 +16,67 @@ const validateContainer = (container, formData) => {
  * @returns The first encountered error with the component.
  */
 const validateComponent = (component, formData) => {
+  if (!showComponent(component, formData)) {
+    return undefined;
+  }
   let error = undefined;
   let nestedId = undefined;
+  let propertiesInError = undefined;
   const data = formData && typeof formData === 'object' ? formData : {};
-  if (component && showComponent(component, formData)) {
-    if (component.type === ComponentTypes.CONTAINER) {
-      return validateContainer(component, formData);
-    }
-    const value = data[component.fieldId];
-    delete component.propsInError;
-    if (component.required) {
-      error = validateRequired(value, component.label, component.custom_errors);
-    }
-    if (!error && component.type === ComponentTypes.RADIOS) {
-      component.data.options?.some((option) => {
-        let nestedError;
-        if (option.nested && option.nested.shown) {
-          nestedError = validateComponent(option.nested, formData);
-          error = nestedError?.error;
-          if(nestedError){
-            nestedId = nestedError.id;
+
+  if (component.type === ComponentTypes.CONTAINER) {
+    return validateContainer(component, formData);
+  }
+  const value = data[component.fieldId];
+  if (component.required) {
+    error = validateRequired(value, component.label, component.custom_errors);
+  }
+  if (!error) {
+    switch (component.type) {
+      case ComponentTypes.COLLECTION:
+        return validateCollection(component, value);
+      case ComponentTypes.EMAIL:
+        error = validateEmail(value, component.label);
+        break;
+      case ComponentTypes.DATE:
+      case ComponentTypes.TIME:
+        const validator = component.type === ComponentTypes.DATE ? validateDate : validateTime;
+        const { message, propsInError } = validator(value);
+        propertiesInError = propsInError;
+        error = message;
+        break;
+      case ComponentTypes.RADIOS:
+        component.data.options?.some((option) => {
+          let nestedError;
+          if (option.nested && option.nested.shown) {
+            nestedError = validateComponent(option.nested, formData);
+            error = nestedError?.error;
+            if (nestedError) {
+              nestedId = nestedError.id;
+            }
           }
-        }
-        return nestedError;
-      });
-    }
-    if (!error && component.type === ComponentTypes.EMAIL) {
-      error = validateEmail(value, component.label);
-    }
-    if (!error && component.type === ComponentTypes.DATE) {
-      const { message, propsInError } = validateDate(value);
-      component.propsInError = propsInError;
-      error = message;
-    }
-    if (!error && component.type === ComponentTypes.TIME) {
-      const { message, propsInError } = validateTime(value);
-      component.propsInError = propsInError;
-      error = message;
+          return nestedError;
+        });
+        break;
+      default:
+        break;
     }
     if (!error && component.additionalValidation) {
       error = runAdditionalComponentValidation(component, value);
       if (component.type === ComponentTypes.DATE && error) {
-        component.propsInError = { day: true, month: true, year: true };
+        propertiesInError = { day: true, month: true, year: true };
       }
     }
-    if(!nestedId){
-      component.error = error;
-    }
   }
-  const tmpId = nestedId ? nestedId : component?.id
-  return error ? { id: tmpId, error: error } : undefined;
+
+  if (error) {
+    return {
+      id: nestedId || component.full_path || component.id,
+      error: error,
+      properties: propertiesInError
+    };
+  }
+  return undefined;
 };
 
 export default validateComponent;
