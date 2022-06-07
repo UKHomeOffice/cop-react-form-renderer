@@ -2,7 +2,7 @@
 import { Utils } from '@ukhomeoffice/cop-react-components';
 
 // Local imports
-import { ComponentTypes } from '../../models';
+import { CollectionLabels, ComponentTypes } from '../../models';
 import getCYARowsForContainer from './getCYARowsForContainer';
 import showComponentCYA from './showComponentCYA';
 
@@ -24,12 +24,16 @@ const getContainerForItem = (collection, item, labelCount, full_path) => {
 };
 
 const getTitleRowForItem = (collection, item, pageId, labelCount, full_path) => {
-  if (collection.itemLabel) {
+  const labels = {
+    ...CollectionLabels,
+    ...collection.labels
+  };
+  if (labels.item) {
     return {
       pageId,
       fieldId: collection.fieldId,
       full_path: full_path,
-      key: Utils.interpolateString(collection.itemLabel, { ...item, index: labelCount }),
+      key: Utils.interpolateString(labels.item, { ...item, index: labelCount }),
       type: 'title',
       action: null
     };

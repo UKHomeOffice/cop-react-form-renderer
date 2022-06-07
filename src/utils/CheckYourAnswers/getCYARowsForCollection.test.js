@@ -32,7 +32,6 @@ describe('utils.CheckYourAnswers.getCYARowsForCollection', () => {
       id: 'collection',
       fieldId: 'collection',
       type: ComponentTypes.COLLECTION,
-      itemLabel: 'Item ${index}',
       countOffset: 22,
       item: [ COMPONENT ],
       value: FORM_DATA.collection,
@@ -63,7 +62,7 @@ describe('utils.CheckYourAnswers.getCYARowsForCollection', () => {
     });
   });
 
-  it('should get an appropriate row for a collection with a single readonly text component where there is no itemLabel', () => {
+  it('should get an appropriate row for a collection with a single readonly text component where the item label is an empty string', () => {
     const FORM_DATA = {
       collection: [
         { a: 'Bravo' }
@@ -75,6 +74,9 @@ describe('utils.CheckYourAnswers.getCYARowsForCollection', () => {
       id: 'collection',
       fieldId: 'collection',
       type: ComponentTypes.COLLECTION,
+      labels: {
+        item: ''
+      },
       countOffset: 22,
       item: [ COMPONENT ],
       value: FORM_DATA.collection,
@@ -104,6 +106,7 @@ describe('utils.CheckYourAnswers.getCYARowsForCollection', () => {
       ]
     };
     const PAGE = { id: 'page', formData: FORM_DATA, cya_link: {} };
+    // eslint-disable-next-line no-template-curly-in-string
     const COMPONENT = { type: 'text', readonly: true, id: 'a', fieldId: 'a', label: 'Alpha ${index}' };
     const COLLECTION = {
       id: 'collection',
@@ -115,8 +118,8 @@ describe('utils.CheckYourAnswers.getCYARowsForCollection', () => {
     };
     const ON_ACTION = () => {};
     const ROWS = getCYARowsForCollection(PAGE, COLLECTION, FORM_DATA.collection, ON_ACTION);
-    expect(ROWS.length).toEqual(1); // Just the component row, no title row
-    expectObjectLike(ROWS[0], {
+    expect(ROWS.length).toEqual(2); // Title and item row.
+    expectObjectLike(ROWS[1], {
       pageId: PAGE.id,
       fieldId: COMPONENT.fieldId,
       full_path: `${COLLECTION.fieldId}[0].${COMPONENT.fieldId}`,
