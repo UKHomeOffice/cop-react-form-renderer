@@ -158,7 +158,7 @@ describe('utils', () => {
         expect(addressValues[3].childNodes[0].textContent).toEqual('SW1A 2AA')
       });
 
-      it('should get a appropriate row for a page with a single readonly text component within a collection', () => {
+      it('should get appropriate rows for a page with a single readonly text component within a collection', () => {
         const FORM_DATA = {
           collection: [
             { a: 'Bravo' }
@@ -180,8 +180,8 @@ describe('utils', () => {
         };
         const ON_ACTION = () => {};
         const ROWS = getCYARowsForPage(PAGE, ON_ACTION);
-        expect(ROWS.length).toEqual(1); // No title row as there is no itemLabel
-        expectObjectLike(ROWS[0], {
+        expect(ROWS.length).toEqual(2); // Title and item row
+        expectObjectLike(ROWS[1], {
           pageId: PAGE.id,
           fieldId: COMPONENT.fieldId,
           full_path: `${COLLECTION.fieldId}[0].${COMPONENT.fieldId}`,
