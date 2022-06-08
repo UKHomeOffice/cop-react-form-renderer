@@ -13,6 +13,9 @@ const ValidationContextProvider = ({ children }) => {
       return [ ...prev, ...errors ].filter(e => !!e);
     });
   };
+  const clearErrors = async () => {
+    setErrors([]);
+  };
   const validate = {
     page: (page) => {
       const pageErrors = Utils.Validate.page(page);
@@ -26,7 +29,7 @@ const ValidationContextProvider = ({ children }) => {
     }
   };
   return (
-    <ValidationContext.Provider value={{ errors, addErrors, validate }}>
+    <ValidationContext.Provider value={{ errors, addErrors, clearErrors, validate }}>
       {children}
     </ValidationContext.Provider>
   );
