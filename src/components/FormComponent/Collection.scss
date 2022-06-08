@@ -1,0 +1,23 @@
+.hods-form-collection {
+  &__title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+  }
+  &__item {
+    margin-top: 0;
+    position: relative;
+  }
+  &__item-title {
+    display: block;
+    font-weight: 700;
+    font-size: 1.25rem;
+    line-height: 1.1111111;
+    margin-bottom: 0.75rem;
+    .hods-button {
+      margin-bottom: 0.25rem;
+      margin-top: -0.3125rem;
+      float: right;
+    }
+  }
+}

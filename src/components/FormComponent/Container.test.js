@@ -1,11 +1,14 @@
 // Global imports
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent } from '@testing-library/react';
 import user from '@testing-library/user-event';
 import React from 'react';
 
 // Local imports
 import { ComponentTypes } from '../../models';
-import FormComponent, { DEFAULT_CONTAINER_CLASS, META_DOCUMENTS_PROPERTY, META_PROPERTY } from './FormComponent';
+import { renderWithValidation } from '../../setupTests';
+import { META_DOCUMENTS_PROPERTY, META_PROPERTY } from '../../utils/Meta/constants';
+import { DEFAULT_CLASS } from './Container'
+import FormComponent from './FormComponent';
 
 describe('components.FormComponent.Container', () => {
   const ID = 'container';
@@ -34,14 +37,14 @@ describe('components.FormComponent.Container', () => {
     const CONTAINER = {
       id: ID, fieldId: ID, type: ComponentTypes.CONTAINER, components: [ TEXT_COMPONENT ]
     };
-    const { container } = render(
+    const { container } = renderWithValidation(
       <FormComponent component={CONTAINER} value={FORM_DATA[ID]} formData={FORM_DATA} />
     );
 
     // Check the container itself.
     const c = container.childNodes[0];
     expect(c.tagName).toEqual('DIV');
-    expect(c.classList).toContain(DEFAULT_CONTAINER_CLASS);
+    expect(c.classList).toContain(DEFAULT_CLASS);
 
     // And now check the single text component within it.
     const formGroup = c.childNodes[0];
@@ -70,19 +73,19 @@ describe('components.FormComponent.Container', () => {
         { id: NESTED_ID, fieldId: NESTED_ID, type: ComponentTypes.CONTAINER, components: [ TEXT_COMPONENT ] }
       ]
     };
-    const { container } = render(
+    const { container } = renderWithValidation(
       <FormComponent component={CONTAINER} value={FORM_DATA[ID]} formData={FORM_DATA} />
     );
 
     // Check the container itself.
     const c = container.childNodes[0];
     expect(c.tagName).toEqual('DIV');
-    expect(c.classList).toContain(DEFAULT_CONTAINER_CLASS);
+    expect(c.classList).toContain(DEFAULT_CLASS);
 
     // Check the nested container.
     const nested = c.childNodes[0];
     expect(nested.tagName).toEqual('DIV');
-    expect(nested.classList).toContain(DEFAULT_CONTAINER_CLASS);
+    expect(nested.classList).toContain(DEFAULT_CLASS);
 
     // And now check the single text component within the nested container.
     const formGroup = nested.childNodes[0];
@@ -115,7 +118,7 @@ describe('components.FormComponent.Container', () => {
         { id: TEXT_ID, fieldId: TEXT_ID, type: ComponentTypes.TEXT, label: 'Text component' }
       ]
     };
-    const { container } = render(
+    const { container } = renderWithValidation(
       <FormComponent
         component={CONTAINER}
         value={FORM_DATA[ID]}
@@ -151,7 +154,7 @@ describe('components.FormComponent.Container', () => {
         { id: FILE_ID, fieldId: FILE_ID, full_path: `${ID}.${FILE_ID}`, type: ComponentTypes.FILE, label: 'File component' }
       ]
     };
-    const { container } = render(
+    const { container } = renderWithValidation(
       <FormComponent
         component={CONTAINER}
         value={FORM_DATA[ID]}
@@ -190,14 +193,14 @@ describe('components.FormComponent.Container', () => {
     const CONTAINER = {
       id: ID, fieldId: ID, type: ComponentTypes.CONTAINER, components: [ TEXT_COMPONENT ]
     };
-    const { container } = render(
+    const { container } = renderWithValidation(
       <FormComponent component={CONTAINER} />
     );
 
     // Check the container itself.
     const c = container.childNodes[0];
     expect(c.tagName).toEqual('DIV');
-    expect(c.classList).toContain(DEFAULT_CONTAINER_CLASS);
+    expect(c.classList).toContain(DEFAULT_CLASS);
 
     // And now check the single text component within it.
     const formGroup = c.childNodes[0];
