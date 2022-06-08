@@ -56,7 +56,7 @@ describe('components', () => {
     };
 
     const getChangeLink = (summaryList) => {
-      const [ , , actions ] = summaryList.childNodes[0].childNodes[0].childNodes;
+      const [, , actions] = summaryList.childNodes[0].childNodes[0].childNodes;
       return actions.childNodes[0];
     };
 
@@ -105,13 +105,13 @@ describe('components', () => {
       });
       const form = checkForm(container);
       const hub = form.childNodes[1]; // Hub = CYA
-      const [ , , civilServantList ] = hub.childNodes;
+      const [, , civilServantList] = hub.childNodes;
       const link = getChangeLink(civilServantList);
       expect(ON_PAGE_CHANGE_CALLS.length).toEqual(0);
       fireEvent.click(link, {});
       expect(ON_PAGE_CHANGE_CALLS.length).toEqual(1);
       expect(ON_PAGE_CHANGE_CALLS[0]).toEqual(USER_PROFILE.pages[1].id);
-      
+
       // The form layout should have changed to the current page.
       expect(form.childNodes.length).toEqual(1); // Just the page.
       const page = form.childNodes[0];
@@ -136,7 +136,7 @@ describe('components', () => {
 
       // Navigate to the "Are you a civil servant?" page.
       const hub = form.childNodes[1]; // Hub = CYA
-      const [ , , civilServantList ] = hub.childNodes;
+      const [, , civilServantList] = hub.childNodes;
       const link = getChangeLink(civilServantList);
       fireEvent.click(link, {});
 
@@ -172,7 +172,7 @@ describe('components', () => {
 
       // Navigate to the "Are you a civil servant?" page.
       const hub = form.childNodes[1]; // Hub = CYA
-      const [ , , civilServantList ] = hub.childNodes;
+      const [, , civilServantList] = hub.childNodes;
       const link = getChangeLink(civilServantList);
       fireEvent.click(link, {});
 
@@ -207,7 +207,7 @@ describe('components', () => {
 
       // Navigate to the "Add or change a line manager" page.
       const hub = form.childNodes[1]; // Hub = CYA
-      const [ , , , , , lineManagerList ] = hub.childNodes;
+      const [, , , , , lineManagerList] = hub.childNodes;
       const link = getChangeLink(lineManagerList);
       expect(ON_PAGE_CHANGE_CALLS.length).toEqual(0);
       fireEvent.click(link, {});
@@ -266,13 +266,13 @@ describe('components', () => {
       const taskList = container.childNodes[0].childNodes[1];
 
       //Check status's are correct
-      let firstTaskStatus = taskList.childNodes[4].childNodes[0].childNodes[1];
+      let firstTaskStatus = taskList.childNodes[3].childNodes[0].childNodes[1];
       expect(firstTaskStatus.textContent).toEqual(TaskStates.DETAILS[TaskStates.TYPES.NOT_STARTED].label);
-      let secondTaskStatus = taskList.childNodes[4].childNodes[1].childNodes[1];
+      let secondTaskStatus = taskList.childNodes[3].childNodes[1].childNodes[1];
       expect(secondTaskStatus.textContent).toEqual(TaskStates.DETAILS[TaskStates.TYPES.CANNOT_START_YET].label);
 
       //Launch first task
-      const firstTask = taskList.childNodes[4].childNodes[0].childNodes[0].childNodes[0];
+      const firstTask = taskList.childNodes[3].childNodes[0].childNodes[0].childNodes[0];
       expect(firstTask.textContent).toEqual('Date, location and mode details');
       fireEvent.click(firstTask, {});
 
@@ -301,16 +301,17 @@ describe('components', () => {
       //Continue on from CYA page
       const cyaPage = container.childNodes[0].childNodes[0];
       expect(cyaPage.childNodes[0].textContent).toEqual('Check your answers');
-      expect(cyaPage.childNodes[5].textContent).toEqual('Submit');
+      expect(cyaPage.childNodes[5].childNodes[0].textContent).toEqual('Save and continue');
+      expect(cyaPage.childNodes[5].childNodes[1].textContent).toEqual('Save and return later');
       fireEvent.click(cyaPage.childNodes[5].childNodes[0], {});
 
       //Should be back at task list
-      expect(container.childNodes[0].childNodes[0].textContent).toEqual('Event at the border');
+      expect(container.childNodes[0].childNodes[0].textContent).toEqual('Task List Form');
 
       //Check status's are correct
-      firstTaskStatus = container.childNodes[0].childNodes[1].childNodes[4].childNodes[0].childNodes[1];
+      firstTaskStatus = container.childNodes[0].childNodes[1].childNodes[3].childNodes[0].childNodes[1];
       expect(firstTaskStatus.textContent).toEqual(TaskStates.DETAILS[TaskStates.TYPES.COMPLETE].label);
-      secondTaskStatus = container.childNodes[0].childNodes[1].childNodes[4].childNodes[1].childNodes[1];
+      secondTaskStatus = container.childNodes[0].childNodes[1].childNodes[3].childNodes[1].childNodes[1];
       expect(secondTaskStatus.textContent).toEqual(TaskStates.DETAILS[TaskStates.TYPES.NOT_STARTED].label);
 
       //Check final data submitted to backend is as expected
@@ -335,7 +336,7 @@ describe('components', () => {
       const taskList = container.childNodes[0].childNodes[1];
 
       //Launch first task
-      fireEvent.click(taskList.childNodes[4].childNodes[0].childNodes[0].childNodes[0], {});
+      fireEvent.click(taskList.childNodes[3].childNodes[0].childNodes[0].childNodes[0], {});
 
       //Fill first page and navigate
       let newPage = container.childNodes[0].childNodes[0];
@@ -359,7 +360,8 @@ describe('components', () => {
       fireEvent.click(container.childNodes[0].childNodes[0].childNodes[5].childNodes[0], {});
 
       //Launch same task again
-      fireEvent.click(container.childNodes[0].childNodes[1].childNodes[4].childNodes[0].childNodes[0].childNodes[0], {});
+      fireEvent.click(container.childNodes[0].childNodes[1].childNodes[3].childNodes[0].childNodes[0].childNodes[0], {});
+
 
       //Should be at CYA page
       expect(container.childNodes[0].childNodes[0].childNodes[0].textContent).toEqual('Check your answers');

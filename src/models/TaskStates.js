@@ -11,10 +11,10 @@ export const StateTypes = {
 };
 
 const StateDetails = {
-  [TYPE_COMPLETE]: { label: 'Completed', colour: '' },
-  [TYPE_IN_PROGRESS]: { label: 'In Progress', colour: 'blue' },
-  [TYPE_NOT_STARTED]: { label: 'Not Started', colour: 'grey' },
-  [TYPE_CANNOT_START_YET]: { label: 'Cannot Start Yet', colour: 'grey' },
+  [TYPE_COMPLETE]: { label: 'Completed', colour: 'dark-blue' },
+  [TYPE_IN_PROGRESS]: { label: 'In Progress', colour: 'white' },
+  [TYPE_NOT_STARTED]: { label: 'Not Started', colour: 'dark-grey' },
+  [TYPE_CANNOT_START_YET]: { label: 'Cannot Start Yet', colour: 'dark-grey' },
 };
 
 const TaskStates = {

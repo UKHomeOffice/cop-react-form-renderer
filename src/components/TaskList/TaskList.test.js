@@ -33,29 +33,33 @@ describe('components', () => {
 
       const referenceHeading = container.childNodes[0].childNodes[0];
       expect(referenceHeading.tagName).toEqual('H2');
-      expect(referenceHeading.textContent).toEqual('COP reference number 123');
+      expect(referenceHeading.textContent).toEqual('COP reference number');
 
-      const incompleteForm = container.childNodes[0].childNodes[1];
+      const referenceNumber = container.childNodes[0].childNodes[1];
+      expect(referenceNumber.tagName).toEqual('H2');
+      expect(referenceNumber.textContent).toEqual('123');
+
+      const incompleteForm = container.childNodes[0].childNodes[2];
       expect(incompleteForm.tagName).toEqual('H2');
       expect(incompleteForm.textContent).toEqual('Incomplete form');
 
-      const numComplete = container.childNodes[0].childNodes[2];
+      const numComplete = container.childNodes[0].childNodes[3];
       expect(numComplete.tagName).toEqual('P');
       expect(numComplete.textContent).toEqual('You have completed 2 of 6 sections');
 
-      expect(container.childNodes[0].childNodes.length).toEqual(7);
+      expect(container.childNodes[0].childNodes.length).toEqual(8);
 
-      const subSectionOneHeading = container.childNodes[0].childNodes[3];
+      const subSectionOneHeading = container.childNodes[0].childNodes[4];
       expect(subSectionOneHeading.tagName).toEqual('H2');
       expect(subSectionOneHeading.textContent).toEqual('1. These are your tasks');
-      const subSectionOneList = container.childNodes[0].childNodes[4];
+      const subSectionOneList = container.childNodes[0].childNodes[5];
       expect(subSectionOneList.childNodes.length).toEqual(3);
 
-      const subSectionTwoHeading = container.childNodes[0].childNodes[5];
+      const subSectionTwoHeading = container.childNodes[0].childNodes[6];
       expect(subSectionTwoHeading.tagName).toEqual('H2');
       expect(subSectionTwoHeading.textContent).toEqual('2. These are your extra bonus tasks');
 
-      const subSectionTwoList = container.childNodes[0].childNodes[6];
+      const subSectionTwoList = container.childNodes[0].childNodes[7];
       expect(subSectionTwoList.childNodes.length).toEqual(3);
     });
 
@@ -81,13 +85,17 @@ describe('components', () => {
         },
       ];
       const { container } = render(<TaskList refNumber={COP_REF} refTitle={REF_TITLE} sections={sections} />);
-      expect(container.childNodes[0].childNodes.length).toEqual(6);
+      expect(container.childNodes[0].childNodes.length).toEqual(7);
 
       const referenceHeading = container.childNodes[0].childNodes[0];
       expect(referenceHeading.tagName).toEqual('H2');
-      expect(referenceHeading.textContent).toEqual('COP reference number 123');
+      expect(referenceHeading.textContent).toEqual('COP reference number');
 
-      const numComplete = container.childNodes[0].childNodes[1];
+      const referenceNumber = container.childNodes[0].childNodes[1];
+      expect(referenceNumber.tagName).toEqual('H2');
+      expect(referenceNumber.textContent).toEqual('123');
+
+      const numComplete = container.childNodes[0].childNodes[2];
       expect(numComplete.tagName).toEqual('P');
       expect(numComplete.textContent).toEqual('You have completed 6 of 6 sections');
     });
@@ -106,7 +114,7 @@ describe('components', () => {
         },
       ];
       const { container } = render(<TaskList refNumber={COP_REF} refTitle={REF_TITLE} sections={sections} />);
-      const subSectionOne = container.childNodes[0].childNodes[3];
+      const subSectionOne = container.childNodes[0].childNodes[4];
       expect(subSectionOne.childNodes[0].textContent).toEqual('');
       expect(subSectionOne.childNodes[1].textContent).toEqual('These are your tasks');
     });
@@ -131,9 +139,9 @@ describe('components', () => {
     ];
     const { container } = render(<TaskList refNumber={COP_REF} refTitle={REF_TITLE} sections={sections} onTaskAction={ON_CLICK}/>);
 
-    const firstTask = container.childNodes[0].childNodes[4].childNodes[0].childNodes[0].childNodes[0];
-    const secondTask = container.childNodes[0].childNodes[4].childNodes[1].childNodes[0].childNodes[0];
-    const thirdTask = container.childNodes[0].childNodes[4].childNodes[2].childNodes[0].childNodes[0];
+    const firstTask = container.childNodes[0].childNodes[5].childNodes[0].childNodes[0].childNodes[0];
+    const secondTask = container.childNodes[0].childNodes[5].childNodes[1].childNodes[0].childNodes[0];
+    const thirdTask = container.childNodes[0].childNodes[5].childNodes[2].childNodes[0].childNodes[0];
 
     fireEvent.click(firstTask.childNodes[0]);
     expect(ON_CLICK_CALLS[0]).toEqual({ pages: ['pageOne'], name: "Nice task", state: 'complete'});

@@ -21,6 +21,7 @@ const getCYARow = (page, component, onAction) => {
 
   return {
     pageId: page.id,
+    id: component.id,
     fieldId: component.fieldId,
     key: component.label || component.cya_label,
     component: Component.editable(component) ? component : undefined,

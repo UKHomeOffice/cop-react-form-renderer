@@ -172,16 +172,16 @@ describe('components', () => {
       describe(`when the form type is '${FormTypes.TASK}'`, () => {
         const FORM_TYPE = FormTypes.TASK;
 
-        it(`should mark the current task as complete if the current page is '${FormPages.CYA}'`, () => {
+        it(`should mark the current task as complete if the current page is '${FormPages.CYA}' and it is marked as complete`, () => {
           const CURRENT_PAGE_ID = FormPages.CYA;
           const TASK_NAME = 'taskName';
           const CURRENT_TASK = { name: TASK_NAME };
-          expect(getSubmissionStatus(FORM_TYPE, PAGES, CURRENT_PAGE_ID, undefined, {}, CURRENT_TASK)).toMatchObject({
+          expect(getSubmissionStatus(FORM_TYPE, PAGES, CURRENT_PAGE_ID, undefined, {}, CURRENT_TASK, true)).toMatchObject({
             tasks: { [TASK_NAME]: { complete: true } },
           });
         });
 
-        it(`should update the current task with the next page and a false complete flag if the current page is not '${FormPages.CYA}'`, () => {
+        it(`should update the current task with the current page and a false complete flag if the next page is not '${FormPages.CYA}'`, () => {
           const CURRENT_PAGE_ID = 'eventDate';
           const TASK_NAME = 'taskName';
           const CURRENT_TASK = { name: TASK_NAME };

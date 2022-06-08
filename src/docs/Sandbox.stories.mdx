@@ -9,6 +9,9 @@ import Editor from '@monaco-editor/react';
 import CIVIL_SERVANT from '../json/areYouACivilServant.json';
 import GRADE from '../json/grade.json';
 import TEAMS from '../json/team.json';
+import PORTS from '../json/port.json';
+import TERMINALS from '../json/terminal.json';
+import SUBLOCATIONS from '../json/sublocation.json';
 import USER_PROFILE_DATA from '../json/userProfile.data.json';
 import USER_PROFILE from '../json/userProfile.json';
 
@@ -42,6 +45,24 @@ import './Sandbox.stories.scss';
       method: 'GET',
       status: 200,
       response: TEAMS
+    },
+    {
+      url: `${USER_PROFILE_DATA.urls.refData}/port`,
+      method: 'GET',
+      status: 200,
+      response: PORTS
+    },
+    {
+      url: `${USER_PROFILE_DATA.urls.refData}/terminal`,
+      method: 'GET',
+      status: 200,
+      response: TERMINALS
+    },
+        {
+      url: `${USER_PROFILE_DATA.urls.refData}/sublocation`,
+      method: 'GET',
+      status: 200,
+      response: SUBLOCATIONS
     }
   ]
 }}>
