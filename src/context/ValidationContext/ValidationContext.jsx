@@ -18,6 +18,11 @@ const ValidationContextProvider = ({ children }) => {
       const pageErrors = Utils.Validate.page(page);
       setErrors(pageErrors);
       return pageErrors;
+    },
+    pages: (pages) => {
+      const pagesErrors = pages.flatMap(page => Utils.Validate.page(page));
+      setErrors(pagesErrors);
+      return pagesErrors;
     }
   };
   return (
