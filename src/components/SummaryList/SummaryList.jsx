@@ -29,7 +29,7 @@ const SummaryList = ({
             <dt className={classes('key')}>
               {row.key}
               {!row.hasOwnProperty('required') && !row.component?.required && ` (optional)`}
-              {!row.hasOwnProperty('component') && !row?.required && ` (optional)`}
+              {!row.hasOwnProperty('component') && row.hasOwnProperty('required') && !row?.required && ` (optional)`}
             </dt>
             <dd className={classes('value')}>{row.value}</dd>
             {!noChangeAction && (
