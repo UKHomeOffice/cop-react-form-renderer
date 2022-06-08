@@ -1,13 +1,14 @@
 // Global imports
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent } from '@testing-library/react';
 import React from 'react';
 
 // Local imports
 import { PageAction } from '../../models';
+import { renderWithValidation } from '../../setupTests';
 import { DEFAULT_LABEL } from '../PageActions/ActionButton';
 import FormPage, { DEFAULT_CLASS } from './FormPage';
 
-describe('components', () => {
+describe('components.FormPage', () => {
 
   describe('FormPage', () => {
 
@@ -31,7 +32,7 @@ describe('components', () => {
     });
 
     it('should render a submit page correctly', async () => {
-      const { container } = render(
+      const { container } = renderWithValidation(
         <FormPage page={PAGE} onAction={ON_ACTION} />
       );
       const page = container.childNodes[0];
@@ -67,7 +68,7 @@ describe('components', () => {
     });
 
     it('should handle a page change appropriately', async () => {
-      const { container } = render(
+      const { container } = renderWithValidation(
         <FormPage page={PAGE} onAction={ON_ACTION} />
       );
       const page = container.childNodes[0];
@@ -84,7 +85,7 @@ describe('components', () => {
     });
 
     it('should handle a page action appropriately', async () => {
-      const { container } = render(
+      const { container } = renderWithValidation(
         <FormPage page={PAGE} onAction={ON_ACTION} />
       );
       const page = container.childNodes[0];
@@ -104,44 +105,6 @@ describe('components', () => {
       expect(PAGE.formData.text).toEqual(NEW_VALUE);
       expect(ON_ACTION_CALLS[0].action).toEqual(PageAction.DEFAULTS.submit);
       expect(ON_ACTION_CALLS[0].patch).toEqual({ text: NEW_VALUE });
-    });
-
-    it('should display errors appropriately', async () => {
-      const ERRORS = [{ id: TEXT.id, error: 'Invalid value' }];
-      const THROW_ERROR_ON_ACTION = (action, patch, onError) => {
-        ON_ACTION_CALLS.push({ action, patch, onError });
-        onError(ERRORS);
-      };
-      const { container } = render(
-        <FormPage page={PAGE} onAction={THROW_ERROR_ON_ACTION} />
-      );
-      const page = container.childNodes[0];
-
-      // Change the input.
-      const input = page.childNodes[1].childNodes[2];
-      const NEW_VALUE = `${VALUE}.`;
-      const CHANGE_EVENT = { target: { name: TEXT.fieldId, value: NEW_VALUE } };
-      fireEvent.change(input, CHANGE_EVENT);
-
-      // Then click the action button, which should call the onError callback method.
-      const button = page.childNodes[2].childNodes[0];
-      fireEvent.click(button, {});
-
-      // And confirm the page error is now displayed.
-      const errorSummary = page.childNodes[1];
-      expect(errorSummary.tagName).toEqual('DIV');
-      expect(errorSummary.id).toEqual('error-summary');
-      expect(errorSummary.classList).toContain('govuk-error-summary');
-      const errorList = errorSummary.childNodes[1].childNodes[0];
-      expect(errorList.tagName).toEqual('UL');
-      expect(errorList.classList).toContain('govuk-error-summary__list');
-      expect(errorList.childNodes.length).toEqual(ERRORS.length);
-      const error = errorList.childNodes[0];
-      expect(error.tagName).toEqual('LI');
-      const errorLink = error.childNodes[0];
-      expect(errorLink.tagName).toEqual('A');
-      expect(errorLink.textContent).toEqual(ERRORS[0].error);
-      expect(errorLink.getAttribute('href')).toEqual(`#${ERRORS[0].id}`);
     });
 
   });
