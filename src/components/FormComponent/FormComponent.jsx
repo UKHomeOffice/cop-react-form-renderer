@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 
 // Local imports
-import { STATUS_COMPLETE, useHooks, useRefData } from '../../hooks';
+import { STATUS_COMPLETE, useValidation, useHooks, useRefData } from '../../hooks';
 import { ComponentTypes } from '../../models';
 import Utils from '../../utils';
-
 import Collection from './Collection';
 import Container from './Container';
+import { getComponentError } from './helpers';
 
 const FormComponent = ({
   component,
@@ -19,6 +19,7 @@ const FormComponent = ({
   ...attrs
 }) => {
   const { hooks } = useHooks();
+  const validation = useValidation();
   const { data, status } = useRefData(component);
   const [ options, setOptions ] = useState([]);
   useEffect(() => {
@@ -81,6 +82,7 @@ const FormComponent = ({
     ...attrs,
     ...component,
     id: component.full_path || component.id,
+    ...getComponentError(component, validation?.errors),
     label: component.label || '',
     hint: component.hint || '',
     options,

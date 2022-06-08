@@ -1,9 +1,9 @@
 // Global imports
-import { render } from '@testing-library/react';
 import React from 'react';
 
 // Local imports
 import { addHook, resetHooks } from '../../hooks/useHooks';
+import { renderWithValidation } from '../../setupTests';
 import FormComponent from './FormComponent';
 
 describe('components', () => {
@@ -19,7 +19,7 @@ describe('components', () => {
       const VALUE = 'Text value';
       const COMPONENT = { id: ID, fieldId: ID, type: 'text', label: 'Text component', hint: 'Text hint' };
       const ON_CHANGE = () => {};
-      const { container } = render(
+      const { container } = renderWithValidation(
         <FormComponent data-testid={ID} component={COMPONENT} value={VALUE} onChange={ON_CHANGE} />
       );
 
@@ -48,7 +48,7 @@ describe('components', () => {
       const VALUE = 'Text value';
       const COMPONENT = { id: ID, fieldId: ID, type: 'text', label: 'Text component', hint: 'Text hint' };
       const ON_CHANGE = () => {};
-      const { container } = render(
+      const { container } = renderWithValidation(
         <FormComponent data-testid={ID} component={COMPONENT} wrap={false} value={VALUE} onChange={ON_CHANGE} />
       );
 
@@ -63,7 +63,7 @@ describe('components', () => {
     it('should render an html component appropriately', async () => {
       const ID = 'component';
       const COMPONENT = { type: 'html', tagName: 'p', content: 'HTML content' };
-      const { container } = render(
+      const { container } = renderWithValidation(
         <FormComponent data-testid={ID} component={COMPONENT} />
       );
       const p = container.childNodes[0];
@@ -77,7 +77,7 @@ describe('components', () => {
       });
       const ID = 'component';
       const COMPONENT = { type: 'html', tagName: 'p', content: 'HTML content' };
-      const { container } = render(
+      const { container } = renderWithValidation(
         <FormComponent data-testid={ID} component={COMPONENT} />
       );
       const div = container.childNodes[0];
@@ -91,7 +91,7 @@ describe('components', () => {
       });
       const ID = 'component';
       const COMPONENT = { type: 'html', tagName: 'p', content: 'HTML content' };
-      const { container } = render(
+      const { container } = renderWithValidation(
         <FormComponent data-testid={ID} component={COMPONENT} />
       );
       const p = container.childNodes[0];
