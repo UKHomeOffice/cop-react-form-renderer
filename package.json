@@ -1,6 +1,6 @@
 {
   "name": "@ukhomeoffice/cop-react-form-renderer",
-  "version": "2.10.0",
+  "version": "2.10.1",
   "private": false,
   "scripts": {
     "clean": "rimraf dist",
@@ -9,7 +9,7 @@
     "lint": "eslint --ext .js,.jsx src",
     "storybook:start": "start-storybook --docs -s src/assets --no-manager-cache -p 6007",
     "storybook:build": "build-storybook --docs -s src/assets",
-    "storybook:deploy": "yarn deploy-storybook",
+    "storybook:deploy": "yarn storybook:build && yarn deploy-storybook",
     "storybook": "yarn storybook:start",
     "deploy-storybook": "storybook-to-ghpages -e storybook-static",
     "compile": "yarn clean && cross-env NODE_ENV=production babel src --out-dir dist --copy-files && yarn post-compile",
