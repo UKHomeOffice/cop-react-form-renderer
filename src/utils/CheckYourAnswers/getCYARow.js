@@ -23,7 +23,9 @@ const getCYARow = (page, component, onAction) => {
     pageId: page.id,
     id: component.id,
     fieldId: component.fieldId,
+    full_path: component.full_path,
     key: component.label || component.cya_label,
+    required: component.required,
     component: Component.editable(component) ? component : undefined,
     value: value || '',
     action: getCYAAction(component.readonly, page, onAction)

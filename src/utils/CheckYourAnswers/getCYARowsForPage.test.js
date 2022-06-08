@@ -1,7 +1,8 @@
 // Global imports
-import {render } from '@testing-library/react';
+import { render } from '@testing-library/react';
 
 // Local imports
+import { expectObjectLike } from '../../setupTests';
 import { ComponentTypes } from '../../models';
 import getCYARowsForPage from './getCYARowsForPage';
 
@@ -10,12 +11,6 @@ describe('utils', () => {
   describe('CheckYourAnswers', () => {
     
     describe('getCYARowsForPage', () => {
-
-      const expectObjectLike = (received, expected) => {
-        Object.keys(expected).forEach(key => {
-          expect(received[key]).toEqual(expected[key]);
-        });
-      };
 
       it('should get a appropriate row for a page with a single readonly text component', () => {
         const COMPONENT = { type: 'text', readonly: true, id: 'a', fieldId: 'a', label: 'Alpha' };
@@ -121,7 +116,7 @@ describe('utils', () => {
             value: 'Bravo'
           });
         });
-      }); 
+      });
 
       it('Add ability to display answers from multiple fields in a single row', () => {
         const COMPONENT_ADDRESS = {id: 'firstLineOfTheAddress', fieldId: 'firstLineOfTheAddress', label: 'address', type: 'text'};
@@ -161,6 +156,43 @@ describe('utils', () => {
         expect(addressValues[1].childNodes[0].textContent).toEqual('City of Westminster')
         expect(addressValues[2].childNodes[0].textContent).toEqual('London')
         expect(addressValues[3].childNodes[0].textContent).toEqual('SW1A 2AA')
+      });
+
+      it('should get appropriate rows for a page with a single readonly text component within a collection', () => {
+        const FORM_DATA = {
+          collection: [
+            { a: 'Bravo' }
+          ]
+        };
+        const COMPONENT = { type: 'text', readonly: true, id: 'a', fieldId: 'a', label: 'Alpha' };
+        const COLLECTION = {
+          id: 'collection',
+          fieldId: 'collection',
+          type: ComponentTypes.COLLECTION,
+          item: [ COMPONENT ],
+          value: FORM_DATA.collection,
+          formData: FORM_DATA
+        };
+        const PAGE = {
+          id: 'page',
+          components: [ COLLECTION ],
+          formData: FORM_DATA
+        };
+        const ON_ACTION = () => {};
+        const ROWS = getCYARowsForPage(PAGE, ON_ACTION);
+        expect(ROWS.length).toEqual(2); // Title and item row
+        expectObjectLike(ROWS[1], {
+          pageId: PAGE.id,
+          fieldId: COMPONENT.fieldId,
+          full_path: `${COLLECTION.fieldId}[0].${COMPONENT.fieldId}`,
+          key: COMPONENT.label,
+          action: null,
+          component: {
+            ...COMPONENT,
+            full_path: `${COLLECTION.fieldId}[0].${COMPONENT.fieldId}`
+          },
+          value: 'Bravo'
+        });
       });
 
     });

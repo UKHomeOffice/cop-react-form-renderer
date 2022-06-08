@@ -28,8 +28,7 @@ const SummaryList = ({
           <div key={`${row.pageId}_${row.fieldId}`} className={classes('row')}>
             <dt className={classes('key')}>
               {row.key}
-              {!row.hasOwnProperty('required') && !row.component?.required && ` (optional)`}
-              {!row.hasOwnProperty('component') && row.hasOwnProperty('required') && !row?.required && ` (optional)`}
+              {!row?.required && ` (optional)`}
             </dt>
             <dd className={classes('value')}>{row.value}</dd>
             {!noChangeAction && (

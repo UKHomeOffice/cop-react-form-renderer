@@ -1,14 +1,9 @@
 // Local imports
 import { ComponentTypes } from '../../models';
+import { expectObjectLike } from '../../setupTests';
 import getCYARowsForContainer from './getCYARowsForContainer';
 
 describe('utils.CheckYourAnswers.getCYARowsForContainer', () => {
-
-  const expectObjectLike = (received, expected) => {
-    Object.keys(expected).forEach(key => {
-      expect(received[key]).toEqual(expected[key]);
-    });
-  };
 
   it('should get an appropriate row for a container with a single readonly text component', () => {
     const FORM_DATA = {
