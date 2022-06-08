@@ -2,11 +2,7 @@
 import { ComponentTypes } from '../../models';
 import validateComponent from './validateComponent';
 
-describe('utils', () => {
-
-  describe('Validate', () => {
-
-    describe('component', () => {
+describe('utils.Validate.Component', () => {
 
       const setup = (id, type, label, required, additionalValidation) => {
         return { id, fieldId: id, type, label, required, additionalValidation };
@@ -127,7 +123,11 @@ describe('utils', () => {
           const LABEL = 'Field';
           const COMPONENT = setup(ID, ComponentTypes.DATE, LABEL, false);
           const DATA = { [ID]: '25-45-2033' };
-          expect(validateComponent(COMPONENT, DATA)).toEqual({ error: 'Month must be between 1 and 12', id: ID });
+          expect(validateComponent(COMPONENT, DATA)).toEqual({
+            error: 'Month must be between 1 and 12',
+            id: ID,
+            properties: { month: true }
+          });
         });
         
         it('should apply optional validators when specified', () => {
@@ -137,7 +137,11 @@ describe('utils', () => {
             { function: 'mustBeBefore', value: 3, unit: 'day', message: 'Date must be less than 3 days in the future' },
           ]
           const COMPONENT = setup(ID, ComponentTypes.DATE, LABEL, false, ADDITIONAL_VALIDATION);
-          expect(validateComponent(COMPONENT, DATA)).toEqual({ error: 'Date must be less than 3 days in the future', id: ID });
+          expect(validateComponent(COMPONENT, DATA)).toEqual({
+            error: 'Date must be less than 3 days in the future',
+            id: ID,
+            properties: { day: true, month: true, year: true }
+          });
         });
 
       });
@@ -148,28 +152,16 @@ describe('utils', () => {
           const LABEL = 'Field';
           const COMPONENT = setup(ID, ComponentTypes.TIME, LABEL, false);
           const DATA = { [ID]: '25:45' };
-          expect(validateComponent(COMPONENT, DATA)).toEqual({ error: 'Hour must be between 0 and 23', id: ID });
+          expect(validateComponent(COMPONENT, DATA)).toEqual({
+            error: 'Hour must be between 0 and 23',
+            id: ID,
+            properties: { hour: true }
+          });
         });
 
       });
 
       describe('when the component is a container', () => {
-
-        it('should return an empty array when the container has an undefined components array', () => {
-          const ID = 'container';
-          const LABEL = 'field';
-          const CONTAINER = setup(ID, ComponentTypes.CONTAINER, LABEL, false);
-          expect(validateComponent(CONTAINER, null)).toEqual([]);
-        });
-
-        it('should return an empty array when the container has no components', () => {
-          const ID = 'container';
-          const LABEL = 'field';
-          const CONTAINER = setup(ID, ComponentTypes.CONTAINER, LABEL, false);
-          CONTAINER.components = [];
-          expect(validateComponent(CONTAINER, null)).toEqual([]);
-        });
-
         it('should return an empty array when the container has only valid components', () => {
           const EMAIL_ID = 'email';
           const EMAIL_LABEL = 'Email';
@@ -185,26 +177,25 @@ describe('utils', () => {
           };
           expect(validateComponent(CONTAINER, DATA)).toEqual([]);
         });
+      });
 
-        it('should return an array containing an error when the container has an invalid component', () => {
+      describe('when the component is a collection', () => {
+        it('should return an empty array when the collection has only valid items', () => {
           const EMAIL_ID = 'email';
           const EMAIL_LABEL = 'Email';
           const EMAIL = setup(EMAIL_ID, ComponentTypes.EMAIL, EMAIL_LABEL, false);
-          const ID = 'container';
+          const ID = 'collection';
           const LABEL = 'field';
-          const CONTAINER = setup(ID, ComponentTypes.CONTAINER, LABEL, false);
-          CONTAINER.components = [EMAIL];
+          const COLLECTION = setup(ID, ComponentTypes.COLLECTION, LABEL, false);
+          COLLECTION.item = [EMAIL];
           const DATA = {
-            [ID]: {
-              [EMAIL_ID]: 'alpha.bravo@digital.homeoffice.com'
-            }
+            [ID]: [
+              { [EMAIL_ID]: 'alpha.bravo@homeoffice.gov.uk' },
+              { [EMAIL_ID]: 'charlie.delta@homeoffice.gov.uk' }
+            ]
           };
-          expect(validateComponent(CONTAINER, DATA)).toEqual([{
-              id: EMAIL_ID,
-              error: `Enter ${EMAIL_LABEL.toLowerCase()} in the correct format, like jane.doe@homeoffice.gov.uk`
-          }]);
+          expect(validateComponent(COLLECTION, DATA)).toEqual([]);
         });
-
       });
 
       describe('when the component has a nested component', () => {
@@ -280,8 +271,5 @@ describe('utils', () => {
           expect(validateComponent(COMPONENT, {})).toBeUndefined();
         });
       });
-      
-    });
-  });
 
 });
