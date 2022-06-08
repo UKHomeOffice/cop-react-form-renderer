@@ -22,29 +22,30 @@ const SummaryList = ({
 }) => {
   const classes = Utils.classBuilder(classBlock, classModifiers, className);
   return (
-    <div className = 'group-of-rows'>
-    <dl {...attrs} className={classes()}>
-      {rows.map((row) =>  
+    <div className='group-of-rows'>
+      <dl {...attrs} className={classes()}>
+        {rows.map((row) =>
           <div key={`${row.pageId}_${row.fieldId}`} className={classes('row')}>
-          <dt className={classes('key')}>
-            {row.key}
-            {!row.component?.required && ` (optional)`}
-          </dt>
+            <dt className={classes('key')}>
+              {row.key}
+              {!row.hasOwnProperty('required') && !row.component?.required && ` (optional)`}
+              {!row.hasOwnProperty('component') && !row?.required && ` (optional)`}
+            </dt>
             <dd className={classes('value')}>{row.value}</dd>
             {!noChangeAction && (
               <dd className={classes('actions')}>
                 {row.action && <RowAction row={row} />}
               </dd>
             )}
-          </div>     
-      )}
-      {isGroup &&
-        <div className='change-group-button'>
+          </div>
+        )}
+        {isGroup &&
+          <div className='change-group-button'>
             <GroupAction group={rows[0]} />
-        </div>
-      }
+          </div>
+        }
       </dl>
-      </div>
+    </div>
   );
 };
 
