@@ -42,6 +42,7 @@ const getCYARowForGroup = (page, group, rows, onAction) => {
     pageId: page.id,
     fieldId: group.id,
     key: group.label,
+    required: group.required,
     value,
     action: getCYAAction(false, page, onAction)
   };
