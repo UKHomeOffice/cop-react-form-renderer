@@ -73,6 +73,12 @@ const getRadios = (config) => {
   Data.getOptions(config, (val) => {
     options = val;
   });
+  options.forEach((option) => {
+    if (!option.nested){
+      return;
+    }
+    option.nestedJSX = getNestedComponent(config, option);
+  });
   const attrs = cleanAttributes(config);
   return <Radios {...attrs} options={options} />;
 };
@@ -91,7 +97,6 @@ const getTime = (config) => {
   const attrs = cleanAttributes(config);
   return <TimeInput {...attrs} />;
 };
-
 
 const getComponentByType = (config) => {
   switch (config.type) {
@@ -126,6 +131,27 @@ const getComponentByType = (config) => {
 };
 
 /**
+ * Get nested component with form data
+ * @param {*} parentConfig 
+ * @param {*} nestedConfig 
+ */
+const getNestedComponent = (parentConfig, nestedConfig) => {
+  nestedConfig.nested.onChange = parentConfig.onChange;
+  if (parentConfig.formData) {
+    nestedConfig.nested.value = parentConfig?.formData?.[nestedConfig.nested.fieldId] ? parentConfig.formData[nestedConfig.nested.fieldId] : '';
+  }
+  if ('readonly' in nestedConfig.nested)
+    delete nestedConfig.nested.readonly;
+  if(parentConfig.readonly){
+    nestedConfig.nested.readonly = parentConfig.readonly;
+    return getComponent(nestedConfig.nested, false);
+  }
+  return getComponent(nestedConfig.nested);
+};
+
+export { getNestedComponent };
+
+/**
  * Get a renderable component, based on a configuration object.
  * @param {object} config The configuration object for the component.
  * @param {boolean} wrap Indicates whether or not the component should be wrapped.
@@ -139,7 +165,7 @@ const getComponent = (config, wrap = true, fnOverride = undefined) => {
       return overrideComponent;
     }
   }
-  const component = getComponentByType(config);
+const component = getComponentByType(config);
   if (component && wrap && isEditable(config)) {
     const attrs = cleanAttributes(config, ['fieldId', 'displayMenu']);
     return wrapInFormGroup(attrs, component);

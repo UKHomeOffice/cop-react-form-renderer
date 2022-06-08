@@ -23,7 +23,14 @@ const Task = ({ task, onClick }) => {
   return (
     <li className={classes('item')}>
       <span className={classes('task-name')}>
-        {linkActive ? <Link onClick={() => onClick(task)}>{task.name}</Link> : task.name}
+        {linkActive ? <Link
+          onClick={() => onClick(task)}
+          onKeyPress={(event) => {
+            if (event.key === 'Enter') {
+              onClick(task);
+            }
+          }}
+          tabIndex="0">{task.name}</Link> : task.name}
       </span>
       <TaskState state={currentState} />
     </li>
