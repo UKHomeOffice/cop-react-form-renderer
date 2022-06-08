@@ -14,6 +14,17 @@ describe('components', () => {
       return summaryList;
     };
 
+    const checkTitleRow = (summaryList, index) => {
+      const row = summaryList.childNodes[index];
+      expect(row.tagName).toEqual('DIV');
+      expect(row.classList).toContain(`${DEFAULT_CLASS}__row`);
+      expect(row.classList).toContain(`${DEFAULT_CLASS}__title`);
+      const [heading] = row.childNodes;
+      expect(heading.tagName).toEqual('H3');
+      expect(heading.classList).toContain('govuk-heading-s');
+      return heading;
+    };
+
     const checkRow = (summaryList, index) => {
       const row = summaryList.childNodes[index];
       expect(row.tagName).toEqual('DIV');
@@ -67,6 +78,37 @@ describe('components', () => {
         expect(key.textContent).toEqual(`${row.key} (optional)`);
         expect(value.textContent).toEqual(row.value);
         expect(actions.childNodes.length).toEqual(0);
+      });
+    });
+
+    it('should handle title rows', () => {
+      const ID = 'test-id';
+      const ROWS = [
+        { pageId: 'p1', fieldId: 'a', type: 'title', key: 'Title' },
+        { pageId: 'p1', fieldId: 'a', key: 'Alpha', value: 'Alpha value' },
+        { pageId: 'p2', fieldId: 'b', key: 'Bravo', value: 'Bravo value' }
+      ];
+      const { container } = render(
+        <SummaryList data-testid={ID} rows={ROWS} />
+      );
+      const summaryList = checkSummaryList(container, ID);
+      expect(summaryList.childNodes.length).toEqual(ROWS.length);
+      const assessTitleRow = (row, index) => {
+        const heading = checkTitleRow(summaryList, index);
+        expect(heading.textContent).toEqual(row.key);
+      };
+      const assessRow = (row, index) => {
+        const [key, value, actions] = checkRow(summaryList, index);
+        expect(key.textContent).toEqual(`${row.key} (optional)`);
+        expect(value.textContent).toEqual(row.value);
+        expect(actions.childNodes.length).toEqual(0);
+      };
+      ROWS.forEach((row, index) => {
+        if (row.type === 'title') {
+          assessTitleRow(row, index);
+        } else {
+          assessRow(row, index);
+        }
       });
     });
 
@@ -212,7 +254,6 @@ describe('components', () => {
         expect(valueDiv.textContent).toEqual(VALUES[index]);
       });
     });
-
 
   });
 });

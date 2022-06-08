@@ -2,10 +2,11 @@
 import { Utils } from '@ukhomeoffice/cop-react-components';
 import PropTypes from 'prop-types';
 import React from 'react';
-import GroupAction from './GroupAction';
 
 // Local imports
-import RowAction from './RowAction';
+import GroupAction from './GroupAction';
+import SummaryListRow from './SummaryListRow';
+import SummaryListTitleRow from './SummaryListTitleRow';
 
 // Styles
 import './SummaryList.scss';
@@ -21,26 +22,24 @@ const SummaryList = ({
   ...attrs
 }) => {
   const classes = Utils.classBuilder(classBlock, classModifiers, className);
+  let groupActionRow = null;
+  if (isGroup) {
+    const rowActions = rows.filter(r => !!r.action);
+    groupActionRow = rowActions.length > 0 ? rowActions[0] : null;
+  }
   return (
-    <div className='group-of-rows'>
+    <div className="group-of-rows">
       <dl {...attrs} className={classes()}>
-        {rows.map((row) =>
-          <div key={`${row.pageId}_${row.fieldId}`} className={classes('row')}>
-            <dt className={classes('key')}>
-              {row.key}
-              {!row?.required && ` (optional)`}
-            </dt>
-            <dd className={classes('value')}>{row.value}</dd>
-            {!noChangeAction && (
-              <dd className={classes('actions')}>
-                {row.action && <RowAction row={row} />}
-              </dd>
-            )}
-          </div>
-        )}
+        {rows.map((row) => {
+          const key = `${row.pageId}_${row.full_path || row.fieldId}`;
+          if (row.type === 'title') {
+            return <SummaryListTitleRow key={key} title={row.key} classes={classes} />;
+          }
+          return <SummaryListRow key={key} row={row} classes={classes} showAction={!noChangeAction} />;
+        })}
         {isGroup &&
           <div className='change-group-button'>
-            <GroupAction group={rows[0]} />
+            <GroupAction group={groupActionRow} />
           </div>
         }
       </dl>
@@ -53,6 +52,7 @@ SummaryList.propTypes = {
     PropTypes.shape({
       pageId: PropTypes.string.isRequired,
       fieldId: PropTypes.string.isRequired,
+      full_path: PropTypes.string,
       key: PropTypes.string.isRequired,
       value: PropTypes.any,
       action: PropTypes.shape({
@@ -63,13 +63,14 @@ SummaryList.propTypes = {
       })
     })
   ).isRequired,
+  noChangeAction: PropTypes.bool,
+  isGroup: PropTypes.bool,
   classBlock: PropTypes.string,
   classModifiers: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.arrayOf(PropTypes.string)
   ]),
-  className: PropTypes.string,
-  noChangeAction: PropTypes.bool,
+  className: PropTypes.string
 };
 
 SummaryList.defaultProps = {

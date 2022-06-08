@@ -1,13 +1,18 @@
 @import 'node_modules/govuk-frontend/govuk/_base';
 @import 'node_modules/govuk-frontend/govuk/components/summary-list/_summary-list';
 
-// .govuk-summary-list__actions {
-//   .govuk-link {
-//     float: right;
-//     color: govuk-colour('blue');
-//     cursor: pointer;
-//   }
-// }
+.govuk-summary-list__title {
+  width: 100%;
+  white-space: nowrap;
+  .govuk-heading-s {
+    margin-bottom: 10px;
+  }
+  &:not(:first-child) {
+    .govuk-heading-s {
+      margin-top: 20px;
+    }
+  }
+}
 
 .changeRow {
   .govuk-link {
@@ -38,4 +43,3 @@
 
 
 }
-
