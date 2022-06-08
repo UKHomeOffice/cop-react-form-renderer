@@ -2,10 +2,7 @@
 import { META_PROPERTY, META_DOCUMENTS_PROPERTY } from '../constants';
 
 const getDocuments = (formData) => {
-  if (formData && formData[META_PROPERTY]) {
-    return formData[META_PROPERTY][META_DOCUMENTS_PROPERTY] || [];
-  }
-  return [];
+  return formData?.[META_PROPERTY]?.[META_DOCUMENTS_PROPERTY] || [];
 };
 
 export default getDocuments;
