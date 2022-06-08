@@ -8,7 +8,7 @@ import { useValidation } from '../../hooks';
 import ValidationContextProvider from './ValidationContext';
 
 const TestComponent = ({ customErrors }) => {
-  const { addErrors, errors, validate } = useValidation();
+  const { addErrors, clearErrors, errors, validate } = useValidation();
   useEffect(() => {
     if (customErrors) {
       addErrors(customErrors);
@@ -18,6 +18,7 @@ const TestComponent = ({ customErrors }) => {
   return (
     <>
       {typeof (addErrors) === 'function' && <span>addErrors is a function</span>}
+      {typeof (clearErrors) === 'function' && <span>clearErrors is a function</span>}
       {typeof (validate.page) === 'function' && <span>validate.page is a function</span>}
       {Array.isArray(errors) && <span>errors is an array of length {errors.length}</span>}
       {errors?.length > 0 && <ErrorSummary errors={errors} />}
@@ -33,8 +34,9 @@ describe('context.ValidationContext', () => {
         <TestComponent />
       </ValidationContextProvider>
     );
-    expect(container.childNodes.length).toEqual(3);
+    expect(container.childNodes.length).toEqual(4);
     expect(container.textContent).toContain('addErrors is a function');
+    expect(container.textContent).toContain('clearErrors is a function');
     expect(container.textContent).toContain('validate.page is a function');
     expect(container.textContent).toContain('errors is an array of length 0');
   });
@@ -48,11 +50,12 @@ describe('context.ValidationContext', () => {
         <TestComponent customErrors={CUSTOM_ERRORS} />
       </ValidationContextProvider>
     );
-    expect(container.childNodes.length).toEqual(4);
+    expect(container.childNodes.length).toEqual(5);
     expect(container.textContent).toContain('addErrors is a function');
+    expect(container.textContent).toContain('clearErrors is a function');
     expect(container.textContent).toContain('validate.page is a function');
     expect(container.textContent).toContain('errors is an array of length 1');
-    const errorSummary = container.childNodes[3];
+    const errorSummary = container.childNodes[4];
     expect(errorSummary.tagName).toEqual('DIV');
     expect(errorSummary.classList).toContain('govuk-error-summary');
     expect(errorSummary.textContent).toContain(CUSTOM_ERRORS[0].error);
