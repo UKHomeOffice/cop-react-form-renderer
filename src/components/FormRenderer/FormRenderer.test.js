@@ -56,7 +56,7 @@ describe('components', () => {
     };
 
     const getChangeLink = (summaryList) => {
-      const [ , , actions ] = summaryList.childNodes[0].childNodes[0].childNodes;
+      const [, , actions] = summaryList.childNodes[0].childNodes[0].childNodes;
       return actions.childNodes[0];
     };
 
@@ -105,13 +105,13 @@ describe('components', () => {
       });
       const form = checkForm(container);
       const hub = form.childNodes[1]; // Hub = CYA
-      const [ , , civilServantList ] = hub.childNodes;
+      const [, , civilServantList] = hub.childNodes;
       const link = getChangeLink(civilServantList);
       expect(ON_PAGE_CHANGE_CALLS.length).toEqual(0);
       fireEvent.click(link, {});
       expect(ON_PAGE_CHANGE_CALLS.length).toEqual(1);
       expect(ON_PAGE_CHANGE_CALLS[0]).toEqual(USER_PROFILE.pages[1].id);
-      
+
       // The form layout should have changed to the current page.
       expect(form.childNodes.length).toEqual(1); // Just the page.
       const page = form.childNodes[0];
@@ -136,7 +136,7 @@ describe('components', () => {
 
       // Navigate to the "Are you a civil servant?" page.
       const hub = form.childNodes[1]; // Hub = CYA
-      const [ , , civilServantList ] = hub.childNodes;
+      const [, , civilServantList] = hub.childNodes;
       const link = getChangeLink(civilServantList);
       fireEvent.click(link, {});
 
@@ -172,7 +172,7 @@ describe('components', () => {
 
       // Navigate to the "Are you a civil servant?" page.
       const hub = form.childNodes[1]; // Hub = CYA
-      const [ , , civilServantList ] = hub.childNodes;
+      const [, , civilServantList] = hub.childNodes;
       const link = getChangeLink(civilServantList);
       fireEvent.click(link, {});
 
@@ -207,7 +207,7 @@ describe('components', () => {
 
       // Navigate to the "Add or change a line manager" page.
       const hub = form.childNodes[1]; // Hub = CYA
-      const [ , , , , , lineManagerList ] = hub.childNodes;
+      const [, , , , , lineManagerList] = hub.childNodes;
       const link = getChangeLink(lineManagerList);
       expect(ON_PAGE_CHANGE_CALLS.length).toEqual(0);
       fireEvent.click(link, {});
@@ -301,7 +301,8 @@ describe('components', () => {
       //Continue on from CYA page
       const cyaPage = container.childNodes[0].childNodes[0];
       expect(cyaPage.childNodes[0].textContent).toEqual('Check your answers');
-      expect(cyaPage.childNodes[5].textContent).toEqual('Submit');
+      expect(cyaPage.childNodes[5].childNodes[0].textContent).toEqual('Save and continue');
+      expect(cyaPage.childNodes[5].childNodes[1].textContent).toEqual('Save and return later');
       fireEvent.click(cyaPage.childNodes[5].childNodes[0], {});
 
       //Should be back at task list

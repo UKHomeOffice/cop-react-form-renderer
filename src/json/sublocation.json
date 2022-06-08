@@ -1,0 +1,859 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "sublocation": "Freight (inward)",
+      "description": null,
+      "validfrom": "2020-03-08T23:59:00.000Z",
+      "validto": "2021-05-07T00:00:01.000Z",
+      "updatedby": null,
+      "uoflocation": null
+    },
+    {
+      "id": 2,
+      "sublocation": "Freight (outward)",
+      "description": null,
+      "validfrom": "2020-03-08T23:59:00.000Z",
+      "validto": "2021-05-07T00:00:01.000Z",
+      "updatedby": null,
+      "uoflocation": null
+    },
+    {
+      "id": 3,
+      "sublocation": "Tourist (inbound)",
+      "description": null,
+      "validfrom": "2020-03-08T23:59:00.000Z",
+      "validto": "2021-05-07T00:00:01.000Z",
+      "updatedby": null,
+      "uoflocation": null
+    },
+    {
+      "id": 4,
+      "sublocation": "Cargo Centre",
+      "description": null,
+      "validfrom": "2020-03-08T23:59:00.000Z",
+      "validto": "2021-05-07T00:00:01.000Z",
+      "updatedby": null,
+      "uoflocation": null
+    },
+    {
+      "id": 5,
+      "sublocation": "Lane",
+      "description": null,
+      "validfrom": "2020-03-08T23:59:00.000Z",
+      "validto": "2021-05-07T00:00:01.000Z",
+      "updatedby": null,
+      "uoflocation": null
+    },
+    {
+      "id": 6,
+      "sublocation": "Shed",
+      "description": null,
+      "validfrom": "2020-03-08T23:59:00.000Z",
+      "validto": "2021-05-07T00:00:01.000Z",
+      "updatedby": null,
+      "uoflocation": null
+    },
+    {
+      "id": 7,
+      "sublocation": "Tourist (outbound)",
+      "description": null,
+      "validfrom": "2020-03-08T23:59:00.000Z",
+      "validto": "2021-05-07T00:00:01.000Z",
+      "updatedby": null,
+      "uoflocation": null
+    },
+    {
+      "id": 8,
+      "sublocation": "Channels",
+      "description": null,
+      "validfrom": "2020-03-08T23:59:00.000Z",
+      "validto": "2021-05-07T00:00:01.000Z",
+      "updatedby": null,
+      "uoflocation": null
+    },
+    {
+      "id": 9,
+      "sublocation": "Baggage reclaim",
+      "description": null,
+      "validfrom": "2020-03-08T23:59:00.000Z",
+      "validto": "2021-05-07T00:00:01.000Z",
+      "updatedby": null,
+      "uoflocation": null
+    },
+    {
+      "id": 10,
+      "sublocation": "Warehouse",
+      "description": null,
+      "validfrom": "2020-03-08T23:59:00.000Z",
+      "validto": "2021-05-07T00:00:01.000Z",
+      "updatedby": null,
+      "uoflocation": null
+    },
+    {
+      "id": 11,
+      "sublocation": "Custody Suite",
+      "description": null,
+      "validfrom": "2020-03-08T23:59:00.000Z",
+      "validto": "2021-05-07T00:00:01.000Z",
+      "updatedby": null,
+      "uoflocation": null
+    },
+    {
+      "id": 12,
+      "sublocation": "Controlled Waiting Area (CWA)",
+      "description": null,
+      "validfrom": "2020-03-08T23:59:00.000Z",
+      "validto": "2021-05-07T00:00:01.000Z",
+      "updatedby": null,
+      "uoflocation": null
+    },
+    {
+      "id": 13,
+      "sublocation": "Short Term Holding Facility (STHF)",
+      "description": null,
+      "validfrom": "2020-03-08T23:59:00.000Z",
+      "validto": "2021-05-07T00:00:01.000Z",
+      "updatedby": null,
+      "uoflocation": null
+    },
+    {
+      "id": 14,
+      "sublocation": "Escort/transportation",
+      "description": null,
+      "validfrom": "2020-03-08T23:59:00.000Z",
+      "validto": "2021-05-07T00:00:01.000Z",
+      "updatedby": null,
+      "uoflocation": null
+    },
+    {
+      "id": 15,
+      "sublocation": "Tug haven",
+      "description": null,
+      "validfrom": "2020-03-26T23:59:00.000Z",
+      "validto": "2021-05-07T00:00:01.000Z",
+      "updatedby": null,
+      "uoflocation": null
+    },
+    {
+      "id": 16,
+      "sublocation": "Berths",
+      "description": null,
+      "validfrom": "2020-03-26T23:59:00.000Z",
+      "validto": "2021-05-07T00:00:01.000Z",
+      "updatedby": null,
+      "uoflocation": null
+    },
+    {
+      "id": 17,
+      "sublocation": "Cargo",
+      "description": null,
+      "validfrom": "2020-05-27T00:00:00.000Z",
+      "validto": "2021-05-07T00:00:01.000Z",
+      "updatedby": null,
+      "uoflocation": null
+    },
+    {
+      "id": 18,
+      "sublocation": "Departure Lounge",
+      "description": null,
+      "validfrom": "2020-05-27T00:00:00.000Z",
+      "validto": "2021-05-07T00:00:01.000Z",
+      "updatedby": null,
+      "uoflocation": null
+    },
+    {
+      "id": 19,
+      "sublocation": "Arrival Lounge",
+      "description": null,
+      "validfrom": "2020-05-27T00:00:00.000Z",
+      "validto": "2021-05-07T00:00:01.000Z",
+      "updatedby": null,
+      "uoflocation": null
+    },
+    {
+      "id": 20,
+      "sublocation": "Slipway",
+      "description": null,
+      "validfrom": "2020-08-05T00:00:00.000Z",
+      "validto": "2021-05-07T00:00:01.000Z",
+      "updatedby": null,
+      "uoflocation": null
+    },
+    {
+      "id": 21,
+      "sublocation": "Marina",
+      "description": null,
+      "validfrom": "2020-08-05T00:00:00.000Z",
+      "validto": "2021-05-07T00:00:01.000Z",
+      "updatedby": null,
+      "uoflocation": null
+    },
+    {
+      "id": 22,
+      "sublocation": "Habour",
+      "description": null,
+      "validfrom": "2020-08-05T00:00:00.000Z",
+      "validto": "2021-05-07T00:00:01.000Z",
+      "updatedby": null,
+      "uoflocation": null
+    },
+    {
+      "id": 23,
+      "sublocation": "Beach",
+      "description": null,
+      "validfrom": "2020-08-05T00:00:00.000Z",
+      "validto": "2021-05-07T00:00:01.000Z",
+      "updatedby": null,
+      "uoflocation": null
+    },
+    {
+      "id": 24,
+      "sublocation": "Coves",
+      "description": null,
+      "validfrom": "2020-08-05T00:00:00.000Z",
+      "validto": "2021-05-07T00:00:01.000Z",
+      "updatedby": null,
+      "uoflocation": null
+    },
+    {
+      "id": 25,
+      "sublocation": "Farm fields",
+      "description": null,
+      "validfrom": "2020-08-05T00:00:00.000Z",
+      "validto": "2021-05-07T00:00:01.000Z",
+      "updatedby": null,
+      "uoflocation": null
+    },
+    {
+      "id": 26,
+      "sublocation": "Freight (inward)",
+      "description": null,
+      "validfrom": "2021-05-07T00:00:01.000Z",
+      "validto": "2021-05-06T14:00:02.000Z",
+      "updatedby": "Ben Milnes",
+      "uoflocation": false
+    },
+    {
+      "id": 27,
+      "sublocation": "Freight (outward)",
+      "description": null,
+      "validfrom": "2021-05-07T00:00:01.000Z",
+      "validto": "2021-05-07T00:00:02.000Z",
+      "updatedby": "Ben Milnes",
+      "uoflocation": false
+    },
+    {
+      "id": 28,
+      "sublocation": "Tourist (inbound)",
+      "description": null,
+      "validfrom": "2021-05-07T00:00:01.000Z",
+      "validto": "2021-05-07T00:00:02.000Z",
+      "updatedby": "Ben Milnes",
+      "uoflocation": false
+    },
+    {
+      "id": 29,
+      "sublocation": "Cargo Centre",
+      "description": null,
+      "validfrom": "2021-05-07T00:00:01.000Z",
+      "validto": "2021-05-07T00:00:02.000Z",
+      "updatedby": "Ben Milnes",
+      "uoflocation": false
+    },
+    {
+      "id": 30,
+      "sublocation": "Lane",
+      "description": null,
+      "validfrom": "2021-05-07T00:00:01.000Z",
+      "validto": "2021-05-07T00:00:02.000Z",
+      "updatedby": "Ben Milnes",
+      "uoflocation": false
+    },
+    {
+      "id": 31,
+      "sublocation": "Shed",
+      "description": null,
+      "validfrom": "2021-05-07T00:00:01.000Z",
+      "validto": "2021-05-07T00:00:02.000Z",
+      "updatedby": "Ben Milnes",
+      "uoflocation": false
+    },
+    {
+      "id": 32,
+      "sublocation": "Tourist (outbound)",
+      "description": null,
+      "validfrom": "2021-05-07T00:00:01.000Z",
+      "validto": "2021-05-07T00:00:02.000Z",
+      "updatedby": "Ben Milnes",
+      "uoflocation": false
+    },
+    {
+      "id": 33,
+      "sublocation": "Channels",
+      "description": null,
+      "validfrom": "2021-05-07T00:00:01.000Z",
+      "validto": "2021-05-07T00:00:02.000Z",
+      "updatedby": "Ben Milnes",
+      "uoflocation": false
+    },
+    {
+      "id": 34,
+      "sublocation": "Baggage reclaim",
+      "description": null,
+      "validfrom": "2021-05-07T00:00:01.000Z",
+      "validto": "2021-05-07T00:00:02.000Z",
+      "updatedby": "Ben Milnes",
+      "uoflocation": true
+    },
+    {
+      "id": 35,
+      "sublocation": "Warehouse",
+      "description": null,
+      "validfrom": "2021-05-07T00:00:01.000Z",
+      "validto": "2021-05-07T00:00:02.000Z",
+      "updatedby": "Ben Milnes",
+      "uoflocation": false
+    },
+    {
+      "id": 36,
+      "sublocation": "Custody Suite",
+      "description": null,
+      "validfrom": "2021-05-07T00:00:01.000Z",
+      "validto": "2021-05-07T00:00:02.000Z",
+      "updatedby": "Ben Milnes",
+      "uoflocation": false
+    },
+    {
+      "id": 37,
+      "sublocation": "Controlled Waiting Area (CWA)",
+      "description": null,
+      "validfrom": "2021-05-07T00:00:01.000Z",
+      "validto": "2021-05-07T00:00:02.000Z",
+      "updatedby": "Ben Milnes",
+      "uoflocation": true
+    },
+    {
+      "id": 38,
+      "sublocation": "Short Term Holding Facility (STHF)",
+      "description": null,
+      "validfrom": "2021-05-07T00:00:01.000Z",
+      "validto": "2021-05-07T00:00:02.000Z",
+      "updatedby": "Ben Milnes",
+      "uoflocation": false
+    },
+    {
+      "id": 39,
+      "sublocation": "Escort/transportation",
+      "description": null,
+      "validfrom": "2021-05-07T00:00:01.000Z",
+      "validto": "2021-05-07T00:00:02.000Z",
+      "updatedby": "Ben Milnes",
+      "uoflocation": false
+    },
+    {
+      "id": 40,
+      "sublocation": "Tug haven",
+      "description": null,
+      "validfrom": "2021-05-07T00:00:01.000Z",
+      "validto": "2021-05-07T00:00:02.000Z",
+      "updatedby": "Ben Milnes",
+      "uoflocation": false
+    },
+    {
+      "id": 41,
+      "sublocation": "Berths / Allocation Lanes",
+      "description": null,
+      "validfrom": "2021-05-07T00:00:01.000Z",
+      "validto": "2021-05-07T00:00:02.000Z",
+      "updatedby": "Ben Milnes",
+      "uoflocation": true
+    },
+    {
+      "id": 42,
+      "sublocation": "Cargo",
+      "description": null,
+      "validfrom": "2021-05-07T00:00:01.000Z",
+      "validto": "2021-05-07T00:00:02.000Z",
+      "updatedby": "Ben Milnes",
+      "uoflocation": false
+    },
+    {
+      "id": 43,
+      "sublocation": "Departure Lounge",
+      "description": null,
+      "validfrom": "2021-05-07T00:00:01.000Z",
+      "validto": "2021-05-07T00:00:02.000Z",
+      "updatedby": "Ben Milnes",
+      "uoflocation": false
+    },
+    {
+      "id": 44,
+      "sublocation": "Arrival Lounge",
+      "description": null,
+      "validfrom": "2021-05-07T00:00:01.000Z",
+      "validto": "2021-05-07T00:00:02.000Z",
+      "updatedby": "Ben Milnes",
+      "uoflocation": false
+    },
+    {
+      "id": 45,
+      "sublocation": "Slipway",
+      "description": null,
+      "validfrom": "2021-05-07T00:00:01.000Z",
+      "validto": "2021-05-07T00:00:02.000Z",
+      "updatedby": "Ben Milnes",
+      "uoflocation": false
+    },
+    {
+      "id": 46,
+      "sublocation": "Marina",
+      "description": null,
+      "validfrom": "2021-05-07T00:00:01.000Z",
+      "validto": "2021-05-07T00:00:02.000Z",
+      "updatedby": "Ben Milnes",
+      "uoflocation": false
+    },
+    {
+      "id": 47,
+      "sublocation": "Harbour",
+      "description": null,
+      "validfrom": "2021-05-07T00:00:01.000Z",
+      "validto": "2021-05-07T00:00:02.000Z",
+      "updatedby": "Ben Milnes",
+      "uoflocation": true
+    },
+    {
+      "id": 48,
+      "sublocation": "Beach",
+      "description": null,
+      "validfrom": "2021-05-07T00:00:01.000Z",
+      "validto": "2021-05-07T00:00:02.000Z",
+      "updatedby": "Ben Milnes",
+      "uoflocation": false
+    },
+    {
+      "id": 49,
+      "sublocation": "Coves",
+      "description": null,
+      "validfrom": "2021-05-07T00:00:01.000Z",
+      "validto": "2021-05-07T00:00:02.000Z",
+      "updatedby": "Ben Milnes",
+      "uoflocation": false
+    },
+    {
+      "id": 50,
+      "sublocation": "Farm fields",
+      "description": null,
+      "validfrom": "2021-05-07T00:00:01.000Z",
+      "validto": "2021-05-07T00:00:02.000Z",
+      "updatedby": "Ben Milnes",
+      "uoflocation": false
+    },
+    {
+      "id": 51,
+      "sublocation": "Disembarkation (prior to PCP)",
+      "description": null,
+      "validfrom": "2021-05-07T00:00:01.000Z",
+      "validto": "2021-05-07T00:00:02.000Z",
+      "updatedby": "Ben Milnes",
+      "uoflocation": true
+    },
+    {
+      "id": 52,
+      "sublocation": "PCP",
+      "description": null,
+      "validfrom": "2021-05-07T00:00:01.000Z",
+      "validto": "2021-05-07T00:00:02.000Z",
+      "updatedby": "Ben Milnes",
+      "uoflocation": true
+    },
+    {
+      "id": 53,
+      "sublocation": "Customs channel/lanes",
+      "description": null,
+      "validfrom": "2021-05-07T00:00:01.000Z",
+      "validto": "2021-05-07T00:00:02.000Z",
+      "updatedby": "Ben Milnes",
+      "uoflocation": true
+    },
+    {
+      "id": 54,
+      "sublocation": "Further examination area",
+      "description": "Further examination area/Detention suite/Interview room",
+      "validfrom": "2021-05-07T00:00:01.000Z",
+      "validto": "2021-05-07T00:00:02.000Z",
+      "updatedby": "Ben Milnes",
+      "uoflocation": true
+    },
+    {
+      "id": 55,
+      "sublocation": "Check-in/security",
+      "description": "Check-in/security/ Others’ control area",
+      "validfrom": "2021-05-07T00:00:01.000Z",
+      "validto": "2021-05-07T00:00:02.000Z",
+      "updatedby": "Ben Milnes",
+      "uoflocation": true
+    },
+    {
+      "id": 56,
+      "sublocation": "Embarkation controls",
+      "description": null,
+      "validfrom": "2021-05-07T00:00:01.000Z",
+      "validto": "2021-05-07T00:00:02.000Z",
+      "updatedby": "Ben Milnes",
+      "uoflocation": true
+    },
+    {
+      "id": 57,
+      "sublocation": "GA/GM site",
+      "description": null,
+      "validfrom": "2021-05-07T00:00:01.000Z",
+      "validto": "2021-05-07T00:00:02.000Z",
+      "updatedby": "Ben Milnes",
+      "uoflocation": true
+    },
+    {
+      "id": 58,
+      "sublocation": "Docks/Containers/Freight area",
+      "description": null,
+      "validfrom": "2021-05-07T00:00:01.000Z",
+      "validto": "2021-05-07T00:00:02.000Z",
+      "updatedby": "Ben Milnes",
+      "uoflocation": true
+    },
+    {
+      "id": 59,
+      "sublocation": "Hospital/Hospital duties",
+      "description": null,
+      "validfrom": "2021-05-07T00:00:01.000Z",
+      "validto": "2021-05-07T00:00:02.000Z",
+      "updatedby": "Ben Milnes",
+      "uoflocation": true
+    },
+    {
+      "id": 60,
+      "sublocation": "Other",
+      "description": null,
+      "validfrom": "2021-05-07T00:00:01.000Z",
+      "validto": "2021-05-07T00:00:02.000Z",
+      "updatedby": "Ben Milnes",
+      "uoflocation": true
+    },
+    {
+      "id": 1,
+      "sublocation": "Freight (inward)",
+      "description": null,
+      "validfrom": "2021-05-07T00:00:03.000Z",
+      "validto": null,
+      "updatedby": "BethStephenson",
+      "uoflocation": false
+    },
+    {
+      "id": 2,
+      "sublocation": "Freight (outward)",
+      "description": null,
+      "validfrom": "2021-05-07T00:00:03.000Z",
+      "validto": null,
+      "updatedby": "BethStephenson",
+      "uoflocation": false
+    },
+    {
+      "id": 3,
+      "sublocation": "Tourist (inbound)",
+      "description": null,
+      "validfrom": "2021-05-07T00:00:03.000Z",
+      "validto": null,
+      "updatedby": "BethStephenson",
+      "uoflocation": false
+    },
+    {
+      "id": 4,
+      "sublocation": "Cargo Centre",
+      "description": null,
+      "validfrom": "2021-05-07T00:00:03.000Z",
+      "validto": null,
+      "updatedby": "BethStephenson",
+      "uoflocation": false
+    },
+    {
+      "id": 5,
+      "sublocation": "Lane",
+      "description": null,
+      "validfrom": "2021-05-07T00:00:03.000Z",
+      "validto": null,
+      "updatedby": "BethStephenson",
+      "uoflocation": false
+    },
+    {
+      "id": 6,
+      "sublocation": "Shed",
+      "description": null,
+      "validfrom": "2021-05-07T00:00:03.000Z",
+      "validto": null,
+      "updatedby": "BethStephenson",
+      "uoflocation": false
+    },
+    {
+      "id": 7,
+      "sublocation": "Tourist (outbound)",
+      "description": null,
+      "validfrom": "2021-05-07T00:00:03.000Z",
+      "validto": null,
+      "updatedby": "BethStephenson",
+      "uoflocation": false
+    },
+    {
+      "id": 8,
+      "sublocation": "Channels",
+      "description": null,
+      "validfrom": "2021-05-07T00:00:03.000Z",
+      "validto": null,
+      "updatedby": "BethStephenson",
+      "uoflocation": false
+    },
+    {
+      "id": 9,
+      "sublocation": "Baggage reclaim",
+      "description": null,
+      "validfrom": "2021-05-07T00:00:03.000Z",
+      "validto": null,
+      "updatedby": "BethStephenson",
+      "uoflocation": true
+    },
+    {
+      "id": 10,
+      "sublocation": "Warehouse",
+      "description": null,
+      "validfrom": "2021-05-07T00:00:03.000Z",
+      "validto": null,
+      "updatedby": "BethStephenson",
+      "uoflocation": false
+    },
+    {
+      "id": 11,
+      "sublocation": "Custody Suite",
+      "description": null,
+      "validfrom": "2021-05-07T00:00:03.000Z",
+      "validto": null,
+      "updatedby": "BethStephenson",
+      "uoflocation": false
+    },
+    {
+      "id": 12,
+      "sublocation": "Controlled Waiting Area (CWA)",
+      "description": null,
+      "validfrom": "2021-05-07T00:00:03.000Z",
+      "validto": null,
+      "updatedby": "BethStephenson",
+      "uoflocation": true
+    },
+    {
+      "id": 13,
+      "sublocation": "Short Term Holding Facility (STHF)",
+      "description": null,
+      "validfrom": "2021-05-07T00:00:03.000Z",
+      "validto": null,
+      "updatedby": "BethStephenson",
+      "uoflocation": false
+    },
+    {
+      "id": 14,
+      "sublocation": "Escort/transportation",
+      "description": null,
+      "validfrom": "2021-05-07T00:00:03.000Z",
+      "validto": null,
+      "updatedby": "BethStephenson",
+      "uoflocation": false
+    },
+    {
+      "id": 15,
+      "sublocation": "Tug haven",
+      "description": null,
+      "validfrom": "2021-05-07T00:00:03.000Z",
+      "validto": null,
+      "updatedby": "BethStephenson",
+      "uoflocation": false
+    },
+    {
+      "id": 16,
+      "sublocation": "Berths / Allocation Lanes",
+      "description": null,
+      "validfrom": "2021-05-07T00:00:03.000Z",
+      "validto": null,
+      "updatedby": "BethStephenson",
+      "uoflocation": true
+    },
+    {
+      "id": 17,
+      "sublocation": "Cargo",
+      "description": null,
+      "validfrom": "2021-05-07T00:00:03.000Z",
+      "validto": null,
+      "updatedby": "BethStephenson",
+      "uoflocation": false
+    },
+    {
+      "id": 18,
+      "sublocation": "Departure Lounge",
+      "description": null,
+      "validfrom": "2021-05-07T00:00:03.000Z",
+      "validto": null,
+      "updatedby": "BethStephenson",
+      "uoflocation": false
+    },
+    {
+      "id": 19,
+      "sublocation": "Arrival Lounge",
+      "description": null,
+      "validfrom": "2021-05-07T00:00:03.000Z",
+      "validto": null,
+      "updatedby": "BethStephenson",
+      "uoflocation": false
+    },
+    {
+      "id": 20,
+      "sublocation": "Slipway",
+      "description": null,
+      "validfrom": "2021-05-07T00:00:03.000Z",
+      "validto": null,
+      "updatedby": "BethStephenson",
+      "uoflocation": false
+    },
+    {
+      "id": 21,
+      "sublocation": "Marina",
+      "description": null,
+      "validfrom": "2021-05-07T00:00:03.000Z",
+      "validto": null,
+      "updatedby": "BethStephenson",
+      "uoflocation": false
+    },
+    {
+      "id": 22,
+      "sublocation": "Harbour",
+      "description": null,
+      "validfrom": "2021-05-07T00:00:03.000Z",
+      "validto": null,
+      "updatedby": "BethStephenson",
+      "uoflocation": true
+    },
+    {
+      "id": 23,
+      "sublocation": "Beach",
+      "description": null,
+      "validfrom": "2021-05-07T00:00:03.000Z",
+      "validto": null,
+      "updatedby": "BethStephenson",
+      "uoflocation": false
+    },
+    {
+      "id": 24,
+      "sublocation": "Coves",
+      "description": null,
+      "validfrom": "2021-05-07T00:00:03.000Z",
+      "validto": null,
+      "updatedby": "BethStephenson",
+      "uoflocation": false
+    },
+    {
+      "id": 25,
+      "sublocation": "Farm fields",
+      "description": null,
+      "validfrom": "2021-05-07T00:00:03.000Z",
+      "validto": null,
+      "updatedby": "BethStephenson",
+      "uoflocation": false
+    },
+    {
+      "id": 26,
+      "sublocation": "Disembarkation (prior to PCP)",
+      "description": null,
+      "validfrom": "2021-05-07T00:00:03.000Z",
+      "validto": null,
+      "updatedby": "BethStephenson",
+      "uoflocation": true
+    },
+    {
+      "id": 27,
+      "sublocation": "PCP",
+      "description": null,
+      "validfrom": "2021-05-07T00:00:03.000Z",
+      "validto": null,
+      "updatedby": "BethStephenson",
+      "uoflocation": true
+    },
+    {
+      "id": 28,
+      "sublocation": "Customs channel/lanes",
+      "description": null,
+      "validfrom": "2021-05-07T00:00:03.000Z",
+      "validto": null,
+      "updatedby": "BethStephenson",
+      "uoflocation": true
+    },
+    {
+      "id": 29,
+      "sublocation": "Further examination area",
+      "description": "Further examination area/Detention suite/Interview room",
+      "validfrom": "2021-05-07T00:00:03.000Z",
+      "validto": null,
+      "updatedby": "BethStephenson",
+      "uoflocation": true
+    },
+    {
+      "id": 30,
+      "sublocation": "Check-in/security",
+      "description": "Check-in/security/ Others’ control area",
+      "validfrom": "2021-05-07T00:00:03.000Z",
+      "validto": null,
+      "updatedby": "BethStephenson",
+      "uoflocation": true
+    },
+    {
+      "id": 31,
+      "sublocation": "Embarkation controls",
+      "description": null,
+      "validfrom": "2021-05-07T00:00:03.000Z",
+      "validto": null,
+      "updatedby": "BethStephenson",
+      "uoflocation": true
+    },
+    {
+      "id": 32,
+      "sublocation": "GA/GM site",
+      "description": null,
+      "validfrom": "2021-05-07T00:00:03.000Z",
+      "validto": null,
+      "updatedby": "BethStephenson",
+      "uoflocation": true
+    },
+    {
+      "id": 33,
+      "sublocation": "Docks/Containers/Freight area",
+      "description": null,
+      "validfrom": "2021-05-07T00:00:03.000Z",
+      "validto": null,
+      "updatedby": "BethStephenson",
+      "uoflocation": true
+    },
+    {
+      "id": 34,
+      "sublocation": "Hospital/Hospital duties",
+      "description": null,
+      "validfrom": "2021-05-07T00:00:03.000Z",
+      "validto": null,
+      "updatedby": "BethStephenson",
+      "uoflocation": true
+    },
+    {
+      "id": 35,
+      "sublocation": "Other",
+      "description": null,
+      "validfrom": "2021-05-07T00:00:03.000Z",
+      "validto": null,
+      "updatedby": "BethStephenson",
+      "uoflocation": true
+    }
+  ]
+}
