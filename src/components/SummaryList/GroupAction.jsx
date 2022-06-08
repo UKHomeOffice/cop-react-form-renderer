@@ -13,7 +13,7 @@ const GroupAction = ({ group }) => {
     setAttrs(getGroupActionAttributes(group));
   }, [group, setAttrs]);
 
-  if (!group.action) {
+  if (!group?.action) {
     return null;
   }
 
