@@ -2,7 +2,7 @@
 import { META_PROPERTY, META_DOCUMENTS_PROPERTY } from '../constants';
 import getDocuments from './getDocuments';
 
-const changeDocuments = (document, formData, field) => {
+const setDocumentForField = (document, formData, field) => {
   const documents = getDocuments(formData).filter(d => d.field !== field);
   if (document) {
     documents.push({ ...document, field });
@@ -14,4 +14,4 @@ const changeDocuments = (document, formData, field) => {
   };
 };
 
-export default changeDocuments;
+export default setDocumentForField;

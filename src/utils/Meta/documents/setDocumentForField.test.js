@@ -1,12 +1,12 @@
 import { META_DOCUMENTS_PROPERTY, META_PROPERTY } from '../constants';
-import changeDocuments from './changeDocuments';
+import setDocumentForField from './setDocumentForField';
 
-describe('Utils.Meta.documents.change', () => {
+describe('Utils.Meta.documents.add', () => {
   const ALPHA_DOCUMENT = { field: 'alpha', url: 'http://alpha-bravo.com/files/alpha' };
   const BRAVO_DOCUMENT = { field: 'bravo', url: 'http://alpha-bravo.com/files/bravo' };
 
   it('should return an appropriately set up object if formData is null', () => {
-    expect(changeDocuments(ALPHA_DOCUMENT, null, ALPHA_DOCUMENT.field)).toEqual({
+    expect(setDocumentForField(ALPHA_DOCUMENT, null, ALPHA_DOCUMENT.field)).toEqual({
       [META_DOCUMENTS_PROPERTY]: [ ALPHA_DOCUMENT ]
     });
   });
@@ -17,7 +17,7 @@ describe('Utils.Meta.documents.change', () => {
         [META_DOCUMENTS_PROPERTY]: [ ALPHA_DOCUMENT ]
       }
     };
-    expect(changeDocuments(BRAVO_DOCUMENT, FORM_DATA, BRAVO_DOCUMENT.field)).toEqual({
+    expect(setDocumentForField(BRAVO_DOCUMENT, FORM_DATA, BRAVO_DOCUMENT.field)).toEqual({
       [META_DOCUMENTS_PROPERTY]: [ALPHA_DOCUMENT, BRAVO_DOCUMENT]
     });
   });
@@ -30,7 +30,7 @@ describe('Utils.Meta.documents.change', () => {
         [META_DOCUMENTS_PROPERTY]: [ ALPHA_DOCUMENT ]
       }
     };
-    expect(changeDocuments(NEW_ALPHA, FORM_DATA, NEW_ALPHA.field)).toEqual({
+    expect(setDocumentForField(NEW_ALPHA, FORM_DATA, NEW_ALPHA.field)).toEqual({
       [META_DOCUMENTS_PROPERTY]: [NEW_ALPHA]
     });
   });
@@ -41,7 +41,7 @@ describe('Utils.Meta.documents.change', () => {
         [META_DOCUMENTS_PROPERTY]: [ ALPHA_DOCUMENT ]
       }
     };
-    expect(changeDocuments(null, FORM_DATA, ALPHA_DOCUMENT.field)).toEqual({
+    expect(setDocumentForField(null, FORM_DATA, ALPHA_DOCUMENT.field)).toEqual({
       [META_DOCUMENTS_PROPERTY]: []
     });
   });
@@ -52,7 +52,7 @@ describe('Utils.Meta.documents.change', () => {
         [META_DOCUMENTS_PROPERTY]: [ ALPHA_DOCUMENT ]
       }
     };
-    expect(changeDocuments(null, FORM_DATA, BRAVO_DOCUMENT.field)).toEqual({
+    expect(setDocumentForField(null, FORM_DATA, BRAVO_DOCUMENT.field)).toEqual({
       [META_DOCUMENTS_PROPERTY]: [ ALPHA_DOCUMENT ]
     });
   });
