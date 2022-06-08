@@ -206,6 +206,80 @@ describe('utils', () => {
         });
 
       });
+
+      describe('when the component has a nested component', () => {
+
+        it('should return no error when the radio component contains nested components without errors', () => {
+          const NESTED_ID = 'nestedId';
+          const NESTED_VALUE = 'nestedValue';
+          const FORMDATA = { [NESTED_ID]: NESTED_VALUE }
+          const COMPONENT = {
+            type: 'radios',
+            id: 'a',
+            data: {
+              options: [
+                {
+                  nested: {
+                    type: 'text',
+                    fieldId: NESTED_ID,
+                    id: NESTED_ID,
+                    required: true,
+                    shown: true
+                  },
+                }
+              ],
+            },
+          }; 
+          expect(validateComponent(COMPONENT, FORMDATA)).toBeUndefined();
+        });
+
+        it('should return an error when the radio component contains nested components with errors', () => {
+          const NESTED_ID = 'nestedId';
+          const FORMDATA = {}
+          const COMPONENT = {
+            type: 'radios',
+            id: 'a',
+            data: {
+              options: [
+                {
+                  nested: {
+                    type: 'text',
+                    fieldId: NESTED_ID,
+                    id: NESTED_ID,
+                    required: true,
+                    shown: true
+                  },
+                }
+              ],
+            },
+          }; 
+          expect(validateComponent(COMPONENT, FORMDATA)).toEqual({
+            id: NESTED_ID,
+            error: `Field is required`
+          });
+        });
+
+        it('should return no error when a non selected radio component contains nested components with errors', () => {
+          const NESTED_ID = 'nestedId';
+          const COMPONENT = {
+            type: 'radios',
+            id: 'a',
+            data: {
+              options: [
+                {
+                  nested: {
+                    type: 'text',
+                    fieldId: NESTED_ID,
+                    id: NESTED_ID,
+                    required: true
+                  },
+                }
+              ],
+            },
+          }; 
+          expect(validateComponent(COMPONENT, {})).toBeUndefined();
+        });
+      });
       
     });
   });

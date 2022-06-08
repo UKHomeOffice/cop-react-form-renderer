@@ -134,7 +134,8 @@ const FormComponent = ({
     hint: component.hint || '',
     options,
     value: value || defaultValue,
-    onChange: onComponentChange
+    onChange: onComponentChange,
+    formData: formData
   }, wrap, hooks.onGetComponent);
 };
 

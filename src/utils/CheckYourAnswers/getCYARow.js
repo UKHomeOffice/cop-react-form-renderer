@@ -16,6 +16,9 @@ const getCYARow = (page, component, onAction) => {
   if (page.formData && component.fieldId) {
     value = page.formData[component.fieldId];
   }
+
+  setNestedValue(component, page);
+
   return {
     pageId: page.id,
     id: component.id,
@@ -26,5 +29,14 @@ const getCYARow = (page, component, onAction) => {
     action: getCYAAction(component.readonly, page, onAction)
   };
 };
+
+const setNestedValue = (component, page) => {
+  component.data?.options?.forEach((option, index) => {
+    //check if option is selected and has nested component
+    if (page.formData[component.id] === option.value && option.nested) {
+      component.data.options[index].nested.value = page.formData[option.nested.id];
+    }
+  });
+}
 
 export default getCYARow;
