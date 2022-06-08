@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import React, { Fragment, useEffect, useState } from 'react';
 
 // Local imports
+import { useValidation } from '../../hooks';
 import Utils from '../../utils';
 import PageActions from '../PageActions';
 import SummaryList from '../SummaryList';
@@ -33,8 +34,8 @@ const CheckYourAnswers = ({
   groups
 }) => {
   const [pages, setPages] = useState([]);
-  const [errors, setErrors] = useState([]);
   const [listOfGroups, setListOfGroups] = useState([]);
+  const { errors } = useValidation();
 
   useEffect(() => {
     const getRows = (page, pageIndex) => {
@@ -64,10 +65,6 @@ const CheckYourAnswers = ({
   const listMarginBottom = hide_page_titles ? 0 : DEFAULT_MARGIN_BOTTOM;
   const isLastPage = (index) => {
     return index === pages.length - 1;
-  };
-
-  const onError = (errors) => {
-    setErrors(errors);
   };
 
   useEffect(() => {
@@ -131,13 +128,7 @@ const CheckYourAnswers = ({
               )}
               {(isGroup(page.id)) && (
                 <div className='group-title'>
-                  <MediumHeading>
-                {(currentGroup.title ? (
-                  currentGroup.title
-                    ) : (
-                  page.title
-                ))}
-                  </MediumHeading>
+                  <MediumHeading>{currentGroup.title || page.title}</MediumHeading>
                 </div>)}
               <SummaryList
                 className={className}
@@ -152,7 +143,7 @@ const CheckYourAnswers = ({
       {!hide_actions && (
         <PageActions
           actions={actions}
-          onAction={(action) => onAction(action, onError)}
+          onAction={(action) => onAction(action)}
         />
       )}
     </div>
