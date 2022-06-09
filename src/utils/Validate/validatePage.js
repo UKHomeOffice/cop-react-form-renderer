@@ -10,7 +10,7 @@ import showFormPage from '../FormPage/showFormPage';
 const validatePage = (page) => {
   if (showFormPage(page, page.formData) && Array.isArray(page.components)) {
     return page.components.reduce((errors, component) => {
-      return errors.concat(validateComponent(component, page.formData));
+      return errors.concat(validateComponent(component, page.formData, page.formData));
     }, []).filter(e => !!e).flat();
   }
   return [];

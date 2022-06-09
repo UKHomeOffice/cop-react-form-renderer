@@ -1,7 +1,14 @@
 // Local imports
 import validateContainer from './validateContainer';
 
-const validateCollection = (collection, items) => {
+/**
+ * Validates all of the items within a collection.
+ * @param {object} collection The collection to validate.
+ * @param {object} items The data items in the collection.
+ * @param {object} formData The data at the top level of the form.
+ * @returns Errors for all components for all items within the collection.
+ */
+const validateCollection = (collection, items, formData) => {
   const errors = [];
   if (collection && Array.isArray(collection.item) && Array.isArray(items)) {
     items.forEach((item, index) => {
@@ -15,7 +22,7 @@ const validateCollection = (collection, items) => {
           };
         })
       };
-      errors.push(validateContainer(container, item));
+      errors.push(validateContainer(container, item, formData));
     });
   }
   return errors.filter(e => !!e).flat();
