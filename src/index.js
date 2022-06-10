@@ -1,6 +1,6 @@
 // Local imports
-import FormRenderer from './components/FormRenderer';
-import SummaryList from './components/SummaryList';
+import { FormRenderer, SummaryList } from './components';
+import { ValidationContextProvider } from './context';
 import { addHook, removeHook, resetHooks } from './hooks/useHooks';
 import { FormTypes, HubFormats } from './models';
 import Utils from './utils';
@@ -17,7 +17,8 @@ export {
   SummaryList,
   FormTypes,
   HubFormats,
-  Utils
+  Utils,
+  ValidationContextProvider
 };
 
 export default FormRenderer;

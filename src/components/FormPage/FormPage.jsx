@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 
 // Local imports.
+import { useValidation } from '../../hooks';
 import Utils from '../../utils';
 import FormComponent from '../FormComponent';
 import PageActions from '../PageActions';
@@ -20,7 +21,7 @@ const FormPage = ({
   className
 }) => {
   const [patch, setPatch] = useState({});
-  const [errors, setErrors] = useState([]);
+  const { errors } = useValidation();
 
   /**
    * Handle the state of the data directly within the page.
@@ -35,24 +36,20 @@ const FormPage = ({
     }));
   };
 
-  const onError = (errors) => {
-    setErrors(errors);
-  };
-
   const classes = Utils.classBuilder(classBlock, classModifiers, className);
   return (
     <div className={classes('page')} key={page.id}>
       {page.title && <LargeHeading>{page.title}</LargeHeading>}
-      {errors && errors.length > 0 && <ErrorSummary errors={errors} />}
+      {errors?.length > 0 && <ErrorSummary errors={errors} />}
       {page.components.filter(c => Utils.Component.show(c, page.formData)).map((component, index) => (
         <FormComponent key={index}
           component={component}
           onChange={onPageChange}
-          value={page.formData[component.fieldId] || ''}
+          value={page.formData[component.fieldId]}
           formData={page.formData}
         />
       ))}
-      <PageActions actions={page.actions} onAction={(action) => onAction(action, patch, onError)} />
+      <PageActions actions={page.actions} onAction={(action) => onAction(action, patch)} />
     </div>
   );
 };
