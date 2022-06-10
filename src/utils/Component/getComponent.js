@@ -73,11 +73,16 @@ const getRadios = (config) => {
   Data.getOptions(config, (val) => {
     options = val;
   });
-  options.forEach((option) => {
-    if (!option.nested){
+  options.forEach((option, index) => {
+    if ( !Array.isArray(option.nested) ){
       return;
     }
-    option.nestedJSX = getNestedComponent(config, option);
+    option.setShown = (val) => {
+      console.log("Option " + option.id + " shown is now " + val);
+      config.options[0].shown = val;  
+      option.shown = val;
+    }
+    option.nestedJSX = getNestedComponents(config, option.nested);
   });
   const attrs = cleanAttributes(config);
   return <Radios {...attrs} options={options} />;
@@ -135,21 +140,32 @@ const getComponentByType = (config) => {
  * @param {*} parentConfig 
  * @param {*} nestedConfig 
  */
-const getNestedComponent = (parentConfig, nestedConfig) => {
-  nestedConfig.nested.onChange = parentConfig.onChange;
-  if (parentConfig.formData) {
-    nestedConfig.nested.value = parentConfig?.formData?.[nestedConfig.nested.fieldId] ? parentConfig.formData[nestedConfig.nested.fieldId] : '';
+const createNestedComponent = (parent, nested) => {
+  nested.onChange = parent.onChange;
+  if (parent.formData) {
+    nested.value = parent?.formData?.[nested.fieldId] ? parent.formData[nested.fieldId] : '';
   }
-  if ('readonly' in nestedConfig.nested)
-    delete nestedConfig.nested.readonly;
-  if(parentConfig.readonly){
-    nestedConfig.nested.readonly = parentConfig.readonly;
-    return getComponent(nestedConfig.nested, false);
+  if ('readonly' in nested)
+    delete nested.readonly;
+  if(parent.readonly){
+    nested.readonly = parent.readonly;
+    return getComponent(nested, false);
   }
-  return getComponent(nestedConfig.nested);
+  return getComponent(nested);
 };
 
-export { getNestedComponent };
+/**
+ * Get nested component with form data
+ * @param {*} parentConfig 
+ * @param {*} nestedConfig 
+ */
+const getNestedComponents = (parentConfig, nestedConfigs) => {
+  return nestedConfigs.map((config) => {
+    return createNestedComponent(parentConfig, config);
+  });
+};
+
+export { getNestedComponents };
 
 /**
  * Get a renderable component, based on a configuration object.
