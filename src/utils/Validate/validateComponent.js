@@ -47,11 +47,9 @@ const validateComponent = (component, formData) => {
         break;
       case ComponentTypes.RADIOS:
         let nestedErrors = [];
-        console.log(component.data.options);
         component.data.options?.forEach((option) => {
-          console.log("Validating option: " + JSON.stringify(option));
-          if (option.nested && option.shown) {
-            nestedErrors.concat(validateContainer({components: option.nested}, formData));
+          if (option.nested && (formData[component.id] === option.value)) {
+            nestedErrors = nestedErrors.concat( validateContainer({ components: option.nested }, formData));
           }
         });
         return nestedErrors;
