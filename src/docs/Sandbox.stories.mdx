@@ -16,7 +16,6 @@ import USER_PROFILE_DATA from '../json/userProfile.data.json';
 import USER_PROFILE from '../json/userProfile.json';
 
 <!-- Local imports -->
-import { addHook } from '../hooks/useHooks';
 import { FormRenderer, SummaryList } from '../components';
 
 <!-- Styles -->
@@ -83,19 +82,6 @@ import './Sandbox.stories.scss';
     const [submittedData, setSubmittedData] = useState({});
     const [complete, setComplete] = useState(false);
     const [returnLater, setReturnLater] = useState(false);
-    addHook('onPageChange', (pageId) => {
-      console.log('onPageChange called', pageId);
-      setReturnLater(!!pageId === false);
-    });
-    addHook('onFormComplete', () => {
-      console.log('onFormComplete called');
-      setComplete(true);
-    });
-    addHook('onSubmit', (type, payload, onSuccess, onError) => {
-      console.log('onSubmit called', type, payload);
-      setSubmittedData(payload);
-      onSuccess();
-    });
     const handleJSONEditorMount = (editor, monaco) => {
       editJSONRef.current = editor;
     };
@@ -205,7 +191,27 @@ import './Sandbox.stories.scss';
             </li>
           </ul>
           <div className={`govuk-tabs__panel preview-panel ${mode !== 'preview' ? 'govuk-tabs__panel--hidden' : ''}`}>
-            {!complete && !returnLater && <FormRenderer {...json} data={data} />}
+            {!complete && !returnLater && (
+              <FormRenderer
+                {...json}
+                data={data}
+                hooks={{
+                  onPageChange: (pageId) => {
+                    console.log('onPageChange called', pageId);
+                    setReturnLater(!!pageId === false);
+                  },
+                  onFormComplete: () => {
+                    console.log('onFormComplete called');
+                    setComplete(true);
+                  },
+                  onSubmit: (type, payload, onSuccess, onError) => {
+                    console.log('onSubmit called', type, payload);
+                    setSubmittedData(payload);
+                    onSuccess();
+                  }
+                }}
+              />
+            )}
             {complete &&
               <div>
                 <Panel title="Submission successful">
