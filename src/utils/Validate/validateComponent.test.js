@@ -3,7 +3,7 @@ import { ComponentTypes } from '../../models';
 import validateComponent from './validateComponent';
 
 describe('utils.Validate.Component', () => {
-    
+
       const setup = (id, type, label, required, additionalValidation) => {
         return { id, fieldId: id, type, label, required, additionalValidation };
       };
@@ -27,7 +27,7 @@ describe('utils.Validate.Component', () => {
           const COMPONENT = setup(ID, ComponentTypes.TEXT, LABEL, true);
           expect(validateComponent(COMPONENT, null)).toEqual({
             id: ID,
-            error: `${LABEL} is required`,
+            error: `${LABEL} is required`
           });
         });
   
@@ -37,7 +37,7 @@ describe('utils.Validate.Component', () => {
           const COMPONENT = setup(ID, ComponentTypes.EMAIL, LABEL, true);
           expect(validateComponent(COMPONENT, null)).toEqual({
             id: ID,
-            error: `${LABEL} is required`,
+            error: `${LABEL} is required`
           });
         });
   
@@ -49,7 +49,7 @@ describe('utils.Validate.Component', () => {
         });
 
       });
-  
+
       describe('when the value is fully valid', () => {
         const ID = 'field';
         const DATA = { [ID]: 'alpha.bravo@digital.homeoffice.gov.uk' };
@@ -101,7 +101,7 @@ describe('utils.Validate.Component', () => {
           const COMPONENT = setup(ID, ComponentTypes.EMAIL, LABEL, true);
           expect(validateComponent(COMPONENT, DATA)).toEqual({
             id: ID,
-            error: `Enter ${LABEL.toLowerCase()} in the correct format, like jane.doe@homeoffice.gov.uk`,
+            error: `Enter ${LABEL.toLowerCase()} in the correct format, like jane.doe@homeoffice.gov.uk`
           });
         });
   
@@ -110,7 +110,7 @@ describe('utils.Validate.Component', () => {
           const COMPONENT = setup(ID, ComponentTypes.EMAIL, LABEL, false);
           expect(validateComponent(COMPONENT, DATA)).toEqual({
             id: ID,
-            error: `Enter ${LABEL.toLowerCase()} in the correct format, like jane.doe@homeoffice.gov.uk`,
+            error: `Enter ${LABEL.toLowerCase()} in the correct format, like jane.doe@homeoffice.gov.uk`
           });
         });
 
@@ -172,7 +172,7 @@ describe('utils.Validate.Component', () => {
           const DATA = {
             [ID]: {
               [EMAIL_ID]: 'alpha.bravo@digital.homeoffice.gov.uk'
-            },
+            }
           };
           expect(validateComponent(CONTAINER, DATA)).toEqual([]);
         });
@@ -188,7 +188,10 @@ describe('utils.Validate.Component', () => {
           const COLLECTION = setup(ID, ComponentTypes.COLLECTION, LABEL, false);
           COLLECTION.item = [EMAIL];
           const DATA = {
-            [ID]: [{ [EMAIL_ID]: 'alpha.bravo@homeoffice.gov.uk' }, { [EMAIL_ID]: 'charlie.delta@homeoffice.gov.uk' }]
+            [ID]: [
+              { [EMAIL_ID]: 'alpha.bravo@homeoffice.gov.uk' }, 
+              { [EMAIL_ID]: 'charlie.delta@homeoffice.gov.uk' }
+            ]
           };
           expect(validateComponent(COLLECTION, DATA)).toEqual([]);
         });
@@ -243,7 +246,7 @@ describe('utils.Validate.Component', () => {
           };
           expect(validateComponent(COMPONENT, FORMDATA)).toEqual([{
             id: NESTED_ID,
-            error: `Field is required`,
+            error: `Field is required`
           }]);
         });
 
