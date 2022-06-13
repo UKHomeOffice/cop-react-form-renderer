@@ -2,8 +2,9 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import React from 'react';
-import { render, unmountComponentAtNode } from 'react-dom';
+import { unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
+import { renderDomWithValidation } from '../setupTests';
 
 // Local imports
 import sleep from '../utils/sleep.test';
@@ -57,7 +58,7 @@ describe('hooks', () => {
       const URL = '/api/data';
       mockAxios.onGet(URL).reply(200, { data: ABC });
       act(() => {
-        render(<TestComponent url={URL} />, container);
+        renderDomWithValidation(<TestComponent url={URL} />, container);
       });
       expect(container.textContent).toEqual(STATUS_FETCHING);
 
@@ -76,7 +77,7 @@ describe('hooks', () => {
       const URL = '/api/error';
       mockAxios.onGet(URL).reply(500, {});
       act(() => {
-        render(<TestComponent url={URL} />, container);
+        renderDomWithValidation(<TestComponent url={URL} />, container);
       });
       expect(container.textContent).toEqual(STATUS_FETCHING);
 
@@ -93,7 +94,7 @@ describe('hooks', () => {
         }
       };
       act(() => {
-        render(<TestComponent url={URL} notifyOfCancel={notifyOfCancel} />, container);
+        renderDomWithValidation(<TestComponent url={URL} notifyOfCancel={notifyOfCancel} />, container);
       });
       expect(container.textContent).toEqual(STATUS_FETCHING);
 

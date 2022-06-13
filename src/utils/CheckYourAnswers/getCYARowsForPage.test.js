@@ -1,8 +1,5 @@
-// Global imports
-import { render } from '@testing-library/react';
-
 // Local imports
-import { expectObjectLike } from '../../setupTests';
+import { expectObjectLike, renderWithValidation } from '../../setupTests';
 import { ComponentTypes } from '../../models';
 import getCYARowsForPage from './getCYARowsForPage';
 
@@ -149,7 +146,7 @@ describe('utils', () => {
           },
         };
         const ON_ACTION = () => {};
-        const { container } = render(getCYARowsForPage(PAGE, ON_ACTION).map(row => row.value));
+        const { container } = renderWithValidation(getCYARowsForPage(PAGE, ON_ACTION).map(row => row.value));
         expect(container.childNodes.length).toEqual(4);
         const addressValues = container.childNodes;
         expect(addressValues[0].childNodes[0].textContent).toEqual('10 Downing Street')
