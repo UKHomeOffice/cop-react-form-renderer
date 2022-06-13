@@ -19,6 +19,7 @@ import { ComponentTypes } from '../../models';
 import Data from '../Data';
 import cleanAttributes from './cleanAttributes';
 import isEditable from './isEditable';
+import FormComponent from '../../components/FormComponent';
 import wrapInFormGroup from './wrapInFormGroup';
 
 /** 
@@ -73,14 +74,9 @@ const getRadios = (config) => {
   Data.getOptions(config, (val) => {
     options = val;
   });
-  options.forEach((option, index) => {
+  options.forEach((option) => {
     if ( !Array.isArray(option.nested) ){
       return;
-    }
-    option.setShown = (val) => {
-      console.log("Option " + option.id + " shown is now " + val);
-      config.options[0].shown = val;  
-      option.shown = val;
     }
     option.nestedJSX = getNestedComponents(config, option.nested);
   });
@@ -140,8 +136,7 @@ const getComponentByType = (config) => {
  * @param {*} parentConfig 
  * @param {*} nestedConfig 
  */
-const createNestedComponent = (parent, nested) => {
-  nested.onChange = parent.onChange;
+const nestedComponent = (parent, nested) => {
   if (parent.formData) {
     nested.value = parent?.formData?.[nested.fieldId] ? parent.formData[nested.fieldId] : '';
   }
@@ -151,7 +146,7 @@ const createNestedComponent = (parent, nested) => {
     nested.readonly = parent.readonly;
     return getComponent(nested, false);
   }
-  return getComponent(nested);
+  return <FormComponent component={nested} value={nested.value} onChange={parent.onChange} key={nested.key}/> 
 };
 
 /**
@@ -160,8 +155,9 @@ const createNestedComponent = (parent, nested) => {
  * @param {*} nestedConfig 
  */
 const getNestedComponents = (parentConfig, nestedConfigs) => {
-  return nestedConfigs.map((config) => {
-    return createNestedComponent(parentConfig, config);
+  return nestedConfigs.map((config, index) => {
+    config.key = index;
+    return nestedComponent(parentConfig, config);
   });
 };
 

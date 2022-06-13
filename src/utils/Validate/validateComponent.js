@@ -20,7 +20,6 @@ const validateComponent = (component, formData) => {
     return undefined;
   }
   let error = undefined;
-  let nestedId = undefined;
   let propertiesInError = undefined;
   const data = formData && typeof formData === 'object' ? formData : {};
 
@@ -66,7 +65,7 @@ const validateComponent = (component, formData) => {
 
   if (error) {
     return {
-      id: nestedId || component.full_path || component.id,
+      id: component.full_path || component.id,
       error: error,
       properties: propertiesInError
     };
