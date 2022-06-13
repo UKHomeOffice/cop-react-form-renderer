@@ -3,7 +3,7 @@ import { ComponentTypes } from '../../models';
 import validateComponent from './validateComponent';
 
 describe('utils.Validate.Component', () => {
-  
+    
       const setup = (id, type, label, required, additionalValidation) => {
         return { id, fieldId: id, type, label, required, additionalValidation };
       };
@@ -13,13 +13,14 @@ describe('utils.Validate.Component', () => {
       });
 
       describe('when there is no form data', () => {
+
         it('should return no error when the component is not required and not an email type', () => {
           const ID = 'field';
           const LABEL = 'Field';
           const COMPONENT = setup(ID, ComponentTypes.TEXT, LABEL, false);
           expect(validateComponent(COMPONENT, null)).toBeUndefined();
         });
-
+  
         it('should return a required error when the component is required and not an email type', () => {
           const ID = 'field';
           const LABEL = 'Field';
@@ -29,7 +30,7 @@ describe('utils.Validate.Component', () => {
             error: `${LABEL} is required`,
           });
         });
-
+  
         it('should return a required error when the component is required and of type email', () => {
           const ID = 'field';
           const LABEL = 'Field';
@@ -39,15 +40,16 @@ describe('utils.Validate.Component', () => {
             error: `${LABEL} is required`,
           });
         });
-
+  
         it('should return no error when the component is of type email but not required', () => {
           const ID = 'field';
           const LABEL = 'Field';
           const COMPONENT = setup(ID, ComponentTypes.EMAIL, LABEL, false);
           expect(validateComponent(COMPONENT, null)).toBeUndefined();
         });
-      });
 
+      });
+  
       describe('when the value is fully valid', () => {
         const ID = 'field';
         const DATA = { [ID]: 'alpha.bravo@digital.homeoffice.gov.uk' };
@@ -57,24 +59,25 @@ describe('utils.Validate.Component', () => {
           const COMPONENT = setup(ID, ComponentTypes.TEXT, LABEL, false);
           expect(validateComponent(COMPONENT, DATA)).toBeUndefined();
         });
-
+  
         it('should return no error when the component is required and not an email type', () => {
           const LABEL = 'Field';
           const COMPONENT = setup(ID, ComponentTypes.TEXT, LABEL, true);
           expect(validateComponent(COMPONENT, DATA)).toBeUndefined();
         });
-
+  
         it('should return no error when the component is required and of type email', () => {
           const LABEL = 'Field';
           const COMPONENT = setup(ID, ComponentTypes.EMAIL, LABEL, true);
           expect(validateComponent(COMPONENT, DATA)).toBeUndefined();
         });
-
+  
         it('should return no error when the component is of type email but not required', () => {
           const LABEL = 'Field';
           const COMPONENT = setup(ID, ComponentTypes.EMAIL, LABEL, false);
           expect(validateComponent(COMPONENT, DATA)).toBeUndefined();
         });
+
       });
 
       describe('when the value is an invalid email', () => {
@@ -86,13 +89,13 @@ describe('utils.Validate.Component', () => {
           const COMPONENT = setup(ID, ComponentTypes.TEXT, LABEL, false);
           expect(validateComponent(COMPONENT, DATA)).toBeUndefined();
         });
-
+  
         it('should return no error when the component is required and not an email type', () => {
           const LABEL = 'Field';
           const COMPONENT = setup(ID, ComponentTypes.TEXT, LABEL, true);
           expect(validateComponent(COMPONENT, DATA)).toBeUndefined();
         });
-
+  
         it('should return no error when the component is required and of type email', () => {
           const LABEL = 'Field';
           const COMPONENT = setup(ID, ComponentTypes.EMAIL, LABEL, true);
@@ -101,7 +104,7 @@ describe('utils.Validate.Component', () => {
             error: `Enter ${LABEL.toLowerCase()} in the correct format, like jane.doe@homeoffice.gov.uk`,
           });
         });
-
+  
         it('should return no error when the component is of type email but not required', () => {
           const LABEL = 'Field';
           const COMPONENT = setup(ID, ComponentTypes.EMAIL, LABEL, false);
@@ -110,11 +113,12 @@ describe('utils.Validate.Component', () => {
             error: `Enter ${LABEL.toLowerCase()} in the correct format, like jane.doe@homeoffice.gov.uk`,
           });
         });
-      });
 
+      });
+  
       describe('when the component is a Date Input', () => {
         const ID = 'field';
-
+        
         it('should always reject invalid dates', () => {
           const LABEL = 'Field';
           const COMPONENT = setup(ID, ComponentTypes.DATE, LABEL, false);
@@ -122,10 +126,10 @@ describe('utils.Validate.Component', () => {
           expect(validateComponent(COMPONENT, DATA)).toEqual({
             error: 'Month must be between 1 and 12',
             id: ID,
-            properties: { month: true },
+            properties: { month: true }
           });
         });
-
+        
         it('should apply optional validators when specified', () => {
           const LABEL = 'Field';
           const DATA = { [ID]: '25-3-3033' };
@@ -136,7 +140,7 @@ describe('utils.Validate.Component', () => {
           expect(validateComponent(COMPONENT, DATA)).toEqual({
             error: 'Date must be less than 3 days in the future',
             id: ID,
-            properties: { day: true, month: true, year: true },
+            properties: { day: true, month: true, year: true }
           });
         });
       });
@@ -150,9 +154,10 @@ describe('utils.Validate.Component', () => {
           expect(validateComponent(COMPONENT, DATA)).toEqual({
             error: 'Hour must be between 0 and 23',
             id: ID,
-            properties: { hour: true },
+            properties: { hour: true }
           });
         });
+
       });
 
       describe('when the component is a container', () => {
@@ -166,7 +171,7 @@ describe('utils.Validate.Component', () => {
           CONTAINER.components = [EMAIL];
           const DATA = {
             [ID]: {
-              [EMAIL_ID]: 'alpha.bravo@digital.homeoffice.gov.uk',
+              [EMAIL_ID]: 'alpha.bravo@digital.homeoffice.gov.uk'
             },
           };
           expect(validateComponent(CONTAINER, DATA)).toEqual([]);
@@ -183,7 +188,7 @@ describe('utils.Validate.Component', () => {
           const COLLECTION = setup(ID, ComponentTypes.COLLECTION, LABEL, false);
           COLLECTION.item = [EMAIL];
           const DATA = {
-            [ID]: [{ [EMAIL_ID]: 'alpha.bravo@homeoffice.gov.uk' }, { [EMAIL_ID]: 'charlie.delta@homeoffice.gov.uk' }],
+            [ID]: [{ [EMAIL_ID]: 'alpha.bravo@homeoffice.gov.uk' }, { [EMAIL_ID]: 'charlie.delta@homeoffice.gov.uk' }]
           };
           expect(validateComponent(COLLECTION, DATA)).toEqual([]);
         });
@@ -205,8 +210,7 @@ describe('utils.Validate.Component', () => {
                       type: 'text',
                       fieldId: NESTED_ID,
                       id: NESTED_ID,
-                      required: true,
-                      shown: true,
+                      required: true
                     },
                   ],
                 },
@@ -230,8 +234,7 @@ describe('utils.Validate.Component', () => {
                       type: 'text',
                       fieldId: NESTED_ID,
                       id: NESTED_ID,
-                      required: true,
-                      shown: true,
+                      required: true
                     },
                   ],
                 },
@@ -258,7 +261,7 @@ describe('utils.Validate.Component', () => {
                       type: 'text',
                       fieldId: NESTED_ID,
                       id: NESTED_ID,
-                      required: true,
+                      required: true
                     },
                   ],
                 },
