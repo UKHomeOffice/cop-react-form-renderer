@@ -1,11 +1,10 @@
 // Global imports
-import { renderHook } from '@testing-library/react-hooks';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
 // Local imports
+import { renderHookWithProvider } from '../setupTests';
 import useAxios from './useAxios';
-import { addHook } from './useHooks';
 
 describe('hooks', () => {
 
@@ -14,7 +13,7 @@ describe('hooks', () => {
 
     it('can perform a API call', async () => {
       mockAxios.onGet('/api/data').reply(200, [{ id: 'test' }]);
-      const axiosInstance = renderHook(() => useAxios('token'));
+      const axiosInstance = renderHookWithProvider(() => useAxios('token'));
 
       const result = await axiosInstance.result.current.get('/api/data');
       expect(result.status).toBe(200);
@@ -23,7 +22,7 @@ describe('hooks', () => {
 
     it('can log error to server if api call fails', async () => {
       mockAxios.onGet('/api/data').reply(500, {});
-      const axiosInstance = renderHook(() => useAxios('token'));
+      const axiosInstance = renderHookWithProvider(() => useAxios('token'));
 
       let error = undefined;
       try {
@@ -37,12 +36,14 @@ describe('hooks', () => {
 
     it('calls the onRequest hook when specified', async () => {
       let onRequestHookCalled = false;
-      addHook('onRequest', (req) => {
-        onRequestHookCalled = true;
-        return req;
-      });
+      const hooks = {
+        onRequest: (req) => {
+          onRequestHookCalled = true;
+          return req;
+        }
+      };
       mockAxios.onGet('/api/data').reply(200, [{ id: 'test' }]);
-      const axiosInstance = renderHook(() => useAxios('token'));
+      const axiosInstance = renderHookWithProvider(() => useAxios('token'), { hooks });
 
       expect(onRequestHookCalled).toBeFalsy();
       await axiosInstance.result.current.get('/api/data');

@@ -2,8 +2,9 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import React from 'react';
-import { render, unmountComponentAtNode } from 'react-dom';
+import { unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
+import { renderDomWithValidation } from '../setupTests';
 
 // Local imports
 import sleep from '../utils/sleep.test';
@@ -49,7 +50,7 @@ describe('hooks', () => {
     it('can handle a component with no data url', async () => {
       const COMPONENT = { id: 'component' };
       act(() => {
-        render(<TestComponent component={COMPONENT} />, container);
+        renderDomWithValidation(<TestComponent component={COMPONENT} />, container);
       });
       expect(container.textContent).toEqual(STATUS_COMPLETE);
     });
@@ -62,7 +63,7 @@ describe('hooks', () => {
       };
       mockAxios.onGet(URL).reply(200, { data: ABC });
       act(() => {
-        render(<TestComponent component={COMPONENT} />, container);
+        renderDomWithValidation(<TestComponent component={COMPONENT} />, container);
       });
       expect(container.textContent).toEqual(STATUS_LOADING);
 
@@ -80,7 +81,7 @@ describe('hooks', () => {
     it('can handle a component with no data url but data options instead', async () => {
       const COMPONENT = { id: 'component', data: { options: ABC } };
       act(() => {
-        render(<TestComponent component={COMPONENT} />, container);
+        renderDomWithValidation(<TestComponent component={COMPONENT} />, container);
       });
 
       expect(container.childNodes.length).toEqual(1);
@@ -101,7 +102,7 @@ describe('hooks', () => {
       };
       mockAxios.onGet(URL).reply(500, {});
       act(() => {
-        render(<TestComponent component={COMPONENT} />, container);
+        renderDomWithValidation(<TestComponent component={COMPONENT} />, container);
       });
       expect(container.textContent).toEqual(STATUS_LOADING);
 
