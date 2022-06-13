@@ -1,4 +1,5 @@
 // Local imports
+import { Utils } from '@ukhomeoffice/cop-react-components';
 import Container from '../Container';
 import Data from '../Data';
 import getPageActions from './getPageActions';
@@ -16,6 +17,8 @@ const getFormPage = (pageOptions, formComponents, formData) => {
   if (!pageOptions) {
     return null;
   }
+  pageOptions = JSON.parse(Utils.interpolateString(JSON.stringify(pageOptions), formData));
+  formComponents = JSON.parse(Utils.interpolateString(JSON.stringify(formComponents), formData));
   const components = pageOptions.components.map(componentOptions => {
     if (typeof componentOptions === 'string') {
       return getParagraphFromText(componentOptions);
