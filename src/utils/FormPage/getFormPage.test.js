@@ -132,7 +132,7 @@ describe('utils', () => {
 
       it('should interpolate and handle a page that references a form-level component with formData', () => {
         const PAGE = {
-          title: 'Page',
+          title: 'Page ${postFixTitle}',
           components: [
             "Opening paragraph",
             { type: 'heading', size: 'l', content: 'Page heading' },
@@ -143,18 +143,16 @@ describe('utils', () => {
             { use: 'e' },
           ]
         };
-        console.log(FORM_DATA);
         const a = FORM_DATA;
         const DATA = { ...FORM_DATA, currentUser: {
           firstname: 'Bob',
           surname: 'Kevin'
-        }}
+        }, postFixTitle: 'Everyone'}
         const C = FORM_COMPONENTS[2];
         const D = FORM_COMPONENTS[3];
         const E = FORM_COMPONENTS[4];
         expect(getFormPage(PAGE, FORM_COMPONENTS, DATA)).toEqual({
-
-          title: PAGE.title,
+          title: 'Page Everyone',
           components: [
             { type: 'html', tagName: 'p', content: PAGE.components[0] },
             { ...PAGE.components[1], full_path: PAGE.components[1].fieldId },
