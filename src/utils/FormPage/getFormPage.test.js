@@ -158,7 +158,7 @@ describe('utils', () => {
           components: [
             { type: 'html', tagName: 'p', content: PAGE.components[0] },
             { ...PAGE.components[1], full_path: PAGE.components[1].fieldId },
-            { type: 'html', tagName: 'p', content: PAGE.components[2], full_path: undefined },
+            { type: 'html', tagName: 'p', content: PAGE.components[2] },
             { use: 'c', ...C, cya_label: C.label, data: { url: `${FORM_DATA.urls.refData}/v3/charlies` }, full_path: C.fieldId },
             { use: 'd', ...D, label: 'Roger ' + DATA.currentUser.firstname, cya_label: 'Roger ' + DATA.currentUser.firstname, full_path: D.fieldId },
             { type: 'html', tagName: 'p', content: PAGE.components[5] },
