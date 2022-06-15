@@ -57,17 +57,17 @@ const interpolatePageOptions = (pageOptions, formData) => {
  * @returns interpolated formComponents
  */
 const interpolateFormComponents = (formComponents, formData) => {
-    return formComponents.map((formComponent) => {
-      let formComponentDataUrl = undefined;
-      if (formComponent.data && formComponent.data.url) {
-        formComponentDataUrl = formComponent.data.url;
-      }
-      let  interpolatedFormComponent = JSON.parse(Utils.interpolateString(JSON.stringify(formComponent), formData));
-      if (formComponentDataUrl) {
-        interpolatedFormComponent.data.url = formComponentDataUrl;
-      }
-      return interpolatedFormComponent;
-    })
+  return formComponents.map((formComponent) => {
+    let formComponentDataUrl = undefined;
+    if (formComponent.data && formComponent.data.url) {
+      formComponentDataUrl = formComponent.data.url;
+    }
+    const interpolatedFormComponent = JSON.parse(Utils.interpolateString(JSON.stringify(formComponent), formData));
+    if (formComponentDataUrl) {
+      interpolatedFormComponent.data.url = formComponentDataUrl;
+    }
+    return interpolatedFormComponent;
+  });
 }
 
 export default getFormPage;

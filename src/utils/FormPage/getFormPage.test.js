@@ -12,7 +12,9 @@ describe('utils', () => {
         { id: 'b', fieldId: 'b', label: 'Bravo', type: 'text' },
         // eslint-disable-next-line no-template-curly-in-string
         { id: 'c', fieldId: 'c', label: 'Charlie', type: 'radios', data: { url: '${urls.refData}/v3/charlies' } },
+        // eslint-disable-next-line no-template-curly-in-string
         { id: 'd', fieldId: 'd', label: 'Roger ${currentUser.firstname}', type: 'text' },
+        // eslint-disable-next-line no-template-curly-in-string
         { id: 'e', fieldId: 'e', label: 'Bravo ${currentUser.surname}', type: 'text' },
       ];
 
@@ -124,6 +126,7 @@ describe('utils', () => {
             { type: 'html', tagName: 'p', content: PAGE.components[0] },
             { ...PAGE.components[1], full_path: PAGE.components[1].fieldId },
             { type: 'html', tagName: 'p', content: PAGE.components[2] },
+            // eslint-disable-next-line no-template-curly-in-string
             { use: 'c', ...C, cya_label: C.label, full_path: C.fieldId, data: { url: '${urls.refData}/v3/charlies' } }
           ],
           formData: {}
@@ -132,6 +135,7 @@ describe('utils', () => {
 
       it('should interpolate and handle a page that references a form-level component with formData', () => {
         const PAGE = {
+          // eslint-disable-next-line no-template-curly-in-string
           title: 'Page ${postFixTitle}',
           components: [
             "Opening paragraph",
@@ -143,7 +147,6 @@ describe('utils', () => {
             { use: 'e' },
           ]
         };
-        const a = FORM_DATA;
         const DATA = { ...FORM_DATA, currentUser: {
           firstname: 'Bob',
           surname: 'Kevin'
