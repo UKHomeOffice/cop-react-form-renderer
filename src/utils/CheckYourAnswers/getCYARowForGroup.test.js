@@ -1,7 +1,5 @@
-// Global imports
-import {render } from '@testing-library/react';
-
-//local imports 
+// Local imports 
+import { renderWithValidation } from '../../setupTests';
 import getCYARowForGroup from './getCYARowForGroup';
 import getCYARow from './getCYARow';
 
@@ -45,7 +43,9 @@ describe('utils', () => {
         const rows = PAGE.components.map(component => {
           return getCYARow(PAGE, component, ON_ACTION);
         });
-        const { container } = render(getCYARowForGroup(PAGE, PAGE.groups[0], rows, ON_ACTION).row.value);
+        const { container } = renderWithValidation(
+          getCYARowForGroup(PAGE, PAGE.groups[0], rows, ON_ACTION).row.value
+        );
         expect(container.childNodes.length).toEqual(4);
         const addressValues = container.childNodes;
         expect(addressValues[0].childNodes[0].textContent).toEqual('10 Downing Street')

@@ -1,5 +1,5 @@
 // Global imports
-import { createContext, useState } from 'react';
+import React, { createContext, useState } from 'react';
 
 // Local imports
 import Utils from '../../utils';

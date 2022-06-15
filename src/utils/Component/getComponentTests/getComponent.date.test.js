@@ -70,22 +70,22 @@ describe('utils.Component.get', () => {
 
     // Add something to the day and make sure it fires.
     fireEvent.change(dayinput, { target: { name: `${FIELD_ID}-day`, value: '5' }});
-    expect(ON_CHANGE_CALLS.length).toEqual(2);
-    expect(ON_CHANGE_CALLS[1]).toMatchObject({
+    expect(ON_CHANGE_CALLS.length).toEqual(1);
+    expect(ON_CHANGE_CALLS[0]).toMatchObject({
       name: FIELD_ID,
       value: '5--'
     });
     // And now the month...
     fireEvent.change(monthinput, { target: { name: `${FIELD_ID}-month`, value: '11' }});
-    expect(ON_CHANGE_CALLS.length).toEqual(3);
-    expect(ON_CHANGE_CALLS[2]).toMatchObject({
+    expect(ON_CHANGE_CALLS.length).toEqual(2);
+    expect(ON_CHANGE_CALLS[1]).toMatchObject({
       name: FIELD_ID,
       value: '5-11-'
     });
     // And finally the year.
     fireEvent.change(yearinput, { target: { name: `${FIELD_ID}-year`, value: '2022' }});
-    expect(ON_CHANGE_CALLS.length).toEqual(4);
-    expect(ON_CHANGE_CALLS[3]).toMatchObject({
+    expect(ON_CHANGE_CALLS.length).toEqual(3);
+    expect(ON_CHANGE_CALLS[2]).toMatchObject({
       name: FIELD_ID,
       value: '5-11-2022'
     });

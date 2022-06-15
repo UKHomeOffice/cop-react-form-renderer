@@ -12,12 +12,9 @@ import { useState } from 'react';
 import withMock from 'storybook-addon-mock';
 
 <!-- Local imports -->
-
-import { addHook } from '../../hooks/useHooks';
 import FormRenderer from './FormRenderer';
 
 <!-- JSON documents -->
-
 import CIVIL_SERVANT from '../../json/areYouACivilServant.json';
 import FIRST_FORM from '../../json/firstForm.json';
 import GRADE from '../../json/grade.json';
@@ -82,31 +79,6 @@ on the basis of a <Link href="/?path=/docs/f-json-form">JSON</Link> that describ
     {() => {
       const [complete, setComplete] = useState(false);
       const [returnLater, setReturnLater] = useState(false);
-      addHook('onRequest', (req) => {
-        // Do whatever you need to do to the request in here, such as adding an Authorization header.
-        console.log('onRequest hook called');
-        return req;
-      });
-      addHook('onFormLoad', () => {
-        console.log('onFormLoad called');
-      });
-      addHook('onFormComplete', () => {
-        console.log('onFormComplete called');
-        setComplete(true);
-      });
-      addHook('onPageChange', (pageId) => {
-        console.log('onPageChange called', pageId);
-        setReturnLater(!!pageId === false);
-      });
-      addHook('onSubmit', (type, payload, onSuccess, onError) => {
-        console.log(
-          'onSubmit called of type',
-          type,
-          'called, with the payload',
-          payload
-        );
-        onSuccess();
-      });
       const reset = () => {
         setComplete(false);
         setReturnLater(false);
@@ -114,7 +86,37 @@ on the basis of a <Link href="/?path=/docs/f-json-form">JSON</Link> that describ
       return (
         <>
           {!complete && !returnLater && (
-            <FormRenderer {...FIRST_FORM} data={{}} />
+            <FormRenderer
+              {...FIRST_FORM}
+              data={{}}
+              hooks={{
+                onRequest: (req) => {
+                  // Do whatever you need to do to the request in here, such as adding an Authorization header.
+                  console.log('onRequest hook called');
+                  return req;
+                },
+                onFormLoad: () => {
+                  console.log('onFormLoad called');
+                },
+                onFormComplete: () => {
+                  console.log('onFormComplete called');
+                  setComplete(true);
+                },
+                onPageChange: (pageId) => {
+                  console.log('onPageChange called', pageId);
+                  setReturnLater(!!pageId === false);
+                },
+                onSubmit: (type, payload, onSuccess, onError) => {
+                  console.log(
+                    'onSubmit called of type',
+                    type,
+                    'called, with the payload',
+                    payload
+                  );
+                  onSuccess();
+                }
+              }}
+            />
           )}
           {complete && (
             <div>

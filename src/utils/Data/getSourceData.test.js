@@ -83,6 +83,20 @@ describe('utils', () => {
         const value = getSourceData(DATA, FIELD_ID);
         expect(value).toBeUndefined();
       });
+      it('should handle a reference to an array item', () => {
+        const FIELD_ID = 'items[1]';
+        const ALPHA = 'alpha';
+        const BETA = 'beta';
+        const DATA = { items: [ ALPHA, BETA ] };
+        const value = getSourceData(DATA, FIELD_ID);
+        expect(value).toEqual(BETA);
+      });
+      it('should handle a reference to an array that does not exist', () => {
+        const FIELD_ID = 'items[1]';
+        const DATA = {};
+        const value = getSourceData(DATA, FIELD_ID);
+        expect(value).toBeUndefined();
+      });
     });
 
   });
