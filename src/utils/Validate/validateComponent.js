@@ -6,6 +6,7 @@ import validateCollection from './validateCollection';
 import validateContainer from './validateContainer';
 import validateDate from './validateDate';
 import validateEmail from './validateEmail';
+import validateRegex from './validateRegex';
 import validateRequired from './validateRequired';
 import validateTime from './validateTime';
 
@@ -60,6 +61,9 @@ const validateComponent = (component, formData) => {
         break;
       default:
         break;
+    }
+    if (!error && component.pattern) {
+      error = validateRegex(value, component.label, component.pattern, component.custom_errors);
     }
     if (!error && component.additionalValidation) {
       error = runAdditionalComponentValidation(component, value);
