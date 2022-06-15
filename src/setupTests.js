@@ -1,14 +1,26 @@
 import { render } from '@testing-library/react';
+import { renderHook } from '@testing-library/react-hooks';
 import { render as domRender } from 'react-dom';
-import { ValidationContextProvider } from './context';
+import { HooksContextProvider, ValidationContextProvider } from './context';
 
 export const renderWithValidation = (ui, options) => render(
-  <ValidationContextProvider>{ui}</ValidationContextProvider>
+  <HooksContextProvider overrides={options?.hooks}>
+    <ValidationContextProvider key="vcp">{ui}</ValidationContextProvider>
+  </HooksContextProvider>
 , options);
 
-export const renderDomWithValidation = (ui, container, callback) => domRender(
-  <ValidationContextProvider>{ui}</ValidationContextProvider>
-, container, callback);
+export const renderDomWithValidation = (ui, container, options) => domRender(
+  <HooksContextProvider overrides={options?.hooks}>
+    <ValidationContextProvider key="vcp">{ui}</ValidationContextProvider>
+  </HooksContextProvider>
+, container);
+
+export const renderHookWithProvider = (hook, options) => {
+  const wrapper = ({children}) => (
+    <HooksContextProvider overrides={options?.hooks}>{children}</HooksContextProvider>
+  )
+  return renderHook(() => hook(), { wrapper } );
+};
 
 export const expectObjectLike = (received, expected) => {
   Object.keys(expected).forEach(key => {
