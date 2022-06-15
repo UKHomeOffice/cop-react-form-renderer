@@ -7,11 +7,12 @@
  * @param {string} label The label to use in the default error message.
  * @param {string} pattern The regex pattern to validate against.
  * @param {array} customErrors The array of custom errors for the component.
- * @returns An error if the email address is invalid.
+ * @returns An error if the value doesn't match the regex pattern.
  */
-const validateRegex = (value, label='', pattern, customErrors) => {
-  if (!value)
+const validateRegex = (value, label = '', pattern, customErrors) => {
+  if (!value) {
     return undefined;
+  }
   if (typeof value === 'string') {
     const regex = new RegExp(pattern);
     if (regex.test(value)) {
@@ -21,13 +22,14 @@ const validateRegex = (value, label='', pattern, customErrors) => {
       const result = customErrors.filter((error) => {
         return error.type === 'pattern';
       });
-      if (result && result.length > 0 && result[0].message) {
+      if (result?.[0]?.message) {
         return result[0].message;
       }
     }
   }
-  if (label === '')
+  if (label === '') {
     return 'Component failed regex validation';
+  }
   return `${label} failed regex validation`;
 };
 

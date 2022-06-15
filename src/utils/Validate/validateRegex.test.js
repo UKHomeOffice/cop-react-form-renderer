@@ -5,7 +5,7 @@ describe('utils', () => {
 
   describe('Validate', () => {
 
-    describe('', () => {
+    describe('regex', () => {
       const GOOD_VALUE = 'hello';
       const BAD_VALUE = 'h3llo';
       const LABEL = 'Component';
