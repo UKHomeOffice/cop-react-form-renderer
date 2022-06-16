@@ -1,7 +1,7 @@
 // Global imports
 import { Button, ButtonGroup, Label } from '@ukhomeoffice/cop-react-components';
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 // Local imports
 import { CollectionLabels } from '../../models';
@@ -19,11 +19,7 @@ const Collection = ({
   onChange,
   wrap
 }) => {
-  const [value, setValue] = useState();
-
-  useEffect(() => {
-    setValue(_value || []);
-  }, [_value, setValue]);
+  const [value, setValue] = useState(_value);
 
   const reportChange = (newValue) => {
     setValue(newValue);
