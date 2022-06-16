@@ -14,7 +14,6 @@ const makeComponentFieldsAbsolute = (component) => {
     const full_path = component.full_path;
     const show_when = Array.isArray(component.show_when) ? component.show_when : [component.show_when];
     return show_when.map(sw => {
-      //console.log(sw, full_path,show_when)
       const field = Data.getDataPath(sw.field, full_path);
       return { ...sw, field };
     });
