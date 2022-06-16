@@ -24,7 +24,7 @@ const showFormPage = (page, data) => {
     return false;
   }
 
-  // If the page has a show_when condition where type === "or", we should evaluate that
+  // If the page has a show_when condition where type === "or", we should evaluate that.
   if(page.show_when?.type === "or"){
     return Condition.meetsOne(page, data)
   }
