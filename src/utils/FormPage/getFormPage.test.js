@@ -11,7 +11,11 @@ describe('utils', () => {
         { id: 'a', fieldId: 'a', label: 'Alpha', type: 'text' },
         { id: 'b', fieldId: 'b', label: 'Bravo', type: 'text' },
         // eslint-disable-next-line no-template-curly-in-string
-        { id: 'c', fieldId: 'c', label: 'Charlie', type: 'radios', data: { url: '${urls.refData}/v3/charlies' } }
+        { id: 'c', fieldId: 'c', label: 'Charlie', type: 'radios', data: { url: '${urls.refData}/v3/charlies' } },
+        // eslint-disable-next-line no-template-curly-in-string
+        { id: 'd', fieldId: 'd', label: 'Roger ${currentUser.firstname}', type: 'text' },
+        // eslint-disable-next-line no-template-curly-in-string
+        { id: 'e', fieldId: 'e', label: 'Bravo ${currentUser.surname}', type: 'text' },
       ];
 
       const FORM_DATA = {
@@ -122,9 +126,46 @@ describe('utils', () => {
             { type: 'html', tagName: 'p', content: PAGE.components[0] },
             { ...PAGE.components[1], full_path: PAGE.components[1].fieldId },
             { type: 'html', tagName: 'p', content: PAGE.components[2] },
-            { use: 'c', ...C, cya_label: C.label, full_path: C.fieldId }
+            // eslint-disable-next-line no-template-curly-in-string
+            { use: 'c', ...C, cya_label: C.label, full_path: C.fieldId, data: { url: '${urls.refData}/v3/charlies' } }
           ],
           formData: {}
+        });
+      });
+
+      it('should interpolate and handle a page that references a form-level component with formData', () => {
+        const PAGE = {
+          // eslint-disable-next-line no-template-curly-in-string
+          title: 'Page ${postFixTitle}',
+          components: [
+            "Opening paragraph",
+            { type: 'heading', size: 'l', content: 'Page heading' },
+            "Closing paragraph",
+            { use: 'c' },
+            { use: 'd' },
+            "Kevin",
+            { use: 'e' },
+          ]
+        };
+        const DATA = { ...FORM_DATA, currentUser: {
+          firstname: 'Bob',
+          surname: 'Kevin'
+        }, postFixTitle: 'Everyone'}
+        const C = FORM_COMPONENTS[2];
+        const D = FORM_COMPONENTS[3];
+        const E = FORM_COMPONENTS[4];
+        expect(getFormPage(PAGE, FORM_COMPONENTS, DATA)).toEqual({
+          title: 'Page Everyone',
+          components: [
+            { type: 'html', tagName: 'p', content: PAGE.components[0] },
+            { ...PAGE.components[1], full_path: PAGE.components[1].fieldId },
+            { type: 'html', tagName: 'p', content: PAGE.components[2] },
+            { use: 'c', ...C, cya_label: C.label, data: { url: `${FORM_DATA.urls.refData}/v3/charlies` }, full_path: C.fieldId },
+            { use: 'd', ...D, label: 'Roger ' + DATA.currentUser.firstname, cya_label: 'Roger ' + DATA.currentUser.firstname, full_path: D.fieldId },
+            { type: 'html', tagName: 'p', content: PAGE.components[5] },
+            { use: 'e', ...E, label: 'Bravo ' + DATA.currentUser.surname, cya_label: 'Bravo ' + DATA.currentUser.surname, full_path: E.fieldId },
+          ],
+          formData: DATA
         });
       });
 

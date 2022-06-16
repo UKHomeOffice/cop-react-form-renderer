@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 
 // Local imports
-import { ValidationContextProvider } from '../../context';
+import { HooksContextProvider, ValidationContextProvider } from '../../context';
 import { useHooks, useValidation } from '../../hooks';
 import { EventTypes, FormPages, FormTypes, HubFormats, PageAction, TaskStates } from '../../models';
 import Utils from '../../utils';
@@ -34,24 +34,25 @@ const FormRenderer = ({
   noChangeAction,
 }) => {
   return (
-    <ValidationContextProvider>
-      <InternalFormRenderer
-        title={title}
-        type={type}
-        components={components}
-        pages={pages}
-        hub={hub}
-        cya={cya}
-        data={data}
-        hooks={hooks}
-        classBlock={classBlock}
-        classModifiers={classModifiers}
-        className={className}
-        hide_title={hide_title}
-        summaryListClassModifiers={summaryListClassModifiers}
-        noChangeAction={noChangeAction}
-      />
-    </ValidationContextProvider>
+    <HooksContextProvider overrides={hooks}>
+      <ValidationContextProvider>
+        <InternalFormRenderer
+          title={title}
+          type={type}
+          components={components}
+          pages={pages}
+          hub={hub}
+          cya={cya}
+          data={data}
+          classBlock={classBlock}
+          classModifiers={classModifiers}
+          className={className}
+          hide_title={hide_title}
+          summaryListClassModifiers={summaryListClassModifiers}
+          noChangeAction={noChangeAction}
+        />
+      </ValidationContextProvider>
+    </HooksContextProvider>
   );
 };
 
@@ -64,7 +65,6 @@ const InternalFormRenderer = ({
   hub: _hub,
   cya,
   data: _data,
-  hooks: _hooks,
   classBlock,
   classModifiers,
   className,
@@ -83,14 +83,7 @@ const InternalFormRenderer = ({
   const [hubDetails, setHubDetails] = useState({});
 
   // Set up hooks.
-  const { hooks, addHook } = useHooks();
-  useEffect(() => {
-    if (_hooks) {
-      Object.keys(_hooks).forEach(key => {
-        addHook(key, _hooks[key]);
-      });
-    }
-  }, [_hooks, addHook]);
+  const { hooks } = useHooks();
 
   // Set up the useValidation hook.
   const { addErrors, clearErrors, validate } = useValidation();
@@ -328,12 +321,7 @@ FormRenderer.propTypes = InternalFormRenderer.propTypes = {
   hub: PropTypes.object,
   cya: PropTypes.object,
   data: PropTypes.object,
-  hooks: PropTypes.shape({
-    onFormLoad: PropTypes.func,
-    onPageChange: PropTypes.func,
-    onRequest: PropTypes.func,
-    onSubmit: PropTypes.func
-  }),
+  hooks: PropTypes.object,
   classBlock: PropTypes.string,
   classModifiers: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
   className: PropTypes.string,
