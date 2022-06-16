@@ -14,7 +14,6 @@ const meetsAllConditions = (options, data) => {
   if (conditions) {
     const arr = Array.isArray(conditions) ? conditions : [conditions];
     return arr.every(condition => {
-      console.log(condition)
       const sourceDataValue = Data.getSource(data, condition.field);
       return meetsCondition(condition, sourceDataValue);
     });
