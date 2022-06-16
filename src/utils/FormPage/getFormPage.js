@@ -1,4 +1,5 @@
 // Local imports
+import { Utils } from '@ukhomeoffice/cop-react-components';
 import Container from '../Container';
 import Data from '../Data';
 import getPageActions from './getPageActions';
@@ -16,6 +17,8 @@ const getFormPage = (pageOptions, formComponents, formData) => {
   if (!pageOptions) {
     return null;
   }
+  pageOptions = interpolatePageOptions(pageOptions, formData);
+  formComponents = interpolateFormComponents(formComponents, formData);
   const components = pageOptions.components.map(componentOptions => {
     if (typeof componentOptions === 'string') {
       return getParagraphFromText(componentOptions);
@@ -37,5 +40,34 @@ const getFormPage = (pageOptions, formComponents, formData) => {
     actions
   });
 };
+
+/**
+ * Interpolate 'Variable Expression' using formData - for local use only.
+ * @param {object} pageOptions The JSON page.
+ * @param {object} formData The top-level form data, used for setting up components.
+ * @returns interpolated pageOptions.
+ */
+const interpolatePageOptions = (pageOptions, formData) => {
+  return JSON.parse(Utils.interpolateString(JSON.stringify(pageOptions), formData));
+}
+/**
+ * Interpolate 'Variable Expression' using formData excluding each component's data block - for local use only.
+ * @param {Array} formComponents The components defined at the top-level of the form.
+ * @param {object} formData The top-level form data, used for setting up components.
+ * @returns interpolated formComponents
+ */
+const interpolateFormComponents = (formComponents, formData) => {
+  return formComponents.map((formComponent) => {
+    let formComponentDataUrl = undefined;
+    if (formComponent.data && formComponent.data.url) {
+      formComponentDataUrl = formComponent.data.url;
+    }
+    const interpolatedFormComponent = JSON.parse(Utils.interpolateString(JSON.stringify(formComponent), formData));
+    if (formComponentDataUrl) {
+      interpolatedFormComponent.data.url = formComponentDataUrl;
+    }
+    return interpolatedFormComponent;
+  });
+}
 
 export default getFormPage;
