@@ -220,7 +220,7 @@ describe('utils.Validate.Component', () => {
               ],
             },
           };
-          expect(validateComponent(COMPONENT, FORMDATA)).toEqual([]);
+          expect(validateComponent(COMPONENT, undefined, FORMDATA)).toEqual([]);
         });
 
         it('should return an error when the radio component contains nested components with errors', () => {
@@ -244,7 +244,7 @@ describe('utils.Validate.Component', () => {
               ],
             },
           };
-          expect(validateComponent(COMPONENT, FORMDATA)).toEqual([{
+          expect(validateComponent(COMPONENT, undefined, FORMDATA)).toEqual([{
             id: NESTED_ID,
             error: `Field is required`
           }]);
@@ -271,7 +271,7 @@ describe('utils.Validate.Component', () => {
               ],
             },
           };
-          expect(validateComponent(COMPONENT, {})).toEqual([]);
+          expect(validateComponent(COMPONENT, undefined, {})).toEqual([]);
         });
       });
 });

@@ -2,6 +2,7 @@
 import { render } from '@testing-library/react';
 // Local imports
 import { getChildrenJsx } from '../getComponent';
+import { renderWithValidation } from '../../../setupTests';
 
 describe('utils.Component.get', () => {
   it('should return components that are nested within another component', async () => {
@@ -34,7 +35,7 @@ describe('utils.Component.get', () => {
         type: 'date',
       },
     ];
-    const { container } = render(getChildrenJsx(PARENT_CONFIG, NESTED_CONFIG));
+    const { container } = renderWithValidation(getChildrenJsx(PARENT_CONFIG, NESTED_CONFIG));
     const child = container.childNodes[0];
     expect(child.childNodes.length).toEqual(3);
     expect(child.classList).toContain('govuk-form-group');
