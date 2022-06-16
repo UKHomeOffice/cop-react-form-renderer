@@ -167,6 +167,7 @@ const InternalFormRenderer = ({
     // Check to see whether the action is able to proceed, which in
     // in the case of a submission will validate the fields in the page.
     if (helpers.canActionProceed(action, formState.page, validate.page)) {
+      patch = helpers.cleanHiddenNestedData(patch, formState.page);
       if (action.type === PageAction.TYPES.NAVIGATE) {
         handlers.navigate(action, pageId, onPageChange);
       } else {

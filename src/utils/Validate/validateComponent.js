@@ -27,7 +27,6 @@ const validateComponent = (component, outerData, formData) => {
     return validateContainer(component, outerData, fd);
   }
   let error = undefined;
-  let nestedId = undefined;
   let properties = undefined;
   const data = outerData && typeof outerData === 'object' ? outerData : {};
   const value = data[component.fieldId];
@@ -49,18 +48,13 @@ const validateComponent = (component, outerData, formData) => {
         error = message;
         break;
       case ComponentTypes.RADIOS:
-        component.data.options?.some((option) => {
-          let nestedError;
-          if (option.nested && option.nested.shown) {
-            nestedError = validateComponent(option.nested, outerData, fd);
-            if (nestedError) {
-              error = nestedError.error;
-              nestedId = nestedError.id;
-            }
+        let nestedErrors = [];
+        component.data.options?.forEach((option) => {
+          if (option.nested && (formData[component.id] === option.value)) {
+            nestedErrors = nestedErrors.concat( validateContainer({ components: option.nested }, formData));
           }
-          return nestedError;
         });
-        break;
+        return nestedErrors;
       default:
         break;
     }
@@ -77,7 +71,7 @@ const validateComponent = (component, outerData, formData) => {
 
   if (error) {
     return {
-      id: nestedId || component.full_path || component.id,
+      id: component.full_path || component.id,
       error,
       properties
     };

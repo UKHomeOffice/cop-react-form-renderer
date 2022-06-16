@@ -94,15 +94,17 @@ describe('utils', () => {
             options: [
               {
                 value: SELECTED_VALUE,
-                nested: {
-                  id: NESTED_ID,
-                },
-              }
+                nested: [
+                  {
+                    id: NESTED_ID,
+                  },
+                ],
+              },
             ],
           },
         }; 
         const ROW = getCYARow(PAGE, COMPONENT, () => {});
-        expect(ROW.component.data.options[0].nested.value).toEqual(NESTED_VALUE);
+        expect(ROW.component.data.options[0].nested[0].value).toEqual(NESTED_VALUE);
       });
 
     });

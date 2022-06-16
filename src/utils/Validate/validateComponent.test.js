@@ -135,7 +135,7 @@ describe('utils.Validate.Component', () => {
           const DATA = { [ID]: '25-3-3033' };
           const ADDITIONAL_VALIDATION = [
             { function: 'mustBeBefore', value: 3, unit: 'day', message: 'Date must be less than 3 days in the future' },
-          ]
+          ];
           const COMPONENT = setup(ID, ComponentTypes.DATE, LABEL, false, ADDITIONAL_VALIDATION);
           expect(validateComponent(COMPONENT, DATA)).toEqual({
             error: 'Date must be less than 3 days in the future',
@@ -143,7 +143,6 @@ describe('utils.Validate.Component', () => {
             properties: { day: true, month: true, year: true }
           });
         });
-
       });
 
       describe('when the component is a Time Input', () => {
@@ -190,7 +189,7 @@ describe('utils.Validate.Component', () => {
           COLLECTION.item = [EMAIL];
           const DATA = {
             [ID]: [
-              { [EMAIL_ID]: 'alpha.bravo@homeoffice.gov.uk' },
+              { [EMAIL_ID]: 'alpha.bravo@homeoffice.gov.uk' }, 
               { [EMAIL_ID]: 'charlie.delta@homeoffice.gov.uk' }
             ]
           };
@@ -199,55 +198,56 @@ describe('utils.Validate.Component', () => {
       });
 
       describe('when the component has a nested component', () => {
-
         it('should return no error when the radio component contains nested components without errors', () => {
           const NESTED_ID = 'nestedId';
           const NESTED_VALUE = 'nestedValue';
-          const FORMDATA = { [NESTED_ID]: NESTED_VALUE }
+          const FORMDATA = { [NESTED_ID]: NESTED_VALUE };
           const COMPONENT = {
             type: 'radios',
             id: 'a',
             data: {
               options: [
                 {
-                  nested: {
-                    type: 'text',
-                    fieldId: NESTED_ID,
-                    id: NESTED_ID,
-                    required: true,
-                    shown: true
-                  },
-                }
+                  nested: [
+                    {
+                      type: 'text',
+                      fieldId: NESTED_ID,
+                      id: NESTED_ID,
+                      required: true
+                    },
+                  ],
+                },
               ],
             },
-          }; 
-          expect(validateComponent(COMPONENT, FORMDATA)).toBeUndefined();
+          };
+          expect(validateComponent(COMPONENT, undefined, FORMDATA)).toEqual([]);
         });
 
         it('should return an error when the radio component contains nested components with errors', () => {
           const NESTED_ID = 'nestedId';
-          const FORMDATA = {}
+          const FORMDATA = {};
           const COMPONENT = {
             type: 'radios',
             id: 'a',
             data: {
               options: [
                 {
-                  nested: {
-                    type: 'text',
-                    fieldId: NESTED_ID,
-                    id: NESTED_ID,
-                    required: true,
-                    shown: true
-                  },
-                }
+                  nested: [
+                    {
+                      type: 'text',
+                      fieldId: NESTED_ID,
+                      id: NESTED_ID,
+                      required: true
+                    },
+                  ],
+                },
               ],
             },
-          }; 
-          expect(validateComponent(COMPONENT, FORMDATA)).toEqual({
+          };
+          expect(validateComponent(COMPONENT, undefined, FORMDATA)).toEqual([{
             id: NESTED_ID,
             error: `Field is required`
-          });
+          }]);
         });
 
         it('should return no error when a non selected radio component contains nested components with errors', () => {
@@ -258,18 +258,20 @@ describe('utils.Validate.Component', () => {
             data: {
               options: [
                 {
-                  nested: {
-                    type: 'text',
-                    fieldId: NESTED_ID,
-                    id: NESTED_ID,
-                    required: true
-                  },
-                }
+                  value: 'optionValue',
+                  nested: [
+                    {
+                      type: 'text',
+                      fieldId: NESTED_ID,
+                      id: NESTED_ID,
+                      required: true
+                    },
+                  ],
+                },
               ],
             },
-          }; 
-          expect(validateComponent(COMPONENT, {})).toBeUndefined();
+          };
+          expect(validateComponent(COMPONENT, undefined, {})).toEqual([]);
         });
       });
-
 });
