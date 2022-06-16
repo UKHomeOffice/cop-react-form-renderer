@@ -24,6 +24,10 @@ const showFormPage = (page, data) => {
     return false;
   }
 
+  if(page.show_when?.type){
+    return Condition.meetsOne(page, data)
+  }
+
   // If the page has a show_when condition, we should evaluate that.
   if (page.show_when) {
     return Condition.meetsAll(page, data);
