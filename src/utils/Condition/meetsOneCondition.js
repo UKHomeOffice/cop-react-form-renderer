@@ -11,9 +11,7 @@ import setupConditions from './setupConditions';
  */
 
 const meetsOneCondition = (options, data) => {
-    console.log("here")
     const conditions = setupConditions(options);
-    console.log(conditions)
     if (conditions) {
         const arr = Array.isArray(conditions) ? conditions: [conditions];
         return arr.some(condition => {
