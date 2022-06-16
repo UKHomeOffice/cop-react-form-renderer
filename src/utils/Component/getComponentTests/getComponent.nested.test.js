@@ -1,7 +1,7 @@
 // Global imports
 import { render } from '@testing-library/react';
 // Local imports
-import { getNestedComponents } from '../getComponent';
+import { getChildrenJsx } from '../getComponent';
 
 describe('utils.Component.get', () => {
   it('should return components that are nested within another component', async () => {
@@ -34,7 +34,7 @@ describe('utils.Component.get', () => {
         type: 'date',
       },
     ];
-    const { container } = render(getNestedComponents(PARENT_CONFIG, NESTED_CONFIG));
+    const { container } = render(getChildrenJsx(PARENT_CONFIG, NESTED_CONFIG));
     const child = container.childNodes[0];
     expect(child.childNodes.length).toEqual(3);
     expect(child.classList).toContain('govuk-form-group');
@@ -88,8 +88,8 @@ describe('utils.Component.get', () => {
         readonly: true,
       },
     ];
-    const { container } = render(getNestedComponents(PARENT_CONFIG, NESTED_CONFIG));
-    const child = container.childNodes[0];
+    const { container } = render(getChildrenJsx(PARENT_CONFIG, NESTED_CONFIG));
+    const child = container.childNodes[0].childNodes[0];
     expect(child.classList).toContain('hods-readonly');
   });
 });

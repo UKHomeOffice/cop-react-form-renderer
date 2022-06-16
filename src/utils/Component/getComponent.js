@@ -78,7 +78,7 @@ const getRadios = (config) => {
     if ( !Array.isArray(option.nested) ){
       return;
     }
-    option.nestedJSX = getNestedComponents(config, option.nested);
+    option.children = getChildrenJsx(config, option.nested);
   });
   const attrs = cleanAttributes(config);
   return <Radios {...attrs} options={options} />;
@@ -132,36 +132,38 @@ const getComponentByType = (config) => {
 };
 
 /**
- * Get nested component with form data
- * @param {*} parentConfig 
- * @param {*} nestedConfig 
+ * Get single child component for a parent
+ * @param {*} parent the parent configuration
+ * @param {*} child the child configuration
  */
-const nestedComponent = (parent, nested) => {
+const getChildJsx = (parent, child) => {
   if (parent.formData) {
-    nested.value = parent?.formData?.[nested.fieldId] ? parent.formData[nested.fieldId] : '';
+    child.value = parent?.formData?.[child.fieldId] ? parent.formData[child.fieldId] : '';
   }
-  if ('readonly' in nested)
-    delete nested.readonly;
-  if(parent.readonly){
-    nested.readonly = parent.readonly;
-    return getComponent(nested, false);
+  if ('readonly' in child) delete child.readonly;
+  if (parent.readonly) {
+    child.readonly = parent.readonly;
+    return <div>{getComponent(child, false)}</div>;
   }
-  return <FormComponent component={nested} value={nested.value} onChange={parent.onChange} key={nested.key}/> 
+  return <FormComponent component={child} value={child.value} onChange={parent.onChange} key={child.key} />;
 };
 
 /**
- * Get nested component with form data
- * @param {*} parentConfig 
- * @param {*} nestedConfig 
+ * Convert chidlrenConfigs into components
+ * @param {*} parentConfig parent component which the childrenConfigs will be under
+ * @param {*} childrenConfigs array of configurations for the child components
  */
-const getNestedComponents = (parentConfig, nestedConfigs) => {
-  return nestedConfigs.map((config, index) => {
-    config.key = index;
-    return nestedComponent(parentConfig, config);
-  });
+const getChildrenJsx = (parentConfig, childrenConfigs) => {
+  return (
+    <>
+      {childrenConfigs.map((config) => {
+        return <React.Fragment key={config.id}>{getChildJsx(parentConfig, config)}</React.Fragment>;
+      })}
+    </>
+  );
 };
 
-export { getNestedComponents };
+export { getChildrenJsx };
 
 /**
  * Get a renderable component, based on a configuration object.
