@@ -1,5 +1,5 @@
 // Global imports
-import { createContext, useState } from 'react';
+import React, { createContext, useState } from 'react';
 
 const DEFAULT_HOOKS = {
   onFormComplete: () => {},
