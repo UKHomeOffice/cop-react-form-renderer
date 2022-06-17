@@ -32,6 +32,7 @@ const FormRenderer = ({
   hide_title,
   summaryListClassModifiers,
   noChangeAction,
+  newPageId,
 }) => {
   return (
     <HooksContextProvider overrides={hooks}>
@@ -50,6 +51,7 @@ const FormRenderer = ({
           hide_title={hide_title}
           summaryListClassModifiers={summaryListClassModifiers}
           noChangeAction={noChangeAction}
+          newPageId={newPageId}
         />
       </ValidationContextProvider>
     </HooksContextProvider>
@@ -71,6 +73,7 @@ const InternalFormRenderer = ({
   hide_title,
   summaryListClassModifiers,
   noChangeAction,
+  newPageId
 }) => {
   // Set up the initial states.
   const [data, setData] = useState({});
@@ -102,6 +105,10 @@ const InternalFormRenderer = ({
   useEffect(() => {
     setPages(Utils.FormPage.getAll(_pages, components, { ...data }));
   }, [components, _pages, data, setPages]);
+
+  useEffect(() => {
+    if (newPageId !== undefined) onPageChange(newPageId);
+  },[newPageId]);
 
   // Setup initial pageId.
   useEffect(() => {
