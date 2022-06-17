@@ -92,7 +92,7 @@ describe('utils', () => {
         const PAGE = {
           show_when: {
             "type": "or",
-            "fields": [
+            "conditions": [
               { field: 'alpha', op: '=', value: 'Alpha' },
               { field: 'bravo', op: '=', value: 'Bravo' }
             ]
@@ -105,7 +105,7 @@ describe('utils', () => {
         const PAGE = {
           show_when: {
             "type": "or",
-            "fields": [
+            "conditions": [
               { field: 'alpha', op: '=', value: 'Alpha' },
               { field: 'charlie', op: '=', value: 'Charlie' }
             ]
@@ -118,7 +118,7 @@ describe('utils', () => {
         const PAGE = {
           show_when: {
             "type": "or",
-            "fields": [
+            "conditions": [
               { field: 'alpha', op: '!=', value: 'Alpha' },
               { field: 'charlie', op: '=', value: 'Charlie' }
             ]
