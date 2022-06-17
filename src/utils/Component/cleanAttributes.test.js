@@ -1,4 +1,5 @@
 // Local imports
+//
 import cleanAttributes, { JSON_ONLY_PROPERTIES } from './cleanAttributes';
 
 describe('utils', () => {
