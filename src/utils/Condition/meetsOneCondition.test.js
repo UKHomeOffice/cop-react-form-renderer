@@ -5,7 +5,7 @@ describe('utils.Condition.meetsOneCondition', () => {
   const DATA = { alpha: 'bravo', charlie: 'delta' };
 
   it('should evaluate to true when conditions are null', () => {
-      expect(meetsOneCondition(null, DATA)).toBeTruthy();
+    expect(meetsOneCondition(null, DATA)).toBeTruthy();
   });
 
   it('should evaluate to true when conditions are undefined', () => {
