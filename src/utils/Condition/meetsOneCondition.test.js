@@ -15,7 +15,7 @@ describe('utils.Condition.meetsOneCondition', () => {
   it('should evaluate to true when conditions is an empty array', () => {
     const CONDITION = {
       "type": "or",
-      "fields": []
+      "conditions": []
     }
     expect(meetsOneCondition(CONDITION, DATA)).toBeTruthy();
   });
@@ -23,7 +23,7 @@ describe('utils.Condition.meetsOneCondition', () => {
   it('should evaluate to true when one condition is provided and one condition is met', () => {
     const CONDITION = {
       "type": "or",
-      "fields": [
+      "conditions": [
         { field: 'alpha', op: 'eq', value: 'bravo' }         
       ]
     }
@@ -33,7 +33,7 @@ describe('utils.Condition.meetsOneCondition', () => {
   it('should evaluate to true when two conditions are provided and one condition is met', () => {
     const CONDITION = {
       "type": "or",
-      "fields": [
+      "conditions": [
         { field: 'alpha', op: 'eq', value: 'bravo' },
         { field: 'alpha', op: 'eq', value: "charlie"}       
       ]
@@ -44,7 +44,7 @@ describe('utils.Condition.meetsOneCondition', () => {
   it('should evaluate to true when three conditions are provided and two conditions are met', () => {
     const CONDITION = {
       "type": "or",
-      "fields": [
+      "conditions": [
         { field: 'alpha', op: 'eq', value: 'bravo' },
         { field: 'charlie', op: 'eq', value: 'delta' },
         { field: 'alpha', op: 'eq', value: "charlie"}       
@@ -56,7 +56,7 @@ describe('utils.Condition.meetsOneCondition', () => {
   it('should evaluate to true when all conditions are met', () => {
     const CONDITION = {
       "type": "or",
-      "fields": [
+      "conditions": [
         { field: 'alpha', op: 'eq', value: 'bravo' },
         { field: 'charlie', op: 'eq', value: 'delta' }     
       ]
@@ -67,7 +67,7 @@ describe('utils.Condition.meetsOneCondition', () => {
   it('should evaluate to false when no conditions are met', () => {
     const CONDITION = {
       "type": "or",
-      "fields": [
+      "conditions": [
         { field: 'alpha', op: 'eq', value: 'delta' },
         { field: 'charlie', op: 'eq', value: 'bravo' }     
       ]
