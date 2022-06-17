@@ -88,6 +88,45 @@ describe('utils', () => {
         expect(showFormPage(PAGE, DATA)).toBeTruthy();
       });
 
+      it('SHOULD be shown when the page has multiple show_when conditions, with type "or" provided and ALL are matched', () => {
+        const PAGE = {
+          show_when: {
+            "type": "or",
+            "conditions": [
+              { field: 'alpha', op: '=', value: 'Alpha' },
+              { field: 'bravo', op: '=', value: 'Bravo' }
+            ]
+          }
+        };
+        expect(showFormPage(PAGE, DATA)).toBeTruthy();
+      });
+
+      it('SHOULD be shown when the page has multiple show_when conditions, with type "or" provided and at least ONE is matched', () => {
+        const PAGE = {
+          show_when: {
+            "type": "or",
+            "conditions": [
+              { field: 'alpha', op: '=', value: 'Alpha' },
+              { field: 'charlie', op: '=', value: 'Charlie' }
+            ]
+          }
+        };
+        expect(showFormPage(PAGE, DATA)).toBeTruthy();
+      });
+
+      it('should NOT be shown when the page has multiple show_when conditions, with type "or" provided and NONE are matched', () => {
+        const PAGE = {
+          show_when: {
+            "type": "or",
+            "conditions": [
+              { field: 'alpha', op: '!=', value: 'Alpha' },
+              { field: 'charlie', op: '=', value: 'Charlie' }
+            ]
+          }
+        };
+        expect(showFormPage(PAGE, DATA)).toBeFalsy();
+      });
+
     });
 
   });

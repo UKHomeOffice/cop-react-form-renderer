@@ -61,6 +61,57 @@ describe('utils', () => {
         expect(showComponent(COMPONENT, DATA)).toBeFalsy();
       });
 
+      it('SHOULD be shown when the component has multiple show_when conditions, with type "or" provided and ALL are matched', () => {
+        const COMPONENT = {
+          show_when: {
+            "type": "or",
+            "conditions": [
+              { field: 'alpha', op: '=', value: 'Alpha' },
+              { field: 'bravo', op: '=', value: 'Bravo' }
+            ]
+          }
+        };
+        const DATA = {
+          alpha: 'Alpha',
+          bravo: 'Bravo'
+        };
+        expect(showComponent(COMPONENT, DATA)).toBeTruthy();
+      });
+
+      it('SHOULD be shown when the component has multiple show_when conditions, with type "or" provided and at least ONE is matched', () => {
+        const COMPONENT = {
+          show_when: {
+            "type": "or",
+            "conditions": [
+              { field: 'alpha', op: '=', value: 'Alpha' },
+              { field: 'charlie', op: '=', value: 'Charlie' }
+            ]
+          }
+        };
+        const DATA = {
+          alpha: 'Alpha',
+          bravo: 'Bravo'
+        };
+        expect(showComponent(COMPONENT, DATA)).toBeTruthy();
+      });
+
+      it('should NOT be shown when the component has multiple show_when conditions, with type "or" provided and NONE are matched', () => {
+        const COMPONENT = {
+          show_when: {
+            "type": "or",
+            "conditions": [
+              { field: 'alpha', op: '!=', value: 'Alpha' },
+              { field: 'charlie', op: '=', value: 'Charlie' }
+            ]
+          }
+        };
+        const DATA = {
+          alpha: 'Alpha',
+          bravo: 'Bravo'
+        };
+        expect(showComponent(COMPONENT, DATA)).toBeFalsy();
+      });
+
     });
 
   });

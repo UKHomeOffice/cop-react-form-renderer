@@ -84,4 +84,44 @@ describe('utils.Container.showContainer', () => {
     };
     expect(showContainer(CONTAINER, DATA)).toBeTruthy();
   });
+
+  it('SHOULD be shown when the container has multiple show_when conditions, with type "or" provided and ALL are matched', () => {
+    const CONTAINER = {
+      show_when: {
+        "type": "or",
+        "conditions": [
+          { field: 'alpha', op: '=', value: 'Alpha' },
+          { field: 'bravo', op: '=', value: 'Bravo' }
+        ]
+      }
+    };
+    expect(showContainer(CONTAINER, DATA)).toBeTruthy();
+  });
+
+  it('SHOULD be shown when the container has multiple show_when conditions, with type "or" provided and at least ONE is matched', () => {
+    const CONTAINER = {
+      show_when: {
+        "type": "or",
+        "conditions": [
+          { field: 'alpha', op: '=', value: 'Alpha' },
+          { field: 'charlie', op: '=', value: 'Charlie' }
+        ]
+      }
+    };
+    expect(showContainer(CONTAINER, DATA)).toBeTruthy();
+  });
+
+  it('should NOT be shown when the container has multiple show_when conditions, with type "or" provided and NONE are matched', () => {
+    const CONTAINER = {
+      show_when: {
+        "type": "or",
+        "conditions": [
+          { field: 'alpha', op: '!=', value: 'Alpha' },
+          { field: 'charlie', op: '=', value: 'Charlie' }
+        ]
+      }
+    };
+    expect(showContainer(CONTAINER, DATA)).toBeFalsy();
+  });
+  
 });
