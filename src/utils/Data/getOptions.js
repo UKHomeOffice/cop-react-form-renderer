@@ -1,4 +1,4 @@
-import { Utils as HOUtils, Utils } from '@ukhomeoffice/cop-react-components';
+import { Utils } from '@ukhomeoffice/cop-react-components';
 
 const interpolateOptions = (config, options) => {
   return options.map(opt => ({
