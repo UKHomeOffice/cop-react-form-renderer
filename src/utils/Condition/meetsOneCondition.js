@@ -11,15 +11,15 @@ import setupConditions from './setupConditions';
  */
 
 const meetsOneCondition = (options, data) => {
-    const conditions = setupConditions(options);
-    if (conditions) {
-        const arr = Array.isArray(conditions) ? conditions: [conditions];
-        return arr.some(condition => {
-            const sourceDataValue = Data.getSource(data, condition.field);
-            return meetsCondition(condition, sourceDataValue);
-        })
-    }
-    return true;
+  const conditions = setupConditions(options);
+  if (conditions) {
+    const arr = Array.isArray(conditions) ? conditions: [conditions];
+    return arr.some(condition => {
+      const sourceDataValue = Data.getSource(data, condition.field);
+      return meetsCondition(condition, sourceDataValue);
+    });
+  }
+  return true;
 }
 
 export default meetsOneCondition
