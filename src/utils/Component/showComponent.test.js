@@ -65,7 +65,7 @@ describe('utils', () => {
         const COMPONENT = {
           show_when: {
             "type": "or",
-            "fields": [
+            "conditions": [
               { field: 'alpha', op: '=', value: 'Alpha' },
               { field: 'bravo', op: '=', value: 'Bravo' }
             ]
@@ -82,7 +82,7 @@ describe('utils', () => {
         const COMPONENT = {
           show_when: {
             "type": "or",
-            "fields": [
+            "conditions": [
               { field: 'alpha', op: '=', value: 'Alpha' },
               { field: 'charlie', op: '=', value: 'Charlie' }
             ]
@@ -99,7 +99,7 @@ describe('utils', () => {
         const COMPONENT = {
           show_when: {
             "type": "or",
-            "fields": [
+            "conditions": [
               { field: 'alpha', op: '!=', value: 'Alpha' },
               { field: 'charlie', op: '=', value: 'Charlie' }
             ]

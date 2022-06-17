@@ -89,7 +89,7 @@ describe('utils.Container.showContainer', () => {
     const CONTAINER = {
       show_when: {
         "type": "or",
-        "fields": [
+        "conditions": [
           { field: 'alpha', op: '=', value: 'Alpha' },
           { field: 'bravo', op: '=', value: 'Bravo' }
         ]
@@ -102,7 +102,7 @@ describe('utils.Container.showContainer', () => {
     const CONTAINER = {
       show_when: {
         "type": "or",
-        "fields": [
+        "conditions": [
           { field: 'alpha', op: '=', value: 'Alpha' },
           { field: 'charlie', op: '=', value: 'Charlie' }
         ]
@@ -115,7 +115,7 @@ describe('utils.Container.showContainer', () => {
     const CONTAINER = {
       show_when: {
         "type": "or",
-        "fields": [
+        "conditions": [
           { field: 'alpha', op: '!=', value: 'Alpha' },
           { field: 'charlie', op: '=', value: 'Charlie' }
         ]

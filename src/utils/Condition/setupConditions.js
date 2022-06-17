@@ -4,7 +4,7 @@ import Data from '../Data';
 const makeComponentFieldsAbsolute = (component) => {
   if (component.show_when?.type){
     const full_path = component.full_path;
-    const show_when = Array.isArray(component.show_when.fields) ? component.show_when.fields : [component.show_when.fields];
+    const show_when = Array.isArray(component.show_when.conditions) ? component.show_when.conditions : [component.show_when.conditions];
     return show_when.map(sw => {
       const field = Data.getDataPath(sw.field, full_path);
       return {...sw, field};
