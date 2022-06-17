@@ -120,3 +120,37 @@ of a defined number of known values.
 Most scenarios would call for the the `in` operator, rather than the `nin` one, but this is a
 useful option if there are a large number of items for which you would want it to show but a
 much smaller and more manageable number for which you would want it hidden.
+
+## At least one condition met
+
+```json
+{
+  "id": "delegateEmails",
+  /* ... */
+  "show_when": {
+    "type" : "or",
+    "conditions": [
+      {
+        "field": "areYouACivilServant",
+        "op": "=",
+        "value": "yes"    
+      },
+      {
+        "field": "staffGradeId",
+        "op": "=",
+        "value": "junior-a"
+      }
+    ]
+  }
+}
+```
+In the above example, the `delegateEmails` component **will** be shown when the value of **at least one of** 
+the following two conditions are true. `areYouACivilServant` equals "yes" **or** `staffGradeId` equals 
+"junior-a". If **none** of the provided condtions are true `delegateEmails` will **not** be shown.
+
+In this scenario, the value "junior-a" for `staffGradeId` is not valid and will evaluate to false. However, 
+if the value of `areYouACivilServant` is "yes", `delegateEmails` will still be shown.
+
+### When to use type `or`
+
+Use type `or` when you want a component, page or container to be shown if **at least one** of the conditions you provide are true.
