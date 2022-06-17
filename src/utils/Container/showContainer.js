@@ -26,7 +26,7 @@ const showContainer = (container, data) => {
 
   // If the container has a show_when condition, we should evaluate that.
   if (container.show_when) {
-    if (container.show_when?.type === "or") {
+    if (container.show_when.type === "or") {
       return Condition.meetsOne(container, data);
     }
     return Condition.meetsAll(container, data);
