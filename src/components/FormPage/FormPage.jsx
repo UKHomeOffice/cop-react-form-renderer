@@ -39,7 +39,7 @@ const FormPage = ({
   const classes = Utils.classBuilder(classBlock, classModifiers, className);
   return (
     <div className={classes('page')} key={page.id}>
-      {page.title && <LargeHeading>{page.title}</LargeHeading>}
+      {page.title && <LargeHeading>{Utils.interpolateString(page.title, page.formData)}</LargeHeading>}
       {errors?.length > 0 && <ErrorSummary errors={errors} />}
       {page.components.filter(c => Utils.Component.show(c, page.formData)).map((component, index) => (
         <FormComponent key={index}
