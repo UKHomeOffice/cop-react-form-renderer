@@ -1,5 +1,7 @@
-// Local imports
+// Global imports
 import { Utils } from '@ukhomeoffice/cop-react-components';
+
+// Local imports
 import validateComponent from './validateComponent';
 import showFormPage from '../FormPage/showFormPage';
 
