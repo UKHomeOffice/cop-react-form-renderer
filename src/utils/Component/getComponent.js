@@ -181,8 +181,7 @@ const getComponent = (config, wrap = true, fnOverride = undefined) => {
   }
 const component = getComponentByType(config);
   if (component && wrap && isEditable(config)) {
-    const attrs = cleanAttributes(config, ['fieldId', 'displayMenu']);
-    return wrapInFormGroup(attrs, component);
+    return wrapInFormGroup(config, component);
   }
   return component;
 };
