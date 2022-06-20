@@ -174,7 +174,6 @@ describe('components.FormPage', () => {
       // And confirm an appropriate action was received.
       expect(ON_ACTION_CALLS.length).toEqual(1);
       expect(PAGE.formData.text).toEqual(NEW_VALUE);
-      console.log(ON_ACTION_CALLS[0].action);
       expect(ON_ACTION_CALLS[0].action).toEqual(PageAction.DEFAULTS.submit);
       expect(ON_ACTION_CALLS[0].patch).toEqual({ text: NEW_VALUE });
     });
