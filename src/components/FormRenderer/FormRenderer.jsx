@@ -166,21 +166,6 @@ const InternalFormRenderer = ({
   const onPageAction = (action, patch) => {
     // Check to see whether the action is able to proceed, which in
     // in the case of a submission will validate the fields in the page.
-    if (action.type === PageAction.TYPES.SUBMIT) {
-      if (helpers.canCYASubmit(pages, validate.pages)) {
-        // Submit.
-        const submissionData = Utils.Format.form({ pages, components }, { ...data }, EventTypes.SUBMIT);
-        submissionData.formStatus = helpers.getSubmissionStatus(type, pages, pageId, action, submissionData, currentTask, true);
-        setData(submissionData);
-        // Now submit the data to the backend...
-        hooks.onSubmit(action.type, submissionData,
-          () => hooks.onFormComplete(),
-          (errors) => handlers.submissionError(errors, addErrors)
-        );
-      }
-    }
-    // Check to see whether the action is able to proceed, which in
-    // in the case of a submission will validate the fields in the page.
     if (helpers.canActionProceed(action, formState.page, validate.page)) {
       patch = helpers.cleanHiddenNestedData(patch, formState.page);
       if (action.type === PageAction.TYPES.NAVIGATE) {
