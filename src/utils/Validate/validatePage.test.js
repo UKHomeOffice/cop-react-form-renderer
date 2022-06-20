@@ -62,6 +62,37 @@ describe('utils', () => {
           expect(RESULT[3]).toEqual({ id: 'e', error: 'Echo is required' });
         });
 
+        it('should return an error for each required component with interpolated label', () => {
+          const COMPONENTS = [
+            // eslint-disable-next-line no-template-curly-in-string
+            setup('a', ComponentTypes.TEXT, 'Alpha ${tiger}', true),
+            // eslint-disable-next-line no-template-curly-in-string
+            setup('b', ComponentTypes.EMAIL, 'Bravo ${panther}', true),
+            // eslint-disable-next-line no-template-curly-in-string
+            setup('c', ComponentTypes.AUTOCOMPLETE, 'Charlie ${eagle}', true),
+            // eslint-disable-next-line no-template-curly-in-string
+            setup('d', ComponentTypes.CHECKBOXES, 'Delta ${lion}', true),
+            // eslint-disable-next-line no-template-curly-in-string
+            setup('e', ComponentTypes.FILE, 'Echo ${zoo}', true)
+          ];
+          const PAGE = {
+            components: COMPONENTS,
+            formData: {
+              tiger: 'Tiger',
+              panther: 'Panther',
+              eagle: 'Eagle',
+              lion: 'Lion',
+              zoo: 'Zoo'
+            }
+          };
+          const RESULT = validatePage(PAGE);
+          expect(RESULT.length).toEqual(5);
+          expect(RESULT[0]).toEqual({ id: 'a', error: `Alpha ${PAGE.formData.tiger} is required` });
+          expect(RESULT[1]).toEqual({ id: 'b', error: `Bravo ${PAGE.formData.panther} is required` });
+          expect(RESULT[2]).toEqual({ id: 'c', error: `Charlie ${PAGE.formData.eagle} is required` });
+          expect(RESULT[3]).toEqual({ id: 'd', error: `Delta ${PAGE.formData.lion} is required` });
+          expect(RESULT[4]).toEqual({ id: 'e', error: `Echo ${PAGE.formData.zoo} is required` });
+        });
       });
 
       describe('when the form data is fully valid', () => {
@@ -195,6 +226,33 @@ describe('utils', () => {
           expect(RESULT[1]).toEqual({
             id: 'charlie',
             error: 'Charlie is required'
+          });
+        });
+
+        it('should return an interpolated error for both invalid fields when all are required and email types', () => {
+          const COMPONENTS = [
+            setup('alpha', ComponentTypes.EMAIL, 'Alpha', true),
+            // eslint-disable-next-line no-template-curly-in-string
+            setup('bravo', ComponentTypes.EMAIL, 'Bravo ${lion}', true),
+            // eslint-disable-next-line no-template-curly-in-string
+            setup('charlie', ComponentTypes.EMAIL, 'Charlie ${panther}', true)
+          ];
+          const PAGE = {
+            components: COMPONENTS,
+            formData: { ...DATA,
+              lion: 'Lion',
+              panther: 'Panther'
+            }
+          };
+          const RESULT = validatePage(PAGE);
+          expect(RESULT.length).toEqual(2);
+          expect(RESULT[0]).toEqual({
+            id: 'bravo',
+            error: `Enter bravo ${PAGE.formData.lion} in the correct format, like jane.doe@homeoffice.gov.uk`
+          });
+          expect(RESULT[1]).toEqual({
+            id: 'charlie',
+            error: `Charlie ${PAGE.formData.panther} is required`
           });
         });
 

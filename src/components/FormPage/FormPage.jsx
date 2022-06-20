@@ -37,9 +37,12 @@ const FormPage = ({
   };
 
   const classes = Utils.classBuilder(classBlock, classModifiers, className);
+  page.actions = page.actions?.map((action) => {
+    return action.label ?  { ...action, label: Utils.interpolateString(action.label, page.formData) } : action;
+  });
   return (
     <div className={classes('page')} key={page.id}>
-      {page.title && <LargeHeading>{page.title}</LargeHeading>}
+      {page.title && <LargeHeading>{Utils.interpolateString(page.title, page.formData)}</LargeHeading>}
       {errors?.length > 0 && <ErrorSummary errors={errors} />}
       {page.components.filter(c => Utils.Component.show(c, page.formData)).map((component, index) => (
         <FormComponent key={index}
