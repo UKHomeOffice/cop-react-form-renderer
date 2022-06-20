@@ -1,11 +1,17 @@
 // Global imports
-import React from 'react';
 import { FormGroup } from '@ukhomeoffice/cop-react-components';
+import React from 'react';
 
-const wrapInFormGroup = (config, children) => (
-  <FormGroup {...config} onChange={null}>
-    {children}
-  </FormGroup>
-);
+// Local imports
+import cleanAttributes from './cleanAttributes';
+
+const wrapInFormGroup = (config, children) => {
+  const attrs = cleanAttributes(config, ['fieldId', 'displayMenu']);
+  return (
+    <FormGroup {...attrs} onChange={null}>
+      {children}
+    </FormGroup>
+  )
+};
 
 export default wrapInFormGroup;
