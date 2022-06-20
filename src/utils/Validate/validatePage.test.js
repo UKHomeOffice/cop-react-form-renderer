@@ -64,10 +64,15 @@ describe('utils', () => {
 
         it('should return an error for each required component with interpolated label', () => {
           const COMPONENTS = [
+            // eslint-disable-next-line no-template-curly-in-string
             setup('a', ComponentTypes.TEXT, 'Alpha ${tiger}', true),
+            // eslint-disable-next-line no-template-curly-in-string
             setup('b', ComponentTypes.EMAIL, 'Bravo ${panther}', true),
+            // eslint-disable-next-line no-template-curly-in-string
             setup('c', ComponentTypes.AUTOCOMPLETE, 'Charlie ${eagle}', true),
+            // eslint-disable-next-line no-template-curly-in-string
             setup('d', ComponentTypes.CHECKBOXES, 'Delta ${lion}', true),
+            // eslint-disable-next-line no-template-curly-in-string
             setup('e', ComponentTypes.FILE, 'Echo ${zoo}', true)
           ];
           const PAGE = {
@@ -227,7 +232,9 @@ describe('utils', () => {
         it('should return an interpolated error for both invalid fields when all are required and email types', () => {
           const COMPONENTS = [
             setup('alpha', ComponentTypes.EMAIL, 'Alpha', true),
+            // eslint-disable-next-line no-template-curly-in-string
             setup('bravo', ComponentTypes.EMAIL, 'Bravo ${lion}', true),
+            // eslint-disable-next-line no-template-curly-in-string
             setup('charlie', ComponentTypes.EMAIL, 'Charlie ${panther}', true)
           ];
           const PAGE = {

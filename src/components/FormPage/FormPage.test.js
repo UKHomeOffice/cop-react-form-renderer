@@ -13,7 +13,9 @@ describe('components.FormPage', () => {
   describe('FormPage', () => {
 
     const TEXT = { id: 'text', fieldId: 'text', type: 'text', label: 'Text component', hint: 'Text hint' };
+    // eslint-disable-next-line no-template-curly-in-string
     const TEXT_WITH_EXPRESSION = { id: 'text1', fieldId: 'text1', type: 'text', label: 'Email to ${wrapper.email}', hint: 'Text hint ${currentUser.givenName}' };
+    // eslint-disable-next-line no-template-curly-in-string
     const AUTO_WITH_EXPRESSION = { id: 'text2', fieldId: 'text2', label: '${text2} ${currentUser.givenName}', hint: '${wrapper.email}', type: 'autocomplete', required: true, source: [], disabled: false };
     const VALUE = 'Text value';
     const PAGE = {
@@ -25,10 +27,13 @@ describe('components.FormPage', () => {
     };
     const PAGE_WITH_BUTTON_ACTIONS = { 
       id: 'pageId', 
+      // eslint-disable-next-line no-template-curly-in-string
       title: '${title}',
       components: [ TEXT_WITH_EXPRESSION, AUTO_WITH_EXPRESSION ],
       actions: [
+        // eslint-disable-next-line no-template-curly-in-string
         { type: 'submit', validate: true, label: 'Next ${wrapper.nextAction}' }, 
+        // eslint-disable-next-line no-template-curly-in-string
         { type: 'navigate', page: '1', label: 'Go back ${wrapper.prevAction}' }
       ],
       formData: { 
