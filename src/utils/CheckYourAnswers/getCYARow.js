@@ -15,9 +15,8 @@ const getCYARow = (page, component, onAction) => {
   let value = '';
   if (page.formData && component.fieldId) {
     value = page.formData[component.fieldId];
+    setNestedValue(component, page);
   }
-
-  setNestedValue(component, page);
 
   return {
     pageId: page.id,
@@ -33,12 +32,12 @@ const getCYARow = (page, component, onAction) => {
 };
 
 const setNestedValue = (component, page) => {
-  component.data?.options?.forEach((option, index) => {
+  component.data?.options?.forEach((option) => {
     //check if option is selected and has nested component
-    if (page.formData[component.id] === option.value && option.nested) {
+    if (Array.isArray(option.nested) && page.formData[component.id] === option.value) {
       option.nested.forEach((child) => {
         child.value = page.formData[child.id];
-      })
+      });
     }
   });
 }
