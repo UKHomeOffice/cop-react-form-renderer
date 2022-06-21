@@ -82,7 +82,7 @@ describe('utils', () => {
         expectObjectLike(ROW.action, { onAction: ON_ACTION });
       });
 
-      it('should update update any nested components with corresponding values from the stored formdata', () => {
+      it('should update any nested components with corresponding values from the stored formdata', () => {
         const SELECTED_VALUE = 'selectedValue';
         const NESTED_ID = 'nestedId';
         const NESTED_VALUE = 'nestedValue';
@@ -90,6 +90,7 @@ describe('utils', () => {
         const COMPONENT = {
           type: 'radios',
           id: 'a',
+          fieldId: 'a',
           data: {
             options: [
               {
@@ -105,6 +106,31 @@ describe('utils', () => {
         }; 
         const ROW = getCYARow(PAGE, COMPONENT, () => {});
         expect(ROW.component.data.options[0].nested[0].value).toEqual(NESTED_VALUE);
+      });
+
+      it('should handle an undefined formData when attempting to set nested values', () => {
+        const SELECTED_VALUE = 'selectedValue';
+        const NESTED_ID = 'nestedId';
+        const PAGE = { id: 'page', cya_link: {} };
+        const COMPONENT = {
+          type: 'radios',
+          id: 'a',
+          fieldId: 'a',
+          data: {
+            options: [
+              {
+                value: SELECTED_VALUE,
+                nested: [
+                  {
+                    id: NESTED_ID,
+                  },
+                ],
+              },
+            ],
+          },
+        }; 
+        const ROW = getCYARow(PAGE, COMPONENT, () => {});
+        expect(ROW.component.data.options[0].nested[0].value).toBeUndefined();
       });
 
     });
