@@ -48,15 +48,13 @@ const validateComponent = (component, outerData, formData) => {
         error = message;
         break;
       case ComponentTypes.RADIOS:
-        let hasNested = false;
         let nestedErrors = [];
         component.data.options?.forEach((option) => {
           if (option.nested && (formData[component.id] === option.value)) {
-            hasNested = true;
             nestedErrors = nestedErrors.concat(validateContainer({ components: option.nested }, formData));
           }
         });
-        if (hasNested && nestedErrors.length > 0) {
+        if (nestedErrors.length > 0) {
           return nestedErrors;
         }
         break;
