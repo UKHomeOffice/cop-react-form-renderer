@@ -220,7 +220,7 @@ describe('utils.Validate.Component', () => {
               ],
             },
           };
-          expect(validateComponent(COMPONENT, undefined, FORMDATA)).toEqual([]);
+          expect(validateComponent(COMPONENT, undefined, FORMDATA)).toBeUndefined();
         });
 
         it('should return an error when the radio component contains nested components with errors', () => {
@@ -271,7 +271,7 @@ describe('utils.Validate.Component', () => {
               ],
             },
           };
-          expect(validateComponent(COMPONENT, undefined, {})).toEqual([]);
+          expect(validateComponent(COMPONENT, undefined, {})).toBeUndefined();
         });
       });
 });

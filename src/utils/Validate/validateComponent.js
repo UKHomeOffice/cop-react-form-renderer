@@ -51,10 +51,13 @@ const validateComponent = (component, outerData, formData) => {
         let nestedErrors = [];
         component.data.options?.forEach((option) => {
           if (option.nested && (formData[component.id] === option.value)) {
-            nestedErrors = nestedErrors.concat( validateContainer({ components: option.nested }, formData));
+            nestedErrors = nestedErrors.concat(validateContainer({ components: option.nested }, formData));
           }
         });
-        return nestedErrors;
+        if (nestedErrors.length > 0) {
+          return nestedErrors;
+        }
+        break;
       default:
         break;
     }
