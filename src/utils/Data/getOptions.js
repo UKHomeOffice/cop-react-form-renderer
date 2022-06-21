@@ -1,11 +1,16 @@
 import { Utils } from '@ukhomeoffice/cop-react-components';
 
 const interpolateOptions = (config, options) => {
-  return options.map(opt => ({
-    ...opt,
-    value: Utils.interpolateString(opt.value, config.formData),
-    label: Utils.interpolateString(opt.label, config.formData)
-  }));
+  return options.map((opt) => {
+    if (typeof opt === 'string') {
+      return opt;
+    }
+    return {
+      ...opt,
+      value: Utils.interpolateString(opt.value, config.formData),
+      label: Utils.interpolateString(opt.label, config.formData),
+    };
+  });
 };
 
 const getOptions = (config, callback) => {
