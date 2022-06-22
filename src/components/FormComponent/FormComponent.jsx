@@ -99,7 +99,9 @@ FormComponent.propTypes = {
     label: PropTypes.string,
     hint: PropTypes.string,
     data: PropTypes.shape({
-      options: PropTypes.arrayOf(PropTypes.object),
+      options: PropTypes.arrayOf(
+        PropTypes.oneOfType([PropTypes.string, PropTypes.object])
+      ),
       url: PropTypes.string
     })
   }).isRequired,
