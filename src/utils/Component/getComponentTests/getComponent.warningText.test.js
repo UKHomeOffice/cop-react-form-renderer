@@ -7,7 +7,7 @@ import getComponent from '../getComponent';
 
 describe('utils.Component.get', () => {
 
-  it('should return an appropriately rendered warning-tet component', () => {
+  it('should return an appropriately rendered warning-text component', () => {
     const ID = 'test-id';
     const CONTENT = 'Warning Text';
     const COMPONENT = { type: ComponentTypes.WARNING_TEXT, content: CONTENT, 'data-testid': ID };
