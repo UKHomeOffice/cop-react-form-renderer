@@ -131,7 +131,7 @@ const getComponentByType = (config) => {
       return getTime(config);
     case ComponentTypes.FILE:
       return getFileUpload(config);
-    case ComponentTypes.WARNING_TEXT:
+    case ComponentTypes.WARNING:
       return getWarningText(config);
     default: {
       return null;

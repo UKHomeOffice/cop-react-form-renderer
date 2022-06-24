@@ -13,7 +13,7 @@ const TYPE_RADIOS = 'radios';
 const TYPE_TEXT = 'text';
 const TYPE_TEXT_AREA = 'textarea';
 const TYPE_TIME = 'time'
-const TYPE_WARNINGTEXT = 'warning-text'
+const TYPE_WARNING = 'warning'
 
 const ComponentTypes = {
   AUTOCOMPLETE: TYPE_AUTOCOMPLETE,
@@ -31,7 +31,7 @@ const ComponentTypes = {
   TEXT: TYPE_TEXT,
   TEXT_AREA: TYPE_TEXT_AREA,
   TIME: TYPE_TIME,
-  WARNING_TEXT: TYPE_WARNINGTEXT
+  WARNING: TYPE_WARNING
 };
 
 export default ComponentTypes;
