@@ -69,6 +69,34 @@ describe('utils', () => {
         ]);
       });
 
+      it('can handle refData with custom value and label properties', () => {
+        const REF_DATA = [
+          { id: 1, displayName: 'Alpha' },
+          { id: 2, displayName: 'Bravo' },
+          { id: 3, displayName: 'Charlie' }
+        ];
+        const ITEM_STRUCTURE = { value: 'id', label: 'displayName' };
+        expect(refDataToOptions(REF_DATA, ITEM_STRUCTURE)).toEqual([
+          { id: 1, displayName: 'Alpha', value: '1', label: 'Alpha' },
+          { id: 2, displayName: 'Bravo', value: '2', label: 'Bravo' },
+          { id: 3, displayName: 'Charlie', value: '3', label: 'Charlie' }
+        ]);
+      });
+
+      it('can handle refData with missing custom value and label properties', () => {
+        const REF_DATA = [
+          { id: 1, name: 'Alpha' },
+          { id: 2, name: 'Bravo', displayName: 'Bravo Zulu' },
+          { id: 3, objId: 'chaz', name: 'Charlie' }
+        ];
+        const ITEM_STRUCTURE = { value: 'objId', label: 'displayName' };
+        expect(refDataToOptions(REF_DATA, ITEM_STRUCTURE)).toEqual([
+          { id: 1, name: 'Alpha', value: '1', label: 'Alpha' },
+          { id: 2, name: 'Bravo', displayName: 'Bravo Zulu', value: '2', label: 'Bravo Zulu' },
+          { id: 3, objId: 'chaz', name: 'Charlie', value: 'chaz', label: 'Charlie' }
+        ]);
+      });
+
     });
 
   });

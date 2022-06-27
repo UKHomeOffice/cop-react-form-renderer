@@ -27,7 +27,7 @@ const getFormPage = (pageOptions, formComponents, formData) => {
       ret = { ...componentOptions };
     }
 
-    return formData && formData.urls ? Data.refData.setupUrl(ret, formData) : ret;
+    return formData ? Data.refData.setupUrl(ret, formData) : ret;
   });
   const actions = getPageActions(pageOptions);
   return Container.setup({

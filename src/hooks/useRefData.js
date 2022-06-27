@@ -1,4 +1,5 @@
 // Global imports
+import { Utils as HOUtils } from '@ukhomeoffice/cop-react-components';
 import { useEffect, useState } from 'react';
 
 // Local imports
@@ -11,7 +12,7 @@ export const STATUS_COMPLETE = 'complete';
 const getRefDataUrl = (component) => {
   const data = component.data;
   if (data && !data.options) {
-    return data.url;
+    return HOUtils.interpolateString(data.url, component.formData);
   }
   return undefined;
 };
@@ -24,12 +25,12 @@ const useRefData = (component) => {
   useEffect(() => {
     if (!url) {
       if (component.data && component.data.options) {
-        setData(Data.refData.toOptions(component.data.options));
+        setData(Data.refData.toOptions(component.data.options, component.item));
       }
       setStatus(STATUS_COMPLETE);
     } else if (_status === STATUS_FETCHED) {
       if (_data) {
-        setData(Data.refData.toOptions(_data.data));
+        setData(Data.refData.toOptions(_data.data, component.item));
       }
       setStatus(STATUS_COMPLETE);
     } else if (_status === STATUS_ERROR) {
