@@ -12,11 +12,13 @@ import showFormPage from '../FormPage/showFormPage';
  */
 const validatePage = (page) => {
   if (showFormPage(page, page.formData) && Array.isArray(page.components)) {
-    return page.components.reduce((errors, component) => {
-      return errors.concat(validateComponent(component, page.formData, page.formData)).map(err => {
+    const errs = page.components.reduce((errors, component) => {
+      let componentErrors = validateComponent(component, page.formData, page.formData);
+      return errors.concat(componentErrors).flat().map(err => {
         return !!err ? { ...err, error: Utils.interpolateString(err.error, page.formData) } : err;
       });
     }, []).filter(e => !!e).flat();
+    return errs;
   }
   return [];
 };
