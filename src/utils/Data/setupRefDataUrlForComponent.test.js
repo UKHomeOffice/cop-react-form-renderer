@@ -1,4 +1,5 @@
 // Local imports
+import { ComponentTypes } from '../../models';
 import setupRefDataUrlForComponent from './setupRefDataUrlForComponent';
 
 describe('utils', () => {
@@ -34,7 +35,7 @@ describe('utils', () => {
         expect(setupRefDataUrlForComponent(COMPONENT, DATA)).toEqual(COMPONENT);
       });
 
-      it('should appropriately updates the component URL', () => {
+      it('should appropriately update the component URL', () => {
         const COMPONENT = {
           id: 'component',
           // eslint-disable-next-line no-template-curly-in-string
@@ -72,6 +73,56 @@ describe('utils', () => {
           data: {
             url: '/v1/teams'
           }
+        });
+      });
+
+      it('should appropriately update the component URLs within a container', () => {
+        const COMPONENT = {
+          id: 'component',
+          // eslint-disable-next-line no-template-curly-in-string
+          data: { url: '${urls.refData}/v1/teams' }
+        };
+        const CONTAINER = {
+          id: 'container',
+          type: ComponentTypes.CONTAINER,
+          components: [ COMPONENT ]
+        };
+        expect(setupRefDataUrlForComponent(CONTAINER, DATA)).toEqual({
+          id: CONTAINER.id,
+          type: CONTAINER.type,
+          components: [
+            {
+              id: COMPONENT.id,
+              data: {
+                url: `${DATA.urls.refData}/v1/teams`
+              }
+            }
+          ]
+        });
+      });
+
+      it('should appropriately update the component URLs within a collection', () => {
+        const COMPONENT = {
+          id: 'component',
+          // eslint-disable-next-line no-template-curly-in-string
+          data: { url: '${urls.refData}/v1/teams' }
+        };
+        const COLLECTION = {
+          id: 'container',
+          type: ComponentTypes.COLLECTION,
+          item: [ COMPONENT ]
+        };
+        expect(setupRefDataUrlForComponent(COLLECTION, DATA)).toEqual({
+          id: COLLECTION.id,
+          type: COLLECTION.type,
+          item: [
+            {
+              id: COMPONENT.id,
+              data: {
+                url: `${DATA.urls.refData}/v1/teams`
+              }
+            }
+          ]
         });
       });
 

@@ -18,7 +18,7 @@ const TestComponent = ({ component }) => {
   return (
     <ul>
       {data.map((item, index) => (
-        <li key={index} id={item.id}>{item.name}</li>
+        <li key={index} id={item.value}>{item.label}</li>
       ))}
     </ul>
   );
@@ -29,9 +29,9 @@ describe('hooks', () => {
   describe('useRefData', () => {
 
     const ABC = [
-      { id: 'a', name: 'Alpha' },
-      { id: 'b', name: 'Beta' },
-      { id: 'c', name: 'Charlie' }
+      { id: 'a', name: 'Alpha', specialName: 'Alpha Centauri', guid: '123456' },
+      { id: 'b', name: 'Beta', specialName: 'Beta Carotene', guid: '234567' },
+      { id: 'c', name: 'Charlie', specialName: 'Charlie Chaplin', guid: '345678' }
     ];
     const mockAxios = new MockAdapter(axios);
     let container = null;
@@ -108,6 +108,26 @@ describe('hooks', () => {
 
       await act(() => sleep(100));
       expect(container.textContent).toEqual(STATUS_COMPLETE);
+    });
+
+    it('can handle a component with a custom item structure', async () => {
+      const COMPONENT = {
+        id: 'component',
+        data: { options: ABC },
+        item: { value: 'guid', label: 'specialName' }
+      };
+      act(() => {
+        renderDomWithValidation(<TestComponent component={COMPONENT} />, container);
+      });
+
+      expect(container.childNodes.length).toEqual(1);
+      const ul = container.childNodes[0];
+      expect(ul.tagName).toEqual('UL');
+      expect(ul.childNodes.length).toEqual(ABC.length);
+      ul.childNodes.forEach((li, index) => {
+        expect(li.id).toEqual(ABC[index].guid);
+        expect(li.textContent).toEqual(ABC[index].specialName);
+      });
     });
 
   });

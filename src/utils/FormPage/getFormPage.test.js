@@ -127,7 +127,7 @@ describe('utils', () => {
             { ...PAGE.components[1], full_path: PAGE.components[1].fieldId },
             { type: 'html', tagName: 'p', content: PAGE.components[2] },
             // eslint-disable-next-line no-template-curly-in-string
-            { use: 'c', ...C, cya_label: C.label, full_path: C.fieldId, data: { url: '${urls.refData}/v3/charlies' } }
+            { use: 'c', ...C, cya_label: C.label, full_path: C.fieldId, data: { url: '/v3/charlies' } }
           ],
           formData: {}
         });
