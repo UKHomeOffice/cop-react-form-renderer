@@ -6,7 +6,7 @@ describe('components.FormRenderer.helpers.canActionProceed', () => {
 
   it('should return true when the action does not require validation', () => {
     const ACTION = { validate: false };
-    expect(canActionProceed(ACTION, {}, Validate.page)).toBeTruthy();
+    expect(canActionProceed(ACTION, {}, {}, Validate.page)).toBeTruthy();
   });
 
   it('should return true when the page is valid', () => {
@@ -19,7 +19,7 @@ describe('components.FormRenderer.helpers.canActionProceed', () => {
         a: 'Bravo'
       }
     };
-    expect(canActionProceed(ACTION, PAGE, Validate.page)).toBeTruthy();
+    expect(canActionProceed(ACTION, PAGE, {}, Validate.page)).toBeTruthy();
   });
 
   it('should return false when the page is invalid', () => {
@@ -30,7 +30,7 @@ describe('components.FormRenderer.helpers.canActionProceed', () => {
       ],
       formData: {}
     };
-    expect(canActionProceed(ACTION, PAGE, Validate.page)).toBeFalsy();
+    expect(canActionProceed(ACTION, PAGE, {}, Validate.page)).toBeFalsy();
   });
 
 });

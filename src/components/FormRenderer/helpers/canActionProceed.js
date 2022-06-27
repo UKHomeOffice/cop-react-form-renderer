@@ -4,12 +4,13 @@
  * valid will it proceed. If it's simple navigation, it simply returns true.
  * @param {object} action The action object we're assessing.
  * @param {object} page The page configuration object this action relates to.
+ * @param {object} patch The page's local patch data.
  * @param {Function} pageValidator A function to validate the page.
  * @returns A boolean where `true` means the action can proceed and `false` means it cannot.
  */
-const canActionProceed = (action, page, pageValidator) => {
+const canActionProceed = (action, page, patch, pageValidator) => {
   if (action.validate) {
-    return pageValidator(page).length === 0;
+    return pageValidator(page, patch).length === 0;
   }
   return true;
 };

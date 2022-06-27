@@ -29,7 +29,6 @@ const FormPage = ({
    * time as the onAction handler is invoked.
   */
   const onPageChange = ({ target }) => {
-    page.formData[target.name] = target.value;
     setPatch(prev => ({
       ...prev,
       [target.name]: target.value
@@ -48,7 +47,7 @@ const FormPage = ({
         <FormComponent key={index}
           component={component}
           onChange={onPageChange}
-          value={page.formData[component.fieldId]}
+          value={patch[component.fieldId] || page.formData[component.fieldId]}
           formData={page.formData}
         />
       ))}

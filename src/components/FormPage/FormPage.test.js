@@ -105,6 +105,7 @@ describe('components.FormPage', () => {
     };
 
     const ON_ACTION = (action, patch, onError) => {
+      PAGE.formData = { ...PAGE.formData, ...patch };
       ON_ACTION_CALLS.push({ action, patch, onError });
     };
 
@@ -157,7 +158,7 @@ describe('components.FormPage', () => {
       fireEvent.change(input, EVENT);
 
       // And confirm the formData has been changed.
-      expect(PAGE.formData.text).toEqual(NEW_VALUE);
+      expect(input.value).toEqual(NEW_VALUE);
     });
 
     it('should handle a page action appropriately', async () => {

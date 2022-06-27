@@ -17,8 +17,8 @@ const ValidationContextProvider = ({ children }) => {
     setErrors([]);
   };
   const validate = {
-    page: (page) => {
-      const pageErrors = Utils.Validate.page(page);
+    page: (page, patch) => {
+      const pageErrors = Utils.Validate.page(page, patch);
       setErrors(pageErrors);
       return pageErrors;
     },
