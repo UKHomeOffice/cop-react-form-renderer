@@ -1,6 +1,6 @@
 {
   "id": "userProfile",
-  "version": "1",
+  "version": "1.1",
   "name": "userProfile",
   "title": "Your profile",
   "type": "hub-and-spoke",
@@ -55,13 +55,35 @@
       }
     },
     {
+      "id": "location",
+      "fieldId": "location",
+      "label": "Location",
+      "hint": "We use this to assign you tasks",
+      "type": "autocomplete",
+      "required": true,
+      "item": {
+        "value": "id",
+        "label": "name"
+      },
+      "data": {
+        "url": "${urls.refData}/location"
+      },
+      "displayMenu": "inline",
+      "source": {
+        "field": "userDetails.location"
+      }
+    },
+    {
       "id": "team",
       "fieldId": "team",
       "label": "Team",
       "hint": "We use this to assign you tasks",
       "type": "autocomplete",
       "required": true,
-      "item": { "value": "id", "label": "name" },
+      "item": {
+        "value": "id",
+        "label": "name"
+      },
       "data": {
         "url": "${urls.refData}/team"
       },
@@ -124,8 +146,12 @@
       "id": "names",
       "name": "names",
       "components": [
-        { "use": "firstName" },
-        { "use": "surname" }
+        {
+          "use": "firstName"
+        },
+        {
+          "use": "surname"
+        }
       ]
     },
     {
@@ -138,7 +164,9 @@
           "label": ""
         }
       ],
-      "actions": ["submit"],
+      "actions": [
+        "submit"
+      ],
       "cya_link": {
         "page": "civil-servant-status",
         "aria_suffix": "civil servant status"
@@ -154,10 +182,30 @@
           "label": ""
         }
       ],
-      "actions": ["submit"],
+      "actions": [
+        "submit"
+      ],
       "cya_link": {
         "page": "grade",
         "aria_suffix": "grade"
+      }
+    },
+    {
+      "id": "location",
+      "name": "location",
+      "title": "Where do you work from?",
+      "components": [
+        {
+          "use": "location",
+          "label": ""
+        }
+      ],
+      "actions": [
+        "submit"
+      ],
+      "cya_link": {
+        "page": "location",
+        "aria_suffix": "location"
       }
     },
     {
@@ -170,7 +218,9 @@
           "label": ""
         }
       ],
-      "actions": ["submit"],
+      "actions": [
+        "submit"
+      ],
       "cya_link": {
         "page": "team-name",
         "aria_suffix": "teams"
@@ -211,7 +261,9 @@
           "use": "linemanagerEmail"
         }
       ],
-      "actions": ["submit"],
+      "actions": [
+        "submit"
+      ],
       "cya_link": {
         "page": "add-or-change-line-manager",
         "aria_suffix": "line manager email address"
@@ -247,7 +299,9 @@
           "label": "Delegate email address"
         }
       ],
-      "actions": ["submit"],
+      "actions": [
+        "submit"
+      ],
       "cya_link": {
         "page": "add-or-change-delegate"
       },
@@ -271,6 +325,11 @@
       ]
     }
   ],
-  "hub": { "format": "CYA" },
-  "cya": { "hide_page_titles": true, "hide_actions": true }
+  "hub": {
+    "format": "CYA"
+  },
+  "cya": {
+    "hide_page_titles": true,
+    "hide_actions": true
+  }
 }
