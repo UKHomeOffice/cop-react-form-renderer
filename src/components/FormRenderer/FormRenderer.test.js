@@ -17,6 +17,7 @@ import { TaskStates } from '../../models';
 import CIVIL_SERVANT from '../../json/areYouACivilServant.json';
 import GRADE from '../../json/grade.json';
 import TEAMS from '../../json/team.json';
+import LOCATION from '../../json/location.json';
 import USER_PROFILE_DATA from '../../json/userProfile.data.json';
 import USER_PROFILE from '../../json/userProfile.json';
 import TASK_LIST from '../../json/taskList.json';
@@ -39,6 +40,7 @@ describe('components', () => {
 
       mockAxios.onGet(refDataUrl('areYouACivilServant')).reply(200, CIVIL_SERVANT);
       mockAxios.onGet(refDataUrl('grade')).reply(200, GRADE);
+      mockAxios.onGet(refDataUrl('location')).reply(200, LOCATION);
       mockAxios.onGet(refDataUrl('team')).reply(200, TEAMS);
     });
 
@@ -223,11 +225,12 @@ describe('components', () => {
       const continueButton = getContinueButton(page);
       expect(ON_PAGE_CHANGE_CALLS.length).toEqual(1);
       fireEvent.click(continueButton, {});
-      expect(ON_PAGE_CHANGE_CALLS.length).toEqual(2);
-      expect(ON_PAGE_CHANGE_CALLS[1]).toEqual(USER_PROFILE.pages[5].id);
+      expect(ON_PAGE_CHANGE_CALLS.length).toEqual(1);
+      console.log(USER_PROFILE);
+      expect(ON_PAGE_CHANGE_CALLS[0]).toEqual(USER_PROFILE.pages[4].id);
       const newPageHeading = form.childNodes[0].childNodes[0];
       expect(newPageHeading.tagName).toEqual('H1');
-      expect(newPageHeading.textContent).toEqual(USER_PROFILE.pages[5].title);
+      expect(newPageHeading.textContent).toEqual(USER_PROFILE.pages[4].title);
     });
 
     it('should show no title when hide_title is set to true', async () => {
