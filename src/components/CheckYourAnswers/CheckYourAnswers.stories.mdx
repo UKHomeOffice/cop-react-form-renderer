@@ -19,6 +19,7 @@ import CheckYourAnswers from './CheckYourAnswers';
 import CIVIL_SERVANT from '../../json/areYouACivilServant.json';
 import GRADE from '../../json/grade.json';
 import TEAMS from '../../json/team.json';
+import LOCATION from '../../json/location.json';
 import USER_PROFILE_DATA from '../../json/userProfile.data.json';
 import USER_PROFILE from '../../json/userProfile.json';
 import FIRST_FORM from '../../json/firstForm.json';
@@ -50,6 +51,12 @@ Renders the **Check your answers** screen for a form.
           method: 'GET',
           status: 200,
           response: CIVIL_SERVANT,
+        },
+        {
+          url: `${USER_PROFILE_DATA.urls.refData}/location`,
+          method: 'GET',
+          status: 200,
+          response: LOCATION,
         },
         {
           url: `${USER_PROFILE_DATA.urls.refData}/grade`,
@@ -120,6 +127,12 @@ Renders the **Check your answers** screen for a form.
           response: GRADE,
         },
         {
+          url: `${USER_PROFILE_DATA.urls.refData}/location`,
+          method: 'GET',
+          status: 200,
+          response: LOCATION,
+        },
+        {
           url: `${USER_PROFILE_DATA.urls.refData}/team`,
           method: 'GET',
           status: 200,
@@ -177,6 +190,12 @@ Renders the **Check your answers** screen for a form.
           response: GRADE,
         },
         {
+          url: `${USER_PROFILE_DATA.urls.refData}/location`,
+          method: 'GET',
+          status: 200,
+          response: LOCATION,
+        },
+        {
           url: `${USER_PROFILE_DATA.urls.refData}/team`,
           method: 'GET',
           status: 200,
@@ -230,6 +249,12 @@ Renders the **Check your answers** screen for a form.
           method: 'GET',
           status: 200,
           response: GRADE,
+        },
+        {
+          url: `${USER_PROFILE_DATA.urls.refData}/location`,
+          method: 'GET',
+          status: 200,
+          response: LOCATION,
         },
         {
           url: `${USER_PROFILE_DATA.urls.refData}/team`,
@@ -293,6 +318,12 @@ Renders the **Check your answers** screen for a form.
           response: GRADE,
         },
         {
+          url: `${USER_PROFILE_DATA.urls.refData}/location`,
+          method: 'GET',
+          status: 200,
+          response: LOCATION,
+        },
+        {
           url: `${USER_PROFILE_DATA.urls.refData}/team`,
           method: 'GET',
           status: 200,
@@ -349,6 +380,12 @@ Renders the **Check your answers** screen for a form.
           method: 'GET',
           status: 200,
           response: GRADE,
+        },
+        {
+          url: `${USER_PROFILE_DATA.urls.refData}/location`,
+          method: 'GET',
+          status: 200,
+          response: LOCATION,
         },
         {
           url: `${USER_PROFILE_DATA.urls.refData}/team`,

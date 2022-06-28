@@ -10,6 +10,7 @@ import CIVIL_SERVANT from '../json/areYouACivilServant.json';
 import GRADE from '../json/grade.json';
 import TEAMS from '../json/team.json';
 import PORTS from '../json/port.json';
+import LOCATION from '../json/location.json';
 import TERMINALS from '../json/terminal.json';
 import SUBLOCATIONS from '../json/sublocation.json';
 import USER_PROFILE_DATA from '../json/userProfile.data.json';
@@ -38,6 +39,12 @@ import './Sandbox.stories.scss';
       method: 'GET',
       status: 200,
       response: GRADE
+    },
+    {
+      url: `${USER_PROFILE_DATA.urls.refData}/location`,
+      method: 'GET',
+      status: 200,
+      response: LOCATION
     },
     {
       url: `${USER_PROFILE_DATA.urls.refData}/team`,

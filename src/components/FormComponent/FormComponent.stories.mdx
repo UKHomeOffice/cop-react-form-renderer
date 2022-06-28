@@ -10,6 +10,7 @@ import FormComponent from './FormComponent';
 import CIVIL_SERVANT from '../../json/areYouACivilServant.json';
 import GRADE from '../../json/grade.json';
 import TEAMS from '../../json/team.json';
+import LOCATION from '../../json/location.json';
 import USER_PROFILE_DATA from '../../json/userProfile.data.json';
 import USER_PROFILE from '../../json/userProfile.json';
 
@@ -35,6 +36,12 @@ on the basis of a <Link href="/?path=/docs/f-json-component">JSON</Link> configu
         status: 200,
         response: GRADE
       },
+      {
+          url: `${USER_PROFILE_DATA.urls.refData}/location`,
+          method: 'GET',
+          status: 200,
+          response: LOCATION
+        },
       {
         url: `${USER_PROFILE_DATA.urls.refData}/team`,
         method: 'GET',
@@ -81,6 +88,12 @@ on the basis of a <Link href="/?path=/docs/f-json-component">JSON</Link> configu
         method: 'GET',
         status: 200,
         response: GRADE
+      },
+      {
+        url: `${USER_PROFILE_DATA.urls.refData}/location`,
+        method: 'GET',
+        status: 200,
+        response: LOCATION
       },
       {
         url: `${USER_PROFILE_DATA.urls.refData}/team`,
@@ -138,6 +151,12 @@ on the basis of a <Link href="/?path=/docs/f-json-component">JSON</Link> configu
         method: 'GET',
         status: 200,
         response: GRADE
+      },
+      {
+        url: `${USER_PROFILE_DATA.urls.refData}/location`,
+        method: 'GET',
+        status: 200,
+        response: LOCATION
       },
       {
         url: `${USER_PROFILE_DATA.urls.refData}/team`,
