@@ -133,6 +133,38 @@ describe('utils', () => {
         expect(ROW.component.data.options[0].nested[0].value).toBeUndefined();
       });
 
+      it('should get an appropriate row for a readonly text component with no value and interpolated label', () => {
+        const PAGE = { id: 'page', formData: { text: 'Smith' } };
+        // eslint-disable-next-line no-template-curly-in-string
+        const COMPONENT = { type: 'text', readonly: true, id: 'a', fieldId: 'a', label: 'Alpha ${text}' };
+        const ON_ACTION = () => {};
+        expect(getCYARow(PAGE, COMPONENT, ON_ACTION)).toEqual({
+          pageId: PAGE.id,
+          id: COMPONENT.id,
+          fieldId: COMPONENT.fieldId,
+          key: 'Alpha Smith',
+          value: '',
+          component: COMPONENT,
+          action: null
+        });
+      });
+
+      it('should use the interolated cya_label where there is no label', () => {
+        const PAGE = { id: 'page', formData: { a: 'Bravo' } };
+        // eslint-disable-next-line no-template-curly-in-string
+        const COMPONENT = { type: 'text', readonly: true, id: 'a', fieldId: 'a', cya_label: 'CYA Alpha ${a}' };
+        const ON_ACTION = () => {};
+        const ROW = getCYARow(PAGE, COMPONENT, ON_ACTION);
+        expectObjectLike(ROW, {
+          pageId: PAGE.id,
+          fieldId: COMPONENT.fieldId,
+          key: 'CYA Alpha Bravo',
+          action: null,
+          component: COMPONENT,
+          value: 'Bravo'
+        });
+      });
+
     });
 
   });

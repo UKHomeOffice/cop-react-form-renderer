@@ -12,7 +12,7 @@ const useComponent = (toUse, formComponents) => {
     return {
       ...formComponent,
       ...toUse,
-      cya_label: formComponent.label,
+      cya_label: formComponent.label || formComponent.cya_label,
       fieldId
     };
   }

@@ -10,6 +10,7 @@ import React, { Fragment, useEffect, useState } from 'react';
 // Local imports
 import { useValidation } from '../../hooks';
 import Utils from '../../utils';
+import { Utils as CommonUtils} from '@ukhomeoffice/cop-react-components'; 
 import PageActions from '../PageActions';
 import SummaryList from '../SummaryList';
 import Answer from './Answer';
@@ -44,6 +45,7 @@ const CheckYourAnswers = ({
         ...row,
         value: (
           <Answer
+            formData={page.formData}
             key={`${pageIndex}_${index}`}
             value={row.value}
             component={row.component}
@@ -124,7 +126,7 @@ const CheckYourAnswers = ({
           return (
             <Fragment key={pageIndex}>
               {(!hide_page_titles && page.title && !isGroup(page.id))   && (
-                <MediumHeading>{page.title}</MediumHeading>
+                <MediumHeading>{CommonUtils.interpolateString(page.title, page.formData)}</MediumHeading>
               )}
               {(isGroup(page.id)) && (
                 <div className='group-title'>

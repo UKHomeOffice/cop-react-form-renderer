@@ -6,7 +6,7 @@ import VisuallyHidden from '@ukhomeoffice/cop-react-components/dist/VisuallyHidd
 // Local imports
 import FormComponent from '../FormComponent';
 
-const Answer = ({ value, component }) => {
+const Answer = ({ value, component, formData }) => {
   if (!value) {
    return <VisuallyHidden>No answer</VisuallyHidden>;
   }
@@ -14,13 +14,14 @@ const Answer = ({ value, component }) => {
     return value;
   }
   return (
-    <FormComponent component={{ ...component, readonly: true }} wrap={false} value={value} />
+    <FormComponent formData={formData} component={{ ...component, readonly: true }} wrap={false} value={value} />
   );
 };
 
 Answer.propTypes = {
   value: PropTypes.any,
-  component: PropTypes.object
+  component: PropTypes.object,
+  formData: PropTypes.object
 };
 
 export default Answer;

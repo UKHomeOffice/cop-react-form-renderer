@@ -86,6 +86,7 @@ const FormComponent = ({
     label: Utils.interpolateString(component.label, formData),
     content: Utils.interpolateString(component.content, formData),
     hint: Utils.interpolateString(component.hint, formData),
+    cya_label: Utils.interpolateString(component.cya_label, formData),
     options,
     value: value || Utils.Component.defaultValue(component),
     onChange: onComponentChangeExtended,
