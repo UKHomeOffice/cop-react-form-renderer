@@ -124,7 +124,7 @@ const CheckYourAnswers = ({
           return (
             <Fragment key={pageIndex}>
               {(!hide_page_titles && page.title && !isGroup(page.id))   && (
-                <MediumHeading>{page.title}</MediumHeading>
+                <MediumHeading>{Utils.interpolateString(page.title, page.formData)}</MediumHeading>
               )}
               {(isGroup(page.id)) && (
                 <div className='group-title'>

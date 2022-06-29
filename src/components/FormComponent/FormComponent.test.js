@@ -98,6 +98,37 @@ describe('components', () => {
       expect(p.textContent).toEqual(COMPONENT.content);
     });
 
+    it('should render a text component appropriately with interpolated label', async () => {
+      const ID = 'component';
+      const VALUE = 'Text value';
+      // eslint-disable-next-line no-template-curly-in-string
+      const COMPONENT = { id: ID, fieldId: ID, type: 'text', label: '${text} Text component', cya_label: '${text} Text component', hint: 'Text hint' };
+      const DATA = { text: 'Interpolated'}
+      const ON_CHANGE = () => {};
+      const { container } = renderWithValidation(
+        <FormComponent data-testid={ID} component={COMPONENT} value={VALUE} onChange={ON_CHANGE} formData={DATA} />
+      );
+
+      // text components are wrapper in a FormGroup by default.
+      const formGroup = container.childNodes[0];
+      expect(formGroup.tagName).toEqual('DIV');
+      expect(formGroup.classList).toContain('govuk-form-group');
+      const label = formGroup.childNodes[0];
+      expect(label.tagName).toEqual('LABEL');
+      expect(label.classList).toContain('govuk-label');
+      expect(label.textContent).toEqual('Interpolated Text component (optional)');
+      expect(label.getAttribute('for')).toEqual(ID);
+      const hint = formGroup.childNodes[1];
+      expect(hint.tagName).toEqual('SPAN');
+      expect(hint.classList).toContain('govuk-hint');
+      expect(hint.textContent).toEqual(COMPONENT.hint);
+      const input = formGroup.childNodes[2];
+      expect(input.tagName).toEqual('INPUT');
+      expect(input.classList).toContain('govuk-input');
+      expect(input.id).toEqual(ID);
+      expect(input.value).toEqual(VALUE);
+    });
+
   });
 
 });

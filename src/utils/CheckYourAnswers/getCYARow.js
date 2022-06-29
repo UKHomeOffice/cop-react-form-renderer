@@ -1,3 +1,6 @@
+// Global imports
+import { Utils } from '@ukhomeoffice/cop-react-components';
+
 // Local imports
 import Component from '../Component';
 import getCYAAction from './getCYAAction';
@@ -23,7 +26,7 @@ const getCYARow = (page, component, onAction) => {
     id: component.id,
     fieldId: component.fieldId,
     full_path: component.full_path,
-    key: component.label || component.cya_label,
+    key: Utils.interpolateString(component.label || component.cya_label, page.formData),
     required: component.required,
     component: Component.editable(component) ? component : undefined,
     value: value || '',

@@ -233,6 +233,62 @@ describe('components', () => {
       expect(changeButton.textContent).toEqual('Change names');
     });
 
+    it('should show page components corrently with interpolated title and cya_label, if label is missing', async () => {
+      const _PAGES = [ ...USER_PROFILE.pages ];
+      // eslint-disable-next-line no-template-curly-in-string
+      _PAGES[0] = { ..._PAGES[0], title: 'Alpha ID: ${businessKey}'}
+      const _COMPONENTS = [ ...USER_PROFILE.components ];
+      _COMPONENTS[0] = { ..._COMPONENTS[0], 
+        label: undefined,
+        required: true,
+        // eslint-disable-next-line no-template-curly-in-string
+        cya_label: "Text ${currentUser.familyName}"
+      };
+      const T_PAGES = Utils.FormPage.getAll(_PAGES, _COMPONENTS, DATA );
+      await act(async () => {
+        renderDomWithValidation(
+          <CheckYourAnswers pages={T_PAGES} onRowAction={ON_ROW_ACTION} onAction={ON_ACTION} />,
+          container
+        );
+      });
+      const cya = checkCYA(container);
+      const [, cyaTitle, cyaChildNode] = cya.childNodes;
+      expect(cyaTitle.textContent).toEqual('Alpha ID: 123456789');
+      const names = cyaChildNode.childNodes[0];
+      expect(names.tagName).toEqual('DL');
+      expect(names.classList).toContain(`govuk-!-margin-bottom-${DEFAULT_MARGIN_BOTTOM}`);
+      const [firstName, surname] = names.childNodes;
+      const [label, value] = firstName.childNodes;
+      expect(label.textContent).toEqual('Text Smith');
+      checkRow(surname, 'Last name', 'Smith', false);
+    });
+
+    it('should show page components corrently with no label, if label and cya_label are missing', async () => {
+      const _PAGES = [ ...USER_PROFILE.pages ];
+      const _COMPONENTS = [ ...USER_PROFILE.components ];
+      _COMPONENTS[0] = { ..._COMPONENTS[0], 
+        label: undefined,
+        required: true,
+        cya_label: undefined
+      };
+      const T_PAGES = Utils.FormPage.getAll(_PAGES, _COMPONENTS, { ...DATA });
+      await act(async () => {
+        renderDomWithValidation(
+          <CheckYourAnswers pages={T_PAGES} onRowAction={ON_ROW_ACTION} onAction={ON_ACTION} />,
+          container
+        );
+      });
+      const cya = checkCYA(container);
+      const [, cyaChildNode] = cya.childNodes;
+      const names = cyaChildNode.childNodes[0];
+      expect(names.tagName).toEqual('DL');
+      expect(names.classList).toContain(`govuk-!-margin-bottom-${DEFAULT_MARGIN_BOTTOM}`);
+      const [firstName, surname] = names.childNodes;
+      const [label, value] = firstName.childNodes;
+      expect(label.textContent).toEqual("");
+      checkRow(surname, 'Last name', 'Smith', false);
+    });
+
   });
 
 });
