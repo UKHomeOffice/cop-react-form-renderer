@@ -1,4 +1,4 @@
-// Global imports7
+// Global imports
 import { Utils } from '@ukhomeoffice/cop-react-components';
 
 // Local imports
