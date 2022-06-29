@@ -98,7 +98,7 @@ describe('components', () => {
       expect(p.textContent).toEqual(COMPONENT.content);
     });
 
-    it('should render a text component appropriately with interpolated label and cya_label', async () => {
+    it('should render a text component appropriately with interpolated label', async () => {
       const ID = 'component';
       const VALUE = 'Text value';
       // eslint-disable-next-line no-template-curly-in-string
@@ -127,8 +127,6 @@ describe('components', () => {
       expect(input.classList).toContain('govuk-input');
       expect(input.id).toEqual(ID);
       expect(input.value).toEqual(VALUE);
-      expect(input.getAttribute("label")).toEqual('Interpolated Text component');
-      expect(input.getAttribute("cya_label")).toEqual('Interpolated Text component');  
     });
 
   });
