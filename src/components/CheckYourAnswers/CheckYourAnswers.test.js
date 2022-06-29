@@ -260,7 +260,6 @@ describe('components', () => {
       const [firstName, surname] = names.childNodes;
       const [label, value] = firstName.childNodes;
       expect(label.textContent).toEqual('Text Smith');
-      expect(value.childNodes[0].getAttribute("cya_label")).toEqual("Text Smith");
       checkRow(surname, 'Last name', 'Smith', false);
     });
 
@@ -270,7 +269,6 @@ describe('components', () => {
       _COMPONENTS[0] = { ..._COMPONENTS[0], 
         label: undefined,
         required: true,
-        // eslint-disable-next-line no-template-curly-in-string
         cya_label: undefined
       };
       const T_PAGES = Utils.FormPage.getAll(_PAGES, _COMPONENTS, { ...DATA });
@@ -288,7 +286,6 @@ describe('components', () => {
       const [firstName, surname] = names.childNodes;
       const [label, value] = firstName.childNodes;
       expect(label.textContent).toEqual("");
-      expect(value.childNodes[0].getAttribute("cya_label")).toEqual("");
       checkRow(surname, 'Last name', 'Smith', false);
     });
 

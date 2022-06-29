@@ -44,7 +44,6 @@ const CheckYourAnswers = ({
         ...row,
         value: (
           <Answer
-            formData={page.formData}
             key={`${pageIndex}_${index}`}
             value={row.value}
             component={row.component}

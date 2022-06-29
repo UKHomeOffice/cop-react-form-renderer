@@ -40,21 +40,6 @@ describe('components', () => {
       expect(answer.classList).toContain(DEFAULT_READONLY_CLASS);
       expect(answer.textContent).toEqual(VALUE);
     });
-
-    it('should handle a component and use interpolated cya_label', async () => {
-      const VALUE = 'Bravo';
-      // eslint-disable-next-line no-template-curly-in-string
-      const COMPONENT = { id: 'alpha', fieldId: 'alpha', type: 'text', cya_label: 'Alpha ${currentUser.familyName}' };
-      const DATA = { currentUser: { familyName: 'Smith'}}
-      const { container } = renderWithValidation(
-        <Answer value={VALUE} component={COMPONENT} formData={DATA} />
-      );
-      const answer = container.childNodes[0];
-      expect(answer.tagName).toEqual('DIV');
-      expect(answer.classList).toContain(DEFAULT_READONLY_CLASS);
-      expect(answer.textContent).toEqual(VALUE);
-      expect(answer.getAttribute("cya_label")).toEqual("Alpha Smith");
-    });
     
   });
 
