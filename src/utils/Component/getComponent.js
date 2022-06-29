@@ -53,8 +53,8 @@ const getDate = (config) => {
 
 const getDetails = (config) => {
   const attrs = cleanAttributes(config);
-  console.log(config)
-  return <Details {...attrs}>{config.content}</Details>
+  const html = getHTML(config)
+  return <Details {...attrs}>{html}</Details>
 }
 
 const getFileUpload = (config) => {
