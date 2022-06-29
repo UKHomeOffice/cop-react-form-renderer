@@ -233,15 +233,18 @@ describe('components', () => {
       expect(changeButton.textContent).toEqual('Change names');
     });
 
-    it('should show page components corrently with interpolated cya_label, if label is missing', async () => {
+    it('should show page components corrently with interpolated title and cya_label, if label is missing', async () => {
       const _PAGES = [ ...USER_PROFILE.pages ];
-      _PAGES[0].label = undefined;
-      const _COMPONENTS = [ ...USER_PROFILE.components ];
-      _COMPONENTS[0].label = undefined;
-      _COMPONENTS[0].required = true;
       // eslint-disable-next-line no-template-curly-in-string
-      _COMPONENTS[0].cya_label = "Text ${currentUser.familyName}";
-      const T_PAGES = Utils.FormPage.getAll(_PAGES, _COMPONENTS, { ...DATA });
+      _PAGES[0] = { ..._PAGES[0], title: 'Alpha ID: ${businessKey}'}
+      const _COMPONENTS = [ ...USER_PROFILE.components ];
+      _COMPONENTS[0] = { ..._COMPONENTS[0], 
+        label: undefined,
+        required: true,
+        // eslint-disable-next-line no-template-curly-in-string
+        cya_label: "Text ${currentUser.familyName}"
+      };
+      const T_PAGES = Utils.FormPage.getAll(_PAGES, _COMPONENTS, DATA );
       await act(async () => {
         renderDomWithValidation(
           <CheckYourAnswers pages={T_PAGES} onRowAction={ON_ROW_ACTION} onAction={ON_ACTION} />,
@@ -249,7 +252,8 @@ describe('components', () => {
         );
       });
       const cya = checkCYA(container);
-      const [, cyaChildNode] = cya.childNodes;
+      const [, cyaTitle, cyaChildNode] = cya.childNodes;
+      expect(cyaTitle.textContent).toEqual('Alpha ID: 123456789');
       const names = cyaChildNode.childNodes[0];
       expect(names.tagName).toEqual('DL');
       expect(names.classList).toContain(`govuk-!-margin-bottom-${DEFAULT_MARGIN_BOTTOM}`);
@@ -262,11 +266,13 @@ describe('components', () => {
 
     it('should show page components corrently with no label, if label and cya_label are missing', async () => {
       const _PAGES = [ ...USER_PROFILE.pages ];
-      _PAGES[0].label = undefined;
       const _COMPONENTS = [ ...USER_PROFILE.components ];
-      _COMPONENTS[0].label = undefined;
-      _COMPONENTS[0].required = true;
-      _COMPONENTS[0].cya_label = undefined;
+      _COMPONENTS[0] = { ..._COMPONENTS[0], 
+        label: undefined,
+        required: true,
+        // eslint-disable-next-line no-template-curly-in-string
+        cya_label: undefined
+      };
       const T_PAGES = Utils.FormPage.getAll(_PAGES, _COMPONENTS, { ...DATA });
       await act(async () => {
         renderDomWithValidation(
