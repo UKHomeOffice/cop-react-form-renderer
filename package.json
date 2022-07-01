@@ -1,6 +1,6 @@
 {
   "name": "@ukhomeoffice/cop-react-form-renderer",
-  "version": "3.4.1",
+  "version": "3.4.1-alpha",
   "private": false,
   "scripts": {
     "clean": "rimraf dist",
