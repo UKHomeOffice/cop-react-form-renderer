@@ -3,6 +3,7 @@ import {
   Autocomplete,
   Checkboxes,
   DateInput,
+  Details,
   FileUpload,
   Heading,
   InsetText,
@@ -49,6 +50,12 @@ const getDate = (config) => {
   const attrs = cleanAttributes(config);
   return <DateInput {...attrs} />;
 };
+
+const getDetails = (config) => {
+  const attrs = cleanAttributes(config);
+  const html = getHTML(config)
+  return <Details {...attrs}>{html}</Details>
+}
 
 const getFileUpload = (config) => {
   const attrs = cleanAttributes(config);
@@ -133,6 +140,8 @@ const getComponentByType = (config) => {
       return getFileUpload(config);
     case ComponentTypes.WARNING:
       return getWarningText(config);
+    case ComponentTypes.DETAILS:
+      return getDetails(config);
     default: {
       return null;
     }
