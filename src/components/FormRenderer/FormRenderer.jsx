@@ -171,6 +171,10 @@ const InternalFormRenderer = ({
 
   // Handle actions from pages.
   const onPageAction = (action, patch) => {
+    // Re-apply the patch to the page's formData.
+    // This should normally have no effect but will prevent issues 
+    // with validation if formData happens to have been wiped.
+    formState.page.formData = {...formState.page.formData, ...patch};
     // Check to see whether the action is able to proceed, which in
     // in the case of a submission will validate the fields in the page.
     if (helpers.canActionProceed(action, formState.page, validate.page)) {

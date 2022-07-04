@@ -9,6 +9,7 @@ export const EDITABLE_TYPES = [
   ComponentTypes.FILE,
   ComponentTypes.PHONE_NUMBER,
   ComponentTypes.RADIOS,
+  ComponentTypes.SELECT,
   ComponentTypes.TEXT,
   ComponentTypes.TEXT_AREA,
   ComponentTypes.TIME
