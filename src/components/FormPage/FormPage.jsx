@@ -48,7 +48,7 @@ const FormPage = ({
         <FormComponent key={index}
           component={component}
           onChange={onPageChange}
-          value={page.formData[component.fieldId]}
+          value={page.formData[component.fieldId] || patch[component.fieldId]}
           formData={page.formData}
         />
       ))}
