@@ -11,6 +11,7 @@ import {
   TextArea,
   TextInput,
   TimeInput,
+  Select,
   WarningText
 } from '@ukhomeoffice/cop-react-components';
 import React from 'react';
@@ -100,6 +101,15 @@ const getTime = (config) => {
   return <TimeInput {...attrs} />;
 };
 
+const getSelect = (config) => {
+  let options = [];
+  Data.getOptions(config, (val) => {
+    options = val;
+  });
+  const attrs = cleanAttributes(config);
+  return <Select {...attrs} options={options} />;
+}
+
 const getWarningText = (config) => {
   const attrs = cleanAttributes(config);
   return <WarningText {...attrs}>{config.content}</WarningText>;
@@ -133,6 +143,8 @@ const getComponentByType = (config) => {
       return getFileUpload(config);
     case ComponentTypes.WARNING:
       return getWarningText(config);
+    case ComponentTypes.SELECT:
+      return getSelect(config);
     default: {
       return null;
     }
