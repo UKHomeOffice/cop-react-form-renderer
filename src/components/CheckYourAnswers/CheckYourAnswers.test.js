@@ -258,7 +258,7 @@ describe('components', () => {
       expect(names.tagName).toEqual('DL');
       expect(names.classList).toContain(`govuk-!-margin-bottom-${DEFAULT_MARGIN_BOTTOM}`);
       const [firstName, surname] = names.childNodes;
-      const [label, value] = firstName.childNodes;
+      const [label] = firstName.childNodes;
       expect(label.textContent).toEqual('Text Smith');
       checkRow(surname, 'Last name', 'Smith', false);
     });
@@ -284,7 +284,7 @@ describe('components', () => {
       expect(names.tagName).toEqual('DL');
       expect(names.classList).toContain(`govuk-!-margin-bottom-${DEFAULT_MARGIN_BOTTOM}`);
       const [firstName, surname] = names.childNodes;
-      const [label, value] = firstName.childNodes;
+      const [label] = firstName.childNodes;
       expect(label.textContent).toEqual("");
       checkRow(surname, 'Last name', 'Smith', false);
     });
