@@ -3,6 +3,7 @@ const TYPE_CHECKBOXES = 'checkboxes';
 const TYPE_COLLECTION = 'collection';
 const TYPE_CONTAINER = 'container';
 const TYPE_DATE = 'date';
+const TYPE_DETAILS = 'details';
 const TYPE_EMAIL = 'email';
 const TYPE_FILE = 'file';
 const TYPE_HEADING = 'heading';
@@ -22,6 +23,7 @@ const ComponentTypes = {
   COLLECTION: TYPE_COLLECTION,
   CONTAINER: TYPE_CONTAINER,
   DATE: TYPE_DATE,
+  DETAILS: TYPE_DETAILS,
   EMAIL: TYPE_EMAIL,
   FILE: TYPE_FILE,
   HEADING: TYPE_HEADING,
