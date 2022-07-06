@@ -18,6 +18,21 @@ describe('utils', () => {
           const result = mustBeShorterThan('dog', {value: 3});
           expect(result).toEqual(false);
         });
+
+        test('should return false when string is undefined', () => {
+          const result = mustBeShorterThan(undefined, {value: 3});
+          expect(result).toEqual(false);
+        });
+
+        test('should return true when string is empty', () => {
+          const result = mustBeShorterThan('', {value: 3});
+          expect(result).toEqual(true);
+        });
+
+        test('should return true when string is null', () => {
+          const result = mustBeShorterThan(null, {value: 3});
+          expect(result).toEqual(true);
+        });
       });
     });
   });
