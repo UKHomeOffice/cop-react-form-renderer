@@ -10,7 +10,7 @@
   if (string === undefined) {
     return false;
   }
-  else if (!string) {
+  if (!string) {
     return true;
   }
   return (string.length < config.value);
