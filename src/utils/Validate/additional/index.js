@@ -7,9 +7,12 @@ import mustBeLongerThan from './mustBeLongerThan';
 import mustBeShorterThan from './mustBeShorterThan';
 
 const functions = { 
-  mustBeAfter, mustBeBefore, 
-  mustBeInThePast, mustBeInTheFuture, 
-  mustBeLongerThan, mustBeShorterThan 
+  mustBeAfter, 
+  mustBeBefore, 
+  mustBeInThePast, 
+  mustBeInTheFuture, 
+  mustBeLongerThan, 
+  mustBeShorterThan 
 };
 
 const additionalValidation = (value, config) => {
