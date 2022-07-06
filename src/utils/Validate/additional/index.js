@@ -3,8 +3,14 @@ import mustBeAfter from './mustBeAfter';
 import mustBeBefore from './mustBeBefore';
 import mustBeInThePast from './mustBeInThePast';
 import mustBeInTheFuture from './mustBeInTheFuture';
+import mustBeLongerThan from './mustBeLongerThan';
+import mustBeShorterThan from './mustBeShorterThan';
 
-const functions = { mustBeAfter, mustBeBefore, mustBeInThePast, mustBeInTheFuture };
+const functions = { 
+  mustBeAfter, mustBeBefore, 
+  mustBeInThePast, mustBeInTheFuture, 
+  mustBeLongerThan, mustBeShorterThan 
+};
 
 const additionalValidation = (value, config) => {
   const fn = functions[config.function];
