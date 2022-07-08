@@ -1,7 +1,7 @@
 {
-  "id": "userProfile",
-  "version": "1",
-  "name": "userProfile",
+  "id": "cop-userProfile",
+  "version": "1.1",
+  "name": "cop-userProfile",
   "title": "Your profile",
   "type": "hub-and-spoke",
   "components": [
@@ -10,9 +10,10 @@
       "fieldId": "firstName",
       "label": "First name",
       "type": "text",
+      "required": true,
       "readonly": true,
       "source": {
-        "field": "currentUser.givenName"
+        "field": "keycloakContext.givenName"
       }
     },
     {
@@ -20,9 +21,10 @@
       "fieldId": "surname",
       "label": "Last name",
       "type": "text",
+      "required": true,
       "readonly": true,
       "source": {
-        "field": "currentUser.familyName"
+        "field": "keycloakContext.familyName"
       }
     },
     {
@@ -32,7 +34,23 @@
       "type": "radios",
       "required": true,
       "data": {
-        "url": "${urls.refData}/areYouACivilServant"
+        "options": [
+          {
+            "value": "yes",
+            "label": "Yes"
+          },
+          {
+            "value": "no-contractor",
+            "label": "No, I'm a contractor"
+          },
+          {
+            "value": "no-agency",
+            "label": "No, I'm agency staff"
+          }
+        ]
+      },
+      "source": {
+        "field": "staffDetailsDataContext.areYouACivilServant"
       }
     },
     {
@@ -43,15 +61,29 @@
       "type": "radios",
       "required": true,
       "data": {
-        "url": "${urls.refData}/grade"
+        "url": "refdata/v2/entities/grade"
       },
       "source": {
-        "field": "userDetails.gradeid"
+        "field": "staffDetailsDataContext.gradeid"
+      }
+    },
+    {
+      "id": "location",
+      "fieldId": "location",
+      "label": "Location",
+      "hint": "We use this to assign you tasks",
+      "type": "autocomplete",
+      "required": true,
+      "item": {
+        "label": "name",
+        "value": "id"
       },
-      "show_when": {
-        "field": "areYouACivilServant",
-        "op": "eq",
-        "value": "yes"
+      "data": {
+        "url": "refdata/v2/entities/location"
+      },
+      "displayMenu": "inline",
+      "source": {
+        "field": "staffDetailsDataContext.defaultlocation"
       }
     },
     {
@@ -66,11 +98,11 @@
         "label": "name"
       },
       "data": {
-        "url": "${urls.refData}/team"
+        "url": "refdata/v2/entities/team"
       },
       "displayMenu": "inline",
       "source": {
-        "field": "userDetails.defaultteam"
+        "field": "staffDetailsDataContext.defaultteam"
       }
     },
     {
@@ -85,7 +117,7 @@
       },
       "required": true,
       "source": {
-        "field": "userDetails.linemanagerEmail"
+        "field": "extendedStaffDetailsContext.linemanagerEmail"
       }
     },
     {
@@ -100,14 +132,9 @@
       },
       "required": true,
       "source": {
-        "field": "userDetails.delegateEmails"
+        "field": "extendedStaffDetailsContext.delegateEmails"
       },
       "show_when": [
-        {
-          "field": "areYouACivilServant",
-          "op": "eq",
-          "value": "yes"
-        },
         {
           "field": "staffGradeId",
           "op": "in",
@@ -169,6 +196,24 @@
       "cya_link": {
         "page": "grade",
         "aria_suffix": "grade"
+      }
+    },
+    {
+      "id": "location",
+      "name": "location",
+      "title": "Where do you work from?",
+      "components": [
+        {
+          "use": "location",
+          "label": ""
+        }
+      ],
+      "actions": [
+        "submit"
+      ],
+      "cya_link": {
+        "page": "location",
+        "aria_suffix": "location"
       }
     },
     {
@@ -270,11 +315,6 @@
       },
       "show_when": [
         {
-          "field": "areYouACivilServant",
-          "op": "eq",
-          "value": "yes"
-        },
-        {
           "field": "staffGradeId",
           "op": "in",
           "values": [
@@ -292,6 +332,13 @@
     "format": "CYA"
   },
   "cya": {
+    "actions": [
+      {
+        "type": "submit",
+        "label": "Confirm and continue",
+        "validate": true
+      }
+    ],
     "hide_page_titles": true,
     "hide_actions": true
   }
