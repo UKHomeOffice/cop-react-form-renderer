@@ -226,8 +226,7 @@ describe('components', () => {
       expect(ON_PAGE_CHANGE_CALLS.length).toEqual(1);
       fireEvent.click(continueButton, {});
       expect(ON_PAGE_CHANGE_CALLS.length).toEqual(2);
-      console.log(USER_PROFILE);
-      expect(ON_PAGE_CHANGE_CALLS[0]).toEqual(USER_PROFILE.pages[4].id);
+      expect(ON_PAGE_CHANGE_CALLS[1]).toEqual(USER_PROFILE.pages[5].id);
       const newPageHeading = form.childNodes[0].childNodes[0];
       expect(newPageHeading.tagName).toEqual('H1');
       expect(newPageHeading.textContent).toEqual(USER_PROFILE.pages[5].title);
