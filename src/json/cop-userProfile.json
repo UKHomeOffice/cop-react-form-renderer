@@ -1,6 +1,6 @@
 {
   "id": "cop-userProfile",
-  "version": "1.1",
+  "version": "1",
   "name": "cop-userProfile",
   "title": "Your profile",
   "type": "hub-and-spoke",
@@ -65,6 +65,11 @@
       },
       "source": {
         "field": "staffDetailsDataContext.gradeid"
+      },
+      "show_when": {
+        "field": "areYouACivilServant",
+        "op": "eq",
+        "value": "yes"
       }
     },
     {
@@ -135,6 +140,11 @@
         "field": "extendedStaffDetailsContext.delegateEmails"
       },
       "show_when": [
+        {
+          "field": "areYouACivilServant",
+          "op": "eq",
+          "value": "yes"
+        },
         {
           "field": "staffGradeId",
           "op": "in",
@@ -314,6 +324,11 @@
         "page": "add-or-change-delegate"
       },
       "show_when": [
+        {
+          "field": "areYouACivilServant",
+          "op": "eq",
+          "value": "yes"
+        },
         {
           "field": "staffGradeId",
           "op": "in",
