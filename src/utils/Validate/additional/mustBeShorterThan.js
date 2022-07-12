@@ -7,13 +7,8 @@
  * @returns true if string.length is greater than config.value, false if not.
  */
  const mustBeShorterThan = (string, config) => {
-  if (string === undefined) {
-    return false;
-  }
-  if (!string) {
-    return true;
-  }
-  return (string.length < config.value);
+  const str = string || '';
+  return (str.length < config.value);
 };
 
 export default mustBeShorterThan;

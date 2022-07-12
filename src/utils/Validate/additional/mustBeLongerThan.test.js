@@ -19,9 +19,9 @@ describe('utils', () => {
           expect(result).toEqual(false);
         });
 
-        test('should return false when string is undefined', () => {
+        test('should return true when string is undefined', () => {
           const result = mustBeLongerThan(undefined, {value: 3});
-          expect(result).toEqual(false);
+          expect(result).toEqual(true);
         });
 
         test('should return true when string is empty', () => {
