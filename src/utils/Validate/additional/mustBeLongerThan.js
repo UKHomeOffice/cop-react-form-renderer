@@ -11,7 +11,7 @@ const mustBeLongerThan = (string, config) => {
     // and not considered here as they would be valid for optional fields.
     return true;
   }
-  return (str.length > config.value);
+  return (string.length > config.value);
 };
 
 export default mustBeLongerThan;
