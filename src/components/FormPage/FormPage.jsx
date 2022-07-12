@@ -49,7 +49,7 @@ const FormPage = ({
           component={component}
           onChange={onPageChange}
           value={page.formData[component.fieldId] || patch[component.fieldId]}
-          formData={page.formData}
+          formData={{...page.formData, ...patch}}
         />
       ))}
       <PageActions actions={page.actions} onAction={(action) => onAction(action, patch)} />
