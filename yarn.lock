@@ -5092,12 +5092,12 @@ axios-mock-adapter@^1.18.1:
     is-blob "^2.1.0"
     is-buffer "^2.0.5"
 
-axios@^0.21.1:
-  version "0.21.4"
-  resolved "https://registry.npmjs.org/axios/-/axios-0.21.4.tgz"
-  integrity sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==
+axios@^0.23.0:
+  version "0.23.0"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.23.0.tgz#b0fa5d0948a8d1d75e3d5635238b6c4625b05149"
+  integrity sha512-NmvAE4i0YAv5cKq8zlDoPd1VLKAqX5oLuZKs8xkJa4qi6RGn0uhCYFjWtHHC9EM/MwOwYWOs53W+V0aqEXq1sg==
   dependencies:
-    follow-redirects "^1.14.0"
+    follow-redirects "^1.14.4"
 
 axobject-query@^2.2.0:
   version "2.2.0"
@@ -8250,10 +8250,10 @@ follow-redirects@^1.0.0:
   dependencies:
     debug "^3.0.0"
 
-follow-redirects@^1.14.0:
-  version "1.14.6"
-  resolved "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.14.6.tgz"
-  integrity sha512-fhUl5EwSJbbl8AR+uYL2KQDxLkdSjZGR36xy46AO7cOMTrCMON6Sa28FmAnC2tRTDbd/Uuzz3aJBv7EBN7JH8A==
+follow-redirects@^1.14.4:
+  version "1.15.1"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.15.1.tgz#0ca6a452306c9b276e4d3127483e29575e207ad5"
+  integrity sha512-yLAMQs+k0b2m7cVxpS1VKJVvoz7SS9Td1zss3XRwXj+ZDH00RJgnuLx7E44wx02kQLrdM3aOOy+FpzS7+8OizA==
 
 for-in@^1.0.2:
   version "1.0.2"
