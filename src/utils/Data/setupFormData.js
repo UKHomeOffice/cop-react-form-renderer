@@ -42,7 +42,6 @@ const setupComponentSourceData = (component, data) => {
 };
 
 const setupSourceDataForComponents = (components, data) => {
-  console.log(components);
   components.forEach(component => setupComponentSourceData(component, data));
 };
 
