@@ -13,15 +13,14 @@ const setDefaultDateValue = (date, data) => {
 }
 
 const setupDefaultValue = (component, data) => {
-  if (!component.value || data[component.fieldId]) {
-    return;
-  }
-  switch (component.type) {
-    case 'date':
-      setDefaultDateValue(component, data);
-      break;
-    default:
-      data[component.fieldId] = component.value;
+  if (component.value && !data[component.fieldId]) {
+    switch (component.type) {
+      case 'date':
+        setDefaultDateValue(component, data);
+        break;
+      default:
+        data[component.fieldId] = component.value;
+    }
   }
 }
 
