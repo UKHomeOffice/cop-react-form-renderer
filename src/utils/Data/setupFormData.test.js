@@ -137,6 +137,56 @@ describe('utils', () => {
           delegateEmails: USER_PROFILE_DATA.userDetails.delegateEmails
         });
       });
+
+      it('should handle a default value field', () => {
+        const PAGES = [];
+        const COMPONENTS = [
+          { fieldId: 'testField', type: 'text', value: 'VALUE' }
+        ];
+        const DATA = {};
+        const RESULT = setupFormData(PAGES, COMPONENTS, DATA);
+        expect(RESULT).toEqual({
+          testField: 'VALUE'
+        });
+      });
+
+      it('should ignore a default value when a value already exists in data', () => {
+        const PAGES = [];
+        const COMPONENTS = [
+          { fieldId: 'testField', type: 'text', value: 'VALUE' }
+        ];
+        const DATA = { testField: 'EXISTING_VALUE'};
+        const RESULT = setupFormData(PAGES, COMPONENTS, DATA);
+        expect(RESULT).toEqual({
+          testField: 'EXISTING_VALUE'
+        });
+      });
+
+      it('should handle default values within pages', () => {
+        const PAGES = [
+          { components: [ { fieldId: 'pageField', type: 'text', value: 'VALUE' } ] },
+        ];
+        const COMPONENTS = [];
+        const DATA = {};
+        const RESULT = setupFormData(PAGES, COMPONENTS, DATA);
+        expect(RESULT).toEqual({
+          pageField: 'VALUE'
+        });
+      });
+
+      it('should ignore default values within pages when a value already exists in data', () => {
+        const PAGES = [
+          { components: [ { fieldId: 'pageField', type: 'text', value: 'VALUE' } ] },
+        ];
+        const COMPONENTS = [];
+        const DATA = {
+          pageField: 'EXISTING_VALUE'
+        };
+        const RESULT = setupFormData(PAGES, COMPONENTS, DATA);
+        expect(RESULT).toEqual({
+          pageField: 'EXISTING_VALUE'
+        });
+      });
     });
 
   });
