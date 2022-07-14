@@ -16,6 +16,7 @@ import {
   WarningText
 } from '@ukhomeoffice/cop-react-components';
 import React from 'react';
+import dayjs from 'dayjs';
 
 // Local imports
 import { ComponentTypes } from '../../models';
@@ -49,6 +50,9 @@ const getCheckboxes = (config) => {
 
 const getDate = (config) => {
   const attrs = cleanAttributes(config);
+  if (attrs.defaultValue === 'today') {
+    attrs.defaultValue = dayjs().format('DD-MM-YYYY');
+  }
   return <DateInput {...attrs} />;
 };
 
