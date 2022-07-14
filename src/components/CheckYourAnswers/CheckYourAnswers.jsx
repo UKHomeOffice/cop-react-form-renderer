@@ -31,7 +31,9 @@ const CheckYourAnswers = ({
   hide_title,
   summaryListClassModifiers,
   noChangeAction,
-  groups
+  groups,
+  sections,
+  type
 }) => {
   const [pages, setPages] = useState([]);
   const [listOfGroups, setListOfGroups] = useState([]);
@@ -99,7 +101,7 @@ const CheckYourAnswers = ({
         }
       })
     return groupAnswer;
-}
+  }
 
   return (
     <div className={DEFAULT_CLASS}>
@@ -107,7 +109,46 @@ const CheckYourAnswers = ({
         <LargeHeading key='heading'>{title}</LargeHeading>
       )}
       {errors && errors.length > 0 && <ErrorSummary errors={errors} />}
-      {pages &&
+      {type === 'task-list-cya' && pages.length > 0 && sections &&
+        sections.map((section) => {
+          return section.tasks.map((task) => {
+            let filterPages = pages.filter(function (page) {
+              return task.pages.some(function (p) {
+                return p === page.name
+              })
+            })
+            return (
+              <Fragment>
+                {(
+                  <>
+                    <h2>{filterPages.length > 0 && task.name}</h2>
+                    {filterPages.map((page, pageIndex, array) => {
+                      let hideActionButtons;
+                      isGroup(page.id) ? hideActionButtons = true : hideActionButtons = noChangeAction;
+                      return (
+                        <Fragment key={pageIndex}>
+                          {(!hide_page_titles && page.title && !isGroup(page.id)) && (
+                            <>
+                              <MediumHeading>{Utils.interpolateString(page.title, page.formData)}</MediumHeading>
+                            </>
+                          )}
+                          <SummaryList
+                            className={DEFAULT_MARGIN_BOTTOM}
+                            rows={page.rows}
+                            classModifiers={summaryListClassModifiers}
+                            noChangeAction={hideActionButtons}
+                            isGroup={isGroup(page.id)}
+                          />
+                        </Fragment>
+                      );
+                    })}
+                  </>
+                )}
+              </Fragment>
+            );
+          })
+        })}
+      {type !== 'task-list-cya' && pages &&
         pages.map((page, pageIndex, array) => {
 
           let pageMarginBottom = (isLastPage(pageIndex) || isGroup(array[pageIndex].id)
@@ -164,6 +205,19 @@ CheckYourAnswers.propTypes = {
     PropTypes.arrayOf(PropTypes.string)
   ]),
   noChangeAction: PropTypes.bool,
+  sections: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      tasks: PropTypes.arrayOf(
+        PropTypes.shape({
+          name: PropTypes.string.isRequired,
+          pages: PropTypes.array.isRequired,
+          state: PropTypes.string.isRequired,
+        })
+      ).isRequired,
+    })
+  ),
+  type: PropTypes.string,
 };
 
 CheckYourAnswers.defaultProps = {
@@ -173,6 +227,7 @@ CheckYourAnswers.defaultProps = {
   hide_title: false,
   summaryListClassModifiers: null,
   noChangeAction: false,
+  sections: []
 };
 
 export default CheckYourAnswers;
