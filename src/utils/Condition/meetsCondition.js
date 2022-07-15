@@ -45,6 +45,9 @@ const meetsCondition = (condition, value) => {
         // If it's not an array, nothing can be IN it, so it must meet the condition.
         return true;
       }
+      case 'contains': {
+        return value.toString().includes(compare);
+      }
       default:
         return false;
     }
