@@ -4,23 +4,30 @@ import dayjs from 'dayjs';
 import getSourceData from './getSourceData';
 
 const setDefaultDateValue = (date, data) => {
-  if (date.value === 'today') {
+  if (date.defaultValue === 'today') {
     data[date.fieldId] = dayjs().format('DD-MM-YYYY');
   }
   else {
-    data[date.fieldId] = date.value;
+    data[date.fieldId] = date.defaultValue;
   }
 }
 
 const setupDefaultValue = (component, data) => {
-  if (component.value && !data[component.fieldId]) {
+  if (component.defaultValue && !data[component.fieldId]) {
     switch (component.type) {
       case 'date':
         setDefaultDateValue(component, data);
         break;
       default:
-        data[component.fieldId] = component.value;
+        data[component.fieldId] = component.defaultValue;
     }
+  }
+  if (component.defaultValue) {
+    // Some components will throw warnings when having 
+    // both a 'value' and 'defaultValue' prop set. 
+    // defaultValue is safe to delete once we've tried
+    // to use it.
+    delete component.defaultValue;
   }
 }
 
