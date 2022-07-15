@@ -141,7 +141,7 @@ describe('utils', () => {
       it('should handle a default value field', () => {
         const PAGES = [];
         const COMPONENTS = [
-          { fieldId: 'testField', type: 'text', value: 'VALUE' }
+          { fieldId: 'testField', type: 'text', defaultValue: 'VALUE' }
         ];
         const DATA = {};
         const RESULT = setupFormData(PAGES, COMPONENTS, DATA);
@@ -153,7 +153,7 @@ describe('utils', () => {
       it('should ignore a default value when a value already exists in data', () => {
         const PAGES = [];
         const COMPONENTS = [
-          { fieldId: 'testField', type: 'text', value: 'VALUE' }
+          { fieldId: 'testField', type: 'text', defaultValue: 'VALUE' }
         ];
         const DATA = { testField: 'EXISTING_VALUE'};
         const RESULT = setupFormData(PAGES, COMPONENTS, DATA);
@@ -164,7 +164,7 @@ describe('utils', () => {
 
       it('should handle default values within pages', () => {
         const PAGES = [
-          { components: [ { fieldId: 'pageField', type: 'text', value: 'VALUE' } ] },
+          { components: [ { fieldId: 'pageField', type: 'text', defaultValue: 'VALUE' } ] },
         ];
         const COMPONENTS = [];
         const DATA = {};
@@ -176,7 +176,7 @@ describe('utils', () => {
 
       it('should ignore default values within pages when a value already exists in data', () => {
         const PAGES = [
-          { components: [ { fieldId: 'pageField', type: 'text', value: 'VALUE' } ] },
+          { components: [ { fieldId: 'pageField', type: 'text', defaultValue: 'VALUE' } ] },
         ];
         const COMPONENTS = [];
         const DATA = {
