@@ -30,6 +30,67 @@ to be able to search through and select one from.
 }
 ```
 
+## `calculation`
+Performs calculation of supported formula on supplied arguments in order and render it as readonly input component.
+
+```json
+{
+  "id": "personsRemaining",
+  "fieldId": "personsRemaining",
+  "label": "Persons Remaining",
+  "type": "calculation",
+  "formula": {
+    "name": "minus",
+    "args": [
+      {
+        "field": "totalPersons"
+      },
+      {
+        "field": "personsProcessed"
+      },
+      {
+        "value": 1
+      }
+    ]
+  }
+}
+```
+
+** Note: The resulting value can be rounded to require decimal places using 'round' field for each formula.
+
+```json
+{
+  "id": "fieldA",
+  "fieldId": "fieldA",
+  "type": "calculation",
+  "label": "A field label",
+  "required": true,
+  "formula": {
+    "name": "divide",
+    "round": 2,
+    "args": [
+      {
+        "value": 1
+      },
+      {
+        "formula": {
+          "name": "divide",
+          "round": 4,
+          "args": [
+            {
+              "value": 10
+            },
+            {
+              "value": 30
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
+```
+
 ## `date`
 Use the date component when you want users to input a date.
 

@@ -1,4 +1,5 @@
 const TYPE_AUTOCOMPLETE = 'autocomplete';
+const TYPE_CALCULATION = 'calculation';
 const TYPE_CHECKBOXES = 'checkboxes';
 const TYPE_COLLECTION = 'collection';
 const TYPE_CONTAINER = 'container';
@@ -19,6 +20,7 @@ const TYPE_WARNING = 'warning'
 
 const ComponentTypes = {
   AUTOCOMPLETE: TYPE_AUTOCOMPLETE,
+  CALCULATION: TYPE_CALCULATION,
   CHECKBOXES: TYPE_CHECKBOXES,
   COLLECTION: TYPE_COLLECTION,
   CONTAINER: TYPE_CONTAINER,

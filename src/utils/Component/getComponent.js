@@ -48,6 +48,12 @@ const getCheckboxes = (config) => {
   return <Checkboxes {...attrs} options={options} />;
 };
 
+const getCalculation = (config) => {
+  const attrs = cleanAttributes(config);
+  var calculatedValue = Data.applyFormula(config);
+  return <TextInput {...attrs} value={calculatedValue} readOnly={true} />
+}
+
 const getDate = (config) => {
   const attrs = cleanAttributes(config);
   if (attrs.defaultValue === 'today') {
@@ -158,6 +164,8 @@ const getComponentByType = (config) => {
       return getSelect(config);
     case ComponentTypes.DETAILS:
       return getDetails(config);
+    case ComponentTypes.CALCULATION:
+      return getCalculation(config);
     default: {
       return null;
     }
