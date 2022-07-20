@@ -269,6 +269,99 @@ describe('utils.Condition.meetsCondition', () => {
 
   });
 
+  describe('operator contains', () => {
+    const op = 'contains';
+    
+    // Should match...
+    it('should match a string that is in the field array', () => {
+      const FIELD = ['alpha','bravo','charlie'];
+      const VALUE = 'alpha';
+      const CONDITION = getCondition(op, VALUE)
+      expect(meetsCondition(CONDITION, FIELD)).toBeTruthy();
+    });
+    it('should match a sub-string that is in the field array', () => {
+      const FIELD = ['alpha','bravo','charlie'];
+      const VALUE = 'alp';
+      const CONDITION = getCondition(op, VALUE)
+      expect(meetsCondition(CONDITION, FIELD)).toBeTruthy();
+    });
+    it('should match a number that is in the field array', () => {
+      const FIELD = [1,2,3];
+      const VALUE = 1;
+      const CONDITION = getCondition(op, VALUE)
+      expect(meetsCondition(CONDITION, FIELD)).toBeTruthy();
+    });
+    it('should match a sub-string that is in the field string', () => {
+      const FIELD = 'alphabravocharlie';
+      const VALUE = 'alpha';
+      const CONDITION = getCondition(op, VALUE)
+      expect(meetsCondition(CONDITION, FIELD)).toBeTruthy();
+    });
+    it('should match a string that is in the field array regardless of case', () => {
+      const FIELD = ['Alpha','bravo','charlie'];
+      const VALUE = 'alpha';
+      const CONDITION = getCondition(op, VALUE)
+      expect(meetsCondition(CONDITION, FIELD)).toBeTruthy();
+    });
+
+    // Should reject...
+    it('should reject a string that is missing from the field array', () => {
+      const FIELD = ['alpha','bravo','charlie'];
+      const VALUE = 'delta';
+      const CONDITION = getCondition(op, VALUE)
+      expect(meetsCondition(CONDITION, FIELD)).toBeFalsy();
+    });
+    it('should reject a number that is missing from the field array', () => {
+      const FIELD = [1,2,3];
+      const VALUE = 4;
+      const CONDITION = getCondition(op, VALUE)
+      expect(meetsCondition(CONDITION, FIELD)).toBeFalsy();
+    });
+    it('should reject a substring that is missing from the field string', () => {
+      const FIELD = 'alphabravocharlie';
+      const VALUE = 'delta';
+      const CONDITION = getCondition(op, VALUE)
+      expect(meetsCondition(CONDITION, FIELD)).toBeFalsy();
+    });
+    it('should reject any value when the field is an empty Array', () => {
+      const FIELD = [];
+      const VALUE = 'alpha';
+      const CONDITION = getCondition(op, VALUE)
+      expect(meetsCondition(CONDITION, FIELD)).toBeFalsy();
+    });
+    it('should reject any value when the field is an empty string', () => {
+      const FIELD = '';
+      const VALUE = 'alpha';
+      const CONDITION = getCondition(op, VALUE)
+      expect(meetsCondition(CONDITION, FIELD)).toBeFalsy();
+    });
+    it('should reject any field when the value is null', () => {
+      const FIELD = ['alpha','bravo','charlie'];
+      const VALUE = null;
+      const CONDITION = getCondition(op, VALUE)
+      expect(meetsCondition(CONDITION, FIELD)).toBeFalsy();
+    });
+    it('should reject any field when the value is undefined', () => {
+      const FIELD = ['alpha','bravo','charlie'];
+      const VALUE = undefined;
+      const CONDITION = getCondition(op, VALUE)
+      expect(meetsCondition(CONDITION, FIELD)).toBeFalsy();
+    });
+    it('should reject any value when the field is null', () => {
+      const FIELD = null;
+      const VALUE = 'alpha';
+      const CONDITION = getCondition(op, VALUE)
+      expect(meetsCondition(CONDITION, FIELD)).toBeFalsy();
+    });
+    it('should reject any value when the field is undefined', () => {
+      const FIELD = undefined;
+      const VALUE = 'alpha';
+      const CONDITION = getCondition(op, VALUE)
+      expect(meetsCondition(CONDITION, FIELD)).toBeFalsy();
+    });
+
+  });
+
   describe('unknown operator', () => {
     const op = 'definitely_not_a_real_operator';
 

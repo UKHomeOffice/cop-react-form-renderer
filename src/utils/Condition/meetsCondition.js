@@ -45,6 +45,10 @@ const meetsCondition = (condition, value) => {
         // If it's not an array, nothing can be IN it, so it must meet the condition.
         return true;
       }
+      case 'contains': {
+        return value?.toString().toLowerCase().includes(compare);
+       // If no value is provided, the field cannot contain it, so it must fail the condition.
+      }
       default:
         return false;
     }
