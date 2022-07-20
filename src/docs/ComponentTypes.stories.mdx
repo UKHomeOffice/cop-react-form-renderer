@@ -13,6 +13,23 @@ Also see <Link href="/?path=/docs/f-editable-components">editable components</Li
 Search for and select an item from a (usually large) set of options.
 See <Link href="/?path=/docs/f-examples-component--page#autocomplete">example</Link>.
 
+## `calculation`
+Performs calculation of supported formula on supplied arguments in order and render it as readonly input component.
+#### Supported formula
+| Supported Formula | Description |
+|-------------------|-------------|
+| plus | Adds values of argument types in supplied order |
+| minus | Subtracts values of argument types in supplied order |
+| divide | Divide values of argument types in supplied order |
+| multiply | Multiply values of argument types in supplied order |
+#### Argument types
+| Argument types | Description |
+|----------------|-------------|
+| value | a numeric value, e.g 10, 10.3 |
+| field | a reference to field, e.g, currentUser.age |
+| formula | a nested formula, e.g percentage calculation |
+See <Link href="/?path=/docs/f-examples-component--page#calculation">example</Link>.
+
 ## `date`
 Enter a date.
 See <Link href="/?path=/docs/f-examples-component--page#date">example</Link>.

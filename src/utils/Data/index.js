@@ -1,4 +1,5 @@
 // Local imports
+import applyFormula from './applyFormula';
 import getAutocompleteSource from './getAutocompleteSource';
 import getDataPath from './getDataPath';
 import getOptions from './getOptions';
@@ -9,6 +10,7 @@ import setupFormData from './setupFormData';
 import setupRefDataUrlForComponent from './setupRefDataUrlForComponent';
 
 const Data = {
+  applyFormula,
   getAutocompleteSource,
   getDataPath,
   getOptions,
