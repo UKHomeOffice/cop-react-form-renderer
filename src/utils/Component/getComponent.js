@@ -50,7 +50,7 @@ const getCheckboxes = (config) => {
 const getCalculation = (config) => {
   var calculatedValue = Data.applyFormula(config);
   const attrs = cleanAttributes(config, ['formula']);
-  return <TextInput {...attrs} value={calculatedValue} readOnly={true} />
+  return <TextInput {...attrs} value={calculatedValue} readOnly />
 }
 
 const getDate = (config) => {

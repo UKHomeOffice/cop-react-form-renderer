@@ -1,21 +1,22 @@
 // Global imports
-import { Utils } from "@ukhomeoffice/cop-react-components";
+import { Utils } from '@ukhomeoffice/cop-react-components';
 
 const applyFormula = (config) => {
-  try{ 
+  try {
     const result = simplify(config);
-    return (!result && result !== 0) ? "" : result;
+    return (!result && result !== 0) ? '' : result;
   } catch (err) {
-    return err.message;
+    console.error(err.message);
   }
+  return '';
 }
 
 const simplify = (config) => {
-  if (!config || !config.formula){
-    throw new Error("Missing 'formula' definition");
+  if (!config || !config.formula) {
+    throw new Error(`Missing 'formula' definition`);
   }
   const { name } = {...config.formula};
-  switch(name) {
+  switch (name) {
     case 'multiply':
       return reduceNumber(config, (t, c) => t * c);
     case 'divide':
@@ -25,14 +26,16 @@ const simplify = (config) => {
     case 'minus':
       return reduceNumber(config, (t, c) => t - c);
     default:
-      return !name ? "Calculation formula 'name' cannot be empty" : `Unsupported operation '${name}'`;
+      throw new Error(!name ? 
+        `Calculation formula 'name' cannot be empty` : 
+        `Unsupported operation '${name}'`);
   }
 }
 
 const reduceNumber = (config, reduction) => {
   const { args } = {...config.formula};
   if (args.length < 2) {
-    throw new Error("Requires more than one argument for calculation");
+    throw new Error('Requires more than one argument for calculation');
   }
   return round(args
     .map(a => getValue(a, config.formData))
@@ -40,7 +43,7 @@ const reduceNumber = (config, reduction) => {
 }
 
 const round = (number, config) => {
-  const {round} = {...config.formula};
+  const round = config.formula.round;
   if ((!round && round !== 0) || !number) return number;
   if (round === 0) {
     return parseInt(number);
