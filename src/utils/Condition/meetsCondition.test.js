@@ -297,6 +297,12 @@ describe('utils.Condition.meetsCondition', () => {
       const CONDITION = getCondition(op, VALUE)
       expect(meetsCondition(CONDITION, FIELD)).toBeTruthy();
     });
+    it('should match a string that is in the field array regardless of case', () => {
+      const FIELD = ['Alpha','bravo','charlie'];
+      const VALUE = 'alpha';
+      const CONDITION = getCondition(op, VALUE)
+      expect(meetsCondition(CONDITION, FIELD)).toBeTruthy();
+    });
 
     // Should reject...
     it('should reject a string that is missing from the field array', () => {
@@ -341,7 +347,7 @@ describe('utils.Condition.meetsCondition', () => {
       const CONDITION = getCondition(op, VALUE)
       expect(meetsCondition(CONDITION, FIELD)).toBeFalsy();
     });
-    it('should reject any value when the field is undefined', () => {
+    it('should reject any value when the field is null', () => {
       const FIELD = null;
       const VALUE = 'alpha';
       const CONDITION = getCondition(op, VALUE)

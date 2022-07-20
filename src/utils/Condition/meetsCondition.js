@@ -46,11 +46,8 @@ const meetsCondition = (condition, value) => {
         return true;
       }
       case 'contains': {
-        if (value){
-          return value.toString().includes(compare);
-        }
+        return value?.toString().toLowerCase().includes(compare);
        // If no value is provided, the field cannot contain it, so it must fail the condition.
-       return false; 
       }
       default:
         return false;
