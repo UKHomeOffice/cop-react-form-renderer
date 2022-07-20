@@ -3,6 +3,7 @@ import { ComponentTypes } from '../../models';
 
 export const EDITABLE_TYPES = [
   ComponentTypes.AUTOCOMPLETE,
+  ComponentTypes.CALCULATION,
   ComponentTypes.CHECKBOXES,
   ComponentTypes.DATE,
   ComponentTypes.EMAIL,
