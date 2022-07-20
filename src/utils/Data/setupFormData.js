@@ -1,5 +1,48 @@
+import dayjs from 'dayjs';
+
 // Local imports
 import getSourceData from './getSourceData';
+
+const setDefaultDateValue = (date, data) => {
+  if (date.defaultValue === 'today') {
+    data[date.fieldId] = dayjs().format('DD-MM-YYYY');
+  } else {
+    data[date.fieldId] = date.defaultValue;
+  }
+}
+
+/** 
+ * This currently will not work for collections or containers.
+ * If support is required it will need to be added.
+ */
+const setupDefaultValue = (component, data) => {
+  if (component.defaultValue && !data[component.fieldId]) {
+    switch (component.type) {
+      case 'date':
+        setDefaultDateValue(component, data);
+        break;
+      default:
+        data[component.fieldId] = component.defaultValue;
+    }
+  }
+  if (component.defaultValue) {
+    // Some components will throw warnings when having 
+    // both a 'value' and 'defaultValue' prop set. 
+    // defaultValue is safe to delete once we've tried
+    // to use it.
+    delete component.defaultValue;
+  }
+}
+
+const setupDefaultValuesForComponents = (components, data) => {
+  components.forEach(component => setupDefaultValue(component, data));
+}
+
+const setupPageDefaultValues = (pages, data) => {
+  pages.forEach(page => {
+    page.components.filter(c => !c.use).forEach(component => setupDefaultValue(component, data));
+  });
+};
 
 const setupComponentSourceData = (component, data) => {
   if (component.source) {
@@ -18,8 +61,11 @@ const setupPageSourceData = (pages, data) => {
 };
 
 /**
- * This populates an object with data from source fields.
- * Note that this doesn't currently support sequenced dependencies:
+ * This populates an object with data either from a specified default
+ * value or from a source field. If both are specified, data from a
+ * source field will take priority.
+ * Note that in the case of source fields, this doesn't currently 
+ * support sequenced dependencies:
  *    0: fieldA: source.field = fieldB
  *    1: fieldB: source.field = fieldC
  *    2: fieldC: 'value'
@@ -32,6 +78,8 @@ const setupPageSourceData = (pages, data) => {
  */
 const setupFormData = (pages, components, baseData) => {
   const data = {...baseData};
+  setupDefaultValuesForComponents(components, data);
+  setupPageDefaultValues(pages, data);
   setupSourceDataForComponents(components, data);
   setupPageSourceData(pages, data);
   return data;
