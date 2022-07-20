@@ -329,6 +329,30 @@ describe('utils.Condition.meetsCondition', () => {
       const CONDITION = getCondition(op, VALUE)
       expect(meetsCondition(CONDITION, FIELD)).toBeFalsy();
     });
+    it('should reject any field when the value is null', () => {
+      const FIELD = ['alpha','bravo','charlie'];
+      const VALUE = null;
+      const CONDITION = getCondition(op, VALUE)
+      expect(meetsCondition(CONDITION, FIELD)).toBeFalsy();
+    });
+    it('should reject any field when the value is undefined', () => {
+      const FIELD = ['alpha','bravo','charlie'];
+      const VALUE = undefined;
+      const CONDITION = getCondition(op, VALUE)
+      expect(meetsCondition(CONDITION, FIELD)).toBeFalsy();
+    });
+    it('should reject any value when the field is undefined', () => {
+      const FIELD = null;
+      const VALUE = 'alpha';
+      const CONDITION = getCondition(op, VALUE)
+      expect(meetsCondition(CONDITION, FIELD)).toBeFalsy();
+    });
+    it('should reject any value when the field is undefined', () => {
+      const FIELD = undefined;
+      const VALUE = 'alpha';
+      const CONDITION = getCondition(op, VALUE)
+      expect(meetsCondition(CONDITION, FIELD)).toBeFalsy();
+    });
 
   });
 
