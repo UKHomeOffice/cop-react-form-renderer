@@ -6,12 +6,15 @@ import getSourceData from './getSourceData';
 const setDefaultDateValue = (date, data) => {
   if (date.defaultValue === 'today') {
     data[date.fieldId] = dayjs().format('DD-MM-YYYY');
-  }
-  else {
+  } else {
     data[date.fieldId] = date.defaultValue;
   }
 }
 
+/** 
+ * This currently will not work for collections or containers.
+ * If support is required it will need to be added.
+ */
 const setupDefaultValue = (component, data) => {
   if (component.defaultValue && !data[component.fieldId]) {
     switch (component.type) {
