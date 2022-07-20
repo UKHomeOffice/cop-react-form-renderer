@@ -6,13 +6,13 @@ const applyFormula = (config) => {
     const result = simplify(config);
     return (!result && result !== 0) ? "" : result;
   } catch (err) {
-    return err;
+    return err.message;
   }
 }
 
 const simplify = (config) => {
   if (!config || !config.formula){
-    throw "Missing 'formula' definition";
+    throw new Error("Missing 'formula' definition");
   }
   const { name } = {...config.formula};
   switch(name) {
@@ -32,7 +32,7 @@ const simplify = (config) => {
 const reduceNumber = (config, reduction) => {
   const { args } = {...config.formula};
   if (args.length < 2) {
-    throw "Requires more than one argument for calculation";
+    throw new Error("Requires more than one argument for calculation");
   }
   return round(args
     .map(a => getValue(a, config.formData))
@@ -64,10 +64,10 @@ const getValue = (arg, formData) => {
       case 'formula':
         return applyFormula({...arg, formData});
       default:
-        throw 'Only accept following as argument field: {field, value, or formula}';
+        throw new Error('Only accept following as argument field: {field, value, or formula}');
     }
   } else {
-    throw 'Argument cannot have more than one reference';
+    throw new Error('Argument cannot have more than one reference');
   }
 }
 
