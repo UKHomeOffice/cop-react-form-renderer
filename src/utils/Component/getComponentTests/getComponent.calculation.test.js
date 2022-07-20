@@ -27,11 +27,9 @@ describe('utils.Component.get', () => {
 
 
   /**
-   * Iteratively test collction of test data objects each containing:
+   * Iteratively test collction of positive test data objects each containing:
    *  config: object containing formula config
-   *  error (optional): if true then result will be matched against output logged as console error
-   *                    else result will be matched against calculated value of the component (default: false).
-   *  result: the calculated output value / error to match.
+   *  result: the calculated formula(s) output value.
    *
    * Test record structure:
    * ----------------------
@@ -39,7 +37,6 @@ describe('utils.Component.get', () => {
    *  config: {
    *    formula: { ... }
    *  },
-   *  error: true,
    *  result: ''
    * }
    * 
@@ -89,29 +86,65 @@ describe('utils.Component.get', () => {
         ]}
       },
       result: '266.67'
+    }
+  ].forEach(test => {
+    
+    it(`should render 'calculation' component with formula to given calculated value: ${test.result}`, () => {
+      const { container } = render(getComponent({...COMPONENT, ...test.config}));
+      const [ formGroup, input ] = getAllByTestId(container, ID);
+      expect(formGroup.tagName).toEqual('DIV');
+      expect(formGroup.classList).toContain('govuk-form-group');
+      const label = formGroup.childNodes[0];
+      expect(label.tagName).toEqual('LABEL');
+      expect(label.classList).toContain('govuk-label');
+      expect(label.textContent).toContain(LABEL);
+      expect(formGroup.classList).toContain('govuk-form-group');
+      expect(input.tagName).toEqual('INPUT');
+      expect(input.classList).toContain('govuk-input');
+      expect(input.id).toEqual(ID);
+      expect(input.getAttribute('readonly')).not.toBeNull();
+      expect(input.getAttribute('value')).toEqual(test.result);
+    });
+  });
+
+  /**
+   * Iteratively test collction of negative test data objects each containing:
+   *  config: object containing invalid formula config
+   *  result: the error to match.
+   *
+   * Test record structure:
+   * ----------------------
+   * {
+   *  config: {
+   *    formula: { ... }
+   *  },
+   *  error: 'error_message'
+   * }
+   * 
+   */
+  [
+    {
+      error: `Missing 'formula' definition`
     },
     {
-      result: ''
+      config: { formula: {} },
+      error: `Calculation formula 'name' cannot be empty`
     },
     {
       config: { formula: { name: 'tictactoe', args: [ { field: 'totalPerson' }, { field: 'personProcessed' }]}},
-      error: true,
-      result: `Unsupported operation 'tictactoe'`
+      error: `Unsupported operation 'tictactoe'`
     },
     { 
       config: { formula: { name: 'minus', args: [ { field: 'totalPerson', value: 100 }, { field: 'personProcessed' }]}},
-      error: true,
-      result: 'Argument cannot have more than one reference'
+      error: 'Argument cannot have more than one reference'
     },
     { 
       config: { formula: { name: 'minus', args: [ { newToken: 'totalPerson' }, { field: 'personProcessed' }]}},
-      error: true,
-      result: 'Only accept following as argument field: {field, value, or formula}'
+      error: 'Only accept following as argument field: {field, value, or formula}'
     },
     { 
       config: { formula: { name: 'minus', args: [ { field: 'totalPerson' }]}},
-      error: true,
-      result: 'Requires more than one argument for calculation'
+      error: 'Requires more than one argument for calculation'
     },
     { 
       config: { formula: { name: 'multiply', round: 2, args: [
@@ -120,8 +153,7 @@ describe('utils.Component.get', () => {
         },
         { value: 200 }
       ]}},
-      error: true,
-      result: 'Argument cannot have more than one reference'
+      error: 'Argument cannot have more than one reference'
     }
   ].forEach(test => {
     
@@ -139,12 +171,10 @@ describe('utils.Component.get', () => {
       expect(input.classList).toContain('govuk-input');
       expect(input.id).toEqual(ID);
       expect(input.getAttribute('readonly')).not.toBeNull();
-      if (!test.error) {
-        expect(input.getAttribute('value')).toEqual(test.result);
-      } else {
-        expect(error).toBeCalledWith(test.result);
-      }
+      expect(error).toBeCalledTimes(1);
+      expect(error).toBeCalledWith(test.error);
     });
-
   });
+
+
 });
