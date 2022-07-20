@@ -20,7 +20,8 @@
     "axios": "^0.23.0",
     "dayjs": "^1.11.0",
     "govuk-frontend": "^3.13.0",
-    "web-vitals": "^1.0.1"
+    "web-vitals": "^1.0.1",
+    "yarn": "^1.22.19"
   },
   "devDependencies": {
     "@babel/cli": "^7.15.4",
