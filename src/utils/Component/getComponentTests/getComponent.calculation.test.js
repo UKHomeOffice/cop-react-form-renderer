@@ -27,8 +27,8 @@ describe('utils.Component.get', () => {
 
 
   /**
-   * Iteratively test collction of test objects each containing:
-   *  config: object containing foluma config
+   * Iteratively test collction of test data objects each containing:
+   *  config: object containing formula config
    *  error (optional): if true then result will be matched against output logged as console error
    *                    else result will be matched against calculated value of the component (default: false).
    *  result: the calculated output value / error to match.
