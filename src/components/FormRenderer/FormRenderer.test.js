@@ -20,6 +20,7 @@ import TEAMS from '../../json/team.json';
 import USER_PROFILE_DATA from '../../json/userProfile.data.json';
 import USER_PROFILE from '../../json/userProfile.json';
 import TASK_LIST from '../../json/taskList.json';
+import PRE_SUBMIT from '../../json/preSubmit.json';
 
 describe('components', () => {
 
@@ -365,6 +366,32 @@ describe('components', () => {
 
       //Should be at CYA page
       expect(container.childNodes[0].childNodes[0].childNodes[0].textContent).toEqual('Check your answers');
+    });
+
+    it('should handle a pre submission', async () => {
+      const ON_SUBMIT_CALLS = [];
+      const ON_SUBMIT = (type, payload, onSuccess, onError) => {
+        ON_SUBMIT_CALLS.push({ type, payload, onSuccess, onError });
+      };
+      const HOOKS = {
+        onSubmit: ON_SUBMIT
+      };
+      await act(async () => {
+        render(<FormRenderer {...PRE_SUBMIT} hooks={HOOKS} />, container);
+      });
+      const form = checkForm(container);
+
+      // Click the pre submit button
+      const page = form.childNodes[0];
+      const continueButton = getContinueButton(page);
+      expect(ON_SUBMIT_CALLS.length).toEqual(0);
+      fireEvent.click(continueButton, {});
+
+      // Should result in the submit being called twice, once for the presubmit
+      // and again for a regular submit
+      expect(ON_SUBMIT_CALLS.length).toEqual(2);
+      expect(ON_SUBMIT_CALLS[0].type).toEqual('testPreType');
+      expect(ON_SUBMIT_CALLS[1].type).toEqual(PageAction.TYPES.PRE_SUBMIT);
     });
 
   });

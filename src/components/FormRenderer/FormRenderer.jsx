@@ -189,6 +189,10 @@ const InternalFormRenderer = ({
           pageUpdate = () => handlers.navigate(action, pageId, onPageChange);
         }
 
+        if(action.type === PageAction.TYPES.PRE_SUBMIT && action.preType){
+            hooks.onSubmit(action.preType, submissionData);
+        }
+
         // Now submit the data to the backend...
         hooks.onSubmit(action.type, submissionData, (response) => {
           // The backend response may well contain data we need so apply it...

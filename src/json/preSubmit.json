@@ -1,0 +1,19 @@
+{
+    "title": "Do a presubmit",
+    "id": "cop-presubmit",
+    "name": "cop-presubmit",
+    "type": "cya",
+    "pages": [
+      {
+        "id": "doPreSubmit",
+        "name": "doPreSubmit",
+        "title": "Do a presubmit",
+        "actions": [
+          { "type": "preSubmit", "label": "Do something before submitting submit", "preType": "testPreType" }
+        ],
+        "components": [
+          "click here to presubmit"
+        ]
+      }
+    ]
+  }
